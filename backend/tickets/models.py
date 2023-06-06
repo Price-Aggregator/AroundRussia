@@ -19,7 +19,7 @@ class City(models.Model):
     )
     longitude = models.FloatField(
         'Координата долготы города',
-        help_text='Укажите координата долготы города'
+        help_text='Укажите координату долготы города'
     )
 
     class Meta:
