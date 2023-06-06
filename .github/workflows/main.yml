@@ -1,12 +1,12 @@
-name: AroundRussia workflow
-
-on:
-  push:
-    branches:
-      - main
-      - develop
-
-jobs:
+#name: AroundRussia workflow
+#
+#on:
+#  push:
+#    branches:
+#      - main
+#      - develop
+#
+#jobs:
 #   front-tests:
 #   build-front:
 #     runs-on: ubuntu-latest
