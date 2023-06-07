@@ -5,6 +5,8 @@ import Header from '../Header/Header';
 import Footer from '../Footer/Footer';
 import Text from '../Text/Text';
 import NotFound from '../NotFound/NotFound';
+import Ticket from '../Ticket/Ticket';
+
 
 const router = createBrowserRouter([
   {
@@ -22,10 +24,12 @@ const router = createBrowserRouter([
     element: (
       <>
         <Header />
+        <Ticket price='2 000' />
         <Footer />
       </>
     ),
   },
+
   {
     path: '/*',
     element: (
