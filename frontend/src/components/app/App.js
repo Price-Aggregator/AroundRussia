@@ -4,35 +4,42 @@ import './App.module.css';
 import Header from '../Header/Header';
 import Footer from '../Footer/Footer';
 import Text from '../Text/Text';
+import NotFound from '../NotFound/NotFound';
 
 const router = createBrowserRouter([
-	{
-		path: '/',
-		element: (
-			<>
-				<Header />
-				<Text />
-				<Footer />
-			</>
-		),
-	},
-	{
-		path: 'result',
-		element: (
-			<>
-				<Header />
-				<Footer />
-			</>
-		),
-	},
+  {
+    path: '/',
+    element: (
+      <>
+        <Header />
+        <Text />
+        <Footer />
+      </>
+    ),
+  },
+  {
+    path: 'result',
+    element: (
+      <>
+        <Header />
+        <Footer />
+      </>
+    ),
+  },
+  {
+    path: '/*',
+    element: (
+      <NotFound />
+    ),
+  },
 ]);
 
 function App() {
-	return (
-		<div className="App">
-			<RouterProvider router={router} />
-		</div>
-	);
+  return (
+    <div className="App">
+      <RouterProvider router={router} />
+    </div>
+  );
 }
 
 export default App;
