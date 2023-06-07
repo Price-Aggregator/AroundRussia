@@ -1,0 +1,17 @@
+.header {
+	display: flex;
+	justify-content: space-between;
+	margin: 40px 165px 30px 165px;
+	font-family: 'Roboto', 'Arial', 'sans-serif';
+	align-items: center;
+}
+
+.header__faq {
+	font-size: 20px;
+	font-weight: 400;
+	line-height: 21px;
+	letter-spacing: 0em;
+	text-align: right;
+	text-decoration: none;
+	color: black;
+}
