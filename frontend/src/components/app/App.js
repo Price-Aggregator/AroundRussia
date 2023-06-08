@@ -4,7 +4,7 @@ import './App.module.css';
 import Header from '../Header/Header';
 import Footer from '../Footer/Footer';
 import Text from '../Text/Text';
-import Ticket from '../Ticket/Ticket';
+import Tickets from '../Tickets/Tickets';
 
 const router = createBrowserRouter([
   {
@@ -20,11 +20,11 @@ const router = createBrowserRouter([
   {
     path: 'result',
     element: (
-      <>
+      <div>
         <Header />
-        <Ticket price='2 000' />
+        <Tickets />
         <Footer />
-      </>
+      </div>
     ),
   },
 ]);
