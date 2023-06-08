@@ -2,7 +2,7 @@ from requests import get
 
 from django.core.management import BaseCommand
 
-from AR.settings import URL_WITH_CITIES
+from api.constants import URL_WITH_CITIES
 from tickets.models import City
 
 
