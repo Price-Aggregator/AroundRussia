@@ -1,0 +1,47 @@
+.loader {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	height: 100vh;
+	flex-direction: column;
+}
+
+.loader__text_box {
+	margin-bottom: 50px;
+}
+
+.loader__title {
+	font-family: 'Roboto';
+	font-style: normal;
+	font-weight: 500;
+	font-size: 40px;
+	line-height: 47px;
+	text-align: center;
+	margin: 0;
+}
+
+.loader__subtitle {
+	font-family: 'Roboto';
+	font-style: normal;
+	font-weight: 400;
+	font-size: 25px;
+	line-height: 29px;
+	text-align: center;
+	margin: 5px auto 0 auto;
+}
+
+.loader__picture {
+	background-image: url(../../images/icon_loader.svg);
+	width: 133.33px;
+	height: 133.33px;
+	animation: loader-rotation 2s infinite linear;
+}
+
+@keyframes loader-rotation {
+	0% {
+		transform: rotate(0deg);
+	}
+	100% {
+		transform: rotate(360deg);
+	}
+}
