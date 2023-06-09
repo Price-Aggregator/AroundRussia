@@ -4,7 +4,9 @@ import './App.module.css';
 import Header from '../Header/Header';
 import Footer from '../Footer/Footer';
 import Text from '../Text/Text';
+import Questions from '../Questions/Questions';
 import Ticket from '../Ticket/Ticket';
+
 
 const router = createBrowserRouter([
   {
@@ -13,6 +15,7 @@ const router = createBrowserRouter([
       <>
         <Header />
         <Text />
+        <Questions />
         <Footer />
       </>
     ),
