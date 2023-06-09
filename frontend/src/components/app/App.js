@@ -8,27 +8,29 @@ import Tickets from '../Tickets/Tickets';
 import NotFound from '../NotFound/NotFound';
 import Questions from '../Questions/Questions';
 import Search from '../Search/Search';
+import Calendar from '../calendar/Calendar';
 
 
 const router = createBrowserRouter([
 
-	{
-		path: '/',
-		element: (
-			<>
-				<Header />
-				<Search />
+  {
+    path: '/',
+    element: (
+      <>
+        <Header />
+        <Search />
         <Text />
         <Questions />
         <Footer />
-			</>
-		),
-	},
+      </>
+    ),
+  },
   {
     path: 'result',
     element: (
       <div>
         <Header />
+        <Calendar />
         <Tickets />
         <Footer />
       </div>
@@ -45,11 +47,11 @@ const router = createBrowserRouter([
 ]);
 
 function App() {
-	return (
-		<div className="App">
-			<RouterProvider router={router} />
-		</div>
-	);
+  return (
+    <div className="App">
+      <RouterProvider router={router} />
+    </div>
+  );
 }
 
 export default App;
