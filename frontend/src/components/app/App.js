@@ -5,6 +5,7 @@ import Header from '../Header/Header';
 import Footer from '../Footer/Footer';
 import Text from '../Text/Text';
 import NotFound from '../NotFound/NotFound';
+import Questions from '../Questions/Questions';
 import Ticket from '../Ticket/Ticket';
 
 
@@ -15,6 +16,7 @@ const router = createBrowserRouter([
       <>
         <Header />
         <Text />
+        <Questions />
         <Footer />
       </>
     ),
