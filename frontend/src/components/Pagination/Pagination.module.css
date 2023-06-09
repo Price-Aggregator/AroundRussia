@@ -1,0 +1,28 @@
+.pagination {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: row;
+  width: 760px;
+  height: 90px;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+}
+
+.page__number {
+  font-style: normal;
+  font-weight: 500;
+  font-size: 25px;
+  line-height: 29px;
+  color: #132529;
+}
+
+.page__number:hover {
+  cursor: pointer;
+}
+
+.page__active {
+  color: #EBA534;
+}

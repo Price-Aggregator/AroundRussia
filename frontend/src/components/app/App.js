@@ -4,9 +4,9 @@ import './App.module.css';
 import Header from '../Header/Header';
 import Footer from '../Footer/Footer';
 import Text from '../Text/Text';
+import Tickets from '../Tickets/Tickets';
 import NotFound from '../NotFound/NotFound';
 import Questions from '../Questions/Questions';
-import Ticket from '../Ticket/Ticket';
 import Search from '../Search/Search';
 
 
@@ -27,11 +27,11 @@ const router = createBrowserRouter([
   {
     path: 'result',
     element: (
-      <>
+      <div>
         <Header />
-        <Ticket price='2 000' />
+        <Tickets />
         <Footer />
-      </>
+      </div>
     ),
   },
 
