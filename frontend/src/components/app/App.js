@@ -1,6 +1,5 @@
 import React from 'react';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
-import './App.module.css';
 import Header from '../Header/Header';
 import Footer from '../Footer/Footer';
 import Text from '../Text/Text';
@@ -9,6 +8,7 @@ import NotFound from '../NotFound/NotFound';
 import Questions from '../Questions/Questions';
 import Search from '../Search/Search';
 import Calendar from '../calendar/Calendar';
+import styles from './App.module.css'
 
 
 const router = createBrowserRouter([
@@ -30,6 +30,7 @@ const router = createBrowserRouter([
     element: (
       <div>
         <Header />
+        <Search />
         <Calendar />
         <Tickets />
         <Footer />
@@ -48,7 +49,7 @@ const router = createBrowserRouter([
 
 function App() {
   return (
-    <div className="App">
+    <div className={styles.app}>
       <RouterProvider router={router} />
     </div>
   );
