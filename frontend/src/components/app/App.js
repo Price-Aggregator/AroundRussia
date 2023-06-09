@@ -4,6 +4,7 @@ import './App.module.css';
 import Header from '../Header/Header';
 import Footer from '../Footer/Footer';
 import Text from '../Text/Text';
+import NotFound from '../NotFound/NotFound';
 import Questions from '../Questions/Questions';
 import Ticket from '../Ticket/Ticket';
 
@@ -28,6 +29,13 @@ const router = createBrowserRouter([
         <Ticket price='2 000' />
         <Footer />
       </>
+    ),
+  },
+
+  {
+    path: '/*',
+    element: (
+      <NotFound />
     ),
   },
 ]);
