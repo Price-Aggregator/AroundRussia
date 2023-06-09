@@ -7,20 +7,23 @@ import Text from '../Text/Text';
 import NotFound from '../NotFound/NotFound';
 import Questions from '../Questions/Questions';
 import Ticket from '../Ticket/Ticket';
+import Search from '../Search/Search';
 
 
 const router = createBrowserRouter([
-  {
-    path: '/',
-    element: (
-      <>
-        <Header />
+
+	{
+		path: '/',
+		element: (
+			<>
+				<Header />
+				<Search />
         <Text />
         <Questions />
         <Footer />
-      </>
-    ),
-  },
+			</>
+		),
+	},
   {
     path: 'result',
     element: (
@@ -38,14 +41,15 @@ const router = createBrowserRouter([
       <NotFound />
     ),
   },
+
 ]);
 
 function App() {
-  return (
-    <div className="App">
-      <RouterProvider router={router} />
-    </div>
-  );
+	return (
+		<div className="App">
+			<RouterProvider router={router} />
+		</div>
+	);
 }
 
 export default App;

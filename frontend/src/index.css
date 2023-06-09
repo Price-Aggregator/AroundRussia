@@ -13,6 +13,3 @@ code {
 
 @import url('../src/vendor/fonts/fonts.css');
 
-@import url('../src/components/Header/Header.css');
-@import url('../src/components/Footer/Footer.css');
-@import url('../src/components/Text/Text.css');
