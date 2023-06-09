@@ -16,6 +16,7 @@
     "react-router-dom": "^6.11.2",
     "react-scripts": "5.0.1",
     "react-transition-state": "^2.1.0",
+    "recharts": "^2.6.2",
     "redux": "^4.2.1",
     "web-vitals": "^2.1.4"
   },
