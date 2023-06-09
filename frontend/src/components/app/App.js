@@ -7,6 +7,7 @@ import Tickets from '../Tickets/Tickets';
 import NotFound from '../NotFound/NotFound';
 import Questions from '../Questions/Questions';
 import Search from '../Search/Search';
+import Search2 from '../Search/Search2';
 import Calendar from '../calendar/Calendar';
 import styles from './App.module.css'
 
@@ -30,7 +31,7 @@ const router = createBrowserRouter([
     element: (
       <div>
         <Header />
-        <Search />
+        <Search2 />
         <Calendar />
         <Tickets />
         <Footer />
