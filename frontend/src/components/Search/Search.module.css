@@ -90,6 +90,8 @@
 	background-color: #f8c747;
 	color: white;
 	text-align: center;
+  border-radius: 10px;
+  margin-left:5px;
 }
 .search__wrapper {
 	position: relative;

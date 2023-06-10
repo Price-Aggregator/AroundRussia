@@ -1,7 +1,7 @@
 /* eslint react/prop-types: 0 */
 /* eslint-disable react/jsx-props-no-spreading */
 import React from "react";
-import { Accordion, AccordionItem as Item } from "@szhsin/react-accordion";
+import { Accordion, AccordionItem as Item } from '@szhsin/react-accordion';
 import styles from './Questions.module.css'
 import chevron from '../../images/chevron-right.svg'
 
@@ -61,7 +61,7 @@ function AccordionItem({ header, ...rest }) {
 export default function App() {
   return (
     <section className={styles.questions}>
-      <h2 className={styles.questionsTitle}>Вопросы и ответы</h2>
+      <a name='faq' href='a' className={styles.questionsAnkor}><h2 className={styles.questionsTitle}>Вопросы и ответы</h2></a>
       {/* `transitionTimeout` prop should be equal to the transition duration in CSS */}
       <Accordion transition transitionTimeout={250}>
         {items.map(({ header, content }) => (

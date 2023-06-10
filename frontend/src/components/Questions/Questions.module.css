@@ -61,4 +61,6 @@
   transform: rotate(-90deg);
 }
 
-
+.questionsAnkor {
+  text-decoration: none;
+}

@@ -8,11 +8,6 @@ function Search() {
 	}
 	return (
 		<div className={styles.search}>
-			<h1 className={styles.search__title}>Посмотрите на Россию по-новому!</h1>
-			<p className={styles.search__subtitle}>
-				Бронируйте туры онлайн без комиссий и переплат, а мы подберем
-				оптимальный маршрут
-			</p>
 			<p className={styles.search__label}>Авиабилеты</p>
 			<form className={styles.search__form} onSubmit={handleSubmit}>
 				<input

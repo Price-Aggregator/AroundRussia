@@ -6,7 +6,7 @@ function Footer() {
 	return (
 		<footer className={styles.footer}>
 			<img src={logoWhite} className={styles.header__logo} alt="logo" />
-			<a className={styles.footer__faq} href="faq">
+			<a className={styles.footer__faq} href="#faq">
 				Вопросы и ответы
 			</a>
 		</footer>
