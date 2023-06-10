@@ -9,51 +9,46 @@ import Questions from '../Questions/Questions';
 import Search from '../Search/Search';
 import Search2 from '../Search/Search2';
 import Calendar from '../calendar/Calendar';
-import styles from './App.module.css'
-
+import styles from './App.module.css';
 
 const router = createBrowserRouter([
+	{
+		path: '/',
+		element: (
+			<>
+				<Header />
+				<Search />
+				<Text />
+				<Questions />
+				<Footer />
+			</>
+		),
+	},
+	{
+		path: 'result',
+		element: (
+			<div>
+				<Header />
+				<Search2 />
+				<Calendar departureCity=" Москва" arrivalCity=" Калининград" />
+				<Tickets />
+				<Footer />
+			</div>
+		),
+	},
 
-  {
-    path: '/',
-    element: (
-      <>
-        <Header />
-        <Search />
-        <Text />
-        <Questions />
-        <Footer />
-      </>
-    ),
-  },
-  {
-    path: 'result',
-    element: (
-      <div>
-        <Header />
-        <Search2 />
-        <Calendar />
-        <Tickets />
-        <Footer />
-      </div>
-    ),
-  },
-
-  {
-    path: '/*',
-    element: (
-      <NotFound />
-    ),
-  },
-
+	{
+		path: '/*',
+		element: <NotFound />,
+	},
 ]);
 
 function App() {
-  return (
-    <div className={styles.app}>
-      <RouterProvider router={router} />
-    </div>
-  );
+	return (
+		<div className={styles.app}>
+			<RouterProvider router={router} />
+		</div>
+	);
 }
 
 export default App;
