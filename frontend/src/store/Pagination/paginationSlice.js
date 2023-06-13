@@ -1,12 +1,14 @@
 import { createSlice } from "@reduxjs/toolkit";
 
+export const paginationName = 'pagination'
+
 const initialState = {
   page: 1,
   pages: 2
 }
 
 const paginationSlice = createSlice({
-  name: 'pagination',
+  name: paginationName,
   initialState,
   reducers: {
     setPage: (state, action) => ({
