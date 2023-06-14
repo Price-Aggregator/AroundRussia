@@ -2,12 +2,12 @@ import React from 'react';
 import styles from './Search.module.css';
 import calendar from '../../images/calendar.svg';
 
-function Search() {
+function SearchForm() {
 	function handleSubmit(e) {
 		e.preventDefault();
 	}
 	return (
-		<div className={styles.search}>
+		<>
 			<p className={styles.search__label}>Авиабилеты</p>
 			<form className={styles.search__form} onSubmit={handleSubmit}>
 				<input
@@ -48,8 +48,8 @@ function Search() {
 					Найти
 				</button>
 			</form>
-		</div>
+		</>
 	);
 }
 
-export default Search;
+export default SearchForm;
