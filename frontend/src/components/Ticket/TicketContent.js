@@ -1,16 +1,14 @@
 import React from "react";
 import PropTypes from 'prop-types';
 import styles from './Ticket.module.css'
-import aviaUp from '../../images/airplane-up.svg'
-import aviaDown from '../../images/airplane-down.svg'
 
 function TicketDateContent({ date, time, city }) {
   return (
     <div className={styles.ticket__date_content}>
       <span className={styles.price_text}>{time}</span>
       <div className={styles.ticket__city_content}>
-        <span className={styles.ticket__city_text}>{city}</span>
-        <span className={styles.ticket__city_text}>{date}</span>
+        <span className={styles.ticket__text}>{city}</span>
+        <span className={styles.ticket__text}>{date}</span>
       </div>
 
     </div>
@@ -21,11 +19,9 @@ function TicketDurationContent({ originCode, destinationCode, duration }) {
   return (
     <div className={styles.ticket__middle}>
       <div className={styles.ticket__duration}>
-        <img src={aviaUp} alt='airplane-up' />
-        <span className={styles.ticket__city_text}>В пути:
+        <span className={styles.ticket__text}>В пути:
           <span> {duration}</span>
         </span>
-        <img src={aviaDown} alt='aiplane-down' />
       </div>
       <div className={styles.line} />
       <div className={styles.ticket__code_block}>

@@ -4,8 +4,6 @@ import TicketContent from "./TicketContent";
 import styles from './Ticket.module.css'
 
 
-
-
 function TicketInfoBox({ company, image, segments }) {
   return (
     <div className={styles.ticket__info}>

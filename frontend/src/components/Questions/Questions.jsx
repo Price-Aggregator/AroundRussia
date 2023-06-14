@@ -58,7 +58,7 @@ function AccordionItem({ header, ...rest }) {
   />
 }
 
-export default function App() {
+export default function Questions() {
   return (
     <section className={styles.questions}>
       <a name='faq' href='a' className={styles.questionsAnkor}><h2 className={styles.questionsTitle}>Вопросы и ответы</h2></a>

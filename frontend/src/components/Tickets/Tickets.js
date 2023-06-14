@@ -6,7 +6,7 @@ import { getPage } from "../../store/Pagination/selectors";
 import Ticket from "../Ticket/Ticket";
 import Pagination from "../Pagination/Pagination";
 import { setPages } from "../../store/Pagination/slice";
-import { setTickets } from "../../store/Tickets/slice";
+// import { setTickets } from "../../store/Tickets/slice";
 
 function Tickets() {
   const dispatch = useDispatch()
@@ -30,7 +30,7 @@ function Tickets() {
     setBestPrice(best)
   }, [])
 
-  dispatch(setTickets(ticketsInfo))
+  // dispatch(setTickets(ticketsInfo))
 
   return (
     <section className={styles.tickets}>
