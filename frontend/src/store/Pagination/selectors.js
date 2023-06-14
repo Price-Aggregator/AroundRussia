@@ -1,4 +1,4 @@
-import { paginationName } from "./paginationSlice";
+import { paginationName } from "./slice";
 
 export const getPage = (store) => store[paginationName].page
 

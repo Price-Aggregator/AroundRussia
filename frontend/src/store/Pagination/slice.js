@@ -4,7 +4,7 @@ export const paginationName = 'pagination'
 
 const initialState = {
   page: 1,
-  pages: 2
+  pages: 0
 }
 
 const paginationSlice = createSlice({
@@ -23,4 +23,4 @@ const paginationSlice = createSlice({
 })
 
 export const paginationReducer = paginationSlice.reducer
-export const { setPage } = paginationSlice.actions
+export const { setPage, setPages } = paginationSlice.actions
