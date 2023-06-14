@@ -6,7 +6,6 @@ import { getPage } from "../../store/Pagination/selectors";
 import Ticket from "../Ticket/Ticket";
 import Pagination from "../Pagination/Pagination";
 import { setPages } from "../../store/Pagination/slice";
-// import { setTickets } from "../../store/Tickets/slice";
 
 function Tickets() {
   const dispatch = useDispatch()
@@ -30,13 +29,11 @@ function Tickets() {
     setBestPrice(best)
   }, [])
 
-  // dispatch(setTickets(ticketsInfo))
-
   return (
     <section className={styles.tickets}>
       {bestPrice && <Ticket price={bestPrice.price} company={bestPrice.company} image={bestPrice.image} segments={bestPrice.segments} bestPrice id={bestPrice.id} />}
       {ticketsInfo.slice(sliceNums.first, sliceNums.second).map((item) =>
-        <Ticket key={item.id} id={item.id} />)}
+        <Ticket key={item.id} id={item.id} oneTransfer={item.transfer === 1} />)}
       <Pagination />
     </section>
   )

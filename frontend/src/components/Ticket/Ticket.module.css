@@ -13,7 +13,7 @@
   align-items: center;
   max-width: 221px;
   border-right: 1px dashed #8a8a8a;
-  padding: 30px 20px 0;
+  padding: 50px 15px 0;
 }
 
 .ticket__price_box {
@@ -147,15 +147,15 @@
 
 .ticket__duration::after {
   content: '';
-  width: 24px;
-  height: 24px;
+  width: 26px;
+  height: 25px;
   background-image: url('../../images/airplane-down.svg');
 }
 
 .ticket__duration::before {
   content: '';
-  width: 24px;
-  height: 24px;
+  width: 26px;
+  height: 25px;
   background-image: url('../../images/airplane-up.svg');
 }
 
@@ -202,4 +202,10 @@
   font-size: 15px;
   line-height: 18px;
   color: #FFFFFF;
+}
+
+.ticket__one_transfer {
+  composes: ticket__best_price;
+  background-color: #29A3D2;
+
 }

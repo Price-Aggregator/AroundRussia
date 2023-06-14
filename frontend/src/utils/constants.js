@@ -8,6 +8,7 @@ const ticketsInfo = [
     company: 'Уральские авиалинии',
     image: urals,
     id: 1,
+    transfer: 2,
     segments: [
       {
         origin: 'Москва',
@@ -38,6 +39,7 @@ const ticketsInfo = [
     company: 'S7 Airlines',
     image: s7,
     id: 2,
+    transfer: 1,
     segments: [
       {
         origin: 'Москва',
@@ -68,6 +70,7 @@ const ticketsInfo = [
     company: 'S7 Airlines',
     image: s7,
     id: 3,
+    transfer: 1,
     segments: [
       {
         origin: 'Москва',
@@ -98,6 +101,7 @@ const ticketsInfo = [
     company: 'S7 Airlines',
     image: s7,
     id: 4,
+    transfer: 3,
     segments: [
       {
         origin: 'Москва',
@@ -128,6 +132,7 @@ const ticketsInfo = [
     company: 'Уральские авиалинии',
     image: urals,
     id: 5,
+    transfer: 1,
     segments: [
       {
         origin: 'Москва',
@@ -158,6 +163,7 @@ const ticketsInfo = [
     company: 'Уральские авиалинии',
     image: urals,
     id: 6,
+    transfer: 1,
     segments: [
       {
         origin: 'Москва',
@@ -188,6 +194,7 @@ const ticketsInfo = [
     company: 'Уральские авиалинии',
     image: urals,
     id: 7,
+    transfer: 1,
     segments: [
       {
         origin: 'Москва',
@@ -218,6 +225,7 @@ const ticketsInfo = [
     company: 'Уральские авиалинии',
     image: urals,
     id: 8,
+    transfer: 5,
     segments: [
       {
         origin: 'Москва',
@@ -246,20 +254,20 @@ const ticketsInfo = [
 ]
 
 const calendarData = [
-	{ _id: 1346, date: '25, чт', price: 2000, from: 'moscow', to: 'tver' },
-	{ _id: 24555, date: '26, пт', price: 3000, from: 'moscow', to: 'tver' },
-	{ _id: 35666, date: '27, сб', price: 3000, from: 'moscow', to: 'tver' },
-	{ _id: 456666, date: '28, вс', price: 4780, from: 'moscow', to: 'tver' },
-	{ _id: 55543, date: '29, пн', price: 8890, from: 'moscow', to: 'tver' },
-	{ _id: 64444, date: '30, вт', price: 9390, from: 'moscow', to: 'tver' },
-	{ _id: 7344443, date: '31, ср', price: 8490, from: 'moscow', to: 'tver' },
-	{ _id: 83332, date: '1, чт', price: 4490, from: 'moscow', to: 'tver' },
-	{ _id: 934344, date: '2, пт', price: 5590, from: 'moscow', to: 'tver' },
-	{ _id: 103424, date: '3, сб', price: 6590, from: 'moscow', to: 'tver' },
-	{ _id: 11243, date: '4, вс', price: 7590, from: 'moscow', to: 'tver' },
-	{ _id: 132433, date: '5, пн', price: 7000, from: 'moscow', to: 'tver' },
-	{ _id: 14422, date: '6, вт', price: 3000, from: 'moscow', to: 'tver' },
-	{ _id: 14422, date: '7, ср', price: 3000, from: 'moscow', to: 'tver' },
+  { _id: 1346, date: '25, чт', price: 2000, from: 'moscow', to: 'tver' },
+  { _id: 24555, date: '26, пт', price: 3000, from: 'moscow', to: 'tver' },
+  { _id: 35666, date: '27, сб', price: 3000, from: 'moscow', to: 'tver' },
+  { _id: 456666, date: '28, вс', price: 4780, from: 'moscow', to: 'tver' },
+  { _id: 55543, date: '29, пн', price: 8890, from: 'moscow', to: 'tver' },
+  { _id: 64444, date: '30, вт', price: 9390, from: 'moscow', to: 'tver' },
+  { _id: 7344443, date: '31, ср', price: 8490, from: 'moscow', to: 'tver' },
+  { _id: 83332, date: '1, чт', price: 4490, from: 'moscow', to: 'tver' },
+  { _id: 934344, date: '2, пт', price: 5590, from: 'moscow', to: 'tver' },
+  { _id: 103424, date: '3, сб', price: 6590, from: 'moscow', to: 'tver' },
+  { _id: 11243, date: '4, вс', price: 7590, from: 'moscow', to: 'tver' },
+  { _id: 132433, date: '5, пн', price: 7000, from: 'moscow', to: 'tver' },
+  { _id: 14422, date: '6, вт', price: 3000, from: 'moscow', to: 'tver' },
+  { _id: 14422, date: '7, ср', price: 3000, from: 'moscow', to: 'tver' },
 ];
 
 export { numberOfTicketsOnPage, ticketsInfo, calendarData };
