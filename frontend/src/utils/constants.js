@@ -1,5 +1,7 @@
 import { urals, s7 } from "../images/avia-company"
 
+const numberOfTicketsOnPage = 3
+
 const ticketsInfo = [
   {
     price: '4570',
@@ -177,4 +179,4 @@ const ticketsInfo = [
   },
 ]
 
-export default ticketsInfo
+export { numberOfTicketsOnPage, ticketsInfo }
