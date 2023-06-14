@@ -4,7 +4,7 @@
 import styles from './Calendar.module.css';
 import Graph from './graph/Graph';
 import PropTypes from 'prop-types';
-import calendarData from '../../utils/constants';
+import {calendarData} from '../../utils/constants';
 
 export default function Calendar({ departureCity, arrivalCity }) {
 	return (
