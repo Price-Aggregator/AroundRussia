@@ -1,14 +1,23 @@
 import React, { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import styles from './Tickets.module.css'
 import { ticketsInfo, numberOfTicketsOnPage } from "../../utils/constants"; // Заглушка до появления данных с бэка, удалить
+import { getPage } from "../../store/Pagination/selectors";
 import Ticket from "../Ticket/Ticket";
 import Pagination from "../Pagination/Pagination";
+import { setPages } from "../../store/Pagination/slice";
+import { setTickets } from "../../store/Tickets/slice";
 
 function Tickets() {
-  const { page } = useSelector(store => store.pagination)
+  const dispatch = useDispatch()
+  const page = useSelector(getPage)
   const [sliceNums, setSliceNums] = useState({ first: 0, second: 4 })
   const [bestPrice, setBestPrice] = useState()
+
+  useEffect(() => {
+    const pages = Math.ceil(ticketsInfo.length / numberOfTicketsOnPage)
+    dispatch(setPages(pages))
+  }, [ticketsInfo, numberOfTicketsOnPage])
 
   useEffect(() => {
     const first = 0 + (page - 1) * numberOfTicketsOnPage
@@ -21,11 +30,13 @@ function Tickets() {
     setBestPrice(best)
   }, [])
 
+  dispatch(setTickets(ticketsInfo))
+
   return (
     <section className={styles.tickets}>
-      {bestPrice && <Ticket price={bestPrice.price} company={bestPrice.company} image={bestPrice.image} segments={bestPrice.segments} bestPrice />}
+      {bestPrice && <Ticket price={bestPrice.price} company={bestPrice.company} image={bestPrice.image} segments={bestPrice.segments} bestPrice id={bestPrice.id} />}
       {ticketsInfo.slice(sliceNums.first, sliceNums.second).map((item) =>
-        <Ticket price={item.price} company={item.company} image={item.image} segments={item.segments} />)}
+        <Ticket key={item.id} id={item.id} />)}
       <Pagination />
     </section>
   )

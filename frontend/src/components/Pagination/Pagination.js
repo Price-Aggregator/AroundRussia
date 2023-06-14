@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import PropTypes from 'prop-types';
 import { useSelector, useDispatch } from "react-redux";
-import { setPage } from "../../store/Pagination/paginationSlice";
+import { setPage } from "../../store/Pagination/slice";
 import { getPage, getPages } from "../../store/Pagination/selectors";
 import styles from './Pagination.module.css'
 
@@ -27,12 +27,12 @@ function Pagination() {
   useEffect(() => {
     const array = Array(pages).fill(1).map((item, index) => item + index)
     setPagesArr(array)
-  }, [])
+  }, [pages])
 
   return (
     <ul className={styles.pagination}>
       {pagesArr && pagesArr.map((item) =>
-        <PageNumber page={item} isActive={item === page} />
+        <PageNumber page={item} isActive={item === page} key={item} />
       )}
     </ul>
   )
