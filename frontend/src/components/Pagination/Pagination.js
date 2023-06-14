@@ -12,8 +12,9 @@ function PageNumber({ page, isActive }) {
     dispatch(setPage(page))
   }
   return (
-    // eslint-disable-next-line
-    <li className={`${styles.page__number} ${isActive && styles.page__active}`} onClick={onClick}>{page}</li>
+    <li className={`${styles.page__number} ${isActive && styles.page__active}`} >
+      <button onClick={onClick} type="button" className={styles.page_button}>{page}</button>
+    </li>
   )
 }
 

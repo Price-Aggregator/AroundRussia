@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import styles from './Tickets.module.css'
-import ticketsInfo from "../../utils/constants"; // Заглушка до появления данных с бэка, удалить
+import { ticketsInfo, numberOfTicketsOnPage } from "../../utils/constants"; // Заглушка до появления данных с бэка, удалить
 import Ticket from "../Ticket/Ticket";
 import Pagination from "../Pagination/Pagination";
 
@@ -11,8 +11,8 @@ function Tickets() {
   const [bestPrice, setBestPrice] = useState()
 
   useEffect(() => {
-    const first = 0 + (page - 1) * 3
-    const second = page * 3
+    const first = 0 + (page - 1) * numberOfTicketsOnPage
+    const second = page * numberOfTicketsOnPage
     setSliceNums({ first, second })
   }, [page])
 

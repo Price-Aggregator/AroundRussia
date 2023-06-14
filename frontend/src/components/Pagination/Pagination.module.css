@@ -26,3 +26,7 @@
 .page__active {
   color: #EBA534;
 }
+
+.page_button {
+  all: unset
+}
