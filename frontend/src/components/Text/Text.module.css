@@ -1,10 +1,11 @@
 .text {
-	margin: 100px 165px 100px 165px;
+	margin: 100px auto 100px auto;
 	display: grid;
-	grid-template-columns: repeat(3,350px);
+	grid-template-columns: repeat(auto-fill,350px);
 	grid-template-rows: auto;
 	row-gap: 30px;
 	column-gap: 30px;
+  justify-content: center;
 }
 
 .text__item {

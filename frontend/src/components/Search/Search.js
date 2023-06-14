@@ -7,14 +7,16 @@ const { pathname } = window.location;
 function Search() {
 	return (
 		<div className={styles.search}>
-			{pathname === '/' ? (
-				<>
-					<SearchText />
+			<div className={styles.search__container}>
+				{pathname === '/' ? (
+					<>
+						<SearchText />
+						<SearchForm />
+					</>
+				) : (
 					<SearchForm />
-				</>
-			) : (
-				<SearchForm />
-			)}
+				)}
+			</div>
 		</div>
 	);
 }

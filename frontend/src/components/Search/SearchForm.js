@@ -28,8 +28,8 @@ function SearchForm() {
 					<input
 						type="text"
 						className={styles.search__input}
-						placeholder="Куда"
-						name="to"
+						placeholder="Когда"
+						name="when"
 						required
 					/>
 					<img className={styles.search__image} alt="calendar" src={calendar} />
@@ -38,8 +38,8 @@ function SearchForm() {
 					<input
 						type="text"
 						className={styles.search__input_right}
-						placeholder="Куда"
-						name="to"
+						placeholder="Обратно"
+						name="return"
 						required
 					/>
 					<img className={styles.search__image} alt="calendar" src={calendar} />
