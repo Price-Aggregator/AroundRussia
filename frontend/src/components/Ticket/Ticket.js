@@ -12,11 +12,11 @@ function Ticket({ bestPrice, id }) {
 
   const ticket = useSelector(getTickets).find(item => item.id === id)
 
-  return <div className={styles.ticket}>
+  return <article className={styles.ticket}>
     {bestPrice && <div className={styles.ticket__best_price}>Самый дешевый</div>}
     <TicketPriceBox price={ticket.price} />
     <TicketInfoBox company={ticket.company} image={ticket.image} segments={ticket.segments} />
-  </div>;
+  </article>;
 }
 
 Ticket.propTypes = {

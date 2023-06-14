@@ -1,11 +1,9 @@
 .tickets {
-  width: 760px;
-  max-height: 1510px;
+  max-width: 760px;
+  width: 100%;
   padding-top: 15px;
   display: flex;
   flex-direction: column;
   gap: 20px;
   align-items: center;
 }
-
-.tickets__pages {}
