@@ -4,10 +4,10 @@ on:
   push:
     branches: [front-develop]
   pull_request:
-    branches: [front-develop]
+    branches: [front-develop, develop]
 
 jobs:
-  tests:
+  front-tests:
     defaults:
       run:
         working-directory: ./frontend
