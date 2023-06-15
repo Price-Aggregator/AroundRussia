@@ -1,26 +1,26 @@
 name: push
 run-name: ${{ github.actor }} push test
-on: 
-  push: 
+on:
+  push:
     branches: [front-develop]
-  pull_request: 
-    branches: [front-develop]  
+  pull_request:
+    branches: [front-develop]
 jobs:
   tests:
+    defaults:
+      run:
+        working-directory: ./frontend
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout 
+      - name: Checkout
         uses: actions/checkout@v3
       - name: Install Node.JS
         uses: actions/setup-node@v1
-        with: 
-          node-version: '14'
+        with:
+          node-version: "14"
       - name: Install dependencies
         run: npm ci
-        working-directory: ./frontend
       - name: Run ESLint
         run: npm run lint
-        working-directory: ./frontend
-      - name: Start
+      - name: Check build
         run: npm run build
-        working-directory: ./frontend
