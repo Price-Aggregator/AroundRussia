@@ -12,4 +12,5 @@ code {
 }
 
 @import url('../src/vendor/fonts/fonts.css');
+@import url('../src/components/Autocomplete/Autocomplete.css');
 
