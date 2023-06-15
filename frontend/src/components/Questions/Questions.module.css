@@ -1,12 +1,37 @@
+
 .questions{
   background: #ECF1F1;
-  padding: 100px 260px;
+  padding: 100px 0px;
+  display: flex;
+ justify-content: center;
+}
+
+.questionsContainer{
+  max-width: 920px;
   display: flex;
   flex-direction: column;
   gap: 45px;
+  padding: 0;
+  margin: 0;
+}
+
+.questionsItem{
+  border-bottom: 1px solid #8A8A8A;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding-bottom: 20px;
+  transition: all 0.5s ease;
+  gap: 0px;
+}
+
+.questionsItemActive{
+  transition: all 0.5s ease;
+  gap: 15px;
 }
 
 .questionsTitle{
+  margin: 0;
   font-style: normal;
   font-weight: 500;
   font-size: 30px;
@@ -14,52 +39,68 @@
   color: #132529;
 }
 
-.questionsItem{
-  padding: 20px 20px 20px 0px;
-  border-bottom: 1px solid #8A8A8A;
-}
-
-.questionsItemBtn{
-  cursor: pointer;
-  padding: 0;
-  border: none;
-  background: none;
+.questionsHeader{
   display: flex;
+  justify-content: space-between;
   align-items: center;
   width: 100%;
+  background: inherit;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+
+}
+
+.questionsHeader:hover .questionsArrow{
+  background: url(../../images/chevron-orange.svg);
+}
+
+.questionsHeader:hover .questionsQuestion{
+  color: #EBA534;
+}
+.questionsArrow{
+  width: 14.54px;
+  height: 11.35px;
+  background: url(../../images/chevron-down.svg);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  transition: all 0.2s ease-in-out;
+
+}
+
+.questionsArrowActive{
+  transform: rotate(180deg);
+  transition: all 0.2s ease-in-out;
+}
+.questionsQuestion{
+  margin: 0;
   font-style: normal;
   font-weight: 300;
   font-size: 20px;
   line-height: 124.69%;
   color: #132529;
-}
 
-.questionsItemBtn:hover{
-  color: #EBA534;
 }
 
 .questionsAnswer{
+  margin: 0;
+  padding-right: 75px;
   font-style: normal;
   font-weight: 300;
   font-size: 20px;
   line-height: 124.69%;
   color: #8A8A8A;
-  transition: height 0.25s cubic-bezier(0, 0, 0, 1);
+  max-height: 0;
+  overflow: hidden;
+  transition: all 0.5s cubic-bezier(0, 1, 0, 1);
 }
 
-.questionsItemPanel{
-  padding-top: 15px;
-  padding-right: 75px;
-}
-
-.questionsChevron {
-  margin-left: auto;
-  transition: transform 0.25s cubic-bezier(0, 0, 0, 1);
-}
-
-.questionsitemBtnExpanded .questionsChevron {
-  transform: rotate(-90deg);
-}
+.questionsAnswerActive{
+  height: auto;
+  max-height: 9999px;
+  transition: all 0.5s cubic-bezier(1, 0, 1, 0);
+  }
 
 .questionsAnkor {
   text-decoration: none;
