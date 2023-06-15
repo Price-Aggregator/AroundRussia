@@ -7,6 +7,9 @@ on:
     branches: [front-develop]
 jobs:
   tests:
+    defaults:
+      run:
+        working-directory: ./frontend
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -17,20 +20,7 @@ jobs:
           node-version: "14"
       - name: Install dependencies
         run: npm ci
-        working-directory: ./frontend
-      - name: Get file changes
-        id: get_file_changes
-        uses: trilom/file-changes-action@v1.2.4
-        with:
-          output: " "
-      - name: Echo file changes
-        run: | 
-          echo Added: ${{ steps.get_file_changes.outputs.files_added }}
-          echo Changed: ${{ steps.get_file_changes.outputs.files_modified }}
-          echo Removed: ${{ steps.get_file_changes.outputs.files_removed }}
       - name: Run ESLint
         run: npm run lint
-        working-directory: ./frontend
-      - name: Start
+      - name: Check build
         run: npm run build
-        working-directory: ./frontend
