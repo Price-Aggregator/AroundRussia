@@ -1,8 +1,11 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import styles from './Search.module.css';
 import calendar from '../../images/calendar.svg';
+import { api } from '../../utils/Api';
 
 function SearchForm() {
+	const navigate = useNavigate();
 	const [from, setFrom] = useState('');
 	const [to, setTo] = useState('');
 	const [when, setWhen] = useState('');
@@ -13,12 +16,19 @@ function SearchForm() {
 	const [activeSuggestionIndex, setActiveSuggestionIndex] = useState(0);
 	const [showSuggestions, setShowSuggestions] = useState(false);
 
-  const [filteredSuggestionsTo, setFilteredSuggestionsTo] = useState([]);
+	const [filteredSuggestionsTo, setFilteredSuggestionsTo] = useState([]);
 	const [activeSuggestionIndexTo, setActiveSuggestionIndexTo] = useState(0);
 	const [showSuggestionsTo, setShowSuggestionsTo] = useState(false);
 
-	const suggestions = ['Москва', 'Воронеж', 'Екатеринбург', 'Новосибирск', 'Сочи'];
-
+ api.getCities().then((res) => {
+		localStorage.setItem('data', JSON.stringify(res));
+		const cities = JSON.parse(localStorage.getItem('data')).map(
+			(item) => item.name
+		);
+		console.log(cities);
+    return cities;
+	});
+const suggestions = ['Москва', 'Воронеж']
 	const onClickFrom = (e) => {
 		setFilteredSuggestions([]);
 		setFrom(e.target.innerText);
@@ -26,7 +36,7 @@ function SearchForm() {
 		setShowSuggestions(false);
 	};
 
-  const onClickTo = (e) => {
+	const onClickTo = (e) => {
 		setFilteredSuggestionsTo([]);
 		setTo(e.target.innerText);
 		setActiveSuggestionIndexTo(0);
@@ -61,37 +71,12 @@ function SearchForm() {
 		setShowSuggestionsTo(true);
 	};
 
-	/* const handleInput = async () => {
-		console.log('i work');
-		const list = fetch(`http://62.84.115.87:8000/api/v1/cities/`, {
-			method: 'GET',
-			headers: {
-				'Content-Type': 'application/json',
-			},
-		}).then((res) => res.json());
-		return list;
-	}; */
-
 	const handleSubmit = async (e) => {
 		e.preventDefault();
-		console.log('i work');
-		console.log({
-			from,
-			to,
-			when,
-			whenReturn,
-		});
+		navigate('/result');
+
 		try {
-			const res = await fetch('http://127.0.0.1:8000/api/v1/airline', {
-				method: 'POST',
-				body: JSON.stringify({
-					from,
-					to,
-					when,
-					whenReturn,
-				}),
-			});
-			console.log(res);
+			const res = api.addDataTicket(from, to, when, whenReturn);
 			// eslint-disable-next-line no-unused-vars
 			const resJson = await res.json();
 			localStorage.setItem('movies', JSON.stringify(resJson));
@@ -113,7 +98,7 @@ function SearchForm() {
 		<>
 			<p className={styles.search__label}>Авиабилеты</p>
 			<form className={styles.search__form} onSubmit={handleSubmit}>
-				<div className="suggestions__wrapper">
+				<div className={styles.suggestions__wrapper}>
 					<input
 						onChange={onChangeFrom}
 						value={from || ''}
@@ -124,7 +109,7 @@ function SearchForm() {
 					{showSuggestions &&
 						from &&
 						(filteredSuggestions.length ? (
-							<ul className="suggestions">
+							<ul className={styles.suggestions}>
 								{filteredSuggestions.map((suggestion, index) => {
 									let className;
 									// Flag the active suggestion with a class
@@ -144,12 +129,12 @@ function SearchForm() {
 								})}
 							</ul>
 						) : (
-							<div className="no-suggestions">
+							<div className={styles.no - suggestions}>
 								<em>Предположений нет!</em>
 							</div>
 						))}
 				</div>
-				<div className="suggestions__wrapper">
+				<div className={styles.suggestions__wrapper}>
 					<input
 						type="text"
 						className={styles.search__input}
@@ -162,7 +147,7 @@ function SearchForm() {
 					{showSuggestionsTo &&
 						to &&
 						(filteredSuggestionsTo.length ? (
-							<ul className="suggestions">
+							<ul className={styles.suggestions}>
 								{filteredSuggestionsTo.map((suggestion, index) => {
 									let className;
 									// Flag the active suggestion with a class
@@ -182,7 +167,7 @@ function SearchForm() {
 								})}
 							</ul>
 						) : (
-							<div className="no-suggestions">
+							<div className={styles.no - suggestions}>
 								<em>Предположений нет!</em>
 							</div>
 						))}
