@@ -1,30 +1,37 @@
-
-input {
-	border: 1px solid #999;
-	padding: 0.5rem;
-	width: 300px;
+.suggestions__wrapper {
+  display:flex;
+  flex-direction:column;
+  position:relative;
 }
 .no-suggestions {
 	color: #999;
 	padding: 0.5rem;
+  position:absolute;
+  top:100%;
+  left:0;
 }
 .suggestions {
 	border: 1px solid #999;
 	border-top-width: 0;
 	list-style: none;
 	margin-top: 0;
-	max-height: 143px;
+	max-height: 165px;
 	overflow-y: auto;
 	padding-left: 0;
-	width: calc(300px + 1rem);
+	width: 180px;
+  background-color: #999;
+  position:absolute;
+  top:100%;
+  left:0;
+
 }
 .suggestions li {
 	padding: 0.5rem;
 }
 .suggestion-active,
 .suggestions li:hover {
-	background-color: #008f68;
-	color: #fae042;
+	background-color: #B2C535;
+	color: black;
 	cursor: pointer;
 	font-weight: 700;
 }
