@@ -1,6 +1,8 @@
 /* eslint-disable prefer-promise-reject-errors */
 /* eslint-disable class-methods-use-this */
 /* eslint-disable no-underscore-dangle */
+import { BASE_URL } from "./constants";
+
 export class Api {
   constructor(settings) {
     this._address = settings.baseUrl;
@@ -14,7 +16,7 @@ export class Api {
   }
 
   getCities() {
-    return fetch(`http://127.0.0.1:8000/api/v1/cities/`, {
+    return fetch(`${this._address}/cities/`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -23,27 +25,30 @@ export class Api {
   }
 
   addDataTicket(from, to, when, whenReturn) {
-    return fetch(`http://127.0.0.1:8000/api/v1/airline/`, {
+    return fetch(`${this._address}/airline`, {
       method: "POST",
-      headers: this._headers,
+      headers: {
+        "Content-Type": "application/json",
+        "X-CSRFTOKEN": "0ItZFyiIHRoUMMhZjoYUMehVUA975X695xgz8M58HW7IwwraMNd3XR7rm9sGWKJg",
+      },
       body: JSON.stringify({
         origin: from,
-        destination:to,
-        departure_at:when,
-        return_at:whenReturn,
+        destination: to,
+        departure_at: when,
+        return_at: whenReturn,
         sorting: "price",
         direct: "false",
         unique: "false"
       }),
     }).then((res) =>
-       this._getResponseData(res));
+      this._getResponseData(res));
   }
 
 
 }
 
 const api = new Api({
-  baseUrl: "http://127.0.0.1:8000/api/v1",
+  baseUrl: BASE_URL,
 });
 
 export { api };
