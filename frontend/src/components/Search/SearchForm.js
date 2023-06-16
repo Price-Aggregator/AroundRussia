@@ -25,7 +25,7 @@ function SearchForm() {
 		const cities = JSON.parse(localStorage.getItem('data')).map(
 			(item) => item.name
 		);
-		console.log(cities);
+//		console.log(cities);
     return cities;
 	});
 const suggestions = ['Москва', 'Воронеж']
@@ -90,7 +90,7 @@ const suggestions = ['Москва', 'Воронеж']
 				setMessage('Some error occured');
 			}
 		} catch (err) {
-			console.log(err);
+//			console.log(err);
 		}
 	};
 
