@@ -3,7 +3,7 @@
 import React from 'react';
 import { Accordion, AccordionItem as Item } from '@szhsin/react-accordion';
 import styles from './Filters.module.css';
-import chevron from '../../images/chevron-right.svg'
+import chevron from '../../images/chevron-down.svg'
 
 /**
  * @type {React.ExoticComponent<import('@szhsin/react-accordion').AccordionItemProps>}
