@@ -11,15 +11,9 @@ import Filters from '../Filters/Filters';
 function Tickets() {
   const dispatch = useDispatch()
   const page = useSelector(getPage)
-  // remove next line
-  // const cities = useSelector(state => state.tickets.cities)
+
   const [sliceNums, setSliceNums] = useState({ first: 0, second: 4 })
   const [bestPrice, setBestPrice] = useState()
-
-  // remove next
-  // useEffect(() => {
-  //   console.log(cities)
-  // }, [cities])
 
   useEffect(() => {
     const pages = Math.ceil(ticketsInfo.length / TICKETS_ON_PAGE)
