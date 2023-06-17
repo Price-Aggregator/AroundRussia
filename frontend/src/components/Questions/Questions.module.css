@@ -1,12 +1,11 @@
-
-.questions{
+.questions {
   background: #ECF1F1;
   padding: 100px 0px;
   display: flex;
- justify-content: center;
+  justify-content: center;
 }
 
-.questionsContainer{
+.questionsContainer {
   max-width: 920px;
   display: flex;
   flex-direction: column;
@@ -15,7 +14,7 @@
   margin: 0;
 }
 
-.questionsItem{
+.questionsItem {
   border-bottom: 1px solid #8A8A8A;
   display: flex;
   flex-direction: column;
@@ -25,12 +24,12 @@
   gap: 0px;
 }
 
-.questionsItemActive{
+.questionsItemActive {
   transition: all 0.5s ease;
   gap: 15px;
 }
 
-.questionsTitle{
+.questionsTitle {
   margin: 0;
   font-style: normal;
   font-weight: 500;
@@ -39,7 +38,7 @@
   color: #132529;
 }
 
-.questionsHeader{
+.questionsHeader {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -51,14 +50,21 @@
 
 }
 
-.questionsHeader:hover .questionsArrow{
+.questionsHeader:hover .questionsArrow {
   background: url(../../images/chevron-orange.svg);
+  width: 14.54px;
+  height: 11.35px;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  transition: all 0.2s ease-in-out;
 }
 
-.questionsHeader:hover .questionsQuestion{
+.questionsHeader:hover .questionsQuestion {
   color: #EBA534;
 }
-.questionsArrow{
+
+.questionsArrow {
   width: 14.54px;
   height: 11.35px;
   background: url(../../images/chevron-down.svg);
@@ -69,11 +75,12 @@
 
 }
 
-.questionsArrowActive{
+.questionsArrowActive {
   transform: rotate(180deg);
   transition: all 0.2s ease-in-out;
 }
-.questionsQuestion{
+
+.questionsQuestion {
   margin: 0;
   font-style: normal;
   font-weight: 300;
@@ -83,7 +90,7 @@
 
 }
 
-.questionsAnswer{
+.questionsAnswer {
   margin: 0;
   padding-right: 75px;
   font-style: normal;
@@ -96,11 +103,11 @@
   transition: all 0.5s cubic-bezier(0, 1, 0, 1);
 }
 
-.questionsAnswerActive{
+.questionsAnswerActive {
   height: auto;
   max-height: 9999px;
   transition: all 0.5s cubic-bezier(1, 0, 1, 0);
-  }
+}
 
 .questionsAnkor {
   text-decoration: none;

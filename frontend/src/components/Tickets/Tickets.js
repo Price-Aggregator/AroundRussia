@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styles from './Tickets.module.css'
-import { ticketsInfo, numberOfTicketsOnPage } from "../../utils/constants"; // Заглушка до появления данных с бэка, удалить
+import { ticketsInfo, TICKETS_ON_PAGE } from "../../utils/constants"; // ticketsInfo -  заглушка до появления данных с бэка, удалить
 import { getPage } from "../../store/Pagination/selectors";
 import Ticket from "../Ticket/Ticket";
 import Pagination from "../Pagination/Pagination";
@@ -11,17 +11,18 @@ import Filters from '../Filters/Filters';
 function Tickets() {
   const dispatch = useDispatch()
   const page = useSelector(getPage)
+
   const [sliceNums, setSliceNums] = useState({ first: 0, second: 4 })
   const [bestPrice, setBestPrice] = useState()
 
-	useEffect(() => {
-    const pages = Math.ceil(ticketsInfo.length / numberOfTicketsOnPage)
+  useEffect(() => {
+    const pages = Math.ceil(ticketsInfo.length / TICKETS_ON_PAGE)
     dispatch(setPages(pages))
-  }, [ticketsInfo, numberOfTicketsOnPage])
+  }, [ticketsInfo, TICKETS_ON_PAGE])
 
-	useEffect(() => {
-    const first = 0 + (page - 1) * numberOfTicketsOnPage
-    const second = page * numberOfTicketsOnPage
+  useEffect(() => {
+    const first = 0 + (page - 1) * TICKETS_ON_PAGE
+    const second = page * TICKETS_ON_PAGE
     setSliceNums({ first, second })
   }, [page])
 

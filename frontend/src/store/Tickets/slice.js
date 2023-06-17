@@ -1,10 +1,13 @@
 import { createSlice } from "@reduxjs/toolkit";
+// import { BASE_URL } from "../../utils/constants";
+// import checkResponse from "../../utils/check-response";
 
 export const ticketsName = 'tickets'
 
 const initialState = {
-  tickets: []
+  tickets: [],
 }
+
 
 const ticketsSlice = createSlice({
   name: ticketsName,
@@ -14,7 +17,7 @@ const ticketsSlice = createSlice({
       ...state,
       tickets: action.payload
     })
-  }
+  },
 })
 
 export const ticketsReducer = ticketsSlice.reducer
