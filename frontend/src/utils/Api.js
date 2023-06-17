@@ -29,7 +29,6 @@ export class Api {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        "X-CSRFTOKEN": "0ItZFyiIHRoUMMhZjoYUMehVUA975X695xgz8M58HW7IwwraMNd3XR7rm9sGWKJg",
       },
       body: JSON.stringify({
         origin: from,

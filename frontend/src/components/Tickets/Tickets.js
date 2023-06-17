@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styles from './Tickets.module.css'
-import { ticketsInfo, TICKETS_ON_PAGE } from "../../utils/constants"; // Заглушка до появления данных с бэка, удалить
+import { ticketsInfo, TICKETS_ON_PAGE } from "../../utils/constants"; // ticketsInfo -  заглушка до появления данных с бэка, удалить
 import { getPage } from "../../store/Pagination/selectors";
 import Ticket from "../Ticket/Ticket";
 import Pagination from "../Pagination/Pagination";
@@ -12,14 +12,14 @@ function Tickets() {
   const dispatch = useDispatch()
   const page = useSelector(getPage)
   // remove next line
-  const cities = useSelector(state => state.tickets.cities)
+  // const cities = useSelector(state => state.tickets.cities)
   const [sliceNums, setSliceNums] = useState({ first: 0, second: 4 })
   const [bestPrice, setBestPrice] = useState()
 
   // remove next
-  useEffect(() => {
-    console.log(cities)
-  }, [cities])
+  // useEffect(() => {
+  //   console.log(cities)
+  // }, [cities])
 
   useEffect(() => {
     const pages = Math.ceil(ticketsInfo.length / TICKETS_ON_PAGE)
