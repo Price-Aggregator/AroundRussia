@@ -42,8 +42,6 @@ export class Api {
     }).then((res) =>
       this._getResponseData(res));
   }
-
-
 }
 
 const api = new Api({

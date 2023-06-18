@@ -1,7 +1,7 @@
 import { urals, s7 } from '../images/avia-company';
 
-// const BASE_URL = 'http://62.84.115.87/api/v1'
-const BASE_URL = 'http://127.0.0.1:8000/api/v1'
+const BASE_URL = 'http://62.84.115.87/api/v1'
+// const BASE_URL = 'http://127.0.0.1:8000/api/v1'
 
 const TICKETS_ON_PAGE = 3;
 
