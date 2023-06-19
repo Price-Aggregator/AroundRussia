@@ -4,7 +4,25 @@ import TicketContent from "./TicketContent";
 import styles from './Ticket.module.css'
 
 
-function TicketInfoBox({ company, image, segments }) {
+function TicketInfoBox({ company, image, ticket }) {
+  const departureTicket = {
+    date: ticket.departure_at,
+    duration: ticket.duration_to,
+    destination: ticket.destination,
+    origin: ticket.origin,
+    originAirport: ticket.origin_airport,
+    destinationAirport: ticket.destination_airport
+  }
+
+  const returnTicket = {
+    date: ticket.return_at,
+    duration: ticket.duration_back,
+    destination: ticket.origin,
+    origin: ticket.destination,
+    originAirport: ticket.destination_airport,
+    destinationAirport: ticket.origin_airport
+  }
+
   return (
     <div className={styles.ticket__info}>
       <div className={styles.company__box}>
@@ -12,10 +30,8 @@ function TicketInfoBox({ company, image, segments }) {
         <span className={styles.company__name}>{company}</span>
       </div>
       <div className={styles.tickets__content_box}>
-        {segments && segments.map((item, index) =>
-          // eslint-disable-next-line
-          <TicketContent ticket={item} key={index} />
-        )}
+        <TicketContent ticket={departureTicket} />
+        <TicketContent ticket={returnTicket} />
       </div>
     </div>
   )
@@ -24,7 +40,7 @@ function TicketInfoBox({ company, image, segments }) {
 TicketInfoBox.propTypes = {
   company: PropTypes.string.isRequired,
   image: PropTypes.string.isRequired,
-  segments: PropTypes.arrayOf(PropTypes.objectOf(PropTypes.string)).isRequired
+  ticket: PropTypes.arrayOf(PropTypes.objectOf()).isRequired
 }
 
 export default TicketInfoBox

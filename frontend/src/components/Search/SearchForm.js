@@ -5,6 +5,7 @@ import styles from './Search.module.css';
 import calendar from '../../images/calendar.svg';
 import { api } from '../../utils/Api';
 import { setForm } from '../../store/SearchForm/slice';
+import { fetchTickets } from '../../store/Tickets/slice';
 
 function SearchForm() {
   const dispatch = useDispatch()
@@ -81,7 +82,7 @@ function SearchForm() {
       whenReturn
     }
     dispatch(setForm(formData))
-    console.log(formData)
+    dispatch(fetchTickets(formData))
     navigate('/result');
 
     try {

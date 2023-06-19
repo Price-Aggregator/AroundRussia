@@ -10,13 +10,13 @@ import getTickets from '../../store/Tickets/selectors';
 
 function Ticket({ bestPrice, id, oneTransfer }) {
 
-  const ticket = useSelector(getTickets).find(item => item.id === id)
+  const ticket = useSelector(getTickets).find(item => item.link === id)
 
   return <article className={styles.ticket}>
     {bestPrice && <div className={styles.ticket__best_price}>Самый дешевый</div>}
     {oneTransfer && <div className={styles.ticket__one_transfer}>c 1 пересадкой</div>}
     <TicketPriceBox price={ticket.price} />
-    <TicketInfoBox company={ticket.company} image={ticket.image} segments={ticket.segments} />
+    <TicketInfoBox company={ticket.airline} image={ticket.image} ticket={ticket} />
   </article>;
 }
 

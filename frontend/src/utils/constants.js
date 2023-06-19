@@ -1,258 +1,173 @@
-import { urals, s7 } from '../images/avia-company';
+// import { urals, s7 } from '../images/avia-company';
 
-const BASE_URL = 'http://62.84.115.87/api/v1'
+// const BASE_URL = 'http://62.84.115.87/api/v1'
 // const BASE_URL = 'http://127.0.0.1:8000/api/v1'
+const BASE_URL = 'http://localhost/api/v1'
 
 const TICKETS_ON_PAGE = 3;
 
-const ticketsInfo = [
+const tickets = [
   {
-    price: '4580',
-    company: 'Уральские авиалинии',
-    image: urals,
+    origin: "MOW",
     id: 1,
-    transfer: 2,
-    segments: [
-      {
-        origin: 'Москва',
-        originCode: 'DME',
-        destination: 'Калининград',
-        destinationCode: 'KGD',
-        date: '27 мая, сб',
-        time: '19:15',
-        duration: '2:45',
-        dateDest: '27 мая, сб',
-        timeDest: '22:45'
-      },
-      {
-        origin: 'Калининград',
-        originCode: 'KGD',
-        destination: 'Москва',
-        destinationCode: 'DME',
-        date: '3 июня, сб',
-        time: '19:15',
-        duration: '2:45',
-        dateDest: '3 июня, сб',
-        timeDest: '22:45'
-      }
-    ]
+    destination: "LED",
+    origin_airport: "SVO",
+    destination_airport: "LED",
+    price: 5939,
+    airline: "SU",
+    flight_number: "46",
+    departure_at: "2023-08-15T00:50:00+03:00",
+    return_at: "2023-09-05T06:00:00+03:00",
+    transfers: 0,
+    return_transfers: 0,
+    duration: 175,
+    duration_to: 80,
+    duration_back: 95,
+    link: "/search/MOW1508LED05091?t=SU16920498001692054600000080SVOLED16938828001693888500000095LEDVKO_0c085cf3cb7602a633cee36da1ce936b_5968&search_date=18062023&expected_price_uuid=81acb405-a41f-4f0e-976c-a80867ad7c4f&expected_price_source=share&expected_price_currency=rub&expected_price=5939"
   },
   {
-    price: '4570',
-    company: 'S7 Airlines',
-    image: s7,
+    origin: "MOW",
     id: 2,
-    transfer: 1,
-    segments: [
-      {
-        origin: 'Москва',
-        originCode: 'DME',
-        destination: 'Калининград',
-        destinationCode: 'KGD',
-        date: '27 мая, сб',
-        time: '19:15',
-        duration: '2:45',
-        dateDest: '27 мая, сб',
-        timeDest: '22:45'
-      },
-      {
-        origin: 'Калининград',
-        originCode: 'KGD',
-        destination: 'Москва',
-        destinationCode: 'DME',
-        date: '3 июня, сб',
-        time: '19:15',
-        duration: '2:45',
-        dateDest: '3 июня, сб',
-        timeDest: '22:45'
-      }
-    ]
+    destination: "LED",
+    origin_airport: "SVO",
+    destination_airport: "LED",
+    price: 5939,
+    airline: "SU",
+    flight_number: "46",
+    departure_at: "2023-08-15T00:50:00+03:00",
+    return_at: "2023-09-05T06:00:00+03:00",
+    transfers: 0,
+    return_transfers: 0,
+    duration: 175,
+    duration_to: 80,
+    duration_back: 95,
+    link: "/search/MOW1508LED05091?t=SU16920498001692054600000080SVOLED16938828001693888500000095LEDVKO_0c085cf3cb7602a633cee36da1ce936b_5968&search_date=18062023&expected_price_uuid=81acb405-a41f-4f0e-976c-a80867ad7c4f&expected_price_source=share&expected_price_currency=rub&expected_price=5939"
   },
   {
-    price: '3570',
-    company: 'S7 Airlines',
-    image: s7,
+    origin: "MOW",
     id: 3,
-    transfer: 1,
-    segments: [
-      {
-        origin: 'Москва',
-        originCode: 'DME',
-        destination: 'Калининград',
-        destinationCode: 'KGD',
-        date: '27 мая, сб',
-        time: '19:15',
-        duration: '2:45',
-        dateDest: '27 мая, сб',
-        timeDest: '22:45'
-      },
-      {
-        origin: 'Калининград',
-        originCode: 'KGD',
-        destination: 'Москва',
-        destinationCode: 'DME',
-        date: '3 июня, сб',
-        time: '19:15',
-        duration: '2:45',
-        dateDest: '3 июня, сб',
-        timeDest: '22:45'
-      }
-    ]
+    destination: "LED",
+    origin_airport: "SVO",
+    destination_airport: "LED",
+    price: 5939,
+    airline: "SU",
+    flight_number: "46",
+    departure_at: "2023-08-15T00:50:00+03:00",
+    return_at: "2023-09-05T06:00:00+03:00",
+    transfers: 0,
+    return_transfers: 0,
+    duration: 175,
+    duration_to: 80,
+    duration_back: 95,
+    link: "/search/MOW1508LED05091?t=SU16920498001692054600000080SVOLED16938828001693888500000095LEDVKO_0c085cf3cb7602a633cee36da1ce936b_5968&search_date=18062023&expected_price_uuid=81acb405-a41f-4f0e-976c-a80867ad7c4f&expected_price_source=share&expected_price_currency=rub&expected_price=5939"
   },
   {
-    price: '5570',
-    company: 'S7 Airlines',
-    image: s7,
+    origin: "MOW",
     id: 4,
-    transfer: 3,
-    segments: [
-      {
-        origin: 'Москва',
-        originCode: 'DME',
-        destination: 'Калининград',
-        destinationCode: 'KGD',
-        date: '27 мая, сб',
-        time: '19:15',
-        duration: '2:45',
-        dateDest: '27 мая, сб',
-        timeDest: '22:45'
-      },
-      {
-        origin: 'Калининград',
-        originCode: 'KGD',
-        destination: 'Москва',
-        destinationCode: 'DME',
-        date: '3 июня, сб',
-        time: '19:15',
-        duration: '2:45',
-        dateDest: '3 июня, сб',
-        timeDest: '22:45'
-      }
-    ]
+    destination: "LED",
+    origin_airport: "SVO",
+    destination_airport: "LED",
+    price: 500,
+    airline: "SU",
+    flight_number: "46",
+    departure_at: "2023-08-15T00:50:00+03:00",
+    return_at: "2023-09-05T06:00:00+03:00",
+    transfers: 0,
+    return_transfers: 0,
+    duration: 175,
+    duration_to: 80,
+    duration_back: 95,
+    link: "/search/MOW1508LED05091?t=SU16920498001692054600000080SVOLED16938828001693888500000095LEDVKO_0c085cf3cb7602a633cee36da1ce936b_5968&search_date=18062023&expected_price_uuid=81acb405-a41f-4f0e-976c-a80867ad7c4f&expected_price_source=share&expected_price_currency=rub&expected_price=5939"
   },
   {
-    price: '45500',
-    company: 'Уральские авиалинии',
-    image: urals,
+    origin: "MOW",
     id: 5,
-    transfer: 1,
-    segments: [
-      {
-        origin: 'Москва',
-        originCode: 'DME',
-        destination: 'Калининград',
-        destinationCode: 'KGD',
-        date: '27 мая, сб',
-        time: '19:15',
-        duration: '2:45',
-        dateDest: '27 мая, сб',
-        timeDest: '22:45'
-      },
-      {
-        origin: 'Калининград',
-        originCode: 'KGD',
-        destination: 'Москва',
-        destinationCode: 'DME',
-        date: '3 июня, сб',
-        time: '19:15',
-        duration: '2:45',
-        dateDest: '3 июня, сб',
-        timeDest: '22:45'
-      }
-    ]
+    destination: "LED",
+    origin_airport: "SVO",
+    destination_airport: "LED",
+    price: 200,
+    airline: "SU",
+    flight_number: "46",
+    departure_at: "2023-08-15T00:50:00+03:00",
+    return_at: "2023-09-05T06:00:00+03:00",
+    transfers: 0,
+    return_transfers: 0,
+    duration: 175,
+    duration_to: 80,
+    duration_back: 95,
+    link: "/search/MOW1508LED05091?t=SU16920498001692054600000080SVOLED16938828001693888500000095LEDVKO_0c085cf3cb7602a633cee36da1ce936b_5968&search_date=18062023&expected_price_uuid=81acb405-a41f-4f0e-976c-a80867ad7c4f&expected_price_source=share&expected_price_currency=rub&expected_price=5939"
   },
   {
-    price: '4370',
-    company: 'Уральские авиалинии',
-    image: urals,
+    origin: "MOW",
     id: 6,
-    transfer: 1,
-    segments: [
-      {
-        origin: 'Москва',
-        originCode: 'DME',
-        destination: 'Калининград',
-        destinationCode: 'KGD',
-        date: '27 мая, сб',
-        time: '19:15',
-        duration: '2:45',
-        dateDest: '27 мая, сб',
-        timeDest: '22:45'
-      },
-      {
-        origin: 'Калининград',
-        originCode: 'KGD',
-        destination: 'Москва',
-        destinationCode: 'DME',
-        date: '3 июня, сб',
-        time: '19:15',
-        duration: '2:45',
-        dateDest: '3 июня, сб',
-        timeDest: '22:45'
-      }
-    ]
+    destination: "LED",
+    origin_airport: "SVO",
+    destination_airport: "LED",
+    price: 4564,
+    airline: "SU",
+    flight_number: "46",
+    departure_at: "2023-08-15T00:50:00+03:00",
+    return_at: "2023-09-05T06:00:00+03:00",
+    transfers: 0,
+    return_transfers: 0,
+    duration: 175,
+    duration_to: 80,
+    duration_back: 95,
+    link: "/search/MOW1508LED05091?t=SU16920498001692054600000080SVOLED16938828001693888500000095LEDVKO_0c085cf3cb7602a633cee36da1ce936b_5968&search_date=18062023&expected_price_uuid=81acb405-a41f-4f0e-976c-a80867ad7c4f&expected_price_source=share&expected_price_currency=rub&expected_price=5939"
   },
   {
-    price: '2000',
-    company: 'Уральские авиалинии',
-    image: urals,
+    origin: "MOW",
     id: 7,
-    transfer: 1,
-    segments: [
-      {
-        origin: 'Москва',
-        originCode: 'DME',
-        destination: 'Калининград',
-        destinationCode: 'KGD',
-        date: '27 мая, сб',
-        time: '19:15',
-        duration: '2:45',
-        dateDest: '27 мая, сб',
-        timeDest: '22:45'
-      },
-      {
-        origin: 'Калининград',
-        originCode: 'KGD',
-        destination: 'Москва',
-        destinationCode: 'DME',
-        date: '3 июня, сб',
-        time: '19:15',
-        duration: '2:45',
-        dateDest: '3 июня, сб',
-        timeDest: '22:45'
-      }
-    ]
+    destination: "LED",
+    origin_airport: "SVO",
+    destination_airport: "LED",
+    price: 45645,
+    airline: "SU",
+    flight_number: "46",
+    departure_at: "2023-08-15T00:50:00+03:00",
+    return_at: "2023-09-05T06:00:00+03:00",
+    transfers: 0,
+    return_transfers: 0,
+    duration: 175,
+    duration_to: 80,
+    duration_back: 95,
+    link: "/search/MOW1508LED05091?t=SU16920498001692054600000080SVOLED16938828001693888500000095LEDVKO_0c085cf3cb7602a633cee36da1ce936b_5968&search_date=18062023&expected_price_uuid=81acb405-a41f-4f0e-976c-a80867ad7c4f&expected_price_source=share&expected_price_currency=rub&expected_price=5939"
   },
   {
-    price: '3000',
-    company: 'Уральские авиалинии',
-    image: urals,
+    origin: "MOW",
     id: 8,
-    transfer: 5,
-    segments: [
-      {
-        origin: 'Москва',
-        originCode: 'DME',
-        destination: 'Калининград',
-        destinationCode: 'KGD',
-        date: '27 мая, сб',
-        time: '19:15',
-        duration: '2:45',
-        dateDest: '27 мая, сб',
-        timeDest: '22:45'
-      },
-      {
-        origin: 'Калининград',
-        originCode: 'KGD',
-        destination: 'Москва',
-        destinationCode: 'DME',
-        date: '3 июня, сб',
-        time: '19:15',
-        duration: '2:45',
-        dateDest: '3 июня, сб',
-        timeDest: '22:45'
-      }
-    ]
+    destination: "LED",
+    origin_airport: "SVO",
+    destination_airport: "LED",
+    price: 8888,
+    airline: "SU",
+    flight_number: "46",
+    departure_at: "2023-08-15T00:50:00+03:00",
+    return_at: "2023-09-05T06:00:00+03:00",
+    transfers: 0,
+    return_transfers: 0,
+    duration: 175,
+    duration_to: 80,
+    duration_back: 95,
+    link: "/search/MOW1508LED05091?t=SU16920498001692054600000080SVOLED16938828001693888500000095LEDVKO_0c085cf3cb7602a633cee36da1ce936b_5968&search_date=18062023&expected_price_uuid=81acb405-a41f-4f0e-976c-a80867ad7c4f&expected_price_source=share&expected_price_currency=rub&expected_price=5939"
+  },
+  {
+    origin: "MOW",
+    id: 9,
+    destination: "LED",
+    origin_airport: "SVO",
+    destination_airport: "LED",
+    price: 4563,
+    airline: "SU",
+    flight_number: "46",
+    departure_at: "2023-08-15T00:50:00+03:00",
+    return_at: "2023-09-05T06:00:00+03:00",
+    transfers: 0,
+    return_transfers: 0,
+    duration: 175,
+    duration_to: 80,
+    duration_back: 95,
+    link: "/search/MOW1508LED05091?t=SU16920498001692054600000080SVOLED16938828001693888500000095LEDVKO_0c085cf3cb7602a633cee36da1ce936b_5968&search_date=18062023&expected_price_uuid=81acb405-a41f-4f0e-976c-a80867ad7c4f&expected_price_source=share&expected_price_currency=rub&expected_price=5939"
   },
 ]
 
@@ -300,4 +215,16 @@ const faq = [
   },
 ];
 
-export { TICKETS_ON_PAGE, ticketsInfo, calendarData, faq, BASE_URL };
+const dayOfWeek = {
+  Mon: 'Пн',
+  Tue: 'Вт',
+  Wed: 'Ср',
+  Thu: 'Чт',
+  Fri: 'Пт',
+  Sat: 'Сб',
+  Sun: 'Вс'
+}
+
+const monthsInTicket = { 1: 'Января', 2: "Февраля", 3: "Марта", 4: "Апреля", 5: "Мая", 6: "Июня", 7: "Июля", 8: "Августа", 9: "Сентября", 10: "Октября", 11: "Ноября", 12: "Декабря" }
+
+export { TICKETS_ON_PAGE, calendarData, faq, BASE_URL, tickets, dayOfWeek, monthsInTicket};
