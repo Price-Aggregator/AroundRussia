@@ -20,7 +20,7 @@ function TicketPriceBox({ price }) {
 }
 
 TicketPriceBox.propTypes = {
-  price: PropTypes.string.isRequired,
+  price: PropTypes.number.isRequired,
 }
 
 export default TicketPriceBox

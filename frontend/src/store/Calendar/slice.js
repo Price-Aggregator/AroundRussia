@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 import { BASE_URL } from '../../utils/constants'
-import checkResponse from '../../utils/check-response'
+// import checkResponse from '../../utils/check-response'
 
 export const calendareName = 'calendar'
 
@@ -8,15 +8,17 @@ const initialState = {
   calendar: []
 }
 
-export const getCalendar = createAsyncThunk(
+export const fetchCalendar = createAsyncThunk(
   `${calendareName}/getCalendar`,
-  async (date, destination, origin) => {
-    const res = await fetch(`${BASE_URL}/calendar?departure_at=${date}&destination=${destination}&origin=${origin}`, {
+  async (calendareData) => {
+    const res = await fetch(`${BASE_URL}/calendar?departure_at=${calendareData.when}&destination=${calendareData.from}&origin=${calendareData.to}`, {
       method: 'GET',
       headers: {
         "Content-Type": "application/json",
       }
-    }).then(checkResponse)
+    }).then((req) => req.json())
+    // }).then(checkResponse)
+    console.log(res)
     return res
   }
 )
@@ -28,7 +30,7 @@ const calendarSlice = createSlice({
 
   },
   extraReducers: {
-    [getCalendar.fulfilled]: (state, action) => ({
+    [fetchCalendar.fulfilled]: (state, action) => ({
       ...state,
       calendar: action.payload
     })

@@ -73,7 +73,7 @@ function TicketContent({ ticket }) {
 
 
 TicketContent.propTypes = {
-  ticket: PropTypes.objectOf(PropTypes.string).isRequired
+  ticket: PropTypes.objectOf(PropTypes.oneOfType([PropTypes.string, PropTypes.number])).isRequired
 }
 
 TicketDateContent.propTypes = {
@@ -84,7 +84,7 @@ TicketDateContent.propTypes = {
 
 TicketDurationContent.propTypes = {
   originCode: PropTypes.string.isRequired,
-  duration: PropTypes.string.isRequired,
+  duration: PropTypes.number.isRequired,
   destinationCode: PropTypes.string.isRequired
 }
 

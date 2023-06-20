@@ -40,7 +40,10 @@ function TicketInfoBox({ company, image, ticket }) {
 TicketInfoBox.propTypes = {
   company: PropTypes.string.isRequired,
   image: PropTypes.string.isRequired,
-  ticket: PropTypes.arrayOf(PropTypes.objectOf()).isRequired
+  ticket: PropTypes.objectOf(PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.number
+  ])).isRequired
 }
 
 export default TicketInfoBox

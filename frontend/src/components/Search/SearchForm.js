@@ -1,20 +1,22 @@
 import React, { useState } from 'react';
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from 'react-router-dom';
 import styles from './Search.module.css';
 import calendar from '../../images/calendar.svg';
-import { api } from '../../utils/Api';
+// import { api } from '../../utils/Api';
 import { setForm } from '../../store/SearchForm/slice';
 import { fetchTickets } from '../../store/Tickets/slice';
+import { getAllCities } from '../../store/Cities/selectors';
 
 function SearchForm() {
   const dispatch = useDispatch()
   const navigate = useNavigate();
+  const cities = useSelector(getAllCities)
   const [from, setFrom] = useState('');
   const [to, setTo] = useState('');
   const [when, setWhen] = useState('');
   const [whenReturn, setWhenReturn] = useState('');
-  const [message, setMessage] = useState('');
+  // const [message, setMessage] = useState('');
 
   const [filteredSuggestions, setFilteredSuggestions] = useState([]);
   const [activeSuggestionIndex, setActiveSuggestionIndex] = useState(0);
@@ -24,13 +26,14 @@ function SearchForm() {
   const [activeSuggestionIndexTo, setActiveSuggestionIndexTo] = useState(0);
   const [showSuggestionsTo, setShowSuggestionsTo] = useState(false);
 
-  api.getCities().then((res) => {
-    localStorage.setItem('data', JSON.stringify(res));
-    const cities = JSON.parse(localStorage.getItem('data')).map(
-      (item) => item.name
-    );
-    return cities;
-  });
+  // api.getCities().then((res) => {
+  //   localStorage.setItem('data', JSON.stringify(res));
+  //   const cities = JSON.parse(localStorage.getItem('data')).map(
+  //     (item) => item.name
+  //   );
+  //   return cities;
+  // });
+
 
   const suggestions = ['Москва', 'Воронеж']
   const onClickFrom = (e) => {
@@ -75,9 +78,13 @@ function SearchForm() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    const fromCityIATA = cities.find((item) => item.name === from)
+    const toCityIATA = cities.find((item) => item.name === to)
+
     const formData = {
-      from,
-      to,
+      from: fromCityIATA.code,
+      to: toCityIATA.code,
       when,
       whenReturn
     }
@@ -85,23 +92,23 @@ function SearchForm() {
     dispatch(fetchTickets(formData))
     navigate('/result');
 
-    try {
-      const res = api.addDataTicket(from, to, when, whenReturn);
-      // eslint-disable-next-line no-unused-vars
-      const resJson = await res.json();
-      localStorage.setItem('movies', JSON.stringify(resJson));
-      if (res.status === 200) {
-        setFrom('');
-        setTo('');
-        setWhen('');
-        setWhenReturn('');
-        setMessage('Search is completed');
-      } else {
-        setMessage('Some error occured');
-      }
-    } catch (err) {
-      //  new Error(err)
-    }
+    // try {
+    //   const res = api.addDataTicket(from, to, when, whenReturn);
+    //   // eslint-disable-next-line no-unused-vars
+    //   const resJson = await res.json();
+    //   localStorage.setItem('movies', JSON.stringify(resJson));
+    //   if (res.status === 200) {
+    //     setFrom('');
+    //     setTo('');
+    //     setWhen('');
+    //     setWhenReturn('');
+    //     setMessage('Search is completed');
+    //   } else {
+    //     setMessage('Some error occured');
+    //   }
+    // } catch (err) {
+    //   //  new Error(err)
+    // }
   };
 
   return (
@@ -208,7 +215,7 @@ function SearchForm() {
         <button className={styles.search__button} type="submit">
           Найти
         </button>
-        <div className="message">{message ? <p>{message}</p> : null}</div>
+        {/* <div className="message">{message ? <p>{message}</p> : null}</div> */}
       </form>
     </>
   );

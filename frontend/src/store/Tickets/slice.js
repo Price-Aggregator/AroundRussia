@@ -44,7 +44,6 @@ const ticketsSlice = createSlice({
       .addCase(fetchTickets.fulfilled, (state, action) => ({
         ...state,
         tickets: action.payload.data
-        // console.log(action.payload)
       }))
   }
 })

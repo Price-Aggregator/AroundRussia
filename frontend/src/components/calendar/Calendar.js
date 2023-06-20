@@ -5,16 +5,19 @@ import styles from './Calendar.module.css';
 import Graph from './graph/Graph';
 import PropTypes from 'prop-types';
 import { calendarData } from '../../utils/constants';
-// import { useDispatch, useSelector } from 'react-redux';
-// import { getCityByName } from '../../store/Cities/selectors';
-// import { getCalendar } from '../../store/Calendar/slice';
+import { useSelector } from 'react-redux';
+import { getAllCities } from '../../store/Cities/selectors';
+import getSearchFormState from '../../store/SearchForm/selectors';
+import getCalendare from '../../store/Calendar/selectors';
 
-export default function Calendar({ departureCity, arrivalCity, when }) {
+export default function Calendar({ when }) {
   // const dispatch = useDispatch()
-  // const arrival = useSelector(getCityByName(arrivalCity))
-  // const departure = useSelector(getCityByName(departureCity))
-  // dispatch(getCalendar())
-  console.log(when)
+  const cities = useSelector(getAllCities)
+  const form = useSelector(getSearchFormState)
+  const arrival = cities.find((item) => item.code === form.to)
+  const departure = cities.find((item) => item.code === form.from)
+  const calendare = useSelector(getCalendare)
+  console.log(when, calendare)
 
   return (
     <section className={styles.calendar}>
@@ -23,12 +26,12 @@ export default function Calendar({ departureCity, arrivalCity, when }) {
         <p className={styles.calendar__city}>
           {' '}
           Откуда:
-          <span className={styles.calendar__city_span}>{departureCity}</span>
+          <span className={styles.calendar__city_span}>{departure?.name}</span>
         </p>
         <p className={styles.calendar__city}>
           {' '}
           Куда:
-          <span className={styles.calendar__city_span}>{arrivalCity}</span>
+          <span className={styles.calendar__city_span}>{arrival?.name}</span>
         </p>
       </div>
       <div className={styles.calendar__graph_box}>
@@ -55,7 +58,7 @@ export default function Calendar({ departureCity, arrivalCity, when }) {
 }
 
 Calendar.propTypes = {
-  departureCity: PropTypes.string.isRequired,
-  arrivalCity: PropTypes.string.isRequired,
+  // departureCity: PropTypes.string.isRequired,
+  // arrivalCity: PropTypes.string.isRequired,
   when: PropTypes.string.isRequired
 };
