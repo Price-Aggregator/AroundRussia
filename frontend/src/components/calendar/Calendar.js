@@ -1,17 +1,15 @@
-/* eslint-disable import/order */
-/* eslint-disable import/no-extraneous-dependencies */
-/* eslint-disable react/react-in-jsx-scope */
+/* eslint-disable no-console */
+import React, { useState, useEffect } from 'react';
+import PropTypes from 'prop-types';
+import { useSelector } from 'react-redux';
 import styles from './Calendar.module.css';
 import Graph from './graph/Graph';
-import PropTypes from 'prop-types';
 import { calendarData } from '../../utils/constants';
-import { useSelector } from 'react-redux';
 import { getAllCities } from '../../store/Cities/selectors';
 import getSearchFormState from '../../store/SearchForm/selectors';
 import getCalendare from '../../store/Calendar/selectors';
 
 export default function Calendar({ when }) {
-	// const dispatch = useDispatch()
 	const cities = useSelector(getAllCities);
 	const form = useSelector(getSearchFormState);
 	const arrival = cities.find((item) => item.code === form.to);
@@ -19,9 +17,39 @@ export default function Calendar({ when }) {
 	const calendare = useSelector(getCalendare);
 	console.log(when, calendare);
 
+	const [firstMonth, setFirstMonth] = useState('');
+	const [secondMonth, setSecondMonth] = useState('');
+
+	useEffect(() => {
+		if (calendarData.length > 0) {
+			const firstHalf = calendarData.slice(
+				0,
+				Math.ceil(calendarData.length / 2)
+			);
+			const secondHalf = calendarData.slice(Math.ceil(calendarData.length / 2));
+
+			const formatMonth = (date) =>
+				date.toLocaleString('ru-RU', { month: 'long' });
+			const getYear = (dateString) => new Date(dateString).getFullYear();
+
+			const firstMonths = [
+				...new Set(firstHalf.map((item) => formatMonth(new Date(item.date)))),
+			];
+			const secondMonths = [
+				...new Set(secondHalf.map((item) => formatMonth(new Date(item.date)))),
+			];
+
+			const firstYear = getYear(firstHalf[firstHalf.length - 1]?.date);
+			const secondYear = getYear(secondHalf[secondHalf.length - 1]?.date);
+
+			setFirstMonth(`${firstMonths.join(', ')} ${firstYear}`);
+			setSecondMonth(`${secondMonths.join(', ')} ${secondYear}`);
+		}
+	}, []);
+
 	return (
 		<section className={styles.calendar}>
-			<h2 className={styles.calendar__title}>Календарь низких цен </h2>
+			<h2 className={styles.calendar__title}>Календарь низких цен</h2>
 			<div className={styles.calendar__city_group}>
 				<p className={styles.calendar__city}>
 					{' '}
@@ -39,14 +67,14 @@ export default function Calendar({ when }) {
 				<div className={styles.calendar__month_group}>
 					<div className={styles.calendar__month_box}>
 						<div className={styles.calendar__month_icon} />
-						<span className={styles.calendar__month_text}>Май 2023</span>
+						<span className={styles.calendar__month_text}>{firstMonth}</span>
 						<div
 							className={`${styles.calendar__month_icon} ${styles.calendar__month_icon_revert}`}
 						/>
 					</div>
 					<div className={styles.calendar__month_box}>
 						<div className={styles.calendar__month_icon} />
-						<span className={styles.calendar__month_text}>Июнь 2023</span>
+						<span className={styles.calendar__month_text}>{secondMonth}</span>
 						<div
 							className={`${styles.calendar__month_icon} ${styles.calendar__month_icon_revert}`}
 						/>
@@ -58,7 +86,5 @@ export default function Calendar({ when }) {
 }
 
 Calendar.propTypes = {
-	// departureCity: PropTypes.string.isRequired,
-	// arrivalCity: PropTypes.string.isRequired,
 	when: PropTypes.string.isRequired,
 };

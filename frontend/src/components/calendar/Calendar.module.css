@@ -47,8 +47,10 @@
 
 .calendar__month_icon {
 	background-image: url(../../images/icon_line_calendar.svg);
-	width: 150px;
+	max-width: 150px;
 	height: 6px;
+	flex-grow: 1;
+	flex-shrink: 1;
 }
 
 .calendar__month_text {
@@ -58,6 +60,7 @@
 	font-size: 15px;
 	line-height: 18px;
 	color: #8a8a8a;
+	text-align: center;
 }
 
 .calendar__month_group {

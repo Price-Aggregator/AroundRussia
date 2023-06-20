@@ -11,6 +11,7 @@ import {
 } from 'recharts';
 import PropTypes from 'prop-types';
 import CustomTooltip from '../сustomTooltip/CustomTooltip';
+import generateUniqueKey from '../../../utils/utils';
 
 export default function Graph({ tickets }) {
 	const [activeIndex, setActiveIndex] = useState(0);
@@ -23,7 +24,7 @@ export default function Graph({ tickets }) {
 		setActiveIndex(-1);
 	}, []);
 
-	const data = tickets.map(({ date, price, _id }) => {
+	const data = tickets.map(({ date, price }) => {
 		const [year, month, day] = date.split('-');
 		const dateObject = new Date(year, month - 1, day);
 		const formattedDate = `${dateObject.getDate()}, ${dateObject.toLocaleDateString(
@@ -34,7 +35,7 @@ export default function Graph({ tickets }) {
 		return {
 			name: formattedDate,
 			uv: price,
-			id: _id,
+			id: generateUniqueKey(),
 		};
 	});
 
