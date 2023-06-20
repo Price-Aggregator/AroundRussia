@@ -1,54 +1,48 @@
 import React from 'react';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
-import Header from '../Header/Header';
-import Footer from '../Footer/Footer';
-import Text from '../Text/Text';
-import Tickets from '../Tickets/Tickets';
+import { useDispatch } from "react-redux";
 import NotFound from '../NotFound/NotFound';
-import Questions from '../Questions/Questions';
-import Search from '../Search/Search';
-import Search2 from '../Search/Search2';
-import Calendar from '../calendar/Calendar';
+import ResultPage from '../../pages/ResultPage';
+import MainPage from '../../pages/MainPage';
+import Layout from '../Layout/Layout';
 import styles from './App.module.css';
+import { getCities } from '../../store/Cities/slice';
+
 
 const router = createBrowserRouter([
-	{
-		path: '/',
-		element: (
-			<>
-				<Header />
-				<Search />
-				<Text />
-				<Questions />
-				<Footer />
-			</>
-		),
-	},
-	{
-		path: 'result',
-		element: (
-			<div>
-				<Header />
-				<Search2 />
-				<Calendar departureCity=" Москва" arrivalCity=" Калининград" />
-				<Tickets />
-				<Footer />
-			</div>
-		),
-	},
-
-	{
-		path: '/*',
-		element: <NotFound />,
-	},
-]);
+  {
+    element: <Layout />,
+    children: [
+      {
+        path: '/',
+        element: (
+          <MainPage />
+        )
+      },
+      {
+        path: 'result',
+        element: (
+          <ResultPage />
+        )
+      }
+    ]
+  },
+  {
+    path: '/*',
+    element: <NotFound />,
+  },
+])
 
 function App() {
-	return (
-		<div className={styles.app}>
-			<RouterProvider router={router} />
-		</div>
-	);
+  const dispatch = useDispatch()
+
+  dispatch(getCities())
+
+  return (
+    <div className={styles.app}>
+      <RouterProvider router={router} />
+    </div>
+  );
 }
 
 export default App;

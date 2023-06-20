@@ -1,11 +1,9 @@
 .ticket {
   display: flex;
   flex-direction: row;
-  width: 760px;
-  height: 335px;
+  max-width: 790px;
   border-radius: 10px;
   background-color: #fff;
-  /* border: #8a8a8a 1px solid; */
   position: relative;
 }
 
@@ -13,9 +11,9 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 221px;
-  height: 335px;
+  max-width: 221px;
   border-right: 1px dashed #8a8a8a;
+  padding: 50px 15px 0;
 }
 
 .ticket__price_box {
@@ -23,7 +21,6 @@
   flex-direction: column;
   align-items: center;
   gap: 20px;
-  padding: 30px 20px 0;
 }
 
 .price_text {
@@ -51,9 +48,7 @@
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  width: 539;
-  height: 335px;
-  padding: 15.5px 20px 15.5px 10px;
+  padding: 15.5px 30px 15.5px 30px;
   gap: 30px;
 }
 
@@ -101,7 +96,6 @@
   justify-content: center;
   align-items: flex-start;
   width: 95px;
-  height: 90px;
   gap: 20px;
 }
 
@@ -122,14 +116,6 @@
   gap: 5px;
 }
 
-.ticket__city_text {
-  font-style: normal;
-  font-weight: 400;
-  font-size: 15px;
-  line-height: 18px;
-  color: #8A8A8A;
-}
-
 .tickets__content_box {
   display: flex;
   flex-direction: column;
@@ -139,7 +125,7 @@
 .ticket__middle {
   display: flex;
   flex-direction: column;
-  gap: 25px;
+  gap: 24px;
   align-items: center;
   padding: 10px 0;
 }
@@ -147,8 +133,30 @@
 .ticket__duration {
   display: flex;
   flex-direction: row;
-  gap: 65.5px;
+  gap: 56px;
   align-items: center;
+}
+
+.ticket__text {
+  font-style: normal;
+  font-weight: 400;
+  font-size: 15px;
+  line-height: 18px;
+  color: #8A8A8A;
+}
+
+.ticket__duration::after {
+  content: '';
+  width: 26px;
+  height: 25px;
+  background-image: url('../../images/airplane-down.svg');
+}
+
+.ticket__duration::before {
+  content: '';
+  width: 26px;
+  height: 25px;
+  background-image: url('../../images/airplane-up.svg');
 }
 
 .ticket__airplane_image {
@@ -157,7 +165,7 @@
 }
 
 .line {
-  border: 3px solid #8A8A8A;
+  border: 1px solid #8A8A8A;
   border-radius: 10px;
   width: 265px;
   box-sizing: border-box;
@@ -194,4 +202,10 @@
   font-size: 15px;
   line-height: 18px;
   color: #FFFFFF;
+}
+
+.ticket__one_transfer {
+  composes: ticket__best_price;
+  background-color: #29A3D2;
+
 }

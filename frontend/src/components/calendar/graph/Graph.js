@@ -23,13 +23,20 @@ export default function Graph({ tickets }) {
 		setActiveIndex(-1);
 	}, []);
 
-	const data = tickets.map(({ date, price, _id, from, to }) => ({
-		name: date,
-		uv: price,
-		id: _id,
-		destination: to,
-		departure: from,
-	}));
+	const data = tickets.map(({ date, price, _id }) => {
+		const [year, month, day] = date.split('-');
+		const dateObject = new Date(year, month - 1, day);
+		const formattedDate = `${dateObject.getDate()}, ${dateObject.toLocaleDateString(
+			'ru-RU',
+			{ weekday: 'short' }
+		)}`;
+
+		return {
+			name: formattedDate,
+			uv: price,
+			id: _id,
+		};
+	});
 
 	return (
 		<ResponsiveContainer width="100%" height={100}>
