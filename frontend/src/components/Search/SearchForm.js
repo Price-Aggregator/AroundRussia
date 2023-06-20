@@ -19,16 +19,17 @@ function SearchForm() {
 	const [filteredSuggestionsTo, setFilteredSuggestionsTo] = useState([]);
 	const [activeSuggestionIndexTo, setActiveSuggestionIndexTo] = useState(0);
 	const [showSuggestionsTo, setShowSuggestionsTo] = useState(false);
-
- api.getCities().then((res) => {
+  const [result,setResult] = useState({});
+ /* api.getCities().then((res) => {
 		localStorage.setItem('data', JSON.stringify(res));
 		const cities = JSON.parse(localStorage.getItem('data')).map(
 			(item) => item.name
 		);
 //		console.log(cities);
     return cities;
-	});
+	}); */
 const suggestions = ['Москва', 'Воронеж']
+
 	const onClickFrom = (e) => {
 		setFilteredSuggestions([]);
 		setFrom(e.target.innerText);
@@ -74,12 +75,21 @@ const suggestions = ['Москва', 'Воронеж']
 	const handleSubmit = async (e) => {
 		e.preventDefault();
 		navigate('/result');
-
+    const codeFrom = api.getCitiesId(from).then((res) => res[0].code);
+    const codeTo = api.getCitiesId(to).then((res) => res[0].code);
+    const fr = await codeFrom;
+    const t = await codeTo;
+    console.log(fr, t);
 		try {
-			const res = api.addDataTicket(from, to, when, whenReturn);
+			const res = api.addDataTicket(fr, t, when, whenReturn).then((data) => {
+      setResult(data);
+      });
+      console.log(res);
+      console.log(result);
 			// eslint-disable-next-line no-unused-vars
-			const resJson = await res.json();
-			localStorage.setItem('movies', JSON.stringify(resJson));
+			const resJson = await res;
+      console.log(resJson);
+			localStorage.setItem('searchResult', JSON.stringify(resJson));
 			if (res.status === 200) {
 				setFrom('');
 				setTo('');
@@ -90,7 +100,7 @@ const suggestions = ['Москва', 'Воронеж']
 				setMessage('Some error occured');
 			}
 		} catch (err) {
-//			console.log(err);
+			console.log(err);
 		}
 	};
 

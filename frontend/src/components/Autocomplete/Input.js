@@ -1,4 +1,4 @@
-import React from 'react';
+/* import React from 'react';
 
 export default function Input(props) {
 	// eslint-disable-next-line react/prop-types
@@ -14,4 +14,4 @@ export default function Input(props) {
 			required
 		/>
 	);
-}
+} */
