@@ -5,6 +5,8 @@ import Questions from "../components/Questions/Questions";
 import { faq } from "../utils/constants";
 
 function MainPage() {
+
+
   return (
     <>
       <Search />
