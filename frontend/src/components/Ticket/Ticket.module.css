@@ -209,3 +209,12 @@
   background-color: #29A3D2;
 
 }
+
+.ticket__link {
+  font-style: normal;
+  font-weight: 500;
+  font-size: 20px;
+  line-height: 23px;
+  color: #132529;
+  text-decoration: none;
+}

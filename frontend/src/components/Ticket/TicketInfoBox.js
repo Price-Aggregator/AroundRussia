@@ -26,7 +26,7 @@ function TicketInfoBox({ company, image, ticket }) {
   return (
     <div className={styles.ticket__info}>
       <div className={styles.company__box}>
-        <img src={image} alt='avia-company-logo' className={styles.company__image} />
+        <img src={image} alt='logo' className={styles.company__image} />
         <span className={styles.company__name}>{company}</span>
       </div>
       <div className={styles.tickets__content_box}>

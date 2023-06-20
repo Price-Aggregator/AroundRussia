@@ -26,6 +26,7 @@ export const fetchTickets = createAsyncThunk(
         unique: "false"
       }),
     }).then(checkResponse)
+    localStorage.setItem('searchResult', JSON.stringify(res));
     return res
   }
 )

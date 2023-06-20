@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 import { BASE_URL } from '../../utils/constants'
-// import checkResponse from '../../utils/check-response'
+import checkResponse from '../../utils/check-response'
 
 export const calendareName = 'calendar'
 
@@ -16,8 +16,7 @@ export const fetchCalendar = createAsyncThunk(
       headers: {
         "Content-Type": "application/json",
       }
-    }).then((req) => req.json())
-    // }).then(checkResponse)
+    }).then(checkResponse)
     console.log(res)
     return res
   }

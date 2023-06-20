@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styles from './Tickets.module.css'
-import { TICKETS_ON_PAGE } from "../../utils/constants"; // ticketsInfo -  заглушка до появления данных с бэка, удалить
+import { TICKETS_ON_PAGE } from "../../utils/constants";
 import { getPage } from "../../store/Pagination/selectors";
 import Ticket from "../Ticket/Ticket";
 import Pagination from "../Pagination/Pagination";

@@ -1,6 +1,7 @@
 /* eslint-disable react/prop-types */
+/* import Input from './Input';
 import React, { useState } from 'react';
-import Input from './Input';
+
 
 function AutoComplete({ suggestions, classInput, placeholder, name  }) {
 	const [filteredSuggestions, setFilteredSuggestions] = useState([]);
@@ -63,4 +64,4 @@ function AutoComplete({ suggestions, classInput, placeholder, name  }) {
 		</div>
 	);
 }
-export default AutoComplete;
+export default AutoComplete; */

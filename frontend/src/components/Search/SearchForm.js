@@ -3,7 +3,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from 'react-router-dom';
 import styles from './Search.module.css';
 import calendar from '../../images/calendar.svg';
-// import { api } from '../../utils/Api';
 import { setForm } from '../../store/SearchForm/slice';
 import { fetchTickets } from '../../store/Tickets/slice';
 import { getAllCities } from '../../store/Cities/selectors';
@@ -16,24 +15,14 @@ function SearchForm() {
   const [to, setTo] = useState('');
   const [when, setWhen] = useState('');
   const [whenReturn, setWhenReturn] = useState('');
-  // const [message, setMessage] = useState('');
 
   const [filteredSuggestions, setFilteredSuggestions] = useState([]);
   const [activeSuggestionIndex, setActiveSuggestionIndex] = useState(0);
   const [showSuggestions, setShowSuggestions] = useState(false);
 
-  const [filteredSuggestionsTo, setFilteredSuggestionsTo] = useState([]);
-  const [activeSuggestionIndexTo, setActiveSuggestionIndexTo] = useState(0);
-  const [showSuggestionsTo, setShowSuggestionsTo] = useState(false);
-
-  // api.getCities().then((res) => {
-  //   localStorage.setItem('data', JSON.stringify(res));
-  //   const cities = JSON.parse(localStorage.getItem('data')).map(
-  //     (item) => item.name
-  //   );
-  //   return cities;
-  // });
-
+	const [filteredSuggestionsTo, setFilteredSuggestionsTo] = useState([]);
+	const [activeSuggestionIndexTo, setActiveSuggestionIndexTo] = useState(0);
+	const [showSuggestionsTo, setShowSuggestionsTo] = useState(false);
 
   const suggestions = ['Москва', 'Воронеж']
   const onClickFrom = (e) => {
@@ -81,6 +70,7 @@ function SearchForm() {
 
     const fromCityIATA = cities.find((item) => item.name === from)
     const toCityIATA = cities.find((item) => item.name === to)
+    navigate('/result');
 
     const formData = {
       from: fromCityIATA.code,
@@ -92,23 +82,6 @@ function SearchForm() {
     dispatch(fetchTickets(formData))
     navigate('/result');
 
-    // try {
-    //   const res = api.addDataTicket(from, to, when, whenReturn);
-    //   // eslint-disable-next-line no-unused-vars
-    //   const resJson = await res.json();
-    //   localStorage.setItem('movies', JSON.stringify(resJson));
-    //   if (res.status === 200) {
-    //     setFrom('');
-    //     setTo('');
-    //     setWhen('');
-    //     setWhenReturn('');
-    //     setMessage('Search is completed');
-    //   } else {
-    //     setMessage('Some error occured');
-    //   }
-    // } catch (err) {
-    //   //  new Error(err)
-    // }
   };
 
   return (

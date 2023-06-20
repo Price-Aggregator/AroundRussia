@@ -15,14 +15,14 @@ function Ticket({ bestPrice, id, oneTransfer }) {
   return <article className={styles.ticket}>
     {bestPrice && <div className={styles.ticket__best_price}>Самый дешевый</div>}
     {oneTransfer && <div className={styles.ticket__one_transfer}>c 1 пересадкой</div>}
-    <TicketPriceBox price={ticket.price} />
-    <TicketInfoBox company={ticket.airline} image={ticket.image} ticket={ticket} />
+    {ticket && <TicketPriceBox price={ticket.price} link={ticket.link} />}
+    {ticket && <TicketInfoBox company={ticket.airline} image={ticket.image} ticket={ticket} />}
   </article>;
 }
 
 Ticket.propTypes = {
   bestPrice: PropTypes.bool,
-  id: PropTypes.number.isRequired,
+  id: PropTypes.string.isRequired,
   oneTransfer: PropTypes.bool
 }
 
