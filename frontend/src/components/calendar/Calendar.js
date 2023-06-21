@@ -21,29 +21,44 @@ export default function Calendar({ when }) {
 	const [secondMonth, setSecondMonth] = useState('');
 
 	useEffect(() => {
+		/* сюда прокинуть вместо calendarData данные от бека */
 		if (calendarData.length > 0) {
-			const firstHalf = calendarData.slice(
-				0,
-				Math.ceil(calendarData.length / 2)
-			);
-			const secondHalf = calendarData.slice(Math.ceil(calendarData.length / 2));
-
 			const formatMonth = (date) =>
 				date.toLocaleString('ru-RU', { month: 'long' });
 			const getYear = (dateString) => new Date(dateString).getFullYear();
 
-			const firstMonths = [
-				...new Set(firstHalf.map((item) => formatMonth(new Date(item.date)))),
-			];
-			const secondMonths = [
-				...new Set(secondHalf.map((item) => formatMonth(new Date(item.date)))),
+			const [firstHalf, secondHalf] = [
+				/* в две строчки ниже тоже прокинуть вместо calendarData данные от бека */
+				calendarData.slice(0, Math.ceil(calendarData.length / 2)),
+				calendarData.slice(Math.ceil(calendarData.length / 2)),
 			];
 
-			const firstYear = getYear(firstHalf[firstHalf.length - 1]?.date);
-			const secondYear = getYear(secondHalf[secondHalf.length - 1]?.date);
+			const [firstMonths, secondMonths] = [
+				[...new Set(firstHalf.map((item) => formatMonth(new Date(item.date))))],
+				[
+					...new Set(
+						secondHalf.map((item) => formatMonth(new Date(item.date)))
+					),
+				],
+			];
 
-			setFirstMonth(`${firstMonths.join(', ')} ${firstYear}`);
-			setSecondMonth(`${secondMonths.join(', ')} ${secondYear}`);
+			const [firstYear, secondYear] = [
+				getYear(firstHalf[firstHalf.length - 1]?.date),
+				getYear(secondHalf[secondHalf.length - 1]?.date),
+			];
+
+			const capitalizeFirstLetter = (string) =>
+				string.charAt(0).toUpperCase() + string.slice(1);
+
+			const capitalizedStringFirstMonth = capitalizeFirstLetter(
+				firstMonths.join(', ')
+			);
+			const capitalizedStringSecondMonth = capitalizeFirstLetter(
+				secondMonths.join(', ')
+			);
+
+			setFirstMonth(`${capitalizedStringFirstMonth} ${firstYear}`);
+			setSecondMonth(`${capitalizedStringSecondMonth} ${secondYear}`);
 		}
 	}, []);
 
@@ -53,16 +68,17 @@ export default function Calendar({ when }) {
 			<div className={styles.calendar__city_group}>
 				<p className={styles.calendar__city}>
 					{' '}
-					Откуда:
+					Откуда:{' '}
 					<span className={styles.calendar__city_span}>{departure?.name}</span>
 				</p>
 				<p className={styles.calendar__city}>
 					{' '}
-					Куда:
+					Куда:{' '}
 					<span className={styles.calendar__city_span}>{arrival?.name}</span>
 				</p>
 			</div>
 			<div className={styles.calendar__graph_box}>
+				{/* сюда прокинуть вместо calendarData данные от бека */}
 				<Graph tickets={calendarData} />
 				<div className={styles.calendar__month_group}>
 					<div className={styles.calendar__month_box}>
