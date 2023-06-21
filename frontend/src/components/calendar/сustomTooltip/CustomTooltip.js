@@ -1,8 +1,8 @@
-/* eslint-disable react/react-in-jsx-scope */
-/* eslint-disable react/prop-types */
+import React from 'react';
+import PropTypes from 'prop-types';
 import styles from './CustomTooltip.module.css';
 
-function CustomTooltip({ active, payload, label }) {
+export default function CustomTooltip({ active, payload, label }) {
 	if (active && payload && payload.length) {
 		return (
 			<div className={styles.customTooltip}>
@@ -19,4 +19,16 @@ function CustomTooltip({ active, payload, label }) {
 	return null;
 }
 
-export default CustomTooltip;
+CustomTooltip.propTypes = {
+	active: PropTypes.bool.isRequired,
+	payload: PropTypes.arrayOf(
+		PropTypes.shape({
+			value: PropTypes.number.isRequired,
+		})
+	).isRequired,
+	label: PropTypes.string,
+};
+
+CustomTooltip.defaultProps = {
+	label: '',
+};

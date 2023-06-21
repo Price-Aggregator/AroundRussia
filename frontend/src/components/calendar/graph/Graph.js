@@ -1,6 +1,4 @@
-/* eslint-disable import/no-extraneous-dependencies */
-/* eslint-disable react/react-in-jsx-scope */
-import { useState, useCallback } from 'react';
+import React, { useState, useCallback } from 'react';
 import {
 	BarChart,
 	XAxis,
@@ -11,6 +9,8 @@ import {
 } from 'recharts';
 import PropTypes from 'prop-types';
 import CustomTooltip from '../сustomTooltip/CustomTooltip';
+import CustomizedAxisTick from '../CustomizedAxisTick/CustomizedAxisTick';
+import generateUniqueKey from '../../../utils/utils';
 
 export default function Graph({ tickets }) {
 	const [activeIndex, setActiveIndex] = useState(0);
@@ -23,26 +23,26 @@ export default function Graph({ tickets }) {
 		setActiveIndex(-1);
 	}, []);
 
-	const data = tickets.map(({ date, price, _id, from, to }) => ({
-		name: date,
-		uv: price,
-		id: _id,
-		destination: to,
-		departure: from,
-	}));
+	const data = tickets.map(({ date, price }) => {
+		const [year, month, day] = date.split('-');
+		const dateObject = new Date(year, month - 1, day);
+		const formattedDate = `${dateObject.getDate()}, ${dateObject.toLocaleDateString(
+			'ru-RU',
+			{ weekday: 'short' }
+		)}`;
+
+		return {
+			name: formattedDate,
+			uv: price,
+			id: generateUniqueKey(),
+		};
+	});
 
 	return (
 		<ResponsiveContainer width="100%" height={100}>
 			<BarChart data={data} barGap={20} barSize={40}>
 				<XAxis
-					tick={{
-						fontSize: 15,
-						fontFamily: 'Roboto',
-						fontStyle: 'normal',
-						fontWeight: 400,
-						lineHeight: 18,
-						fill: '#8A8A8A',
-					}}
+					tick={<CustomizedAxisTick />}
 					margin={{ top: 10 }}
 					dataKey="name"
 					tickLine={false}
