@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
 import styles from './Calendar.module.css';
 import Graph from './graph/Graph';
-import { calendarData } from '../../utils/constants';
+// import { calendarData } from '../../utils/constants';
 import { getAllCities } from '../../store/Cities/selectors';
 import getSearchFormState from '../../store/SearchForm/selectors';
 import getCalendare from '../../store/Calendar/selectors';
@@ -22,15 +22,15 @@ export default function Calendar({ when }) {
 
 	useEffect(() => {
 		/* сюда прокинуть вместо calendarData данные от бека */
-		if (calendarData.length > 0) {
+		if (calendare.length > 0) {
 			const formatMonth = (date) =>
 				date.toLocaleString('ru-RU', { month: 'long' });
 			const getYear = (dateString) => new Date(dateString).getFullYear();
 
 			const [firstHalf, secondHalf] = [
 				/* в две строчки ниже тоже прокинуть вместо calendarData данные от бека */
-				calendarData.slice(0, Math.ceil(calendarData.length / 2)),
-				calendarData.slice(Math.ceil(calendarData.length / 2)),
+				calendare.slice(0, Math.ceil(calendare.length / 2)),
+				calendare.slice(Math.ceil(calendare.length / 2)),
 			];
 
 			const [firstMonths, secondMonths] = [
@@ -60,7 +60,7 @@ export default function Calendar({ when }) {
 			setFirstMonth(`${capitalizedStringFirstMonth} ${firstYear}`);
 			setSecondMonth(`${capitalizedStringSecondMonth} ${secondYear}`);
 		}
-	}, []);
+	}, [calendare]);
 
 	return (
 		<section className={styles.calendar}>
@@ -79,7 +79,7 @@ export default function Calendar({ when }) {
 			</div>
 			<div className={styles.calendar__graph_box}>
 				{/* сюда прокинуть вместо calendarData данные от бека */}
-				<Graph tickets={calendarData} />
+				<Graph tickets={calendare} />
 				<div className={styles.calendar__month_group}>
 					<div className={styles.calendar__month_box}>
 						<div className={styles.calendar__month_icon} />
