@@ -39,7 +39,7 @@ jobs:
             ${{ secrets.DOCKER_USERNAME }}/around-russia-frontend:latest
   deploy:
     runs-on: ubuntu-latest
-    needs: build_and_push_to_docker_hub
+    needs: front-tests
     steps:
       - name: executing remote ssh commands to deploy
         uses: appleboy/ssh-action@master
