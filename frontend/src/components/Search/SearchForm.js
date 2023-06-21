@@ -119,7 +119,7 @@ function SearchForm() {
                 })}
               </ul>
             ) : (
-              <div className={styles.no - suggestions}>
+              <div className={styles.noSuggestions}>
                 <em>Предположений нет!</em>
               </div>
             ))}
@@ -157,7 +157,7 @@ function SearchForm() {
                 })}
               </ul>
             ) : (
-              <div className={styles.no - suggestions}>
+              <div className={styles.noSuggestions}>
                 <em>Предположений нет!</em>
               </div>
             ))}

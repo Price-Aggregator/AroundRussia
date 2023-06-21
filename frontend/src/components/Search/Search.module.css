@@ -151,3 +151,17 @@
 .suggestions li:not(:last-of-type) {
 	border-bottom: 1px solid #999;
 }
+
+.noSuggestions {
+	color: #999;
+	padding: 0.5rem;
+  position:absolute;
+  top:100%;
+  left:0;
+  margin-top: 0;
+	max-height: 165px;
+  border-top-width: 0;
+  overflow-y: auto;
+	padding-left: 0;
+	width: 180px;
+}
