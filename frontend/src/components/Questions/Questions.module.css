@@ -1,0 +1,114 @@
+.questions {
+  background: #ECF1F1;
+  padding: 100px 0px;
+  display: flex;
+  justify-content: center;
+}
+
+.questionsContainer {
+  max-width: 920px;
+  display: flex;
+  flex-direction: column;
+  gap: 45px;
+  padding: 0;
+  margin: 0;
+}
+
+.questionsItem {
+  border-bottom: 1px solid #8A8A8A;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding-bottom: 20px;
+  transition: all 0.5s ease;
+  gap: 0px;
+}
+
+.questionsItemActive {
+  transition: all 0.5s ease;
+  gap: 15px;
+}
+
+.questionsTitle {
+  margin: 0;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 30px;
+  line-height: 35px;
+  color: #132529;
+}
+
+.questionsHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  background: inherit;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+
+}
+
+.questionsHeader:hover .questionsArrow {
+  background: url(../../images/chevron-orange.svg);
+  width: 14.54px;
+  height: 11.35px;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  transition: all 0.2s ease-in-out;
+}
+
+.questionsHeader:hover .questionsQuestion {
+  color: #EBA534;
+}
+
+.questionsArrow {
+  width: 14.54px;
+  height: 11.35px;
+  background: url(../../images/chevron-down.svg);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  transition: all 0.2s ease-in-out;
+
+}
+
+.questionsArrowActive {
+  transform: rotate(180deg);
+  transition: all 0.2s ease-in-out;
+}
+
+.questionsQuestion {
+  margin: 0;
+  font-style: normal;
+  font-weight: 300;
+  font-size: 20px;
+  line-height: 124.69%;
+  color: #132529;
+
+}
+
+.questionsAnswer {
+  margin: 0;
+  padding-right: 75px;
+  font-style: normal;
+  font-weight: 300;
+  font-size: 20px;
+  line-height: 124.69%;
+  color: #8A8A8A;
+  max-height: 0;
+  overflow: hidden;
+  transition: all 0.5s cubic-bezier(0, 1, 0, 1);
+}
+
+.questionsAnswerActive {
+  height: auto;
+  max-height: 9999px;
+  transition: all 0.5s cubic-bezier(1, 0, 1, 0);
+}
+
+.questionsAnkor {
+  text-decoration: none;
+}
