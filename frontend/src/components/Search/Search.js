@@ -1,14 +1,19 @@
 import React from 'react';
+import { useMatch } from 'react-router';
 import styles from './Search.module.css';
+
 import SearchForm from './SearchForm';
 import SearchText from './SearchText';
 
-const { pathname } = window.location;
+
+// const { pathname } = window.location;
+
 function Search() {
+  const match = useMatch('/');
 	return (
 		<div className={styles.search}>
 			<div className={styles.search__container}>
-				{pathname === '/' ? (
+				{match ? (
 					<>
 						<SearchText />
 						<SearchForm />
