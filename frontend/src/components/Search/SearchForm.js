@@ -1,16 +1,18 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from 'react-router-dom';
 import styles from './Search.module.css';
 import calendar from '../../images/calendar.svg';
 import { setForm } from '../../store/SearchForm/slice';
 import { fetchTickets } from '../../store/Tickets/slice';
-import { getAllCities } from '../../store/Cities/selectors';
+import { getAllCities, getCityByLetter } from '../../store/Cities/selectors';
+import { clearCitiesByLetter, fetchCitiesByLetter } from '../../store/Cities/slice';
 
 function SearchForm() {
   const dispatch = useDispatch()
   const navigate = useNavigate();
   const cities = useSelector(getAllCities)
+  const citiesByLetter = useSelector(getCityByLetter)
   const [from, setFrom] = useState('');
   const [to, setTo] = useState('');
   const [when, setWhen] = useState('');
@@ -20,11 +22,10 @@ function SearchForm() {
   const [activeSuggestionIndex, setActiveSuggestionIndex] = useState(0);
   const [showSuggestions, setShowSuggestions] = useState(false);
 
-	const [filteredSuggestionsTo, setFilteredSuggestionsTo] = useState([]);
-	const [activeSuggestionIndexTo, setActiveSuggestionIndexTo] = useState(0);
-	const [showSuggestionsTo, setShowSuggestionsTo] = useState(false);
+  const [filteredSuggestionsTo, setFilteredSuggestionsTo] = useState([]);
+  const [activeSuggestionIndexTo, setActiveSuggestionIndexTo] = useState(0);
+  const [showSuggestionsTo, setShowSuggestionsTo] = useState(false);
 
-  const suggestions = ['Москва', 'Воронеж']
   const onClickFrom = (e) => {
     setFilteredSuggestions([]);
     setFrom(e.target.innerText);
@@ -41,29 +42,47 @@ function SearchForm() {
 
   const onChangeFrom = (e) => {
     const userInput = e.target.value;
+    dispatch(clearCitiesByLetter())
+    dispatch(fetchCitiesByLetter(userInput))
+    // console.log(citiesByLetter)
     // Filter our suggestions that don't contain the user's input
-    const unLinked = suggestions.filter(
-      (suggestion) =>
-        suggestion.toLowerCase().indexOf(userInput.toLowerCase()) > -1
-    );
-    setFrom(e.target.value);
-    setFilteredSuggestions(unLinked);
+    // const unLinked = suggestions?.filter(
+    //   (suggestion) =>
+    //     suggestion.toLowerCase().indexOf(userInput.toLowerCase()) > -1
+    // );
+    setFrom(userInput);
     setActiveSuggestionIndex(0);
     setShowSuggestions(true);
+    setShowSuggestionsTo(false);
   };
 
   const onChangeTo = (e) => {
     const userInput = e.target.value;
     // Filter our suggestions that don't contain the user's input
-    const unLinked = suggestions.filter(
-      (suggestion) =>
-        suggestion.toLowerCase().indexOf(userInput.toLowerCase()) > -1
-    );
-    setTo(e.target.value);
-    setFilteredSuggestionsTo(unLinked);
+    // const unLinked = suggestions?.filter(
+    //   (suggestion) =>
+    //     suggestion.toLowerCase().indexOf(userInput.toLowerCase()) > -1
+    // );
+    dispatch(clearCitiesByLetter())
+    dispatch(fetchCitiesByLetter(userInput))
+
+    setTo(userInput);
+    // setFilteredSuggestionsTo(unLinked);
     setActiveSuggestionIndexTo(0);
+    setShowSuggestions(false)
     setShowSuggestionsTo(true);
   };
+
+  useEffect(() => {
+    if (showSuggestions) {
+      setFilteredSuggestions(citiesByLetter);
+      setFilteredSuggestionsTo([])
+    } else
+      if (showSuggestionsTo) {
+        setFilteredSuggestionsTo(citiesByLetter)
+        setFilteredSuggestions([])
+      }
+  }, [citiesByLetter])
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -96,7 +115,7 @@ function SearchForm() {
             placeholder="Откуда"
             name={from}
           />
-          {showSuggestions &&
+          {filteredSuggestions &&
             from &&
             (filteredSuggestions.length ? (
               <ul className={styles.suggestions}>
@@ -110,10 +129,10 @@ function SearchForm() {
                     // eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-noninteractive-element-interactions
                     <li
                       className={className}
-                      key={suggestion}
+                      key={suggestion.code}
                       onClick={onClickFrom}
                     >
-                      {suggestion}
+                      {suggestion.name}
                     </li>
                   );
                 })}
@@ -134,7 +153,7 @@ function SearchForm() {
             onChange={onChangeTo}
             value={to || ''}
           />
-          {showSuggestionsTo &&
+          {filteredSuggestionsTo &&
             to &&
             (filteredSuggestionsTo.length ? (
               <ul className={styles.suggestions}>
@@ -148,10 +167,10 @@ function SearchForm() {
                     // eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-noninteractive-element-interactions
                     <li
                       className={className}
-                      key={suggestion}
+                      key={suggestion.code}
                       onClick={onClickTo}
                     >
-                      {suggestion}
+                      {suggestion.name}
                     </li>
                   );
                 })}
