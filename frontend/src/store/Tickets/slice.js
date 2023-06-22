@@ -20,7 +20,7 @@ export const fetchTickets = createAsyncThunk(
         origin: formData.from,
         destination: formData.to,
         departure_at: formData.when,
-        return_at: formData.whenReturn,
+        return_at: formData.whenReturn ? formData.whenReturn : formData.when,
         sorting: "price",
         direct: "false",
         unique: "false"
