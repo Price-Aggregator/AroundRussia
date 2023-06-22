@@ -1,6 +1,7 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { BASE_URL } from "../../utils/constants";
 import checkResponse from "../../utils/check-response";
+import { createTicketsFetchObj, noReturn } from "../../utils/utils";
 
 export const ticketsName = 'tickets'
 
@@ -11,20 +12,16 @@ const initialState = {
 export const fetchTickets = createAsyncThunk(
   `${ticketsName}/getTickets`,
   async (formData) => {
+
+    const fetchData = createTicketsFetchObj({ from: formData.from, to: formData.to, when: formData.when, whenReturn: formData.whenReturn })
+    const clearFetchData = formData.whenReturn ? fetchData : noReturn(fetchData)
+
     const res = await fetch(`${BASE_URL}/airline`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({
-        origin: formData.from,
-        destination: formData.to,
-        departure_at: formData.when,
-        return_at: formData.whenReturn ? formData.whenReturn : formData.when,
-        sorting: "price",
-        direct: "false",
-        unique: "false"
-      }),
+      body: JSON.stringify(clearFetchData),
     }).then(checkResponse)
     localStorage.setItem('searchResult', JSON.stringify(res));
     return res

@@ -17,7 +17,6 @@ export const fetchCalendar = createAsyncThunk(
         "Content-Type": "application/json",
       }
     }).then(checkResponse)
-    console.log(res)
     return res
   }
 )
