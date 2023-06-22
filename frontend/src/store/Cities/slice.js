@@ -5,7 +5,8 @@ import checkResponse from "../../utils/check-response";
 export const citiesName = 'cities'
 
 const initialState = {
-  cities: []
+  cities: [],
+  citiesByLetter: []
 }
 
 export const getCities = createAsyncThunk(
@@ -21,19 +22,43 @@ export const getCities = createAsyncThunk(
   }
 )
 
+export const fetchCitiesByLetter = createAsyncThunk(
+  `${citiesName}/getCitiesByLetter`,
+  async (letter) => {
+    const res = await fetch(`${BASE_URL}/cities/?search=${letter}`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    }).then(checkResponse)
+    return res
+  }
+)
+
 const citiesSlice = createSlice({
   name: citiesName,
   initialState,
-  reducers: {},
-  extraReducers: {
-    [getCities.fulfilled]: (state, actions) => ({
+  reducers: {
+    clearCitiesByLetter: (state) => ({
       ...state,
-      cities: actions.payload
+      citiesByLetter: []
     })
+  },
+  extraReducers: (builder) => {
+    builder
+      .addCase(getCities.fulfilled, (state, actions) => ({
+        ...state,
+        cities: actions.payload
+      }))
+      .addCase(fetchCitiesByLetter.fulfilled, (state, actions) => ({
+        ...state,
+        citiesByLetter: actions.payload
+      }))
+
   }
 })
 
 
-export const { setCities } = citiesSlice.actions
+export const { clearCitiesByLetter } = citiesSlice.actions
 export const citiesReducer = citiesSlice.reducer
 
