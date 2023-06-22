@@ -35,6 +35,9 @@ const ticketsSlice = createSlice({
     setTickets: (state, action) => ({
       ...state,
       tickets: action.payload
+    }),
+    clearTickets: () => ({
+      tickets: []
     })
   },
   extraReducers: (builder) => {
@@ -47,4 +50,4 @@ const ticketsSlice = createSlice({
 })
 
 export const ticketsReducer = ticketsSlice.reducer
-export const { setTickets } = ticketsSlice.actions
+export const { setTickets, clearTickets } = ticketsSlice.actions
