@@ -76,7 +76,6 @@ function SearchForm() {
 
     const fromCityIATA = cities.find((item) => item.name.toLowerCase() === from.toLowerCase())
     const toCityIATA = cities.find((item) => item.name.toLowerCase() === to.toLowerCase())
-    navigate('/result');
 
     const formData = {
       from: fromCityIATA.code,
