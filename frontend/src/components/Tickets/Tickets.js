@@ -18,8 +18,10 @@ function Tickets() {
   const [bestPrice, setBestPrice] = useState()
 
   useEffect(() => {
+    if(tickets) {
     const pages = Math.ceil(tickets.length / TICKETS_ON_PAGE)
     dispatch(setPages(pages))
+    }
   }, [tickets, TICKETS_ON_PAGE])
 
   useEffect(() => {
@@ -29,7 +31,7 @@ function Tickets() {
   }, [page])
 
   useEffect(() => {
-    const best = tickets.slice().sort((a, b) => +a.price - +b.price)[0]
+    const best = tickets?.slice().sort((a, b) => +a.price - +b.price)[0]
     setBestPrice(best)
   }, [tickets])
 

@@ -30,8 +30,8 @@ function TicketInfoBox({ company, image, ticket }) {
         <span className={styles.company__name}>{company}</span>
       </div>
       <div className={styles.tickets__content_box}>
-        <TicketContent ticket={departureTicket} />
-        <TicketContent ticket={returnTicket} />
+        {departureTicket.date && <TicketContent ticket={departureTicket} />}
+        {returnTicket.date && <TicketContent ticket={returnTicket} />}
       </div>
     </div>
   )

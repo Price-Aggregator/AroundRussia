@@ -36,11 +36,12 @@
   font-size: 30px;
   line-height: 35px;
   color: #132529;
+  min-width: 350px;
 }
 
 .questionsHeader {
   display: flex;
-  justify-content: space-between;
+  gap: 30px;
   align-items: center;
   width: 100%;
   background: inherit;
@@ -50,7 +51,7 @@
 
 }
 
-.questionsHeader:hover .questionsArrow {
+/* .questionsHeader:hover .questionsArrow {
   background: url(../../images/chevron-orange.svg);
   width: 14.54px;
   height: 11.35px;
@@ -58,7 +59,7 @@
   background-repeat: no-repeat;
   background-size: cover;
   transition: all 0.2s ease-in-out;
-}
+} */
 
 .questionsHeader:hover .questionsQuestion {
   color: #EBA534;
@@ -87,7 +88,8 @@
   font-size: 20px;
   line-height: 124.69%;
   color: #132529;
-
+  min-width: 350px;
+  text-align: left;
 }
 
 .questionsAnswer {
