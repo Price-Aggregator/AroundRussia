@@ -44,12 +44,6 @@ function SearchForm() {
     const userInput = e.target.value;
     dispatch(clearCitiesByLetter())
     dispatch(fetchCitiesByLetter(userInput))
-    // console.log(citiesByLetter)
-    // Filter our suggestions that don't contain the user's input
-    // const unLinked = suggestions?.filter(
-    //   (suggestion) =>
-    //     suggestion.toLowerCase().indexOf(userInput.toLowerCase()) > -1
-    // );
     setFrom(userInput);
     setActiveSuggestionIndex(0);
     setShowSuggestions(true);
@@ -58,16 +52,9 @@ function SearchForm() {
 
   const onChangeTo = (e) => {
     const userInput = e.target.value;
-    // Filter our suggestions that don't contain the user's input
-    // const unLinked = suggestions?.filter(
-    //   (suggestion) =>
-    //     suggestion.toLowerCase().indexOf(userInput.toLowerCase()) > -1
-    // );
     dispatch(clearCitiesByLetter())
     dispatch(fetchCitiesByLetter(userInput))
-
     setTo(userInput);
-    // setFilteredSuggestionsTo(unLinked);
     setActiveSuggestionIndexTo(0);
     setShowSuggestions(false)
     setShowSuggestionsTo(true);
@@ -87,8 +74,8 @@ function SearchForm() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const fromCityIATA = cities.find((item) => item.name === from)
-    const toCityIATA = cities.find((item) => item.name === to)
+    const fromCityIATA = cities.find((item) => item.name.toLowerCase() === from.toLowerCase())
+    const toCityIATA = cities.find((item) => item.name.toLowerCase() === to.toLowerCase())
     navigate('/result');
 
     const formData = {
@@ -97,6 +84,7 @@ function SearchForm() {
       when,
       whenReturn
     }
+
     dispatch(setForm(formData))
     dispatch(fetchTickets(formData))
     navigate('/result');

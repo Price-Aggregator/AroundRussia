@@ -3,7 +3,7 @@
 // const BASE_URL = 'http://62.84.115.87/api/v1'
 // const BASE_URL = 'http://127.0.0.1:8000/api/v1'
 // const BASE_URL = 'http://localhost/api/v1';
-const BASE_URL = 'http://aroundrussia.acceleratorpracticum.ru/api/v1/';
+const BASE_URL = 'http://aroundrussia.acceleratorpracticum.ru/api/v1';
 
 const TICKETS_ON_PAGE = 3;
 
