@@ -8,7 +8,9 @@ function TicketDateContent({ date, time, city }) {
   const dayDate = new Date(date)
   const dayOnWeek = dayDate.toUTCString().slice(0, 3)
   const day = dayDate.getDate()
-  const mounth = dayDate.getMonth()
+  const mounth = dayDate.getMonth() + 1
+
+  console.log(mounth)
 
   return (
     <div className={styles.ticket__date_content}>
