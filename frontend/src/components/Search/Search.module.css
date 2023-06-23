@@ -1,19 +1,19 @@
 .search {
 	padding: 100px 0 170px 0;
-  width:100%;
+	width: 100%;
 	background-image: url('../../images/bg.svg');
 	display: flex;
 	flex-direction: column;
-  align-items: center;
+	align-items: center;
 }
 
-@media screen and (max-width:560px) {
-  .search {
-    padding: 50px 20px 80px 20px;
-  }
-  .search__form {
-    flex-wrap: wrap;
-  }
+@media screen and (max-width: 560px) {
+	.search {
+		padding: 50px 20px 80px 20px;
+	}
+	.search__form {
+		flex-wrap: wrap;
+	}
 }
 
 .search__title {
@@ -61,8 +61,8 @@
 	border-radius: 10px;
 	align-items: center;
 	padding: 20px;
-  gap:5px;
-  max-width:920px;
+	max-width: 920px;
+	font-family: 'Roboto';
 }
 
 .search__input {
@@ -71,6 +71,19 @@
 	margin: 0;
 	padding: 0;
 	padding-left: 10px;
+	font-family: 'Roboto';
+	border: 1px solid black;
+	font-size: 20px;
+	font-weight: 300;
+}
+
+input[type='date']::-webkit-calendar-picker-indicator {
+	opacity: 1;
+	display: block;
+	background: url('../../images/calendar.svg') no-repeat;
+	width: 24px;
+	height: 24px;
+	margin-right: 5px;
 }
 
 .search__input_left {
@@ -81,6 +94,9 @@
 	border-bottom-left-radius: 10px;
 	border-top-left-radius: 10px;
 	padding-left: 10px;
+	font-family: 'Roboto';
+	font-size: 20px;
+	font-weight: 300;
 }
 
 .search__input_right {
@@ -90,16 +106,25 @@
 	padding: 0;
 	border-bottom-right-radius: 10px;
 	border-top-right-radius: 10px;
-	padding-left: 10px;
+	padding-left: 15px;
+	font-family: 'Roboto';
+	font-size: 20px;
+	font-weight: 300;
 }
 
 .search__button {
 	height: 55px;
-	width: 170px;
+	width: 168px;
 	background-color: #f8c747;
-	color: white;
+	color: black;
 	text-align: center;
-  border-radius: 10px;
+	border-radius: 10px;
+	font-family: 'Roboto';
+	font-size: 20px;
+	font-weight: 500;
+	margin-left: 15px;
+	padding: 0;
+	border: 0;
 }
 .search__wrapper {
 	position: relative;
@@ -112,16 +137,16 @@
 }
 
 .suggestions__wrapper {
-  display:flex;
-  flex-direction:column;
-  position:relative;
+	display: flex;
+	flex-direction: column;
+	position: relative;
 }
 .no-suggestions {
 	color: #999;
 	padding: 0.5rem;
-  position:absolute;
-  top:100%;
-  left:0;
+	position: absolute;
+	top: 100%;
+	left: 0;
 }
 .suggestions {
 	border: 1px solid #999;
@@ -132,18 +157,17 @@
 	overflow-y: auto;
 	padding-left: 0;
 	width: 180px;
-  background-color: #999;
-  position:absolute;
-  top:100%;
-  left:0;
-
+	background-color: #999;
+	position: absolute;
+	top: 100%;
+	left: 0;
 }
 .suggestions li {
 	padding: 0.5rem;
 }
 .suggestion-active,
 .suggestions li:hover {
-	background-color: #B2C535;
+	background-color: #b2c535;
 	color: black;
 	cursor: pointer;
 	font-weight: 700;
@@ -155,13 +179,13 @@
 .noSuggestions {
 	color: #999;
 	padding: 0.5rem;
-  position:absolute;
-  top:100%;
-  left:0;
-  margin-top: 0;
+	position: absolute;
+	top: 100%;
+	left: 0;
+	margin-top: 0;
 	max-height: 165px;
-  border-top-width: 0;
-  overflow-y: auto;
+	border-top-width: 0;
+	overflow-y: auto;
 	padding-left: 0;
 	width: 180px;
 }
