@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import styles from './Search.module.css';
 import calendar from '../../images/calendar.svg';
 import { setForm } from '../../store/SearchForm/slice';
-import { fetchTickets } from '../../store/Tickets/slice';
+import { clearTickets, fetchTickets } from '../../store/Tickets/slice';
 import { getAllCities, getCityByLetter } from '../../store/Cities/selectors';
 import { clearCitiesByLetter, fetchCitiesByLetter } from '../../store/Cities/slice';
 
@@ -85,6 +85,7 @@ function SearchForm() {
     }
 
     dispatch(setForm(formData))
+    dispatch(clearTickets())
     dispatch(fetchTickets(formData))
     navigate('/result');
 
