@@ -39,6 +39,7 @@
 	text-align: left;
 	margin-bottom: 60px;
 	color: white;
+	max-width: 600px;
 }
 
 .search__label {
