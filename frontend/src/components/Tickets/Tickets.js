@@ -16,11 +16,12 @@ function Tickets() {
 
   const [sliceNums, setSliceNums] = useState({ first: 0, second: 4 })
   const [bestPrice, setBestPrice] = useState()
+  const [ticketsState, setTicketsState] = useState()
 
   useEffect(() => {
-    if(tickets) {
-    const pages = Math.ceil(tickets.length / TICKETS_ON_PAGE)
-    dispatch(setPages(pages))
+    if (tickets) {
+      const pages = Math.ceil(tickets.length / TICKETS_ON_PAGE)
+      dispatch(setPages(pages))
     }
   }, [tickets, TICKETS_ON_PAGE])
 
@@ -31,8 +32,10 @@ function Tickets() {
   }, [page])
 
   useEffect(() => {
-    const best = tickets?.slice().sort((a, b) => +a.price - +b.price)[0]
+    const ticketsArr = tickets?.slice()
+    const best = ticketsArr?.sort((a, b) => a.price - b.price).splice(0, 1)[0]
     setBestPrice(best)
+    setTicketsState(ticketsArr)
   }, [tickets])
 
   return (
@@ -49,7 +52,7 @@ function Tickets() {
             id={bestPrice.link}
           />
         )}
-        {tickets && tickets.slice(sliceNums.first, sliceNums.second).map((item) => (
+        {ticketsState && ticketsState.slice(sliceNums.first, sliceNums.second).map((item) => (
           <Ticket
             key={item.link}
             id={item.link}

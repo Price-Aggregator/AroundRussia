@@ -5,7 +5,8 @@ import styles from './Ticket.module.css'
 import TicketPriceBox from './TicketPriceBox';
 import TicketInfoBox from './TicketInfoBox';
 import getTickets from '../../store/Tickets/selectors';
-
+import { airlines } from '../../utils/constants';
+import { defaultIcon } from '../../images/avia-company';
 
 
 function Ticket({ bestPrice, id, oneTransfer }) {
@@ -16,7 +17,8 @@ function Ticket({ bestPrice, id, oneTransfer }) {
     {bestPrice && <div className={styles.ticket__best_price}>Самый дешевый</div>}
     {oneTransfer && <div className={styles.ticket__one_transfer}>c 1 пересадкой</div>}
     {ticket && <TicketPriceBox price={ticket.price} link={ticket.link} />}
-    {ticket && <TicketInfoBox company={ticket.airline} image={ticket.image} ticket={ticket} />}
+    {ticket && <TicketInfoBox company={airlines[ticket.airline] ? airlines[ticket.airline].airlinesName : 'Авиакомпания '}
+      image={airlines[ticket.airline] ? airlines[ticket.airline].airlinesLogo : defaultIcon} ticket={ticket} />}
   </article>;
 }
 

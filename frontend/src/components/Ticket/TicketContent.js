@@ -1,7 +1,9 @@
 import React from "react";
 import PropTypes from 'prop-types';
+import { useSelector } from "react-redux";
 import styles from './Ticket.module.css'
 import { dayOfWeek, monthsInTicket } from "../../utils/constants";
+import { getAllCities } from "../../store/Cities/selectors";
 
 function TicketDateContent({ date, time, city }) {
 
@@ -9,8 +11,6 @@ function TicketDateContent({ date, time, city }) {
   const dayOnWeek = dayDate.toUTCString().slice(0, 3)
   const day = dayDate.getDate()
   const mounth = dayDate.getMonth() + 1
-
-  console.log(mounth)
 
   return (
     <div className={styles.ticket__date_content}>
@@ -45,6 +45,16 @@ function TicketDurationContent({ originCode, destinationCode, duration }) {
 function TicketContent({ ticket }) {
 
   const { date, duration, destination, origin, originAirport, destinationAirport } = ticket
+  const cities = useSelector(getAllCities)
+
+  const originCity = cities.find(
+    (item) => item.code.toLowerCase() === origin.toLowerCase()
+  );
+  const destinationCity = cities.find(
+    (item) => item.code.toLowerCase() === destination.toLowerCase()
+  );
+
+  console.log(originCity, destinationCity)
 
   function getTimeFromMins(mins) {
     const hours = Math.trunc(mins / 60);
@@ -66,9 +76,9 @@ function TicketContent({ ticket }) {
 
   return (
     <div className={styles.ticket__content}>
-      <TicketDateContent date={date} time={date.slice(11, 16)} city={origin} />
+      <TicketDateContent date={date} time={date.slice(11, 16)} city={originCity ? originCity.name : origin} />
       <TicketDurationContent originCode={originAirport} destinationCode={destinationAirport} duration={` ${durationArr[0]}ч ${durationArr[1]}м`} />
-      <TicketDateContent date={destinationDate} time={destinationDate.slice(16, 21)} city={destination} />
+      <TicketDateContent date={destinationDate} time={destinationDate.slice(16, 21)} city={destinationCity ? destinationCity.name : destination} />
     </div>
   )
 }
