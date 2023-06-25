@@ -9,6 +9,7 @@ import styles from './App.module.css';
 import { getCities } from '../../store/Cities/slice';
 
 
+
 const router = createBrowserRouter([
   {
     element: <Layout />,
@@ -35,8 +36,9 @@ const router = createBrowserRouter([
 
 function App() {
   const dispatch = useDispatch()
-
   dispatch(getCities())
+
+
 
   return (
     <div className={styles.app}>
