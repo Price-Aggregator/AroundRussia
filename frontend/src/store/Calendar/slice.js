@@ -11,7 +11,7 @@ const initialState = {
 export const fetchCalendar = createAsyncThunk(
   `${calendareName}/getCalendar`,
   async (calendareData) => {
-    const res = await fetch(`${BASE_URL}/calendar?departure_at=${calendareData.when}&destination=${calendareData.from}&origin=${calendareData.to}`, {
+    const res = await fetch(`${BASE_URL}/calendar?departure_at=${calendareData.when}&destination=${calendareData.to}&origin=${calendareData.from}`, {
       method: 'GET',
       headers: {
         "Content-Type": "application/json",

@@ -17,7 +17,7 @@ function TicketDateContent({ date, time, city }) {
       <span className={styles.price_text}>{time}</span>
       <div className={styles.ticket__city_content}>
         <span className={styles.ticket__text}>{city}</span>
-        <span className={styles.ticket__text}>{`${day} ${monthsInTicket[mounth]} ${dayOfWeek[dayOnWeek]}`}</span>
+        <span className={styles.ticket__text}>{`${day} ${monthsInTicket[mounth]}, ${dayOfWeek[dayOnWeek]}`}</span>
       </div>
 
     </div>
@@ -54,7 +54,6 @@ function TicketContent({ ticket }) {
     (item) => item.code.toLowerCase() === destination.toLowerCase()
   );
 
-  console.log(originCity, destinationCity)
 
   function getTimeFromMins(mins) {
     const hours = Math.trunc(mins / 60);

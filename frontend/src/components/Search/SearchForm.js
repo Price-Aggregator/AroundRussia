@@ -111,7 +111,6 @@ function SearchForm() {
       whenReturn,
     }
 
-    console.log('when', when)
     dispatch(setForm(formData));
     setFormLocaleStorage(formForLocale)
     dispatch(clearTickets());
