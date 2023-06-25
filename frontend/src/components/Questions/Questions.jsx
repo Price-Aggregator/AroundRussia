@@ -14,7 +14,7 @@ export default function Questions() {
 	};
 
 	return (
-		<div className={styles.questions}>
+		<div className={styles.questions} id="faq">
 			<ul className={styles.questionsContainer}>
 				<h2 className={styles.questionsTitle}>Вопросы и ответы</h2>
 				{faq.map((item, i) => (
