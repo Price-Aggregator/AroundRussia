@@ -111,6 +111,7 @@ function SearchForm() {
       whenReturn,
     }
 
+    console.log('when', when)
     dispatch(setForm(formData));
     setFormLocaleStorage(formForLocale)
     dispatch(clearTickets());
@@ -154,7 +155,7 @@ function SearchForm() {
               </ul>
             ) : (
               <div className={styles.noSuggestions}>
-                <em>Предположений нет!</em>
+                {/* <em>Предположений нет!</em> */}
               </div>
             ))}
         </div>
@@ -192,7 +193,7 @@ function SearchForm() {
               </ul>
             ) : (
               <div className={styles.noSuggestions}>
-                <em>Предположений нет!</em>
+                {/* <em>Предположений нет!</em> */}
               </div>
             ))}
         </div>
