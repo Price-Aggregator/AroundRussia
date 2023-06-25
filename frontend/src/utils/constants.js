@@ -61,13 +61,13 @@ const faq = [
 ];
 
 const dayOfWeek = {
-  Mon: 'Пн',
-  Tue: 'Вт',
-  Wed: 'Ср',
-  Thu: 'Чт',
-  Fri: 'Пт',
-  Sat: 'Сб',
-  Sun: 'Вс',
+  Mon: 'пн',
+  Tue: 'вт',
+  Wed: 'ср',
+  Thu: 'чт',
+  Fri: 'пт',
+  Sat: 'сб',
+  Sun: 'вс',
 };
 
 const monthsInTicket = {
