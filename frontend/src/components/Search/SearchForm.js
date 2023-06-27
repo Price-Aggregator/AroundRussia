@@ -41,7 +41,7 @@ function SearchForm() {
     setTo(formLocaleStorage.to)
     setWhen(formLocaleStorage.when)
     setWhenReturn(formLocaleStorage.whenReturn)
-  }, [])
+  }, [formLocaleStorage])
 
   const onClickFrom = (e) => {
     setFilteredSuggestions([]);
@@ -89,7 +89,6 @@ function SearchForm() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
     const fromCityIATA = cities.find(
       (item) => item.name.toLowerCase() === from.toLowerCase()
     );
@@ -98,8 +97,8 @@ function SearchForm() {
     );
 
     const formData = {
-      from: fromCityIATA.code,
-      to: toCityIATA.code,
+      from: fromCityIATA?.code || '',
+      to: toCityIATA?.code || '',
       when,
       whenReturn,
     };
@@ -112,7 +111,7 @@ function SearchForm() {
     }
 
     dispatch(setForm(formData));
-    setFormLocaleStorage(formForLocale)
+    await setFormLocaleStorage(formForLocale)
     dispatch(clearTickets());
     dispatch(fetchTickets(formData));
     navigate('/result');
