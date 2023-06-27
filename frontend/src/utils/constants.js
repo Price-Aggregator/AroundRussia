@@ -138,6 +138,10 @@ const airlines = {
   A4: {
     airlinesLogo: defaultIcon,
     airlinesName: 'Азимут'
+  },
+  N4: {
+    airlinesLogo: defaultIcon,
+    airlinesName: 'Северный ветер'
   }
 }
 
