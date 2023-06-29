@@ -2,8 +2,8 @@
 import { urals, s7, aeroflot, defaultIcon, nordStar, orenburg, pobeda, redWings, russia, smartAvia, utair, yakutia, yamal } from '../images/avia-company/index'
 
 
-// const BASE_URL = 'http://localhost/api/v1';
-const BASE_URL = 'http://aroundrussia.acceleratorpracticum.ru/api/v1';
+const BASE_URL = 'http://localhost/api/v1';
+// const BASE_URL = 'http://aroundrussia.acceleratorpracticum.ru/api/v1';
 
 const TICKETS_ON_PAGE = 3;
 
