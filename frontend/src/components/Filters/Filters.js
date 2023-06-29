@@ -3,38 +3,8 @@
 // import React, { useState, useEffect } from 'react';
 import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { Accordion, AccordionItem as Item } from '@szhsin/react-accordion';
 import styles from './Filters.module.css';
-import chevron from '../../images/chevron-down.svg';
 import { setFilters } from '../../store/Filter/slice';
-/**
- * @type {React.ExoticComponent<import('@szhsin/react-accordion').AccordionItemProps>}
- */
-function AccordionItem({ header, ...rest }) {
-	return (
-		<Item
-			{...rest}
-			header={
-				<>
-					<h3 className={styles.filter__header}>{header}</h3>
-					<img
-						className={styles.filtersChevron}
-						src={chevron}
-						alt="Chevron Down"
-					/>
-				</>
-			}
-			className={styles.filtersItem}
-			buttonProps={{
-				className: ({ isEnter }) =>
-					`${styles.filtersItemBtn} ${
-						isEnter && styles.filtersitemBtnExpanded
-					}`,
-			}}
-			panelProps={{ className: styles.filterstemPanel }}
-		/>
-	);
-}
 
 export default function Filters() {
 	const dispatch = useDispatch();
@@ -49,9 +19,8 @@ export default function Filters() {
 	return (
 		<section className={styles.filters}>
 			<h2 className={styles.filters__title}>Фильтры</h2>
-			{/* `transitionTimeout` prop should be equal to the transition duration in CSS */}
-			<Accordion transition transitionTimeout={250}>
-				<AccordionItem header="Пересадки">
+			<section className={styles.filter__set}>
+				<h3 className={styles.filter__header}>Пересадки</h3>
 					<div className={styles.filter__group}>
 						<label htmlFor="radio-direct">
 							<input
@@ -78,10 +47,9 @@ export default function Filters() {
 							1 пересадка
 						</label>
 					</div>
-				</AccordionItem>
-			</Accordion>
-			<Accordion transition transitionTimeout={250}>
-				<AccordionItem header="Сортировка">
+          </section>
+			<section className={styles.filter__set}>
+				<h3 className={styles.filter__header}>Сортировка</h3>
 					<div className={styles.filter__group}>
 						<label htmlFor="radio-suggested-filter">
 							<input
@@ -120,8 +88,8 @@ export default function Filters() {
 							Время вылета
 						</label>
 					</div>
-				</AccordionItem>
-			</Accordion>
+          </section>
 		</section>
 	);
 }
+
