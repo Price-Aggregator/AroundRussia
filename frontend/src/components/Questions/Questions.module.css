@@ -56,12 +56,12 @@
 }
 
 .questionsArrow {
-  width: 14.54px;
-  height: 11.35px;
+  width: 25px;
+  height: 25px;
   background: url(../../images/chevron-down.svg);
   background-position: center;
   background-repeat: no-repeat;
-  background-size: cover;
+  /* background-size: cover; */
   transition: all 0.2s ease-in-out;
 
 }
