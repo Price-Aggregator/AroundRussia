@@ -1,0 +1,18 @@
+.customTooltip {
+	background: #ecf1f1;
+	border-radius: 10px;
+}
+
+.customTooltip__text {
+	font-family: 'Roboto';
+	font-style: normal;
+	font-weight: 400;
+	font-size: 15px;
+	line-height: normal;
+	color: #132529;
+	margin: 0;
+}
+
+.customTooltip__box {
+	padding: 10px;
+}
