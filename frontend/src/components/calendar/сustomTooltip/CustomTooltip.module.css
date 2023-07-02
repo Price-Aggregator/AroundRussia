@@ -1,5 +1,5 @@
 .customTooltip {
-	background: #8a8a8a;
+	background: #ecf1f1;
 	border-radius: 10px;
 }
 
@@ -8,15 +8,11 @@
 	font-style: normal;
 	font-weight: 400;
 	font-size: 15px;
-	line-height: 18px;
-	color: #ffffff;
-	max-width: 118px;
+	line-height: normal;
+	color: #132529;
 	margin: 0;
 }
 
 .customTooltip__box {
-	padding: 20px;
-	display: flex;
-	flex-direction: column;
-	gap: 5px;
+	padding: 10px;
 }
