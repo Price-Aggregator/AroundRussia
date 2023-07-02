@@ -1,0 +1,83 @@
+.calendar {
+	filter: drop-shadow(0px 5px 5px rgba(0, 0, 0, 0.1));
+	max-width: 1110px;
+	background: #ffffff;
+	margin: 0 auto;
+	padding: 50px 0;
+	position: relative;
+	top: -100px;
+}
+
+.calendar__title {
+	font-family: 'Roboto';
+	font-style: normal;
+	font-weight: 500;
+	font-size: 45px;
+	line-height: 53px;
+	color: #132529;
+	margin: 0 auto 40px;
+	text-align: center;
+}
+
+.calendar__city_group {
+	display: flex;
+	flex-direction: row;
+	margin: 0 20px;
+	justify-content: space-between;
+	font-family: 'Roboto';
+	font-style: normal;
+	font-weight: 500;
+	font-size: 20px;
+	line-height: 23px;
+}
+
+.calendar__city {
+	color: #132529;
+	margin: 0 0 30px 0;
+}
+
+.calendar__city_span {
+	color: #29a3d2;
+}
+
+.calendar__graph_box {
+	max-width: 823px;
+	margin: 0 auto;
+}
+
+.calendar__month_icon {
+	background-image: url(../../images/icon_line_calendar.svg);
+	max-width: 150px;
+	height: 6px;
+	flex-grow: 1;
+	flex-shrink: 1;
+}
+
+.calendar__month_text {
+	font-family: 'Roboto';
+	font-style: normal;
+	font-weight: 400;
+	font-size: 15px;
+	line-height: 18px;
+	color: #8a8a8a;
+	text-align: center;
+}
+
+.calendar__month_group {
+	width: 100%;
+	margin: 15px auto 0;
+	display: flex;
+	justify-content: space-between;
+}
+
+.calendar__month_box {
+	display: flex;
+	width: 402px;
+	align-items: center;
+	gap: 10px;
+	justify-content: space-evenly;
+}
+
+.calendar__month_icon_revert {
+	transform: rotate(180deg);
+}

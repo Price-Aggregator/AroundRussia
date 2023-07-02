@@ -1,0 +1,15 @@
+import urals from './icon_urals_avia.svg'
+import s7 from './icon_s7_avia.svg'
+import aeroflot from './icon_aeroflot_avia.svg'
+import defaultIcon from './icon_default_avia.svg'
+import nordStar from './icon_nordstar_avia.svg'
+import orenburg from './icon_orenburg_avia.svg'
+import pobeda from './icon_pobeda_avia.svg'
+import redWings from './icon_red-wings_avia.svg'
+import russia from './icon_russia_avia.svg'
+import smartAvia from './icon_smartavia_avia.svg'
+import utair from './icon_utair_avia.svg'
+import yakutia from './icon_yakutia_avia.svg'
+import yamal from './icon_yamal_avia.svg'
+
+export { urals, s7, aeroflot, defaultIcon, nordStar, orenburg, pobeda, redWings, russia, smartAvia, utair, yakutia, yamal }

@@ -1,0 +1,77 @@
+.notFound{
+  background-image: url(../../images/backgroud-image.svg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 100vh;
+  padding-top: 40px;
+  display: flex;
+  flex-direction: column;
+
+  align-items: center;
+  gap: 210px;
+box-sizing: border-box;
+
+}
+
+.notFoundLogo{
+  margin-left: 165px;
+align-self: flex-start;
+}
+
+.notFoundContainer{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 30px;
+}
+
+.notFoundTitle{
+margin: 0;
+font-style: normal;
+font-weight: 500;
+font-size: 168px;
+line-height: 197px;
+color: #FFFFFF;
+text-align: center;
+}
+
+.notFoundSubtitle{
+  margin: 0;
+  font-style: normal;
+font-weight: 400;
+font-size: 25px;
+line-height: 29px;
+text-align: center;
+color: #FFFFFF;
+max-width: 540px;
+}
+
+.notFoundLink{
+  text-decoration: none;
+
+}
+
+
+.notFoundButton{
+  margin-top: 25px;
+  padding: 16px 20px;
+  background: #F8C747;
+border-radius: 10px;
+border: none;
+font-style: normal;
+font-weight: 500;
+font-size: 20px;
+line-height: 23px;
+display: flex;
+align-items: center;
+justify-content: center;
+color: #FFFFFF;
+text-decoration: none;
+cursor: pointer;
+}
+
+.notFoundButton:hover{
+  background: #EBA534;
+box-shadow: 0px 5px 5px rgba(0, 0, 0, 0.1);
+}
+

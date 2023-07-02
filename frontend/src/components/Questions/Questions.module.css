@@ -1,0 +1,107 @@
+.questions {
+  background: #ECF1F1;
+  padding: 100px 0px;
+  display: flex;
+  justify-content: center;
+}
+
+.questionsContainer {
+  max-width: 920px;
+  display: flex;
+  flex-direction: column;
+  gap: 45px;
+  padding: 0;
+  margin: 0;
+}
+
+.questionsItem {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding-bottom: 20px;
+  transition: all 0.5s ease;
+  gap: 0px;
+}
+
+.questionsItemActive {
+  transition: all 0.5s ease;
+  gap: 15px;
+}
+
+.questionsTitle {
+  font-family: Roboto;
+  margin: 0;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 30px;
+  line-height: 35px;
+  color: #132529;
+}
+
+.questionsHeader {
+  display: flex;
+  gap: 30px;
+  align-items: center;
+  width: 100%;
+  background: inherit;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+
+}
+
+
+.questionsHeader:hover .questionsQuestion {
+  color: #EBA534;
+}
+
+.questionsArrow {
+  width: 25px;
+  height: 25px;
+  background: url(../../images/chevron-down.svg);
+  background-position: center;
+  background-repeat: no-repeat;
+  /* background-size: cover; */
+  transition: all 0.2s ease-in-out;
+
+}
+
+.questionsArrowActive {
+  transform: rotate(180deg);
+  transition: all 0.2s ease-in-out;
+}
+
+.questionsQuestion {
+  font-family: Roboto;
+  margin: 0;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 20px;
+  line-height: 124.69%;
+  min-width: 350px;
+  text-align: left;
+}
+
+.questionsAnswer {
+  font-family: Roboto;
+  margin: 0;
+  padding-right: 75px;
+  font-style: normal;
+  font-weight: 300;
+  font-size: 20px;
+  line-height: 124.69%;
+  color: #132529;
+  max-height: 0;
+  overflow: hidden;
+  transition: all 0.5s cubic-bezier(0, 1, 0, 1);
+}
+
+.questionsAnswerActive {
+  height: auto;
+  max-height: 9999px;
+  transition: all 0.5s cubic-bezier(1, 0, 1, 0);
+}
+
+.questionsAnkor {
+  text-decoration: none;
+}
