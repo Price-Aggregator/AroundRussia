@@ -1,17 +1,17 @@
 .tickets {
-  max-width: 1110px;
-  display: flex;
+	max-width: 1110px;
+	display: flex;
 	flex-direction: row;
 	margin: 0 auto;
 }
 
 .tickets__inner {
-	max-width: 760px;
+	max-width: 790px;
 	width: 100%;
 	padding-top: 15px;
 	display: flex;
 	flex-direction: column;
 	gap: 20px;
 	align-items: center;
-  margin-left: 65px;
+	margin-left: 35px;
 }

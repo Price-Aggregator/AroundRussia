@@ -12,12 +12,17 @@ import {
 } from '../../store/Cities/slice';
 import calendar from '../../images/calendar.svg';
 import useLocalStorageHook from '../../hooks/UseLocalHook';
+import getFiltersState from '../../store/Filter/selector';
+import getTickets from '../../store/Tickets/selectors';
+import { fetchCalendar } from '../../store/Calendar/slice';
 
 function SearchForm() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const tickets = useSelector(getTickets);
   const cities = useSelector(getAllCities);
   const citiesByLetter = useSelector(getCityByLetter);
+  const filters = useSelector(getFiltersState);
   const [from, setFrom] = useState('');
   const [to, setTo] = useState('');
   const [when, setWhen] = useState('');
@@ -34,14 +39,17 @@ function SearchForm() {
   const [typeIn, setTypeIn] = useState('text');
   const [typeOut, setTypeOut] = useState('text');
 
-  const [formLocaleStorage, setFormLocaleStorage] = useLocalStorageHook('form', [])
+  const [formLocaleStorage, setFormLocaleStorage] = useLocalStorageHook(
+    'form',
+    []
+  );
 
   useEffect(() => {
-    setFrom(formLocaleStorage.from)
-    setTo(formLocaleStorage.to)
-    setWhen(formLocaleStorage.when)
-    setWhenReturn(formLocaleStorage.whenReturn)
-  }, [formLocaleStorage])
+    setFrom(formLocaleStorage.from);
+    setTo(formLocaleStorage.to);
+    setWhen(formLocaleStorage.when);
+    setWhenReturn(formLocaleStorage.whenReturn);
+  }, [formLocaleStorage]);
 
   const onClickFrom = (e) => {
     setFilteredSuggestions([]);
@@ -101,6 +109,8 @@ function SearchForm() {
       to: toCityIATA?.code || '',
       when,
       whenReturn,
+      sortingMode: filters.sorting,
+      isDirect: filters.direct,
     };
 
     const formForLocale = {
@@ -108,14 +118,48 @@ function SearchForm() {
       to,
       when,
       whenReturn,
-    }
+      sortingMode: filters.sorting,
+      isDirect: filters.direct,
+    };
 
     dispatch(setForm(formData));
-    await setFormLocaleStorage(formForLocale)
+    await setFormLocaleStorage(formForLocale);
     dispatch(clearTickets());
     dispatch(fetchTickets(formData));
+    dispatch(fetchCalendar(formData))
     navigate('/result');
   };
+  useEffect(() => {
+    if (tickets?.length > 0 && cities.length > 0) {
+      const fromCityIATA = cities.find(
+        (item) => item.name.toLowerCase() === from.toLowerCase()
+      );
+      const toCityIATA = cities.find(
+        (item) => item.name.toLowerCase() === to.toLowerCase()
+      );
+      const formData = {
+        from: fromCityIATA?.code || '',
+        to: toCityIATA?.code || '',
+        when,
+        whenReturn,
+        sortingMode: filters.sorting,
+        isDirect: filters.direct,
+      };
+      const formForLocale = {
+        from,
+        to,
+        when,
+        whenReturn,
+        sortingMode: filters.sorting,
+        isDirect: filters.direct,
+      };
+      dispatch(setForm(formData));
+      setFormLocaleStorage(formForLocale);
+      dispatch(clearTickets());
+      dispatch(fetchTickets(formData));
+      dispatch(fetchCalendar(formData))
+    }
+  }, [filters.sorting, filters.direct]);
 
   return (
     <>

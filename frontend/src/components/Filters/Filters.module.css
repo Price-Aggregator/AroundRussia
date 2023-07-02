@@ -5,7 +5,7 @@
 	display: flex;
 	padding: 50px 15px;
 	gap: 10px;
-	width: 285px;
+	width: 255px;
 	max-height: 400px;
 	flex-direction: column;
 }
@@ -16,7 +16,7 @@
 	font-weight: 500;
 	font-size: 30px;
 	line-height: 35px;
-	margin-bottom: 20px;
+	margin-bottom: 40px;
 }
 
 .filter {
@@ -37,8 +37,13 @@
 	font-style: normal;
 	font-weight: 500;
 	font-size: 20px;
-	line-height: 23px;
+	line-height: normal;
 	padding-bottom: 10px;
+	border-bottom: 1px solid #8a8a8a;
+	margin-bottom: 20px;
+}
+.filter__set:first-of-type {
+	margin-bottom: 40px;
 }
 
 .filter__group {
@@ -50,7 +55,7 @@
 	font-style: normal;
 	font-weight: 400;
 	font-size: 15px;
-	line-height: 18px;
+	line-height: normal;
 	margin-left: 10px;
 }
 
@@ -71,46 +76,4 @@
 .filter__radio:checked {
 	background-color: #eba534;
 	border: 2px solid #eba534;
-}
-
-.filtersChevron {
-	margin: 0;
-	height: 11px;
-	padding-bottom: 10px;
-	margin-left: auto;
-	margin-right: 10px;
-	transition: transform 0.25s cubic-bezier(0, 0, 0, 1);
-}
-
-.filtersItem {
-	padding-top: 50px;
-	padding: 20px 0px;
-}
-
-.filtersItemBtn {
-	cursor: pointer;
-	padding: 0;
-	border: none;
-	background: none;
-	display: flex;
-	align-items: center;
-	width: 100%;
-	font-style: normal;
-	font-weight: 300;
-	font-size: 20px;
-	line-height: 124.69%;
-	border-bottom: 1px solid #8a8a8a;
-	margin-bottom: 5px;
-}
-
-.filtersItemBtn:hover {
-	color: #eba534;
-}
-
-.filtersitemBtnExpanded .filtersChevron {
-	transform: rotate(-90deg);
-}
-
-.filterstemPanel {
-	padding-top: 15px;
 }
