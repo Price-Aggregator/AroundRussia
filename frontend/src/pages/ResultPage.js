@@ -11,6 +11,7 @@ import getTickets from '../store/Tickets/selectors';
 import { setForm } from '../store/SearchForm/slice';
 import Loader from '../components/Loader/Loader';
 import { showLoader, hideLoader } from '../store/Loader/slice';
+import getLoaderState from '../store/Loader/selectors';
 
 function ResultPage() {
 	const dispatch = useDispatch();
@@ -18,7 +19,7 @@ function ResultPage() {
 	const cities = useSelector(getAllCities);
 	const tickets = useSelector(getTickets);
 	// dispatch(fetchCalendar(form))
-	const isLoading = useSelector((state) => state.loader.isLoading);
+	const isLoading = useSelector(getLoaderState);
 
 	// eslint-disable-next-line no-unused-vars
 
