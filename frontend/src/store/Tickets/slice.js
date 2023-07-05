@@ -20,9 +20,11 @@ export const fetchTickets = createAsyncThunk(
 			sortingMode: formData.sortingMode,
 			isDirect: formData.isDirect,
 		});
+		console.log('fetchData:', fetchData);
 		const clearFetchData = formData.whenReturn
 			? fetchData
 			: noReturn(fetchData);
+		console.log('clearFetchData:', clearFetchData);
 		const res = await fetch(`${BASE_URL}/airline`, {
 			method: 'POST',
 			headers: {

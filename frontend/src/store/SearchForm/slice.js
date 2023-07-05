@@ -8,7 +8,7 @@ const initialState = {
 	when: '',
 	whenReturn: '',
 	sortingMode: 'price',
-  isDirect: 'false',
+	isDirect: '',
 };
 
 const searchFormSlice = createSlice({
@@ -39,15 +39,15 @@ const searchFormSlice = createSlice({
 			...state,
 			isDirect: action.payload,
 		}),
-    setForm: (state, action) => ({
+		setForm: (state, action) => ({
 			...state,
 			from: action.payload.from,
 			to: action.payload.to,
 			when: action.payload.when,
 			whenReturn: action.payload.whenReturn,
 			sortingMode: action.payload.sortingMode,
-      isDirect: action.payload.isDirect,
-    }),
+			isDirect: action.payload.isDirect,
+		}),
 	},
 });
 
@@ -58,6 +58,6 @@ export const {
 	setWhen,
 	setForm,
 	setSortingMode,
-  setIsDirect,
+	setIsDirect,
 } = searchFormSlice.actions;
 export const searchFormReducer = searchFormSlice.reducer;

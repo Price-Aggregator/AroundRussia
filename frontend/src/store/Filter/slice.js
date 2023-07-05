@@ -4,7 +4,7 @@ export const filtersName = 'filters';
 
 const initialState = {
 	sorting: 'price',
-	direct: 'false',
+	direct: '',
 };
 
 const filtersSlice = createSlice({
