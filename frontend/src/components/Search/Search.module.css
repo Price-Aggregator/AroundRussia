@@ -203,3 +203,18 @@ input[type='date']::-webkit-calendar-picker-indicator {
   padding-left: 0;
   width: 180px;
 }
+
+.search__button_disabled {
+  background: var(--bg-opacity, rgba(33, 49, 51, 0.40));
+  height: 55px;
+  width: 168px;
+  color: black;
+  text-align: center;
+  border-radius: 10px;
+  font-family: 'Roboto';
+  font-size: 20px;
+  font-weight: 500;
+  margin-left: 15px;
+  padding: 0;
+  border: 0;
+}

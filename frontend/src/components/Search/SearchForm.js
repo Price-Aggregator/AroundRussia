@@ -296,9 +296,10 @@ function SearchForm() {
 					)}
 				</div>
 				<button
-					className={styles.search__button}
+					className={`${!closedCities.includes(from) || !closedCities.includes(to) ? styles.search__button : styles.search__button}`}
+
 					type="submit"
-					disabled={`${closedCities.includes(from) || closedCities.includes(to)  ? '' : 'disabled'}`}
+					disabled={`${!closedCities.includes(from) || !closedCities.includes(to)  ? '' : 'disabled'}`}
 				>
 					Найти
 				</button>
