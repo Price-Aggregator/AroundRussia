@@ -7,6 +7,7 @@ import MainPage from '../../pages/MainPage';
 import Layout from '../Layout/Layout';
 import styles from './App.module.css';
 import { getCities } from '../../store/Cities/slice';
+import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
 
 
 
@@ -26,6 +27,17 @@ const router = createBrowserRouter([
           <ResultPage />
         )
       }
+    ]
+  },
+  {
+    element: <ProtectedRoute />,
+    children: [
+      // {
+      //   path: 'result',
+      //   element: (
+      //     <ResultPage />
+      //   )
+      // }
     ]
   },
   {
