@@ -24,11 +24,11 @@ export function useFormWithValidation() {
     const {name} = target;
     const {value} = target;
     setValues({ ...values, [name]: value });
-    if (name === "name") {
+    if (name === "from") {
       const nameValid = value.match(/^[а-яА-ЯёЁa-zA-Z0-9\-\s]+$/i);
       setErrors({ ...errors, [name]: nameValid ? "" : " Заполните поле имя" });
     }
-    if (name === "email") {
+    if (name === "to") {
       const emailValid = value.match(/^([\w.%+-]+)@([\w-]+\.)+([\w]{2,})$/i);
       setErrors({ ...errors, [name]: emailValid ? "" : " Невалидный email" });
     }

@@ -14,6 +14,7 @@ import calendar from '../../images/calendar.svg';
 import useLocalStorageHook from '../../hooks/UseLocalHook';
 import getFiltersState from '../../store/Filter/selector';
 import getTickets from '../../store/Tickets/selectors';
+// import { useForm } from '../../hooks/UseForm';
 
 function SearchForm() {
 	const dispatch = useDispatch();
@@ -37,11 +38,24 @@ function SearchForm() {
 
 	const [typeIn, setTypeIn] = useState('text');
 	const [typeOut, setTypeOut] = useState('text');
-
+	const closedCities = [
+		'Анапа',
+		'Белгород',
+		'Брянск',
+		'Воронеж',
+		'Геленджик',
+		'Краснодар',
+		'Липецк',
+		'Ростов-на-Дону',
+		'Симферополь',
+		'Элиста',
+	];
 	const [formLocaleStorage, setFormLocaleStorage] = useLocalStorageHook(
 		'form',
 		[]
 	);
+
+	// const { values, handleChange, errors, isValid, resetForm } = useForm();
 
 	useEffect(() => {
 		setFrom(formLocaleStorage.from);
@@ -143,17 +157,17 @@ function SearchForm() {
 				sortingMode: filters.sorting,
 				isDirect: filters.direct,
 			};
-      const formForLocale = {
-        from,
-        to,
-        when,
-        whenReturn,
-        sortingMode: filters.sorting,
-        isDirect: filters.direct,
-      };
+			const formForLocale = {
+				from,
+				to,
+				when,
+				whenReturn,
+				sortingMode: filters.sorting,
+				isDirect: filters.direct,
+			};
 			dispatch(setForm(formData));
-      setFormLocaleStorage(formForLocale);
-      dispatch(clearTickets());
+			setFormLocaleStorage(formForLocale);
+			dispatch(clearTickets());
 			dispatch(fetchTickets(formData));
 		}
 	}, [filters.sorting, filters.direct]);
@@ -168,35 +182,37 @@ function SearchForm() {
 						value={from || ''}
 						className={styles.search__input_left}
 						placeholder="Откуда"
-						name={from}
+						name="from"
 					/>
 					{filteredSuggestions &&
 						from &&
-						(filteredSuggestions.length ? (
-							<ul className={styles.suggestions}>
-								{filteredSuggestions.map((suggestion, index) => {
-									let className;
-									// Flag the active suggestion with a class
-									if (index === activeSuggestionIndex) {
-										className = 'suggestion-active';
-									}
-									return (
-										// eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-noninteractive-element-interactions
-										<li
-											className={className}
-											key={suggestion.code}
-											onClick={onClickFrom}
-										>
-											{suggestion.name}
-										</li>
-									);
-								})}
-							</ul>
-						) : (
-							<div className={styles.noSuggestions}>
-								{/* <em>Предположений нет!</em> */}
-							</div>
-						))}
+						!closedCities.includes(from) && (
+							filteredSuggestions.length ? (
+								<ul className={styles.suggestions}>
+									{filteredSuggestions.map((suggestion, index) => {
+										let className;
+										// Flag the active suggestion with a class
+										if (index === activeSuggestionIndex) {
+											className = 'suggestion-active';
+										}
+										return (
+											// eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-noninteractive-element-interactions
+											<li
+												className={className}
+												key={suggestion.code}
+												onClick={onClickFrom}
+											>
+												{suggestion.name}
+											</li>
+										);
+									})}
+								</ul>
+							) : (
+								<div className={styles.noSuggestions}>
+									<em>Предположений нет!</em>
+								</div>
+							)
+						)}
 				</div>
 				<div className={styles.suggestions__wrapper}>
 					<input
@@ -209,7 +225,7 @@ function SearchForm() {
 						value={to || ''}
 					/>
 					{filteredSuggestionsTo &&
-						to &&
+						to && closedCities.includes(to) &&
 						(filteredSuggestionsTo.length ? (
 							<ul className={styles.suggestions}>
 								{filteredSuggestionsTo.map((suggestion, index) => {
@@ -232,7 +248,7 @@ function SearchForm() {
 							</ul>
 						) : (
 							<div className={styles.noSuggestions}>
-								{/* <em>Предположений нет!</em> */}
+								<em>Предположений нет!</em>
 							</div>
 						))}
 				</div>
@@ -279,7 +295,11 @@ function SearchForm() {
 						<section />
 					)}
 				</div>
-				<button className={styles.search__button} type="submit">
+				<button
+					className={styles.search__button}
+					type="submit"
+					disabled={`${closedCities.includes(from) || closedCities.includes(to)  ? '' : 'disabled'}`}
+				>
 					Найти
 				</button>
 				{/* <div className="message">{message ? <p>{message}</p> : null}</div> */}
