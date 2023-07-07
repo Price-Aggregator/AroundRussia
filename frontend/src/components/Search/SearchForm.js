@@ -37,6 +37,18 @@ function SearchForm() {
 
 	const [typeIn, setTypeIn] = useState('text');
 	const [typeOut, setTypeOut] = useState('text');
+	const closedCities = [
+		'Анапа',
+		'Белгород',
+		'Брянск',
+		'Воронеж',
+		'Геленджик',
+		'Краснодар',
+		'Липецк',
+		'Ростов-на-Дону',
+		'Симферополь',
+		'Элиста',
+	];
 
 	const [formLocaleStorage, setFormLocaleStorage] = useLocalStorageHook(
 		'form',
@@ -143,17 +155,17 @@ function SearchForm() {
 				sortingMode: filters.sorting,
 				isDirect: filters.direct,
 			};
-      const formForLocale = {
-        from,
-        to,
-        when,
-        whenReturn,
-        sortingMode: filters.sorting,
-        isDirect: filters.direct,
-      };
+			const formForLocale = {
+				from,
+				to,
+				when,
+				whenReturn,
+				sortingMode: filters.sorting,
+				isDirect: filters.direct,
+			};
 			dispatch(setForm(formData));
-      setFormLocaleStorage(formForLocale);
-      dispatch(clearTickets());
+			setFormLocaleStorage(formForLocale);
+			dispatch(clearTickets());
 			dispatch(fetchTickets(formData));
 		}
 	}, [filters.sorting, filters.direct]);
@@ -172,6 +184,8 @@ function SearchForm() {
 					/>
 					{filteredSuggestions &&
 						from &&
+						!closedCities.includes(from) &&
+						'' &&
 						(filteredSuggestions.length ? (
 							<ul className={styles.suggestions}>
 								{filteredSuggestions.map((suggestion, index) => {
@@ -194,7 +208,7 @@ function SearchForm() {
 							</ul>
 						) : (
 							<div className={styles.noSuggestions}>
-								{/* <em>Предположений нет!</em> */}
+								<em>Предположений нет!</em>
 							</div>
 						))}
 				</div>
@@ -210,6 +224,8 @@ function SearchForm() {
 					/>
 					{filteredSuggestionsTo &&
 						to &&
+						!closedCities.includes(to) &&
+						'' &&
 						(filteredSuggestionsTo.length ? (
 							<ul className={styles.suggestions}>
 								{filteredSuggestionsTo.map((suggestion, index) => {
@@ -232,7 +248,7 @@ function SearchForm() {
 							</ul>
 						) : (
 							<div className={styles.noSuggestions}>
-								{/* <em>Предположений нет!</em> */}
+								<em>Предположений нет!</em>
 							</div>
 						))}
 				</div>
@@ -279,9 +295,22 @@ function SearchForm() {
 						<section />
 					)}
 				</div>
-				<button className={styles.search__button} type="submit">
+				<button
+					className={`${
+						!closedCities.includes(from) && !closedCities.includes(to)
+							? styles.search__button
+							: styles.search__button_disabled
+					}`}
+					type="submit"
+					disabled={`${
+						!closedCities.includes(from) && !closedCities.includes(to)
+							? ''
+							: 'disabled'
+					}`}
+				>
 					Найти
 				</button>
+
 				{/* <div className="message">{message ? <p>{message}</p> : null}</div> */}
 			</form>
 		</>
