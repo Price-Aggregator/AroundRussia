@@ -185,7 +185,7 @@ function SearchForm() {
 					{filteredSuggestions &&
 						from &&
 						!closedCities.includes(from) &&
-						'' &&
+
 						(filteredSuggestions.length ? (
 							<ul className={styles.suggestions}>
 								{filteredSuggestions.map((suggestion, index) => {
@@ -208,7 +208,7 @@ function SearchForm() {
 							</ul>
 						) : (
 							<div className={styles.noSuggestions}>
-								<em>Предположений нет!</em>
+								{ /* <em>Предположений нет!</em> */ }
 							</div>
 						))}
 				</div>
@@ -225,7 +225,7 @@ function SearchForm() {
 					{filteredSuggestionsTo &&
 						to &&
 						!closedCities.includes(to) &&
-						'' &&
+
 						(filteredSuggestionsTo.length ? (
 							<ul className={styles.suggestions}>
 								{filteredSuggestionsTo.map((suggestion, index) => {
@@ -248,7 +248,7 @@ function SearchForm() {
 							</ul>
 						) : (
 							<div className={styles.noSuggestions}>
-								<em>Предположений нет!</em>
+								{ /* <em>Предположений нет!</em> */ }
 							</div>
 						))}
 				</div>
