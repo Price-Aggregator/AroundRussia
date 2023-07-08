@@ -10,7 +10,7 @@ import {
   clearCitiesByLetter,
   fetchCitiesByLetter,
 } from '../../store/Cities/slice';
-import calendar from '../../images/calendar.svg';
+// import calendar from '../../images/calendar.svg';
 import useLocalStorageHook from '../../hooks/UseLocalHook';
 
 function SearchForm() {
@@ -76,6 +76,25 @@ function SearchForm() {
     setShowSuggestions(false);
     setShowSuggestionsTo(true);
   };
+
+
+  const setTypeInToggle = (whenIn) => {
+    if (whenIn === undefined) {
+      setTypeIn('text')
+    }
+    else {
+      setTypeIn('date')
+    }
+  }
+
+  const setTypeOutToggle = (whenOut) => {
+    if (whenOut === undefined) {
+      setTypeOut('text')
+    }
+    else {
+      setTypeOut('date')
+    }
+  }
 
   useEffect(() => {
     if (showSuggestions) {
@@ -205,16 +224,18 @@ function SearchForm() {
             name="when"
             required
             onChange={(e) => setWhen(e.target.value)}
-            value={when || ''}
+            // value={when || ''}
             onFocus={() => setTypeIn('date')}
-            onBlur={() => setTypeIn('text')}
+            onBlur={() => setTypeInToggle(when)}
+            max='9999-12-31'
           />
           {typeIn === 'text' ? (
-            <img
-              className={styles.search__image}
-              alt="calendar"
-              src={calendar}
-            />
+            // <img
+            //   className={styles.search__image}
+            //   alt="calendar"
+            //   src={calendar}
+            // />
+            <section />
           ) : (
             <section />
           )}
@@ -226,16 +247,18 @@ function SearchForm() {
             placeholder="Обратно"
             name="whenReturn"
             onChange={(e) => setWhenReturn(e.target.value)}
-            value={whenReturn || ''}
+            // value={whenReturn || ''}
             onFocus={() => setTypeOut('date')}
-            onBlur={() => setTypeOut('text')}
+            onBlur={() => setTypeOutToggle(whenReturn)}
+            max='9999-12-31'
           />
           {typeOut === 'text' ? (
-            <img
-              className={styles.search__image}
-              alt="calendar"
-              src={calendar}
-            />
+            // <img
+            //   className={styles.search__image}
+            //   alt="calendar"
+            //   src={calendar}
+            // />
+            <section />
           ) : (
             <section />
           )}
