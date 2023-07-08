@@ -1,10 +1,12 @@
-version: '1'
-services:
-  frontend-api:
-    container_name: aroundrussia
-    build: ./frontend
-    restart: always
-    volumes:
-      - "./frontend/nginx/conf.d/default.conf:/etc/nginx/conf.d/default.conf"
-    ports: 
-      - 8081:80
+# version: '1'
+# services:
+#   frontend-api:
+#     container_name: aroundrussia
+#     build: 
+#       context: ./frontend
+#       dockerfile: Dockerfile.dev
+#     restart: always
+#     volumes:
+#       - "./frontend/nginx/conf.d/default.conf:/etc/nginx/conf.d/default.conf"
+#     ports: 
+#       - 8081:80

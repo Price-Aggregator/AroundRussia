@@ -11,9 +11,10 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  max-width: 221px;
+  max-width: 213px;
   border-right: 1px dashed #8a8a8a;
-  padding: 50px 15px 0;
+  padding: 50px 22.5px 0;
+  box-sizing: border-box;
 }
 
 .ticket__price_box {
@@ -28,10 +29,11 @@
   font-weight: 500;
   font-size: 25px;
   line-height: 29px;
+  color: #132529;
 }
 
 .button {
-  width: 181px;
+  width: 168px;
   height: 55px;
   background-color: #F8C747;
   border-radius: 10px;
@@ -48,8 +50,9 @@
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  padding: 15.5px 30px 15.5px 30px;
+  padding: 30px 18.5px 15.5px 18.5px;
   gap: 30px;
+  max-width: 577px;
 }
 
 .company__box {
@@ -69,6 +72,7 @@
   font-weight: 500;
   font-size: 20px;
   line-height: 23px;
+  color: #132529;
 }
 
 .ticket__content {
@@ -76,7 +80,7 @@
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  gap: 27px;
+  /* gap: 27px; */
 }
 
 .ticket__content:first-child {
@@ -95,8 +99,9 @@
   flex-direction: column;
   justify-content: center;
   align-items: flex-start;
-  width: 95px;
+  width: 130px;
   gap: 20px;
+  margin: 0 10px;
 }
 
 .ticket__date_content:last-child {
@@ -133,16 +138,17 @@
 .ticket__duration {
   display: flex;
   flex-direction: row;
-  gap: 56px;
+  gap: 33.875px;
   align-items: center;
 }
 
 .ticket__text {
+  font-family: 'Roboto', 'Arial', 'sans-serif';
   font-style: normal;
   font-weight: 400;
   font-size: 15px;
   line-height: 18px;
-  color: #8A8A8A;
+  color: #454545;
   text-align: end;
 }
 
@@ -166,10 +172,35 @@
 }
 
 .line {
-  border: 1px solid #8A8A8A;
+  border: 1px solid #454545;
   border-radius: 10px;
-  width: 265px;
+  width: 240px;
   box-sizing: border-box;
+  position: relative;
+}
+
+.line::after {
+  position: absolute;
+  right: -3px;
+  top: -3px;
+  content: '';
+  border: 3px solid #454545;
+  border-radius: 50%;
+  box-sizing: border-box;
+  height: 3px;
+  width: 3px;
+}
+
+.line::before {
+  position: absolute;
+  left: -3px;
+  top: -3px;
+  content: '';
+  border: 3px solid #454545;
+  border-radius: 50%;
+  box-sizing: border-box;
+  height: 3px;
+  width: 3px;
 }
 
 .code {
@@ -177,14 +208,14 @@
   font-weight: 400;
   font-size: 15px;
   line-height: 18px;
-  color: #EBA534;
+  color: #29A3D2;
 }
 
 .ticket__code_block {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  width: 265px;
+  width: 240px;
 }
 
 .ticket__best_price {
@@ -218,4 +249,5 @@
   line-height: 23px;
   color: #132529;
   text-decoration: none;
+  font-family: 'Roboto'
 }

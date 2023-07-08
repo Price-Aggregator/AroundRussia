@@ -24,7 +24,7 @@ export class Api {
 		}).then((res) => this._getResponseData(res));
 	}
 
-	addDataTicket(from, to, when, whenReturn) {
+	addDataTicket(from, to, when, whenReturn, sortingMode, isDirect) {
 		return fetch(`${this._address}/airline`, {
 			method: 'POST',
 			headers: {
@@ -35,8 +35,8 @@ export class Api {
 				destination: to,
 				departure_at: when,
 				return_at: whenReturn,
-				sorting: 'price',
-				direct: 'false',
+				sorting: sortingMode,
+				direct: isDirect,
 				unique: 'false',
 			}),
 		}).then((res) => this._getResponseData(res));
