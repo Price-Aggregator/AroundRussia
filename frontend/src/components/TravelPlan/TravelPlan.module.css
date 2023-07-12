@@ -1,0 +1,54 @@
+.travel {
+  max-width: 1110px;
+  display: flex;
+  flex-direction: column;
+  margin: 0 auto;
+}
+
+.box {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 0px;
+  gap: 15px;
+  padding: 30px 30px;
+}
+
+.dateBox {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  align-items: center;
+}
+
+.date {
+  /* width: 142px;
+height: 29px; */
+  margin: 0;
+  padding: 0;
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 25px;
+  line-height: 29px;
+  color: #132529;
+}
+
+.triangle {
+  width: 25px;
+  height: 25px;
+  background: url(../../images/TriangleGray.svg);
+  background-size: cover;
+  border: none;
+  transition: all 0.2s ease-in-out;
+}
+
+.triangle:hover {
+  cursor: pointer;
+}
+
+
+.triangleClose {
+  composes: triangle;
+  transform: rotate(180deg);
+}

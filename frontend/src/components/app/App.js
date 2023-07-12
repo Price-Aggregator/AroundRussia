@@ -8,6 +8,7 @@ import Layout from '../Layout/Layout';
 import styles from './App.module.css';
 import { getCities } from '../../store/Cities/slice';
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
+import TravelPlanPage from '../../pages/TravelPlanPage';
 
 
 
@@ -32,12 +33,12 @@ const router = createBrowserRouter([
   {
     element: <ProtectedRoute />,
     children: [
-      // {
-      //   path: 'result',
-      //   element: (
-      //     <ResultPage />
-      //   )
-      // }
+      {
+        path: 'travel/plan',
+        element: (
+          <TravelPlanPage />
+        )
+      }
     ]
   },
   {
