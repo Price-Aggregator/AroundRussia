@@ -52,3 +52,45 @@ height: 29px; */
   composes: triangle;
   transform: rotate(180deg);
 }
+
+.eventImage {
+  width: 200px;
+  height: 118px;
+}
+
+.eventBox {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  gap: 30px;
+  padding: 20px;
+  justify-content: space-between;
+}
+
+.eventIcon {
+  width: 36px;
+  height: 36px;
+}
+
+.eventTimeBox {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.eventTimeAndIconBox {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 30px;
+  height: fit-content;
+}
+
+.eventTime {
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 20px;
+  line-height: 23px;
+  color: #132529;
+}
