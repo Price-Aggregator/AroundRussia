@@ -1,5 +1,6 @@
 /* eslint-disable import/no-unresolved */
 import React from 'react';
+import NewTravelForm from './NewTravelForm/NewTravelForm';
 import styles from './DiaryTravelList.module.css';
 
 function DiaryTravelList() {
@@ -24,7 +25,7 @@ function DiaryTravelList() {
 				</button>
 			</div>
 			<div className={styles.dairy__travels}>
-				<h2>form</h2>
+				<NewTravelForm />
 				<h2>cards</h2>
 			</div>
 		</section>
