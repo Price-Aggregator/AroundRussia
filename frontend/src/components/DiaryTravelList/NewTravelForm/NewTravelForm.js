@@ -119,6 +119,7 @@ function NewTravelForm() {
 					<button
 						className={`${styles.form__button} ${styles.form__button_addPicture}`}
 						type="button"
+						onClick={() => console.log('click')}
 					>
 						Добавить фото
 					</button>
@@ -127,7 +128,7 @@ function NewTravelForm() {
 			<div className={styles.form__buttonBox}>
 				<button
 					className={`${styles.form__button} ${styles.form__button_cancel}`}
-					type="submit"
+					type="button"
 				>
 					Отменить
 				</button>
