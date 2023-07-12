@@ -1,0 +1,73 @@
+.diary__background {
+	width: 100%;
+	padding: 106px 165px 128px;
+	background-image: url(../../images/bg.svg);
+	background-repeat: no-repeat;
+	box-sizing: border-box;
+	background-size: cover;
+}
+
+.diary__title {
+	font-family: Roboto;
+	font-size: 45px;
+	font-style: normal;
+	font-weight: 500;
+	line-height: normal;
+	color: white;
+	margin: 0 auto;
+}
+
+.diary__subtitle {
+	font-family: Roboto;
+	font-size: 25px;
+	font-style: normal;
+	font-weight: 700;
+	line-height: normal;
+	letter-spacing: 0.5px;
+	color: white;
+	margin: 0;
+}
+
+.diary__textbox {
+	display: flex;
+	flex-direction: column;
+	gap: 15px;
+	margin: 100px 0 40px;
+}
+
+.diary__button {
+	display: flex;
+	padding: 15px 25px 15px 50px;
+	align-items: center;
+	gap: 10px;
+	background-color: #f8c747;
+	color: #132529;
+	font-family: Roboto;
+	font-size: 20px;
+	font-style: normal;
+	font-weight: 500;
+	line-height: normal;
+	border-radius: 10px;
+	border: none;
+	cursor: pointer;
+	position: relative;
+}
+
+.diary__button::after {
+	content: '';
+	background-image: url(../../images/Plus_Icon.svg);
+	background-repeat: no-repeat;
+	width: 15px;
+	height: 15px;
+	left: 25px;
+	top: 20px;
+	position: absolute;
+}
+
+.diary__button_withoutCards {
+	margin-top: 0;
+}
+
+.diary__button_withCards {
+	margin-top: 213px;
+}
