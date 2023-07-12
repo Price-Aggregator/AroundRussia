@@ -10,7 +10,7 @@ import {
 	clearCitiesByLetter,
 	fetchCitiesByLetter,
 } from '../../store/Cities/slice';
-import calendar from '../../images/calendar.svg';
+// import calendar from '../../images/calendar.svg';
 import useLocalStorageHook from '../../hooks/UseLocalHook';
 import getFiltersState from '../../store/Filter/selector';
 import getTickets from '../../store/Tickets/selectors';
@@ -105,6 +105,24 @@ function SearchForm() {
 			setFilteredSuggestions([]);
 		}
 	}, [citiesByLetter]);
+
+ const setTypeInToggle = (whenIn) => {
+    if (whenIn === undefined) {
+      setTypeIn('text')
+    }
+    else {
+      setTypeIn('date')
+    }
+  }
+
+  const setTypeOutToggle = (whenOut) => {
+    if (whenOut === undefined) {
+      setTypeOut('text')
+    }
+    else {
+      setTypeOut('date')
+    }
+  }
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
@@ -253,47 +271,51 @@ function SearchForm() {
 						))}
 				</div>
 				<div className={styles.search__wrapper}>
-					<input
-						type={typeIn}
-						className={styles.search__input}
-						placeholder="Когда"
-						name="when"
-						required
-						onChange={(e) => setWhen(e.target.value)}
-						value={when || ''}
-						onFocus={() => setTypeIn('date')}
-						onBlur={() => setTypeIn('text')}
-					/>
-					{typeIn === 'text' ? (
-						<img
-							className={styles.search__image}
-							alt="calendar"
-							src={calendar}
-						/>
-					) : (
-						<section />
-					)}
+					 <input
+            type={typeIn}
+            className={styles.search__input}
+            placeholder="Когда"
+            name="when"
+            required
+            onChange={(e) => setWhen(e.target.value)}
+            // value={when || ''}
+            onFocus={() => setTypeIn('date')}
+            onBlur={() => setTypeInToggle(when)}
+            max='9999-12-31'
+          />
+          {typeIn === 'text' ? (
+            // <img
+            //   className={styles.search__image}
+            //   alt="calendar"
+            //   src={calendar}
+            // />
+            <section />
+          ) : (
+            <section />
+          )}
 				</div>
 				<div className={styles.search__wrapper}>
-					<input
-						type={typeOut}
-						className={styles.search__input_right}
-						placeholder="Обратно"
-						name="whenReturn"
-						onChange={(e) => setWhenReturn(e.target.value)}
-						value={whenReturn || ''}
-						onFocus={() => setTypeOut('date')}
-						onBlur={() => setTypeOut('text')}
-					/>
-					{typeOut === 'text' ? (
-						<img
-							className={styles.search__image}
-							alt="calendar"
-							src={calendar}
-						/>
-					) : (
-						<section />
-					)}
+					  <input
+            type={typeOut}
+            className={styles.search__input_right}
+            placeholder="Обратно"
+            name="whenReturn"
+            onChange={(e) => setWhenReturn(e.target.value)}
+            // value={whenReturn || ''}
+            onFocus={() => setTypeOut('date')}
+            onBlur={() => setTypeOutToggle(whenReturn)}
+            max='9999-12-31'
+          />
+          {typeOut === 'text' ? (
+            // <img
+            //   className={styles.search__image}
+            //   alt="calendar"
+            //   src={calendar}
+            // />
+            <section />
+          ) : (
+            <section />
+          )}
 				</div>
 				<button
 					className={`${
