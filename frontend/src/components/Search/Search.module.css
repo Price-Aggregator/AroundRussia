@@ -67,6 +67,7 @@
 	max-width: 920px;
 	font-family: 'Roboto';
 	gap: 2px;
+	position: relative;
 }
 
 .search__input {
@@ -219,4 +220,47 @@ input[type='date']::-webkit-calendar-picker-indicator {
 	margin-left: 15px;
 	padding: 0;
 	border: 0;
+}
+
+.validation {
+	position: absolute;
+	display: flex;
+	border-radius: 10px;
+	padding: 15px 20px 15px 20px;
+	max-width: 920px;
+	font-family: 'Roboto';
+	gap: 2px;
+	background-color: white;
+	bottom: -109px;
+	left: 0;
+	flex-direction: column;
+}
+
+.validation__text {
+	font-family: 'Roboto';
+	font-size: 20px;
+	font-style: normal;
+	font-weight: 300;
+	line-height: 124.688%;
+	padding: 0;
+	margin: 0;
+}
+
+.validation__button {
+	display: flex;
+	padding: 10px 20px;
+	align-items: flex-start;
+	gap: 10px;
+	width: 315px;
+	height: 43px;
+	background-color: #f8c747;
+	border-radius: 10px;
+	border: none;
+	color: var(--text-black, #132529);
+	font-family: Roboto;
+	font-size: 20px;
+	font-style: normal;
+	font-weight: 400;
+	line-height: normal;
+  align-items: center;
 }
