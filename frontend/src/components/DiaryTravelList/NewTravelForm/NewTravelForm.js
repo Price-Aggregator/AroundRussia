@@ -4,10 +4,11 @@
 import React, { useState } from 'react';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
+import PropTypes from 'prop-types';
 import styles from './NewTravelForm.module.css';
 import DefaultPicture from '../../../images/dairy_picture_default.png';
 
-function NewTravelForm() {
+function NewTravelForm({ closeForm }) {
 	const [travelData, setTravelData] = useState({
 		title: '',
 		description: '',
@@ -129,6 +130,7 @@ function NewTravelForm() {
 				<button
 					className={`${styles.form__button} ${styles.form__button_cancel}`}
 					type="button"
+					onClick={closeForm}
 				>
 					Отменить
 				</button>
@@ -144,3 +146,11 @@ function NewTravelForm() {
 }
 
 export default NewTravelForm;
+
+NewTravelForm.propTypes = {
+	closeForm: PropTypes.func,
+};
+
+NewTravelForm.defaultProps = {
+	closeForm: () => {},
+};

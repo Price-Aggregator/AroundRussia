@@ -71,3 +71,12 @@
 .diary__button_withCards {
 	margin-top: 213px;
 }
+
+.diary__button_grey {
+	background-color: #eeeeee;
+	color: rgba(33, 49, 51, 0.4);
+}
+
+.diary__button_grey::after {
+	opacity: 0.4;
+}

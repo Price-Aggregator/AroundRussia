@@ -14,7 +14,7 @@ import {
 	yakutia,
 	yamal,
 } from '../images/avia-company/index';
-import defaultPicture from '../images/picture_travellist_default.png';
+// import defaultPicture from '../images/picture_travellist_default.png';
 
 const BASE_URL = 'http://localhost/api/v1';
 // const BASE_URL = 'http://aroundrussia.acceleratorpracticum.ru/api/v1';
@@ -160,7 +160,7 @@ const airlines = {
 };
 
 const TRAVEL_LIST_DATA = [
-	{
+	/* {
 		id: 1,
 		title: 'Алтай',
 		description:
@@ -193,7 +193,7 @@ const TRAVEL_LIST_DATA = [
 			defaultPicture,
 			defaultPicture,
 		],
-	},
+	}, */
 ];
 
 export {
