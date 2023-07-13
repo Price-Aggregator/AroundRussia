@@ -39,8 +39,13 @@ function DiaryTravelList() {
 					Добавить путешествие
 				</button>
 			</div>
-			<div className={styles.dairy__travels}>
-				{IsActiveForm && <NewTravelForm closeForm={closeForm} />}
+
+			{IsActiveForm && <NewTravelForm closeForm={closeForm} />}
+			<div
+				className={`${styles.dairy__travels} ${
+					!IsActiveForm ? styles.dairy__travels_margin : null
+				}`}
+			>
 				{TRAVEL_LIST_DATA.map((card) => (
 					<DiaryCardPreview
 						title={card.title}

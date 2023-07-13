@@ -11,20 +11,24 @@ function DiaryCardPreview({
 }) {
 	return (
 		<article className={styles.card}>
-			<div>
-				<h3>{title}</h3>
-				<p>{`${startDate} — ${finishDate}`}</p>
-				<p>{description}</p>
+			<div className={styles.card__textContentBox}>
+				<h3 className={styles.card__title}>{title}</h3>
+				<p className={styles.card__dates}>{`${startDate} — ${finishDate}`}</p>
+				<p className={styles.card__description}>{description}</p>
 			</div>
-			<div>
-				<img src={pictures[0]} alt={title} />
-				<div>
+			<div className={styles.card__pictureBox}>
+				<img
+					className={styles.card__mainPicture}
+					src={pictures[0]}
+					alt={title}
+				/>
+				<div className={styles.card__pictureList}>
 					{pictures.slice([1], [4]).map((picture) => (
-						<img src={picture} alt={picture} />
+						<img className={styles.card__picture} src={picture} alt={picture} />
 					))}
 					{pictures.length > 4 ? (
-						<div>
-							<p>+{pictures.length - 4}</p>
+						<div className={styles.card__countBox}>
+							<p className={styles.card__countNumber}>+{pictures.length - 4}</p>
 						</div>
 					) : null}
 				</div>

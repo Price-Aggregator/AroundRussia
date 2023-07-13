@@ -80,3 +80,17 @@
 .diary__button_grey::after {
 	opacity: 0.4;
 }
+
+.dairy__travels {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	gap: 40px;
+	max-width: 1110px;
+	margin: 0 auto 200px;
+}
+
+.dairy__travels_margin {
+	position: relative;
+	top: -70px;
+}
