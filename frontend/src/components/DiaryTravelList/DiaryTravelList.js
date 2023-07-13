@@ -43,7 +43,13 @@ function DiaryTravelList() {
 			{IsActiveForm && <NewTravelForm closeForm={closeForm} />}
 			<div
 				className={`${styles.dairy__travels} ${
-					!IsActiveForm ? styles.dairy__travels_margin : null
+					!IsActiveForm && TRAVEL_LIST_DATA.length !== 0
+						? styles.dairy__travels_relative
+						: null
+				} ${
+					IsActiveForm && TRAVEL_LIST_DATA.length > 0
+						? styles.dairy__travels_margin
+						: null
 				}`}
 			>
 				{TRAVEL_LIST_DATA.map((card) => (

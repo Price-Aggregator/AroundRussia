@@ -87,10 +87,14 @@
 	justify-content: center;
 	gap: 40px;
 	max-width: 1110px;
+}
+
+.dairy__travels_relative {
+	position: relative;
+	top: -70px;
 	margin: 0 auto 200px;
 }
 
 .dairy__travels_margin {
-	position: relative;
-	top: -70px;
+	margin: 0 auto 200px;
 }
