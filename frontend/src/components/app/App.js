@@ -5,6 +5,7 @@ import NotFound from '../NotFound/NotFound';
 import ResultPage from '../../pages/ResultPage';
 import MainPage from '../../pages/MainPage';
 import DiaryPage from '../../pages/DiaryPage';
+import DiaryTravelPage from '../../pages/DiaryTravelPage';
 import Layout from '../Layout/Layout';
 import styles from './App.module.css';
 import { getCities } from '../../store/Cities/slice';
@@ -25,6 +26,10 @@ const router = createBrowserRouter([
 			{
 				path: 'diary',
 				element: <DiaryPage />,
+			},
+			{
+				path: '/diary/:travelId',
+				element: <DiaryTravelPage />,
 			},
 		],
 	},

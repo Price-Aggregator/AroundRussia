@@ -83,4 +83,13 @@
 	display: flex;
 	flex-direction: column;
 	gap: 20px;
+	min-width: 350px;
+}
+
+.card__link {
+	max-width: 1110px;
+	width: 100%;
+	display: block;
+	text-decoration: none;
+	color: #132529;
 }

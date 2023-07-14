@@ -161,7 +161,7 @@ const airlines = {
 
 const TRAVEL_LIST_DATA = [
 	{
-		id: 1,
+		id: '1',
 		title: 'Алтай',
 		description:
 			'Путешествие на авто по Алтаю. Всего 15 локаций. Обязательно нужно купить сувениры и побывать около Белухи.',
@@ -177,22 +177,13 @@ const TRAVEL_LIST_DATA = [
 		],
 	},
 	{
-		id: 2,
+		id: '2',
 		title: 'Санкт-Петербург',
 		description:
 			'Едем на белые ночи. Взять напрокат лодку на развод мостов.Встретиться с друзьями.',
 		startDate: '2023-07-12',
 		finishDate: '2023-07-16',
-		pictures: [
-			defaultPicture,
-			defaultPicture,
-			defaultPicture,
-			defaultPicture,
-			defaultPicture,
-			defaultPicture,
-			defaultPicture,
-			defaultPicture,
-		],
+		pictures: [defaultPicture],
 	},
 ];
 

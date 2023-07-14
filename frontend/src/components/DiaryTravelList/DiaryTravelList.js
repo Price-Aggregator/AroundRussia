@@ -53,13 +53,7 @@ function DiaryTravelList() {
 				}`}
 			>
 				{TRAVEL_LIST_DATA.map((card) => (
-					<DiaryCardPreview
-						title={card.title}
-						startDate={card.startDate}
-						finishDate={card.finishDate}
-						description={card.description}
-						pictures={card.pictures}
-					/>
+					<DiaryCardPreview card={card} key={card.id} />
 				))}
 			</div>
 		</section>
