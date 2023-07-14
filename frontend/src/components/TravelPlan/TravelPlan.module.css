@@ -3,6 +3,9 @@
   display: flex;
   flex-direction: column;
   margin: 0 auto;
+  gap: 20px;
+  padding-top: 20px;
+  padding-bottom: 20px;
 }
 
 .box {
@@ -12,6 +15,7 @@
   padding: 0px;
   gap: 15px;
   padding: 30px 30px;
+  background-color: #fff;
 }
 
 .dateBox {
@@ -59,12 +63,11 @@ height: 29px; */
 }
 
 .eventBox {
-  width: 100%;
   display: flex;
   flex-direction: row;
   gap: 30px;
-  padding: 20px;
-  justify-content: space-between;
+  padding: 20px 0 20px 20px;
+  justify-content: flex-start;
 }
 
 .eventIcon {
@@ -93,4 +96,80 @@ height: 29px; */
   font-size: 20px;
   line-height: 23px;
   color: #132529;
+}
+
+.eventButtonBox {
+  display: flex;
+  flex-direction: row;
+  gap: 30px;
+  align-items: center;
+}
+
+.eventButton {
+  width: 24px;
+  height: 24px;
+  padding: 0;
+  margin: 0;
+  background: url(../../images/travel-plan/pen.svg);
+  background-size: cover;
+  border: none;
+}
+
+.eventButton:hover {
+  cursor: pointer;
+}
+
+.eventButtonTrash {
+  composes: eventButton;
+  background: url(../../images/travel-plan/trashBag.svg);
+  background-size: cover;
+}
+
+.eventHeaderText {
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 20px;
+  line-height: 23px;
+  color: #132529;
+  margin: 0;
+  padding: 0;
+}
+
+.eventSmallText {
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 15px;
+  line-height: 18px;
+  color: #454545;
+  margin: 0;
+  padding: 0;
+}
+
+.eventPriceText {
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 15px;
+  line-height: 18px;
+  color: #29A3D2;
+  margin: 0;
+  padding: 0;
+}
+
+.eventDescriptionBox {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.eventSecondBox {
+  display: flex;
+  flex-direction: column;
+  gap: 20px
+}
+
+.eventImageBox {
+  margin-left: auto;
 }
