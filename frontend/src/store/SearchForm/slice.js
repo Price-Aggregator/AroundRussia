@@ -8,7 +8,7 @@ const initialState = {
 	when: '',
 	whenReturn: '',
 	sortingMode: 'price',
-  isDirect: 'false',
+  isDirect: '',
 };
 
 const searchFormSlice = createSlice({

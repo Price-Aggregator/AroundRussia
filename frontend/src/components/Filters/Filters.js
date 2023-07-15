@@ -9,7 +9,7 @@ import { setFilters } from '../../store/Filter/slice';
 export default function Filters() {
 	const dispatch = useDispatch();
 	const [sorting, setSorting] = useState('price');
-	const [direct, setDirect] = useState('false');
+	const [direct, setDirect] = useState('');
 
 	useEffect(() => {
 		const filterinfo = { direct, sorting };
