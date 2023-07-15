@@ -39,7 +39,7 @@ function ResultPage() {
 				when: storageSave.when || '',
 				whenReturn: storageSave.whenReturn || '',
 				sortingMode: storageSave.sortingMode || 'price',
-				isDirect: storageSave.isDirect || 'false',
+				isDirect: storageSave.isDirect || '',
 			};
 			dispatch(setForm(formData));
 			dispatch(clearTickets());
