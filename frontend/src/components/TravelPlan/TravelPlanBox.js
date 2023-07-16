@@ -4,7 +4,7 @@ import styles from './TravelPlan.module.css'
 import travelTicket from '../../images/travel-plan/ticket.png'
 import { hotel, event, plane } from "../../images/travel-plan";
 
-function EventBox({ type, time, price, description, adress }) {
+function EventBox({ type, time, price, description, adress, eventName }) {
   const image = {
     plane,
     hotel,
@@ -22,7 +22,7 @@ function EventBox({ type, time, price, description, adress }) {
       </div>
       <div className={styles.eventSecondBox}>
         <div className={styles.eventButtonBox}>
-          <h3 className={styles.eventHeaderText}>Перелёт</h3>
+          <h3 className={styles.eventHeaderText}>{eventName}</h3>
           <button type="button" className={styles.eventButton}> </button>
           <button type="button" className={styles.eventButtonTrash}> </button>
         </div>
@@ -41,17 +41,24 @@ function EventBox({ type, time, price, description, adress }) {
   )
 }
 
-function TravelPlanBox() {
-  const [wrap, setWrap] = useState(false)
+function TravelPlanBox({ day }) {
+  const [wrap, setWrap] = useState(true)
+
+  const { date, events } = day
 
   return <div className={styles.box}>
     <div className={styles.dateBox}>
-      <h2 className={styles.date}>21 июля, Пн</h2>
+      <h2 className={styles.date}>{date}</h2>
       <button type="button" className={wrap ? styles.triangle : styles.triangleClose} onClick={() => setWrap(!wrap)}> </button>
     </ div>
-    {wrap && <div style={{ width: '100%' }}>
-      <EventBox type="hotel" time='14:00' adress="Аэропорт Шереметьево, терминал B" description="Заселение в 14:00. Спросить про вид на сад" price="18 000" />
-      <EventBox type="plane" time='14:00' />
+    {wrap && events && <div style={{ width: '100%' }}>
+      {events.map((item, index) =>
+        // eslint-disable-next-line
+        <EventBox type={item.type} time={item.time} adress={item.adress} description={item.description} price={item.price} eventName={item.eventName} key={index} />
+      )}
+      {/* <EventBox type="hotel" time='14:00' adress="Аэропорт Шереметьево, терминал B" description="Заселение в 14:00. Спросить про вид на сад" price="18 000" eventName='Перелёт' />
+      <EventBox type="plane" time='14:00' eventName='Перелёт' />
+      <EventBox type="event" time='14:00' eventName='Перелёт' /> */}
     </div>
     }
   </div>
@@ -62,13 +69,22 @@ EventBox.propTypes = {
   time: PropTypes.string.isRequired,
   adress: PropTypes.string,
   price: PropTypes.string,
-  description: PropTypes.string
+  description: PropTypes.string,
+  eventName: PropTypes.string.isRequired
 }
 
 EventBox.defaultProps = {
   adress: '',
   price: '',
   description: ''
+}
+
+TravelPlanBox.propTypes = {
+  day: PropTypes.objectOf(PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.number,
+    PropTypes.array
+  ])).isRequired
 }
 
 export default TravelPlanBox
