@@ -5,9 +5,46 @@ import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import styles from './DiaryTravel.module.css';
 import { generateUniqueKey } from '../../utils/utils';
+import TransportForm from '../DiaryTravelCategories/TransportForm/TransportForm';
+import PropertyForm from '../DiaryTravelCategories/PropertyForm/PropertyForm';
+import ActivityForm from '../DiaryTravelCategories/ActivityForm/ActivityForm';
 
 function DiaryTravel({ card }) {
 	const [isEmpty, setIsEmpty] = useState(true);
+
+	const [IsActiveTransportForm, setIsActiveTransportForm] = useState(false);
+	const [IsActivePropertyForm, setIsActivePropertyForm] = useState(false);
+	const [IsActiveActivityForm, setIsActiveActivityForm] = useState(false);
+
+	const openTransportForm = () => {
+		setIsActivePropertyForm(false);
+		setIsActiveActivityForm(false);
+		setIsActiveTransportForm(true);
+	};
+
+	const closeTransportForm = () => {
+		setIsActiveTransportForm(false);
+	};
+
+	const openPropertyForm = () => {
+		setIsActiveTransportForm(false);
+		setIsActiveActivityForm(false);
+		setIsActivePropertyForm(true);
+	};
+
+	const closePropertyForm = () => {
+		setIsActivePropertyForm(false);
+	};
+
+	const openActivityForm = () => {
+		setIsActiveTransportForm(false);
+		setIsActivePropertyForm(false);
+		setIsActiveActivityForm(true);
+	};
+
+	const closeActivityForm = () => {
+		setIsActiveActivityForm(false);
+	};
 
 	return (
 		<div className={styles.card__box}>
@@ -36,18 +73,21 @@ function DiaryTravel({ card }) {
 						<button
 							type="button"
 							className={`${styles.card__button} ${styles.card__button_transport}`}
+							onClick={openTransportForm}
 						>
 							Транспорт
 						</button>
 						<button
 							type="button"
 							className={`${styles.card__button} ${styles.card__button_accommodation}`}
+							onClick={openPropertyForm}
 						>
 							Жилье
 						</button>
 						<button
 							type="button"
 							className={`${styles.card__button} ${styles.card__button_activity}`}
+							onClick={openActivityForm}
 						>
 							Активности
 						</button>
@@ -78,13 +118,21 @@ function DiaryTravel({ card }) {
 					</div>
 				</div>
 			</article>
-			{isEmpty && (
-				<div className={styles.card__emptyBunner}>
-					<p className={styles.card__emptyText}>
-						Здесь пока пусто. Давайте начнём планировать путешествие!
-					</p>
-				</div>
+			{IsActiveTransportForm && (
+				<TransportForm closeForm={closeTransportForm} />
 			)}
+			{IsActivePropertyForm && <PropertyForm closeForm={closePropertyForm} />}
+			{IsActiveActivityForm && <ActivityForm closeForm={closeActivityForm} />}
+			{isEmpty &&
+				!IsActiveTransportForm &&
+				!IsActivePropertyForm &&
+				!IsActiveActivityForm && (
+					<div className={styles.card__emptyBunner}>
+						<p className={styles.card__emptyText}>
+							Здесь пока пусто. Давайте начнём планировать путешествие!
+						</p>
+					</div>
+				)}
 		</div>
 	);
 }
