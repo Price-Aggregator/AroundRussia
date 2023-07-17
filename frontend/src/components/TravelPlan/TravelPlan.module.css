@@ -1,0 +1,176 @@
+.travel {
+  max-width: 1110px;
+  display: flex;
+  flex-direction: column;
+  /* margin: 0 auto; */
+  gap: 20px;
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+
+.box {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 0px;
+  gap: 15px;
+  /* padding: 30px 30px; */
+  background-color: #fff;
+}
+
+.dateBox {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  align-items: center;
+  padding: 30px;
+}
+
+.date {
+  /* width: 142px;
+height: 29px; */
+  margin: 0;
+  padding: 0;
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 25px;
+  line-height: 29px;
+  color: #132529;
+}
+
+.triangle {
+  width: 25px;
+  height: 25px;
+  background: url(../../images/TriangleGray.svg);
+  background-size: cover;
+  border: none;
+  transition: all 0.2s ease-in-out;
+}
+
+.triangle:hover {
+  cursor: pointer;
+}
+
+
+.triangleClose {
+  composes: triangle;
+  transform: rotate(180deg);
+}
+
+.eventImage {
+  width: 200px;
+  height: 118px;
+}
+
+.eventBox {
+  display: flex;
+  flex-direction: row;
+  gap: 30px;
+  padding: 50px 30px 50px 50px;
+  justify-content: flex-start;
+}
+
+.eventIcon {
+  width: 36px;
+  height: 36px;
+}
+
+.eventTimeBox {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.eventTimeAndIconBox {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 30px;
+  height: fit-content;
+}
+
+.eventTime {
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 20px;
+  line-height: 23px;
+  color: #132529;
+}
+
+.eventButtonBox {
+  display: flex;
+  flex-direction: row;
+  gap: 30px;
+  align-items: center;
+}
+
+.eventButton {
+  width: 24px;
+  height: 24px;
+  padding: 0;
+  margin: 0;
+  background: url(../../images/travel-plan/pen.svg);
+  background-size: cover;
+  border: none;
+}
+
+.eventButton:hover {
+  cursor: pointer;
+}
+
+.eventButtonTrash {
+  composes: eventButton;
+  background: url(../../images/travel-plan/trashBag.svg);
+  background-size: cover;
+}
+
+.eventHeaderText {
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 20px;
+  line-height: 23px;
+  color: #132529;
+  margin: 0;
+  padding: 0;
+}
+
+.eventSmallText {
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 15px;
+  line-height: 18px;
+  color: #454545;
+  margin: 0;
+  padding: 0;
+}
+
+.eventPriceText {
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 15px;
+  line-height: 18px;
+  color: #29A3D2;
+  margin: 0;
+  padding: 0;
+}
+
+.eventDescriptionBox {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.eventSecondBox {
+  display: flex;
+  flex-direction: column;
+  gap: 20px
+}
+
+.eventImageBox {
+  margin-left: auto;
+}

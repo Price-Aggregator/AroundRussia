@@ -59,7 +59,7 @@ function Header() {
         </Link>
         <Link
           smooth
-          to="/"
+          to="/diary"
           className={styles.header__link}
         >
           Дневник путешествинника
