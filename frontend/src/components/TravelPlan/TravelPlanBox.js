@@ -3,8 +3,15 @@ import PropTypes from 'prop-types';
 import styles from './TravelPlan.module.css'
 import travelTicket from '../../images/travel-plan/ticket.png'
 import { hotel, event, plane } from "../../images/travel-plan";
+import TransportForm from "../DiaryTravelCategories/TransportForm/TransportForm";
+import ActivityForm from "../DiaryTravelCategories/ActivityForm/ActivityForm";
+import PropertyForm from "../DiaryTravelCategories/PropertyForm/PropertyForm";
+
 
 function EventBox({ type, time, price, description, adress, eventName }) {
+
+  const [editForm, setEditForm] = useState(false)
+
   const image = {
     plane,
     hotel,
@@ -12,31 +19,38 @@ function EventBox({ type, time, price, description, adress, eventName }) {
   }
 
   return (
-    <div className={styles.eventBox}>
-      <div className={styles.eventTimeAndIconBox}>
-        <div className={styles.eventTimeBox}>
-          {/* <span className={styles.eventTime}>14:00</span>  */}
-          <span className={styles.eventTime}>{time}</span>
+    <div>
+      <div className={styles.eventBox}>
+        <div className={styles.eventTimeAndIconBox}>
+          <div className={styles.eventTimeBox}>
+            {/* <span className={styles.eventTime}>14:00</span>  */}
+            <span className={styles.eventTime}>{time}</span>
+          </div>
+          <img src={image[type]} alt="icon" className={styles.eventIcon} />
         </div>
-        <img src={image[type]} alt="icon" className={styles.eventIcon} />
-      </div>
-      <div className={styles.eventSecondBox}>
-        <div className={styles.eventButtonBox}>
-          <h3 className={styles.eventHeaderText}>{eventName}</h3>
-          <button type="button" className={styles.eventButton}> </button>
-          <button type="button" className={styles.eventButtonTrash}> </button>
+        <div className={styles.eventSecondBox}>
+          <div className={styles.eventButtonBox}>
+            <h3 className={styles.eventHeaderText}>{eventName}</h3>
+            <button type="button" className={styles.eventButton} onClick={() => setEditForm(!editForm)}> </button>
+            <button type="button" className={styles.eventButtonTrash}> </button>
+          </div>
+          <div className={styles.eventDescriptionBox}>
+            <p className={styles.eventSmallText}>{adress}</p>
+            <p className={styles.eventSmallText}>{description}</p>
+            {price && <p className={styles.eventPriceText}>{price}
+              <span className={styles.eventPriceText}> ₽</span>
+            </p>}
+          </div>
         </div>
-        <div className={styles.eventDescriptionBox}>
-          <p className={styles.eventSmallText}>{adress}</p>
-          <p className={styles.eventSmallText}>{description}</p>
-          {price && <p className={styles.eventPriceText}>{price}
-            <span className={styles.eventPriceText}> ₽</span>
-          </p>}
+        <div className={styles.eventImageBox}>
+          <img src={travelTicket} alt="Ticket" className={styles.eventImage} />
         </div>
       </div>
-      <div className={styles.eventImageBox}>
-        <img src={travelTicket} alt="Ticket" className={styles.eventImage} />
-      </div>
+      {editForm && <div>
+        {type === 'plane' && <TransportForm closeForm={() => setEditForm(false)} />}
+        {type === 'event' && <ActivityForm closeForm={() => setEditForm(false)} />}
+        {type === 'hotel' && <PropertyForm closeForm={() => setEditForm(false)} />}
+      </div>}
     </div>
   )
 }
@@ -56,9 +70,6 @@ function TravelPlanBox({ day }) {
         // eslint-disable-next-line
         <EventBox type={item.type} time={item.time} adress={item.adress} description={item.description} price={item.price} eventName={item.eventName} key={index} />
       )}
-      {/* <EventBox type="hotel" time='14:00' adress="Аэропорт Шереметьево, терминал B" description="Заселение в 14:00. Спросить про вид на сад" price="18 000" eventName='Перелёт' />
-      <EventBox type="plane" time='14:00' eventName='Перелёт' />
-      <EventBox type="event" time='14:00' eventName='Перелёт' /> */}
     </div>
     }
   </div>
