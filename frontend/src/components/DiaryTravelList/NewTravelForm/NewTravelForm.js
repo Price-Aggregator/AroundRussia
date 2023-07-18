@@ -2,21 +2,25 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 /* eslint-disable import/no-extraneous-dependencies */
 import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import PropTypes from 'prop-types';
+import { addTravel } from '../../../store/Travels/slice';
 import styles from './NewTravelForm.module.css';
 import DefaultPicture from '../../../images/dairy_picture_default.png';
+import { generateUniqueKey, formatDate } from '../../../utils/utils';
 
 function NewTravelForm({ closeForm }) {
-	const [travelData, setTravelData] = useState({
-		title: '',
-		description: '',
-		startDate: null,
-		endDate: null,
-	});
-
+	const dispatch = useDispatch();
 	const [picture, setPicture] = useState(DefaultPicture);
+	const [travelData, setTravelData] = useState({
+		name: '',
+		description: '',
+		start_date: null,
+		end_date: null,
+		pictures: [picture],
+	});
 
 	const handleInputChange = (event) => {
 		const { name, value } = event.target;
@@ -29,20 +33,31 @@ function NewTravelForm({ closeForm }) {
 	const handleStartDateChange = (date) => {
 		setTravelData((prevData) => ({
 			...prevData,
-			startDate: date,
+			start_date: date,
 		}));
 	};
 
 	const handleEndDateChange = (date) => {
 		setTravelData((prevData) => ({
 			...prevData,
-			endDate: date,
+			end_date: date,
 		}));
 	};
 
 	const handleSubmit = (event) => {
 		event.preventDefault();
-		console.log(travelData);
+		const newTravel = {
+			id: generateUniqueKey(),
+			travelDaysEvents: [],
+			name: travelData.name,
+			description: travelData.description,
+			start_date: formatDate(travelData.start_date),
+			end_date: formatDate(travelData.end_date),
+			pictures: travelData.pictures,
+		};
+		dispatch(addTravel(newTravel));
+		closeForm();
+		console.log(newTravel);
 	};
 
 	return (
@@ -56,9 +71,9 @@ function NewTravelForm({ closeForm }) {
 						<input
 							className={`${styles.form__input} ${styles.form__input_title}`}
 							type="text"
-							id="title"
-							name="title"
-							value={travelData.title}
+							id="name"
+							name="name"
+							value={travelData.name}
 							onChange={handleInputChange}
 							required
 						/>
@@ -85,7 +100,7 @@ function NewTravelForm({ closeForm }) {
 								<DatePicker
 									className={`${styles.form__input} ${styles.form__input_date}`}
 									id="startDate"
-									selected={travelData.startDate}
+									selected={travelData.start_date}
 									onChange={handleStartDateChange}
 									dateFormat="dd.MM.yyyy"
 									placeholderText=""
@@ -101,7 +116,7 @@ function NewTravelForm({ closeForm }) {
 								<DatePicker
 									className={`${styles.form__input} ${styles.form__input_date}`}
 									id="endDate"
-									selected={travelData.endDate}
+									selected={travelData.end_date}
 									onChange={handleEndDateChange}
 									dateFormat="dd.MM.yyyy"
 									placeholderText=""
