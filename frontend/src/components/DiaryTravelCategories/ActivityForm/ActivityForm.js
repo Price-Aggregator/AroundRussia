@@ -12,7 +12,7 @@ function ActivityForm({ closeForm }) {
 		title: '',
 		description: '',
 		startDate: null,
-		endDate: null,
+		startTime: null,
 	});
 
 	const handleInputChange = (event) => {
@@ -30,10 +30,10 @@ function ActivityForm({ closeForm }) {
 		}));
 	};
 
-	const handleEndDateChange = (date) => {
+	const handleStartTimeChange = (time) => {
 		setTravelData((prevData) => ({
 			...prevData,
-			endDate: date,
+			startTime: time,
 		}));
 	};
 
@@ -93,16 +93,21 @@ function ActivityForm({ closeForm }) {
 							</div>
 						</div>
 						<div className={styles.form__labelBox}>
-							<label htmlFor="endDate" className={styles.form__labelText}>
+							<label htmlFor="startTime" className={styles.form__labelText}>
 								Время начала* (чч:мм)
 							</label>
 							<div className={styles.form__timeInputContainer}>
 								<DatePicker
 									className={`${styles.form__input} ${styles.form__input_date}`}
 									id="startTime"
-									selected={travelData.endDate}
-									onChange={handleEndDateChange}
-									dateFormat="dd.MM.yyyy"
+									selected={travelData.startTime}
+									onChange={handleStartTimeChange}
+									showTimeSelect
+									showTimeSelectOnly
+									timeIntervals={15}
+									timeCaption="Time"
+									timeFormat="HH:mm"
+									dateFormat="HH:mm"
 									placeholderText=""
 									required
 								/>

@@ -12,7 +12,9 @@ function PropertyForm({ closeForm }) {
 		title: '',
 		description: '',
 		startDate: null,
+		startTime: null,
 		endDate: null,
+		endTime: null,
 	});
 
 	const handleInputChange = (event) => {
@@ -34,6 +36,20 @@ function PropertyForm({ closeForm }) {
 		setTravelData((prevData) => ({
 			...prevData,
 			endDate: date,
+		}));
+	};
+
+	const handleStartTimeChange = (time) => {
+		setTravelData((prevData) => ({
+			...prevData,
+			startTime: time,
+		}));
+	};
+
+	const handleEndTimeChange = (time) => {
+		setTravelData((prevData) => ({
+			...prevData,
+			endTime: time,
 		}));
 	};
 
@@ -93,16 +109,21 @@ function PropertyForm({ closeForm }) {
 							</div>
 						</div>
 						<div className={styles.form__labelBox}>
-							<label htmlFor="endDate" className={styles.form__labelText}>
+							<label htmlFor="startTime" className={styles.form__labelText}>
 								Время заселения* (чч:мм)
 							</label>
 							<div className={styles.form__timeInputContainer}>
 								<DatePicker
 									className={`${styles.form__input} ${styles.form__input_date}`}
 									id="startTime"
-									selected={travelData.endDate}
-									onChange={handleEndDateChange}
-									dateFormat="dd.MM.yyyy"
+									selected={travelData.startTime}
+									onChange={handleStartTimeChange}
+									showTimeSelect
+									showTimeSelectOnly
+									timeIntervals={15}
+									timeCaption="Time"
+									timeFormat="HH:mm"
+									dateFormat="HH:mm"
 									placeholderText=""
 									required
 								/>
@@ -128,16 +149,21 @@ function PropertyForm({ closeForm }) {
 						</div>
 
 						<div className={styles.form__labelBox}>
-							<label htmlFor="startDate" className={styles.form__labelText}>
+							<label htmlFor="endTime" className={styles.form__labelText}>
 								Время выселения* (чч:мм)
 							</label>
 							<div className={styles.form__timeInputContainer}>
 								<DatePicker
 									className={`${styles.form__input} ${styles.form__input_date}`}
-									id="startDate"
-									selected={travelData.startDate}
-									onChange={handleStartDateChange}
-									dateFormat="dd.MM.yyyy"
+									id="endTime"
+									selected={travelData.endTime}
+									onChange={handleEndTimeChange}
+									showTimeSelect
+									showTimeSelectOnly
+									timeIntervals={15}
+									timeCaption="Time"
+									timeFormat="HH:mm"
+									dateFormat="HH:mm"
 									placeholderText=""
 									required
 								/>
