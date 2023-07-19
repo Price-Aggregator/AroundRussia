@@ -1,7 +1,4 @@
-/* eslint-disable no-unused-vars */
-/* eslint-disable jsx-a11y/label-has-associated-control */
-/* eslint-disable import/no-extraneous-dependencies */
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import DatePicker from 'react-datepicker';
@@ -24,6 +21,7 @@ function NewTravelForm({ closeForm }) {
 	});
 
 	const travels = useSelector((state) => state.travels.travels);
+	const isDiaryPage = () => location.pathname.includes('/diary/');
 
 	const handleInputChange = (event) => {
 		const { name, value } = event.target;
@@ -33,26 +31,21 @@ function NewTravelForm({ closeForm }) {
 		}));
 	};
 
-	const handleStartDateChange = (date) => {
+	const handleDateChange = (date, field) => {
 		setTravelData((prevData) => ({
 			...prevData,
-			start_date: date,
-		}));
-	};
-
-	const handleEndDateChange = (date) => {
-		setTravelData((prevData) => ({
-			...prevData,
-			end_date: date,
+			[field]: date,
 		}));
 	};
 
 	const handleSubmit = (event) => {
 		event.preventDefault();
+		const travelId = isDiaryPage()
+			? location.pathname.split('/diary/')[1]
+			: generateUniqueKey();
+
 		const newTravel = {
-			id: location.pathname.includes('/diary/')
-				? location.pathname.split('/diary/')[1]
-				: generateUniqueKey(),
+			id: travelId,
 			travelDaysEvents: [],
 			name: travelData.name,
 			description: travelData.description,
@@ -60,18 +53,17 @@ function NewTravelForm({ closeForm }) {
 			end_date: formatDate(travelData.end_date),
 			pictures: travelData.pictures,
 		};
+
 		if (location.pathname === '/diary') {
 			dispatch(addTravel(newTravel));
-		} else if (location.pathname.includes('/diary/')) {
-			const existingTravel = travels.find(
-				(travel) => travel.id === newTravel.id
-			);
+		} else if (isDiaryPage()) {
+			const existingTravel = travels.find((travel) => travel.id === travelId);
 			if (existingTravel) {
 				const updatedTravel = {
 					...existingTravel,
 					...newTravel,
 				};
-				dispatch(editTravel({ id: newTravel.id, data: updatedTravel }));
+				dispatch(editTravel({ id: travelId, data: updatedTravel }));
 			}
 		}
 		closeForm();
@@ -100,17 +92,33 @@ function NewTravelForm({ closeForm }) {
 		document.body.removeChild(input);
 	};
 
+	useEffect(() => {
+		if (isDiaryPage()) {
+			const travelId = location.pathname.split('/diary/')[1];
+			const existingTravel = travels.find((travel) => travel.id === travelId);
+			const pictures =
+				existingTravel && existingTravel.pictures.length
+					? existingTravel.pictures
+					: [DefaultPicture];
+
+			setTravelData((prevData) => ({
+				...prevData,
+				pictures,
+			}));
+		}
+	}, [location.pathname, travels]);
+
 	return (
 		<form
 			className={`${styles.form_active} ${
-				location.pathname.includes('/diary/') ? styles.form_withBorder : ''
+				isDiaryPage() ? styles.form_withBorder : ''
 			}`}
 			onSubmit={handleSubmit}
 		>
 			<div className={styles.form__box}>
 				<div className={styles.form__inputBox}>
 					<div className={styles.form__labelBox}>
-						<label htmlFor="title" className={styles.form__labelText}>
+						<label htmlFor="name" className={styles.form__labelText}>
 							Название путешествия
 						</label>
 						<input
@@ -146,7 +154,7 @@ function NewTravelForm({ closeForm }) {
 									className={`${styles.form__input} ${styles.form__input_date}`}
 									id="startDate"
 									selected={travelData.start_date}
-									onChange={handleStartDateChange}
+									onChange={(date) => handleDateChange(date, 'start_date')}
 									dateFormat="dd.MM.yyyy"
 									placeholderText=""
 									required
@@ -162,7 +170,7 @@ function NewTravelForm({ closeForm }) {
 									className={`${styles.form__input} ${styles.form__input_date}`}
 									id="endDate"
 									selected={travelData.end_date}
-									onChange={handleEndDateChange}
+									onChange={(date) => handleDateChange(date, 'end_date')}
 									dateFormat="dd.MM.yyyy"
 									placeholderText=""
 									required
