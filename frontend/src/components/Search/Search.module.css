@@ -231,7 +231,7 @@ input[type='date']::-webkit-calendar-picker-indicator {
 	font-family: 'Roboto';
 	gap: 2px;
 	background-color: white;
-	bottom: -109px;
+	bottom: -65px;
 	left: 0;
 	flex-direction: column;
 }
@@ -244,6 +244,7 @@ input[type='date']::-webkit-calendar-picker-indicator {
 	line-height: 124.688%;
 	padding: 0;
 	margin: 0;
+  width:100vw;
 }
 
 .validation__button {
