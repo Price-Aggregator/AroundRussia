@@ -101,7 +101,12 @@ function NewTravelForm({ closeForm }) {
 	};
 
 	return (
-		<form className={styles.form_active} onSubmit={handleSubmit}>
+		<form
+			className={`${styles.form_active} ${
+				location.pathname.includes('/diary/') ? styles.form_withBorder : ''
+			}`}
+			onSubmit={handleSubmit}
+		>
 			<div className={styles.form__box}>
 				<div className={styles.form__inputBox}>
 					<div className={styles.form__labelBox}>
