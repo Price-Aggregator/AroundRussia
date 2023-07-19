@@ -5,6 +5,7 @@
 	align-items: center;
 	gap: 10px;
 	align-self: stretch;
+  justify-content: center;
 }
 
 .diary__text {
