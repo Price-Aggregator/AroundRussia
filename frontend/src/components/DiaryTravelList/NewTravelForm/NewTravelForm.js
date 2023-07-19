@@ -15,13 +15,12 @@ import { generateUniqueKey, formatDate } from '../../../utils/utils';
 function NewTravelForm({ closeForm }) {
 	const dispatch = useDispatch();
 	const location = useLocation();
-	const [picture, setPicture] = useState(DefaultPicture);
 	const [travelData, setTravelData] = useState({
 		name: '',
 		description: '',
 		start_date: null,
 		end_date: null,
-		pictures: [picture],
+		pictures: [DefaultPicture],
 	});
 
 	const travels = useSelector((state) => state.travels.travels);
@@ -76,6 +75,29 @@ function NewTravelForm({ closeForm }) {
 			}
 		}
 		closeForm();
+	};
+
+	const handleAddPhoto = () => {
+		const input = document.createElement('input');
+		input.type = 'file';
+		input.accept = 'image/*';
+		input.style.display = 'none';
+		input.onchange = (event) => {
+			const file = event.target.files[0];
+			if (file) {
+				const reader = new FileReader();
+				reader.onload = (e) => {
+					setTravelData((prevData) => ({
+						...prevData,
+						pictures: [e.target.result],
+					}));
+				};
+				reader.readAsDataURL(file);
+			}
+		};
+		document.body.appendChild(input);
+		input.click();
+		document.body.removeChild(input);
 	};
 
 	return (
@@ -147,13 +169,13 @@ function NewTravelForm({ closeForm }) {
 				<div className={styles.form__picBox}>
 					<img
 						className={styles.form__picture}
-						src={picture}
+						src={travelData.pictures[0]}
 						alt="здесь будет осмысленный альт"
 					/>
 					<button
 						className={`${styles.form__button} ${styles.form__button_addPicture}`}
 						type="button"
-						onClick={() => console.log('click')}
+						onClick={handleAddPhoto}
 					>
 						Добавить фото
 					</button>
