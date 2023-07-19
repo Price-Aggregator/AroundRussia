@@ -2,17 +2,19 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 /* eslint-disable import/no-extraneous-dependencies */
 import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useLocation } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import PropTypes from 'prop-types';
-import { addTravel } from '../../../store/Travels/slice';
+import { addTravel, editTravel } from '../../../store/Travels/slice';
 import styles from './NewTravelForm.module.css';
 import DefaultPicture from '../../../images/dairy_picture_default.png';
 import { generateUniqueKey, formatDate } from '../../../utils/utils';
 
 function NewTravelForm({ closeForm }) {
 	const dispatch = useDispatch();
+	const location = useLocation();
 	const [picture, setPicture] = useState(DefaultPicture);
 	const [travelData, setTravelData] = useState({
 		name: '',
@@ -21,6 +23,8 @@ function NewTravelForm({ closeForm }) {
 		end_date: null,
 		pictures: [picture],
 	});
+
+	const travels = useSelector((state) => state.travels.travels);
 
 	const handleInputChange = (event) => {
 		const { name, value } = event.target;
@@ -47,7 +51,9 @@ function NewTravelForm({ closeForm }) {
 	const handleSubmit = (event) => {
 		event.preventDefault();
 		const newTravel = {
-			id: generateUniqueKey(),
+			id: location.pathname.includes('/diary/')
+				? location.pathname.split('/diary/')[1]
+				: generateUniqueKey(),
 			travelDaysEvents: [],
 			name: travelData.name,
 			description: travelData.description,
@@ -55,9 +61,21 @@ function NewTravelForm({ closeForm }) {
 			end_date: formatDate(travelData.end_date),
 			pictures: travelData.pictures,
 		};
-		dispatch(addTravel(newTravel));
+		if (location.pathname === '/diary') {
+			dispatch(addTravel(newTravel));
+		} else if (location.pathname.includes('/diary/')) {
+			const existingTravel = travels.find(
+				(travel) => travel.id === newTravel.id
+			);
+			if (existingTravel) {
+				const updatedTravel = {
+					...existingTravel,
+					...newTravel,
+				};
+				dispatch(editTravel({ id: newTravel.id, data: updatedTravel }));
+			}
+		}
 		closeForm();
-		console.log(newTravel);
 	};
 
 	return (

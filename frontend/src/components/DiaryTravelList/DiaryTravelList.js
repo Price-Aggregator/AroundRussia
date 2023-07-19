@@ -3,7 +3,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import NewTravelForm from './NewTravelForm/NewTravelForm';
 import styles from './DiaryTravelList.module.css';
 import DiaryCardPreview from '../DiaryCardPreview/DiaryCardPreview';
-import { TRAVEL_LIST_DATA } from '../../utils/constants';
 import { setTravels } from '../../store/Travels/slice';
 import getTravels from '../../store/Travels/selectors';
 
@@ -21,8 +20,15 @@ function DiaryTravelList() {
 	};
 
 	useEffect(() => {
-		dispatch(setTravels(TRAVEL_LIST_DATA));
+		const savedTravels = JSON.parse(localStorage.getItem('travels'));
+		if (savedTravels) {
+			dispatch(setTravels(savedTravels));
+		}
 	}, [dispatch]);
+
+	useEffect(() => {
+		localStorage.setItem('travels', JSON.stringify(travels));
+	}, [travels]);
 
 	return (
 		<section className={styles.diary}>

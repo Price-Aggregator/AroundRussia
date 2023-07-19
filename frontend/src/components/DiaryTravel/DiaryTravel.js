@@ -1,29 +1,36 @@
 /* eslint-disable jsx-a11y/control-has-associated-label */
 /* eslint-disable no-unused-vars */
 import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
 import styles from './DiaryTravel.module.css';
 import { generateUniqueKey } from '../../utils/utils';
 import TransportForm from '../DiaryTravelCategories/TransportForm/TransportForm';
 import PropertyForm from '../DiaryTravelCategories/PropertyForm/PropertyForm';
 import ActivityForm from '../DiaryTravelCategories/ActivityForm/ActivityForm';
+import NewTravelForm from '../DiaryTravelList/NewTravelForm/NewTravelForm';
 import TravelPlan from '../TravelPlan/TravelPlan';
+import { removeTravel } from '../../store/Travels/slice';
+import getTravels from '../../store/Travels/selectors';
 
 function DiaryTravel({ card }) {
 	const [isEmpty, setIsEmpty] = useState(false);
-
-	useEffect(() => {
-		if (card && card.travelDaysEvents.length > 1) {
-			setIsEmpty(false);
-		} else {
-			setIsEmpty(true);
-		}
-	}, [card]);
-
+	const [IsActiveEditForm, setIsActiveEditForm] = useState(false);
 	const [IsActiveTransportForm, setIsActiveTransportForm] = useState(false);
 	const [IsActivePropertyForm, setIsActivePropertyForm] = useState(false);
 	const [IsActiveActivityForm, setIsActiveActivityForm] = useState(false);
+	const dispatch = useDispatch();
+	const navigate = useNavigate();
+	const travels = useSelector(getTravels);
+
+	const openEditForm = () => {
+		setIsActiveEditForm(true);
+	};
+
+	const closeEditForm = () => {
+		setIsActiveEditForm(false);
+	};
 
 	const openTransportForm = () => {
 		setIsActivePropertyForm(false);
@@ -55,6 +62,23 @@ function DiaryTravel({ card }) {
 		setIsActiveActivityForm(false);
 	};
 
+	const handleDelete = () => {
+		dispatch(removeTravel(card.id));
+		localStorage.setItem(
+			'travels',
+			JSON.stringify(travels.filter((travel) => travel.id !== card.id))
+		);
+		navigate('/diary');
+	};
+
+	useEffect(() => {
+		if (card && card.travelDaysEvents.length > 1) {
+			setIsEmpty(false);
+		} else {
+			setIsEmpty(true);
+		}
+	}, [card]);
+
 	return (
 		<div className={styles.card__box}>
 			<Link to="/diary" className={styles.card__link}>
@@ -68,10 +92,12 @@ function DiaryTravel({ card }) {
 							<button
 								type="button"
 								className={`${styles.card__titleButton} ${styles.card__titleButton_edit}`}
+								onClick={openEditForm}
 							/>
 							<button
 								type="button"
 								className={`${styles.card__titleButton} ${styles.card__titleButton_delete}`}
+								onClick={handleDelete}
 							/>
 						</div>
 					</div>
@@ -132,7 +158,9 @@ function DiaryTravel({ card }) {
 			)}
 			{IsActivePropertyForm && <PropertyForm closeForm={closePropertyForm} />}
 			{IsActiveActivityForm && <ActivityForm closeForm={closeActivityForm} />}
+			{IsActiveEditForm && <NewTravelForm closeForm={closeEditForm} />}
 			{isEmpty &&
+				!IsActiveEditForm &&
 				!IsActiveTransportForm &&
 				!IsActivePropertyForm &&
 				!IsActiveActivityForm && (
