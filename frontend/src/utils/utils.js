@@ -21,6 +21,7 @@ function createTicketsFetchObj({
 // eslint-disable-next-line
 const noReturn = ({ return_at, ...rest }) => rest;
 
+// функция для трансформации date в нужный беку формат
 function formatDate(date) {
 	const day = date.getDate();
 	const month = date.getMonth() + 1;

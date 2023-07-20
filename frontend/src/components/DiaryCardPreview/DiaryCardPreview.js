@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import styles from './DiaryCardPreview.module.css';
 import { generateUniqueKey } from '../../utils/utils';
+import defaultPicture from '../../images/dairy_picture_default.png';
 
 function DiaryCardPreview({ card }) {
 	return (
@@ -18,7 +19,7 @@ function DiaryCardPreview({ card }) {
 				<div className={styles.card__pictureBox}>
 					<img
 						className={styles.card__mainPicture}
-						src={card.pictures[0]}
+						src={card.pictures[0] ? card.pictures[0] : defaultPicture}
 						alt={card.name}
 					/>
 					<div className={styles.card__pictureList}>

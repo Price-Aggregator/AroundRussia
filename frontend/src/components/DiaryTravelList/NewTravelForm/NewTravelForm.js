@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React, { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
@@ -17,7 +18,7 @@ function NewTravelForm({ closeForm }) {
 		description: '',
 		start_date: null,
 		end_date: null,
-		pictures: [DefaultPicture],
+		pictures: [],
 	});
 
 	const travels = useSelector((state) => state.travels.travels);
@@ -99,7 +100,7 @@ function NewTravelForm({ closeForm }) {
 			const pictures =
 				existingTravel && existingTravel.pictures.length
 					? existingTravel.pictures
-					: [DefaultPicture];
+					: [];
 
 			setTravelData((prevData) => ({
 				...prevData,
@@ -182,7 +183,9 @@ function NewTravelForm({ closeForm }) {
 				<div className={styles.form__picBox}>
 					<img
 						className={styles.form__picture}
-						src={travelData.pictures[0]}
+						src={
+							travelData.pictures[0] ? travelData.pictures[0] : DefaultPicture
+						}
 						alt="здесь будет осмысленный альт"
 					/>
 					<button
