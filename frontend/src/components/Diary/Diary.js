@@ -1,10 +1,17 @@
 /* eslint-disable import/no-extraneous-dependencies */
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import styles from './Diary.module.css';
 import kaliningrad from '../../images/kaliningrad.svg';
 import smolensk from '../../images/smolensk.svg';
 
 function Diary() {
+	const navigate = useNavigate();
+
+	const handleSubmit = async (e) => {
+		e.preventDefault();
+		navigate('/diary');
+	};
 	return (
 		<section className={styles.diary}>
 			<div className={styles.diary__content}>
@@ -13,7 +20,7 @@ function Diary() {
 					<p className={styles.diary__subtitle}>
 						Поможем спланировать ваше лучшее путешествие!
 					</p>
-					<button type="submit" className={styles.diary__button}>
+					<button type="submit" className={styles.diary__button} onClick={handleSubmit}>
 						Начать планирование
 					</button>
 				</div>

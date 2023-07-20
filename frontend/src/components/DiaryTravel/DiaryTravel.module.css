@@ -55,55 +55,8 @@
 	font-style: normal;
 	font-weight: 400;
 	line-height: 18px;
-	margin: 15px 0 50px;
-}
-
-.card__mainPicture {
-	width: 100%;
-	height: 180px;
-	border-radius: 10px;
-	object-fit: cover;
-}
-
-.card__picture {
-	width: 80px;
-	height: 50px;
-	border-radius: 10px;
-	object-fit: cover;
-}
-
-.card__pictureList {
-	display: flex;
-	gap: 20px;
-}
-
-.card__countBox {
-	background-color: #ecf1f1;
-	border-radius: 10px;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	padding: 16px 12px;
-	box-sizing: border-box;
-	min-height: 50px;
-	min-width: 50px;
-}
-
-.card__countNumber {
-	font-family: Roboto;
-	font-size: 15px;
-	font-style: normal;
-	font-weight: 400;
-	line-height: 18px;
-	color: #454545;
+	/*margin: 15px 0 50px; */
 	margin: 0;
-}
-
-.card__pictureBox {
-	display: flex;
-	flex-direction: column;
-	gap: 20px;
-	min-width: 350px;
 }
 
 .card__emptyBunner {
@@ -132,51 +85,15 @@
 	max-width: 610px;
 }
 
-.card__button {
-	padding: 15px 20px 15px 60px;
-	border-radius: 10px;
-	background-color: white;
-	border: 1px solid #f8c747;
-	display: flex;
-	align-items: center;
-	font-family: Roboto;
-	font-size: 20px;
-	font-style: normal;
-	font-weight: 500;
-	line-height: 30px;
-	position: relative;
-	cursor: pointer;
-}
-
-.card__button::after {
-	position: absolute;
-	content: '';
-	top: 15px;
-	left: 20px;
-	width: 30px;
-	height: 30px;
-}
-
-.card__button_transport::after {
-	background-image: url(../../images/icon_transport.svg);
-}
-
-.card__button_accommodation::after {
-	background-image: url(../../images/icon_accomodation.svg);
-}
-
-.card__button_activity::after {
-	background-image: url(../../images/icon_activity.svg);
-}
-
 .card__titleButtonBox {
 	display: flex;
 	gap: 15px;
 	align-items: center;
 }
 
-.card__textBox {
-	margin: 35px 0 0 0;
+.card__titleBox {
+	/* margin: 35px 0 0 0; */
+	margin: 0;
 	display: flex;
 	gap: 30px;
 }
@@ -195,4 +112,21 @@
 
 .card__titleButton_delete {
 	background-image: url(../../images/delete_icon.svg);
+}
+
+.card__textContentBox {
+	display: flex;
+	flex-direction: column;
+	justify-content: space-around;
+}
+
+.card__titleAndDateBox {
+	display: flex;
+	flex-direction: column;
+	gap: 15px;
+}
+
+.card__textAndBudgetBox {
+	display: flex;
+	justify-content: space-between;
 }

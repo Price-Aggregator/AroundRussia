@@ -1,0 +1,27 @@
+.card__budgetBackground {
+	background-image: url(../../../images/travel_price_background.svg);
+	background-repeat: no-repeat;
+	width: 250px;
+	height: 80px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.card__budgetText {
+	font-family: Roboto;
+	font-size: 15px;
+	font-style: normal;
+	font-weight: 400;
+	line-height: 18px;
+	color: 454545;
+}
+
+.card__budgetStrong {
+	font-family: Roboto;
+	font-size: 20px;
+	font-style: normal;
+	font-weight: 500;
+	line-height: 23px;
+	color: #29a3d2;
+}
