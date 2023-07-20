@@ -1,11 +1,17 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import NewTravelForm from './NewTravelForm/NewTravelForm';
 import styles from './DiaryTravelList.module.css';
 import DiaryCardPreview from '../DiaryCardPreview/DiaryCardPreview';
-import { TRAVEL_LIST_DATA } from '../../utils/constants';
+import { setTravels } from '../../store/Travels/slice';
+import getTravels from '../../store/Travels/selectors';
 
 function DiaryTravelList() {
+	const dispatch = useDispatch();
+	const travels = useSelector(getTravels);
 	const [IsActiveForm, setIsActiveForm] = useState(false);
+
+	console.log(travels);
 
 	const openForm = () => {
 		setIsActiveForm(true);
@@ -15,11 +21,22 @@ function DiaryTravelList() {
 		setIsActiveForm(false);
 	};
 
+	useEffect(() => {
+		const savedTravels = JSON.parse(localStorage.getItem('travels'));
+		if (savedTravels) {
+			dispatch(setTravels(savedTravels));
+		}
+	}, [dispatch]);
+
+	useEffect(() => {
+		localStorage.setItem('travels', JSON.stringify(travels));
+	}, [travels]);
+
 	return (
 		<section className={styles.diary}>
 			<div className={styles.diary__background}>
 				<h2 className={styles.diary__title}>Дневник путешественника</h2>
-				{TRAVEL_LIST_DATA.length < 1 ? (
+				{travels.length < 1 ? (
 					<div className={styles.diary__textbox}>
 						<p className={styles.diary__subtitle}>
 							У вас пока нет ни одного запланированного путешествия.
@@ -29,7 +46,7 @@ function DiaryTravelList() {
 				) : null}
 				<button
 					className={`${styles.diary__button} ${
-						TRAVEL_LIST_DATA.length < 1
+						travels.length < 1
 							? styles.diary__button_withoutCards
 							: styles.diary__button_withCards
 					} ${IsActiveForm ? styles.diary__button_grey : null}`}
@@ -43,16 +60,16 @@ function DiaryTravelList() {
 			{IsActiveForm && <NewTravelForm closeForm={closeForm} />}
 			<div
 				className={`${styles.dairy__travels} ${
-					!IsActiveForm && TRAVEL_LIST_DATA.length !== 0
+					!IsActiveForm && travels.length !== 0
 						? styles.dairy__travels_relative
 						: null
 				} ${
-					IsActiveForm && TRAVEL_LIST_DATA.length > 0
+					IsActiveForm && travels.length > 0
 						? styles.dairy__travels_margin
 						: null
 				}`}
 			>
-				{TRAVEL_LIST_DATA.map((card) => (
+				{travels.map((card) => (
 					<DiaryCardPreview card={card} key={card.id} />
 				))}
 			</div>

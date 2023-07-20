@@ -13,6 +13,13 @@
 	gap: 30px;
 }
 
+.form_withBorder {
+	border-left: 1px solid#EBA534;
+	border-right: 1px solid#EBA534;
+	border-bottom: 1px solid#EBA534;
+	box-shadow: none;
+}
+
 .form__box {
 	display: flex;
 	justify-content: space-between;
@@ -121,7 +128,7 @@
 
 .form__picture {
 	border-radius: 10px;
-	width: 100%;
+	width: 400px;
 	height: 250px;
 	object-fit: cover;
 	border: 1px solid rgba(33, 49, 51, 0.4);
@@ -129,6 +136,7 @@
 
 .form__picBox {
 	max-width: 400px;
+	width: 100%;
 	position: relative;
 }
 
