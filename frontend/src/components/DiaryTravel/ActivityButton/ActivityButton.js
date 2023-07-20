@@ -10,17 +10,25 @@ function ActivityButton({ handleClick, buttonName }) {
 	} else if (buttonName === 'Жилье') {
 		buttonClassName += ` ${styles.card__button_accommodation}`;
 	} else {
-		buttonClassName += ` ${styles.card__button_transport}`;
+		buttonClassName += ` ${styles.card__button_activity}`;
 	}
 
 	return (
-		<button
-			type="button"
-			className={`${styles.card__button} ${buttonClassName}`}
-			onClick={handleClick}
-		>
-			{buttonName}
-		</button>
+		<div className={styles.card__buttonbox}>
+			<button
+				type="button"
+				className={`${styles.card__button} ${buttonClassName}`}
+				onClick={handleClick}
+			>
+				{buttonName}
+			</button>
+			<div className={styles.card__buttonTooltip_triangle} />
+			<div className={styles.card__buttonTooltip}>
+				<p
+					className={styles.card__buttonTooltipText}
+				>{`Добавьте ${buttonName[0].toLowerCase()}${buttonName.slice(1)}`}</p>
+			</div>
+		</div>
 	);
 }
 

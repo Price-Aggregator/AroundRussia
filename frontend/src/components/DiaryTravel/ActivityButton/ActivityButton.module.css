@@ -38,3 +38,51 @@
 .card__button_activity::after {
 	background-image: url(../../../images/icon_activity.svg);
 }
+
+.card__buttonTooltip {
+	display: none;
+	position: absolute;
+	top: 72px;
+	background-color: rgba(33, 49, 51, 0.4);
+	border-radius: 10px;
+	padding: 10px 15px;
+	box-sizing: border-box;
+	text-align: center;
+	width: 100%;
+}
+
+.card__buttonbox {
+	position: relative;
+}
+
+.card__buttonbox:hover .card__buttonTooltip {
+	display: block;
+}
+
+.card__buttonbox:hover .card__buttonTooltip_triangle {
+	display: block;
+}
+
+.card__buttonTooltipText {
+	font-family: Roboto;
+	font-size: 15px;
+	font-style: normal;
+	font-weight: 400;
+	line-height: 18px;
+	color: white;
+	margin: 0;
+	text-align: center;
+}
+
+.card__buttonTooltip_triangle {
+	display: none;
+	position: absolute;
+	top: 63px;
+	left: 50%;
+	transform: translateX(-50%);
+	width: 0;
+	height: 0;
+	border-left: 8px solid transparent;
+	border-right: 8px solid transparent;
+	border-bottom: 10px solid rgba(33, 49, 51, 0.4);
+}
