@@ -46,12 +46,12 @@ function NewTravelForm({ closeForm }) {
 
 		const newTravel = {
 			id: travelId,
-			travelDaysEvents: [],
 			name: travelData.name,
 			description: travelData.description,
 			start_date: formatDate(travelData.start_date),
 			end_date: formatDate(travelData.end_date),
 			pictures: travelData.pictures,
+			travelDaysEvents: [],
 		};
 
 		if (location.pathname === '/diary') {
@@ -59,9 +59,17 @@ function NewTravelForm({ closeForm }) {
 		} else if (isDiaryPage()) {
 			const existingTravel = travels.find((travel) => travel.id === travelId);
 			if (existingTravel) {
+				const changedTravel = {
+					id: travelId,
+					name: travelData.name,
+					description: travelData.description,
+					start_date: formatDate(travelData.start_date),
+					end_date: formatDate(travelData.end_date),
+					pictures: travelData.pictures,
+				};
 				const updatedTravel = {
 					...existingTravel,
-					...newTravel,
+					...changedTravel,
 				};
 				dispatch(editTravel({ id: travelId, data: updatedTravel }));
 			}

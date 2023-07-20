@@ -11,6 +11,8 @@ function DiaryTravelList() {
 	const travels = useSelector(getTravels);
 	const [IsActiveForm, setIsActiveForm] = useState(false);
 
+	console.log(travels);
+
 	const openForm = () => {
 		setIsActiveForm(true);
 	};
