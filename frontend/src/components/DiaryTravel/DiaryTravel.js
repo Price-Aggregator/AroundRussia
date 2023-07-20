@@ -4,15 +4,16 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
 import styles from './DiaryTravel.module.css';
-import { generateUniqueKey } from '../../utils/utils';
 import TransportForm from '../DiaryTravelCategories/TransportForm/TransportForm';
 import PropertyForm from '../DiaryTravelCategories/PropertyForm/PropertyForm';
 import ActivityForm from '../DiaryTravelCategories/ActivityForm/ActivityForm';
 import NewTravelForm from '../DiaryTravelList/NewTravelForm/NewTravelForm';
 import TravelPlan from '../TravelPlan/TravelPlan';
+import ActivityButton from './ActivityButton/ActivityButton';
+import PictureBox from './PictureBox/PictureBox';
+import BudgetBox from './BudgetBox/BudgetBox';
 import { removeTravel } from '../../store/Travels/slice';
 import getTravels from '../../store/Travels/selectors';
-import defaultPicture from '../../images/dairy_picture_default.png';
 
 function DiaryTravel({ card }) {
 	const [isEmpty, setIsEmpty] = useState(false);
@@ -26,6 +27,9 @@ function DiaryTravel({ card }) {
 
 	const openEditForm = () => {
 		setIsActiveEditForm(true);
+		setIsActivePropertyForm(false);
+		setIsActiveActivityForm(false);
+		setIsActiveTransportForm(false);
 	};
 
 	const closeEditForm = () => {
@@ -33,6 +37,7 @@ function DiaryTravel({ card }) {
 	};
 
 	const openTransportForm = () => {
+		setIsActiveEditForm(false);
 		setIsActivePropertyForm(false);
 		setIsActiveActivityForm(false);
 		setIsActiveTransportForm(true);
@@ -43,6 +48,7 @@ function DiaryTravel({ card }) {
 	};
 
 	const openPropertyForm = () => {
+		setIsActiveEditForm(false);
 		setIsActiveTransportForm(false);
 		setIsActiveActivityForm(false);
 		setIsActivePropertyForm(true);
@@ -53,6 +59,7 @@ function DiaryTravel({ card }) {
 	};
 
 	const openActivityForm = () => {
+		setIsActiveEditForm(false);
 		setIsActiveTransportForm(false);
 		setIsActivePropertyForm(false);
 		setIsActiveActivityForm(true);
@@ -107,65 +114,21 @@ function DiaryTravel({ card }) {
 								className={styles.card__dates}
 							>{`${card.start_date} — ${card.end_date}`}</p>
 						</div>
-						{!isEmpty && (
-							<div className={styles.card__budgetBackground}>
-								<p className={styles.card__budgetText}>
-									Бюджет
-									<span className={styles.card__budgetStrong}>{` ${
-										card.total_price ? card.total_price : 0
-									} р.`}</span>
-								</p>
-							</div>
-						)}
+						{!isEmpty && <BudgetBox budget={card.total_price} />}
 					</div>
 					<div className={styles.card__buttonBox}>
-						<button
-							type="button"
-							className={`${styles.card__button} ${styles.card__button_transport}`}
-							onClick={openTransportForm}
-						>
-							Транспорт
-						</button>
-						<button
-							type="button"
-							className={`${styles.card__button} ${styles.card__button_accommodation}`}
-							onClick={openPropertyForm}
-						>
-							Жилье
-						</button>
-						<button
-							type="button"
-							className={`${styles.card__button} ${styles.card__button_activity}`}
-							onClick={openActivityForm}
-						>
-							Активности
-						</button>
+						<ActivityButton
+							handleClick={openTransportForm}
+							buttonName="Транспорт"
+						/>
+						<ActivityButton handleClick={openPropertyForm} buttonName="Жилье" />
+						<ActivityButton
+							handleClick={openActivityForm}
+							buttonName="Активности"
+						/>
 					</div>
 				</div>
-				<div className={styles.card__pictureBox}>
-					<img
-						className={styles.card__mainPicture}
-						src={card.pictures[0] ? card.pictures[0] : defaultPicture}
-						alt={card.name}
-					/>
-					<div className={styles.card__pictureList}>
-						{card.pictures.slice([1], [4]).map((picture) => (
-							<img
-								className={styles.card__picture}
-								src={picture}
-								alt={picture}
-								key={generateUniqueKey()}
-							/>
-						))}
-						{card.pictures.length > 4 ? (
-							<div className={styles.card__countBox}>
-								<p className={styles.card__countNumber}>
-									+{card.pictures.length - 4}
-								</p>
-							</div>
-						) : null}
-					</div>
-				</div>
+				<PictureBox card={card} />
 			</article>
 			{IsActiveTransportForm && (
 				<TransportForm closeForm={closeTransportForm} />
