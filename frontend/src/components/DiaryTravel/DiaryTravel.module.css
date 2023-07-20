@@ -55,7 +55,8 @@
 	font-style: normal;
 	font-weight: 400;
 	line-height: 18px;
-	margin: 15px 0 50px;
+	/*margin: 15px 0 50px; */
+	margin: 0;
 }
 
 .card__mainPicture {
@@ -175,7 +176,7 @@
 	align-items: center;
 }
 
-.card__textBox {
+.card__titleBox {
 	/* margin: 35px 0 0 0; */
 	margin: 0;
 	display: flex;
@@ -196,4 +197,49 @@
 
 .card__titleButton_delete {
 	background-image: url(../../images/delete_icon.svg);
+}
+
+.card__textContentBox {
+	display: flex;
+	flex-direction: column;
+	justify-content: space-around;
+}
+
+.card__titleAndDateBox {
+	display: flex;
+	flex-direction: column;
+	gap: 15px;
+}
+
+.card__textAndBudgetBox {
+	display: flex;
+	justify-content: space-between;
+}
+
+.card__budgetBackground {
+	background-image: url(../../images/travel_price_background.svg);
+	background-repeat: no-repeat;
+	width: 250px;
+	height: 80px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.card__budgetText {
+	font-family: Roboto;
+	font-size: 15px;
+	font-style: normal;
+	font-weight: 400;
+	line-height: 18px;
+	color: 454545;
+}
+
+.card__budgetStrong {
+	font-family: Roboto;
+	font-size: 20px;
+	font-style: normal;
+	font-weight: 500;
+	line-height: 23px;
+	color: #29a3d2;
 }

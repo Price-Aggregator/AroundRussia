@@ -86,24 +86,38 @@ function DiaryTravel({ card }) {
 			</Link>
 			<article className={styles.card}>
 				<div className={styles.card__textContentBox}>
-					<div className={styles.card__textBox}>
-						<h3 className={styles.card__title}>{card.name}</h3>
-						<div className={styles.card__titleButtonBox}>
-							<button
-								type="button"
-								className={`${styles.card__titleButton} ${styles.card__titleButton_edit}`}
-								onClick={openEditForm}
-							/>
-							<button
-								type="button"
-								className={`${styles.card__titleButton} ${styles.card__titleButton_delete}`}
-								onClick={handleDelete}
-							/>
+					<div className={styles.card__textAndBudgetBox}>
+						<div className={styles.card__titleAndDateBox}>
+							<div className={styles.card__titleBox}>
+								<h3 className={styles.card__title}>{card.name}</h3>
+								<div className={styles.card__titleButtonBox}>
+									<button
+										type="button"
+										className={`${styles.card__titleButton} ${styles.card__titleButton_edit}`}
+										onClick={openEditForm}
+									/>
+									<button
+										type="button"
+										className={`${styles.card__titleButton} ${styles.card__titleButton_delete}`}
+										onClick={handleDelete}
+									/>
+								</div>
+							</div>
+							<p
+								className={styles.card__dates}
+							>{`${card.start_date} — ${card.end_date}`}</p>
 						</div>
+						{!isEmpty && (
+							<div className={styles.card__budgetBackground}>
+								<p className={styles.card__budgetText}>
+									Бюджет
+									<span className={styles.card__budgetStrong}>{` ${
+										card.total_price ? card.total_price : 0
+									} р.`}</span>
+								</p>
+							</div>
+						)}
 					</div>
-					<p
-						className={styles.card__dates}
-					>{`${card.start_date} — ${card.end_date}`}</p>
 					<div className={styles.card__buttonBox}>
 						<button
 							type="button"
@@ -184,6 +198,7 @@ DiaryTravel.propTypes = {
 		end_date: PropTypes.string.isRequired,
 		description: PropTypes.string.isRequired,
 		id: PropTypes.string.isRequired,
+		total_price: PropTypes.number.isRequired,
 		pictures: PropTypes.arrayOf(PropTypes.string).isRequired,
 		travelDaysEvents: PropTypes.arrayOf(
 			PropTypes.oneOfType([

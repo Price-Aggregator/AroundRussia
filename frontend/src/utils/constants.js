@@ -281,6 +281,7 @@ const TRAVEL_LIST_DATA = [
 			'Путешествие на авто по Алтаю. Всего 15 локаций. Обязательно нужно купить сувениры и побывать около Белухи.',
 		start_date: '2023-07-09',
 		end_date: '2023-07-11',
+		total_price: 1286,
 		pictures: [
 			defaultPicture,
 			defaultPicture,
@@ -298,6 +299,7 @@ const TRAVEL_LIST_DATA = [
 			'Едем на белые ночи. Взять напрокат лодку на развод мостов.Встретиться с друзьями.',
 		start_date: '2023-07-12',
 		end_date: '2023-07-16',
+		total_price: 1286,
 		pictures: [defaultPicture],
 		travelDaysEvents: [],
 	},
