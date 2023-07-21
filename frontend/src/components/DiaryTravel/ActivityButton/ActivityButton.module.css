@@ -43,7 +43,7 @@
 	display: none;
 	position: absolute;
 	top: 72px;
-	background-color: rgba(33, 49, 51, 0.4);
+	background-color: #a6adad;
 	border-radius: 10px;
 	padding: 10px 15px;
 	box-sizing: border-box;
@@ -84,5 +84,5 @@
 	height: 0;
 	border-left: 8px solid transparent;
 	border-right: 8px solid transparent;
-	border-bottom: 10px solid rgba(33, 49, 51, 0.4);
+	border-bottom: 10px solid #a6adad;
 }
