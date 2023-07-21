@@ -66,6 +66,12 @@
 	line-height: 18px;
 }
 
+.form__input:focus {
+	outline-color: #eba534;
+	outline-style: solid;
+	outline-width: 1px;
+}
+
 .form__input_title {
 	width: 100%;
 	min-height: 55px;

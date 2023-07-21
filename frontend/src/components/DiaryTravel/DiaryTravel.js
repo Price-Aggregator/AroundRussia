@@ -162,7 +162,7 @@ DiaryTravel.propTypes = {
 		description: PropTypes.string.isRequired,
 		id: PropTypes.string.isRequired,
 		total_price: PropTypes.number.isRequired,
-		pictures: PropTypes.arrayOf(PropTypes.string).isRequired,
+		images: PropTypes.arrayOf(PropTypes.string).isRequired,
 		travelDaysEvents: PropTypes.arrayOf(
 			PropTypes.oneOfType([
 				PropTypes.string,

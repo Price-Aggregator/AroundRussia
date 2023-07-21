@@ -282,7 +282,7 @@ const TRAVEL_LIST_DATA = [
 		start_date: '2023-07-09',
 		end_date: '2023-07-11',
 		total_price: 1286,
-		pictures: [
+		images: [
 			defaultPicture,
 			defaultPicture,
 			defaultPicture,
@@ -300,7 +300,7 @@ const TRAVEL_LIST_DATA = [
 		start_date: '2023-07-12',
 		end_date: '2023-07-16',
 		total_price: 1286,
-		pictures: [defaultPicture],
+		images: [defaultPicture],
 		travelDaysEvents: [],
 	},
 ];

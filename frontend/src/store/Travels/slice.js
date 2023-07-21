@@ -36,3 +36,107 @@ const travelsSlice = createSlice({
 export const { setTravels, addTravel, editTravel, removeTravel } =
 	travelsSlice.actions;
 export const travelsReducer = travelsSlice.reducer;
+
+/*
+import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+
+export const travelsName = 'travels';
+
+const initialState = {
+  travels: JSON.parse(localStorage.getItem('travels')) || [],
+};
+
+const AUTH_TOKEN = 'Bearer 74425849ec7ecfbe3bd0cc02980f81a9ac3a6873';
+
+// Асинхронный action creator для получения списка путешествий с сервера
+export const fetchTravels = createAsyncThunk('travels/fetchTravels', async () => {
+  const response = await fetch('/api/v1/travels/', {
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': AUTH_TOKEN,
+    },
+  });
+
+  const data = await response.json();
+  return data;
+});
+
+// Асинхронный action creator для добавления нового путешествия на сервер
+export const addTravel = createAsyncThunk('travels/addTravel', async (newTravel) => {
+  const response = await fetch('/api/v1/travels/', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': AUTH_TOKEN,
+    },
+    body: JSON.stringify(newTravel),
+  });
+
+  const data = await response.json();
+  return data;
+});
+
+// Асинхронный action creator для редактирования путешествия на сервере
+export const editTravel = createAsyncThunk('travels/editTravel', async ({ id, data }) => {
+  const response = await fetch(`/api/v1/travels/${id}/`, {
+    method: 'PATCH',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': AUTH_TOKEN,
+    },
+    body: JSON.stringify(data),
+  });
+
+  const responseData = await response.json();
+  return { id, data: responseData };
+});
+
+// Асинхронный action creator для удаления путешествия на сервере
+export const removeTravel = createAsyncThunk('travels/removeTravel', async (travelId) => {
+  await fetch(`/api/v1/travels/${travelId}/`, {
+    method: 'DELETE',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': AUTH_TOKEN,
+    },
+  });
+
+  return travelId;
+});
+
+const travelsSlice = createSlice({
+  name: travelsName,
+  initialState,
+  reducers: {
+    setTravels: (state, action) => {
+      state.travels = action.payload;
+    },
+  },
+  extraReducers: (builder) => {
+    // Обработка успешного получения списка путешествий
+    builder.addCase(fetchTravels.fulfilled, (state, action) => {
+      state.travels = action.payload;
+    });
+
+    // Обработка успешного добавления нового путешествия
+    builder.addCase(addTravel.fulfilled, (state, action) => {
+      state.travels = [action.payload, ...state.travels];
+    });
+
+    // Обработка успешного редактирования путешествия
+    builder.addCase(editTravel.fulfilled, (state, action) => {
+      const { id, data } = action.payload;
+      state.travels = state.travels.map((travel) => (travel.id === id ? { ...travel, ...data } : travel));
+    });
+
+    // Обработка успешного удаления путешествия
+    builder.addCase(removeTravel.fulfilled, (state, action) => {
+      const travelId = action.payload;
+      state.travels = state.travels.filter((travel) => travel.id !== travelId);
+    });
+  },
+});
+
+export const { setTravels } = travelsSlice.actions;
+export const travelsReducer = travelsSlice.reducer;
+*/

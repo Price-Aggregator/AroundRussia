@@ -9,11 +9,11 @@ function PictureBox({ card }) {
 		<div className={styles.card__pictureBox}>
 			<img
 				className={styles.card__mainPicture}
-				src={card.pictures[0] ? card.pictures[0] : defaultPicture}
+				src={card.images[0] ? card.images[0] : defaultPicture}
 				alt={card.name}
 			/>
 			<div className={styles.card__pictureList}>
-				{card.pictures.slice([1], [4]).map((picture) => (
+				{card.images.slice([1], [4]).map((picture) => (
 					<img
 						className={styles.card__picture}
 						src={picture}
@@ -21,10 +21,10 @@ function PictureBox({ card }) {
 						key={generateUniqueKey()}
 					/>
 				))}
-				{card.pictures.length > 4 ? (
+				{card.images.length > 4 ? (
 					<div className={styles.card__countBox}>
 						<p className={styles.card__countNumber}>
-							+{card.pictures.length - 4}
+							+{card.images.length - 4}
 						</p>
 					</div>
 				) : null}
@@ -43,7 +43,7 @@ PictureBox.propTypes = {
 		description: PropTypes.string.isRequired,
 		id: PropTypes.string.isRequired,
 		total_price: PropTypes.number.isRequired,
-		pictures: PropTypes.arrayOf(PropTypes.string).isRequired,
+		images: PropTypes.arrayOf(PropTypes.string).isRequired,
 		travelDaysEvents: PropTypes.arrayOf(
 			PropTypes.oneOfType([
 				PropTypes.string,
