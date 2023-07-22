@@ -13,7 +13,7 @@ const initialState = {
 export const fetchNewTravel = createAsyncThunk(
   `${travelsName}/newTravels`,
   async ({ newTravel, token }) => {
-    // const images = newTravel.images.length > 0 ? newTravel.images : null
+    const images = newTravel.images.length > 0 ? newTravel.images : null
     const res = await fetch(`${BASE_URL}/travels/`, {
       method: 'POST',
       headers: {
@@ -22,9 +22,10 @@ export const fetchNewTravel = createAsyncThunk(
       },
       body: JSON.stringify({
         name: newTravel.name,
+        description: newTravel.description,
         start_date: newTravel.start_date,
         end_date: newTravel.end_date,
-        image: null
+        images
       })
     }).then(checkResponse);
     return res
