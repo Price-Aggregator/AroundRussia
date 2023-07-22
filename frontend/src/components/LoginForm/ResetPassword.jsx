@@ -14,8 +14,8 @@ export default function ResetPassword({ handleClick, onClose }) {
 		formState: { errors, isValid },
 	} = useForm({ mode: 'onChange' });
 
-	const onSubmit = (email) => {
-		handleClick(email);
+	const onSubmit = (data) => {
+		handleClick(data.email);
 	};
 
 	return (

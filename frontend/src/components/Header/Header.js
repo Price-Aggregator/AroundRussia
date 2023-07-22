@@ -50,7 +50,6 @@ function Header() {
 	};
 	useEffect(() => {
 		const token = localStorage.getItem('token');
-		console.log(token);
 
 		if (token) {
 			setIsAuth(true);
@@ -59,6 +58,7 @@ function Header() {
 	}, []);
 
 	const handleAuthorize = (data) => {
+		console.log(data);
 		api
 			.authorize(data.email, data.password)
 			.then((token) => {
@@ -108,9 +108,9 @@ function Header() {
 		setIsAuth(false);
 	};
 
-	const handleResetPassword = (data) => {
+	const handleResetPassword = (email) => {
 		api
-			.resetPassword(data.email)
+			.resetPassword(email)
 			.then((res) => {
 				console.log(res);
 			})

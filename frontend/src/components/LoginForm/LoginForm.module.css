@@ -1,133 +1,131 @@
-.form{
-  min-width: 650px;
-  padding: 50px;
-  border-radius: 10px;
-  background:  #FFF;
-  box-shadow: 5px 5px 15px 0px rgba(0, 0, 0, 0.50);
-  overflow: hidden;
-  display: flex;
-  flex-direction: column;
-  box-sizing: border-box;
-  gap: 30px;
-  position: relative;
-  z-index: 2;
+.form {
+	width: 650px;
+	padding: 50px;
+	border-radius: 10px;
+	background: #fff;
+	box-shadow: 5px 5px 15px 0px rgba(0, 0, 0, 0.5);
+	overflow: hidden;
+	display: flex;
+	flex-direction: column;
+	box-sizing: border-box;
+	gap: 30px;
+	position: relative;
+	z-index: 2;
+}
+.form__reset_password_confirm {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	padding: 70px;
 }
 
-.form__cross{
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  cursor: pointer;
-  background: none;
-  border: none;
+.form__cross {
+	position: absolute;
+	top: 10px;
+	right: 10px;
+	cursor: pointer;
+	background: none;
+	border: none;
 }
 
-.form__cross:hover{
- opacity: 0.8;
+.form__cross:hover {
+	opacity: 0.8;
 }
 
-
-.form__title{
-  color: #132529;
-  font-size: 25px;
-  font-style: normal;
-  font-weight: 500;
-  line-height: normal;
-  margin: 0;
+.form__title {
+	color: #132529;
+	font-size: 25px;
+	font-style: normal;
+	font-weight: 500;
+	line-height: normal;
+	margin: 0;
 }
 
-
-.form__inputContainer{
-  display: flex;
-  flex-direction: column;
+.form__inputContainer {
+	display: flex;
+	flex-direction: column;
 }
 
-.form__input{
-  padding: 15px;
-  box-sizing: border-box;
-  border-radius: 10px;
-  background:   #ECF1F1;
-  border: none;
-  color:  #454545;
-  font-size: 20px;
-  font-style: normal;
-  font-weight: 300;
-  line-height: 124.688%;
-  outline: none;
-  border: 1px solid transparent;
-  margin-bottom: 5px;
+.form__input {
+	padding: 15px;
+	box-sizing: border-box;
+	border-radius: 10px;
+	background: #ecf1f1;
+	border: none;
+	color: #454545;
+	font-size: 20px;
+	font-style: normal;
+	font-weight: 300;
+	line-height: 124.688%;
+	outline: none;
+	border: 1px solid transparent;
+	margin-bottom: 5px;
 }
 
-
-
-.form__input:focus-visible{
-  border: 1px solid  #EBA534;
-
+.form__input:focus-visible {
+	border: 1px solid #eba534;
 }
-.form__input_error{
-  border: 1px solid  #E12234;
-
+.form__input_error {
+	border: 1px solid #e12234;
 }
 
-.form__error{
-  color:  #E12234;
-  font-size: 15px;
-  font-style: normal;
-  font-weight: 400;
-  line-height: normal;
+.form__error {
+	color: #e12234;
+	font-size: 15px;
+	font-style: normal;
+	font-weight: 400;
+	line-height: normal;
 }
-.form__label{
-  color: #454545;
-  font-size: 20px;
-  font-style: normal;
-  font-weight: 300;
-  line-height: 124.688%;
-  margin-bottom: 5px;
+.form__label {
+	color: #454545;
+	font-size: 20px;
+	font-style: normal;
+	font-weight: 300;
+	line-height: 124.688%;
+	margin-bottom: 5px;
 }
-.form__label:not(:first-of-type){
-  margin-top: 20px;
-  }
-
-.form__button:disabled{
-  background: var(--light-grey, #EEE);
-}
-.form__button{
-  padding: 15px 25px;
-  box-sizing: border-box;
-  border-radius: 10px;
-  background: var(--accent-accent-yellow, #F8C747);
-  border: none;
-  color:  #132529;
-  font-size: 20px;
-  font-style: normal;
-  font-weight: 500;
-  line-height: normal;
-  width: fit-content;
+.form__label:not(:first-of-type) {
+	margin-top: 20px;
 }
 
-.form__button:hover{
-  cursor: pointer;
-  background:  #EBA534;
-  box-shadow: 0px 5px 5px 0px rgba(0, 0, 0, 0.10);
+.form__button:disabled {
+	background: var(--light-grey, #eee);
+}
+.form__button {
+	padding: 15px 25px;
+	box-sizing: border-box;
+	border-radius: 10px;
+	background: var(--accent-accent-yellow, #f8c747);
+	border: none;
+	color: #132529;
+	font-size: 20px;
+	font-style: normal;
+	font-weight: 500;
+	line-height: normal;
+	width: fit-content;
 }
 
-.form__linkContainer{
- display: flex;
- flex-direction: column;
- gap: 15px;
-
+.form__button:hover {
+	cursor: pointer;
+	background: #eba534;
+	box-shadow: 0px 5px 5px 0px rgba(0, 0, 0, 0.1);
 }
 
-.form__link{
-  margin: 0;
-  color:  #0679A6;
-  font-size: 20px;
-  font-style: normal;
-  font-weight: 500;
-  line-height: normal;
-  width: fit-content;
-  border: none;
-  background: none;
-  cursor: pointer;
+.form__linkContainer {
+	display: flex;
+	flex-direction: column;
+	gap: 15px;
 }
 
+.form__link {
+	margin: 0;
+	color: #0679a6;
+	font-size: 20px;
+	font-style: normal;
+	font-weight: 500;
+	line-height: normal;
+	width: fit-content;
+	border: none;
+	background: none;
+	cursor: pointer;
+}
