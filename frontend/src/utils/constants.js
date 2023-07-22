@@ -166,7 +166,7 @@ const TRAVEL_DAIRY = [
 			{
 				time: '13:00',
 				category: 'plane',
-				adress: 'Аэропорт Шереметьево, терминал B',
+				address: 'Аэропорт Шереметьево, терминал B',
 				description: 'Заселение в 14:00. Спросить про вид на сад',
 				price: '18 000',
 				eventName: 'Перелёт',
@@ -174,7 +174,7 @@ const TRAVEL_DAIRY = [
 			{
 				time: '14:00',
 				category: 'hotel',
-				adress: 'Аэропорт Шереметьево, терминал B',
+				address: 'Аэропорт Шереметьево, терминал B',
 				description: 'Заселение в 14:00. Спросить про вид на сад',
 				price: '18 000',
 				eventName: 'Перелёт',
@@ -182,7 +182,7 @@ const TRAVEL_DAIRY = [
 			{
 				time: '15:00',
 				category: 'event',
-				adress: 'Аэропорт Шереметьево, терминал B',
+				address: 'Аэропорт Шереметьево, терминал B',
 				description: 'Заселение в 14:00. Спросить про вид на сад',
 				price: '18 000',
 				eventName: 'Перелёт',
@@ -190,7 +190,7 @@ const TRAVEL_DAIRY = [
 			{
 				time: '16:00',
 				category: 'hotel',
-				adress: 'Аэропорт Шереметьево, терминал B',
+				address: 'Аэропорт Шереметьево, терминал B',
 				description: 'Заселение в 14:00. Спросить про вид на сад',
 				price: '18 000',
 				eventName: 'Перелёт',
@@ -203,7 +203,7 @@ const TRAVEL_DAIRY = [
 			{
 				time: '12:00',
 				category: 'hotel',
-				adress: 'Аэропорт Шереметьево, терминал B',
+				address: 'Аэропорт Шереметьево, терминал B',
 				description: 'Заселение в 14:00. Спросить про вид на сад',
 				price: '18 000',
 				eventName: 'Перелёт',
@@ -211,7 +211,7 @@ const TRAVEL_DAIRY = [
 			{
 				time: '14:00',
 				category: 'hotel',
-				adress: 'Аэропорт Шереметьево, терминал B',
+				address: 'Аэропорт Шереметьево, терминал B',
 				description: 'Заселение в 14:00. Спросить про вид на сад',
 				price: '18 000',
 				eventName: 'Перелёт',
@@ -219,7 +219,7 @@ const TRAVEL_DAIRY = [
 			{
 				time: '14:00',
 				category: 'hotel',
-				adress: 'Аэропорт Шереметьево, терминал B',
+				address: 'Аэропорт Шереметьево, терминал B',
 				description: 'Заселение в 14:00. Спросить про вид на сад',
 				price: '18 000',
 				eventName: 'Перелёт',
@@ -227,7 +227,7 @@ const TRAVEL_DAIRY = [
 			{
 				time: '14:00',
 				category: 'event',
-				adress: 'Аэропорт Шереметьево, терминал B',
+				address: 'Аэропорт Шереметьево, терминал B',
 				description: 'Заселение в 14:00. Спросить про вид на сад',
 				price: '18 000',
 				eventName: 'Перелёт',
@@ -240,7 +240,7 @@ const TRAVEL_DAIRY = [
 			{
 				time: '14:00',
 				category: 'hotel',
-				adress: 'Аэропорт Шереметьево, терминал B',
+				address: 'Аэропорт Шереметьево, терминал B',
 				description: 'Заселение в 14:00. Спросить про вид на сад',
 				price: '18 000',
 				eventName: 'Перелёт',
@@ -248,7 +248,7 @@ const TRAVEL_DAIRY = [
 			{
 				time: '14:00',
 				category: 'hotel',
-				adress: 'Аэропорт Шереметьево, терминал B',
+				address: 'Аэропорт Шереметьево, терминал B',
 				description: 'Заселение в 14:00. Спросить про вид на сад',
 				price: '18 000',
 				eventName: 'Перелёт',
@@ -256,7 +256,7 @@ const TRAVEL_DAIRY = [
 			{
 				time: '14:00',
 				category: 'event',
-				adress: 'Аэропорт Шереметьево, терминал B',
+				address: 'Аэропорт Шереметьево, терминал B',
 				description: 'Заселение в 14:00. Спросить про вид на сад',
 				price: '18 000',
 				eventName: 'Перелёт',
@@ -264,7 +264,7 @@ const TRAVEL_DAIRY = [
 			{
 				time: '14:00',
 				category: 'plane',
-				adress: 'Аэропорт Шереметьево, терминал B',
+				address: 'Аэропорт Шереметьево, терминал B',
 				description: 'Заселение в 14:00. Спросить про вид на сад',
 				price: '18 000',
 				eventName: 'Перелёт',

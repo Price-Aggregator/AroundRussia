@@ -8,7 +8,7 @@ import ActivityForm from "../DiaryTravelCategories/ActivityForm/ActivityForm";
 import PropertyForm from "../DiaryTravelCategories/PropertyForm/PropertyForm";
 
 
-function EventBox({ category, time, price, description, adress, eventName }) {
+function EventBox({ category, time, price, description, address, eventName }) {
 
   const [editForm, setEditForm] = useState(false)
 
@@ -35,7 +35,7 @@ function EventBox({ category, time, price, description, adress, eventName }) {
             <button type="button" className={styles.eventButtonTrash}> </button>
           </div>
           <div className={styles.eventDescriptionBox}>
-            <p className={styles.eventSmallText}>{adress}</p>
+            <p className={styles.eventSmallText}>{address}</p>
             <p className={styles.eventSmallText}>{description}</p>
             {price && <p className={styles.eventPriceText}>{price}
               <span className={styles.eventPriceText}> ₽</span>
@@ -68,7 +68,7 @@ function TravelPlanBox({ day }) {
     {wrap && events && <div style={{ width: '100%' }}>
       {events.map((item, index) =>
         // eslint-disable-next-line
-        <EventBox category={item.category} time={item.time} adress={item.adress} description={item.description} price={item.price} eventName={item.eventName} key={index} />
+        <EventBox category={item.category} time={item.time} address={item.address} description={item.description} price={item.price} eventName={item.eventName} key={index} />
       )}
     </div>
     }
@@ -78,14 +78,14 @@ function TravelPlanBox({ day }) {
 EventBox.propTypes = {
   category: PropTypes.string.isRequired,
   time: PropTypes.string.isRequired,
-  adress: PropTypes.string,
+  address: PropTypes.string,
   price: PropTypes.string,
   description: PropTypes.string,
   eventName: PropTypes.string.isRequired
 }
 
 EventBox.defaultProps = {
-  adress: '',
+  address: '',
   price: '',
   description: ''
 }

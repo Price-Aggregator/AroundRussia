@@ -1,33 +1,23 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable jsx-a11y/label-has-associated-control */
 /* eslint-disable import/no-extraneous-dependencies */
-import React, { useState, useEffect, useImmer } from 'react';
+import React, { useState, useEffect } from 'react';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import styles from './ActivityForm.module.css';
-// import { updateTravel } from '../../../store/Travels/slice';
-// import { setTravels } from '../../../store/Travels/slice';
 import { editTravel } from '../../../store/Travels/slice';
-import { generateUniqueKey, formatDate } from '../../../utils/utils';
 
 function ActivityForm({ closeForm }) {
 	const [events, setEvents] = useState([]);
-	console.log('events:', events);
 	const { travelId } = useParams();
 	const dispatch = useDispatch();
 	const travels = useSelector((state) => state.travels.travels);
 
-	// const updatedTravels = Object.assign({}, travels);
-
-	// const [updatedTravels, setUpdatedTravels] = useState({
-
-	// })
-
 	const [eventData, setЕventData] = useState({
-		category: 'plane',
+		category: 'event',
 		eventName: '',
 		address: '',
 		date: null,
@@ -37,73 +27,46 @@ function ActivityForm({ closeForm }) {
 	});
 
 	useEffect(() => {
-		// Retrieve data from localStorage when the component mounts
 		const storedEvents = JSON.parse(localStorage.getItem('events'));
+		console.log('storedEvents:', storedEvents);
 		if (storedEvents) {
 			setEvents(storedEvents);
 		}
 	}, []);
 
 	const handleUpdate = () => {
-		setEvents([]);
-		// localStorage.removeItem('events');
-
-		const newEvent = {
-			category: eventData.category,
-			eventName: eventData.eventName,
-			address: eventData.address,
-			date: formatDate(eventData.date),
-			time: eventData.time,
-			description: eventData.description,
-			price: eventData.price,
+		const options = {
+			day: '2-digit',
+			month: 'long',
+			weekday: 'short',
+			timeZone: 'UTC',
 		};
-
-		const testEvent = {
-			date: formatDate(eventData.date),
+		const newEvent = {
+			date: eventData.date.toLocaleDateString('ru-RU', options),
 			events: [
 				{
 					category: eventData.category,
-					time: eventData.time,
-					adress: eventData.address,
+					time: eventData.time.toLocaleTimeString([], {
+						hour: '2-digit',
+						minute: '2-digit',
+					}),
+					address: eventData.address,
 					description: eventData.description,
 					price: eventData.price,
 					eventName: eventData.eventName,
 				},
 			],
-			// category: eventData.category,
-			// eventName: eventData.eventName,
-			// address: eventData.address,
-			// time: eventData.time,
-			// description: eventData.description,
-			// price: eventData.price,
 		};
 
 		const userTravel = travels.find((card) => card.id === travelId);
 		console.log('userTravel:', userTravel);
 		const newObj = Object.assign({}, userTravel);
 		console.log('newObj:', newObj);
-		setEvents([...events, testEvent]);
+		setEvents([...events, newEvent]);
 		newObj.travelDaysEvents = events;
-		localStorage.setItem('events', JSON.stringify([...events, testEvent]));
+		localStorage.setItem('events', JSON.stringify([...events, newEvent]));
 		console.log('newObj.travelDaysEvents:', newObj.travelDaysEvents);
-		// dispatch.editTravel(newObj);
 		dispatch(editTravel({ id: travelId, data: newObj }));
-		// travels.travelDaysEvents = eventData;
-		// setTravels((currentTravels) => ({
-		//   ...currentTravels,
-		//   travelDaysEvents: eventData
-		// }));
-		// console.log('travels:', travels)
-		// const itemIdToUpdate = travelId;
-		// const updatedPropertyName = 'travelDaysEvents';
-		// const updatedPropertyValue = events;
-		// dispatch(
-		// 	updateTravel(
-		// 		itemIdToUpdate,
-		// 		updatedPropertyName,
-		// 		updatedPropertyValue
-		// 	)
-		// );
 	};
 
 	const handleInputChange = (event) => {
@@ -150,7 +113,7 @@ function ActivityForm({ closeForm }) {
 							name="eventName"
 							value={eventData.title}
 							onChange={handleInputChange}
-							required
+							// required
 						/>
 					</div>{' '}
 					<div className={styles.form__labelBox}>
@@ -164,7 +127,7 @@ function ActivityForm({ closeForm }) {
 							name="address"
 							value={eventData.title}
 							onChange={handleInputChange}
-							required
+							// required
 						/>
 					</div>{' '}
 					<div className={styles.form__dateBox}>
@@ -217,7 +180,7 @@ function ActivityForm({ closeForm }) {
 							name="description"
 							value={eventData.description}
 							onChange={handleInputChange}
-							required
+							// required
 						/>
 					</div>{' '}
 					<div className={styles.form__labelBox}>
@@ -231,7 +194,7 @@ function ActivityForm({ closeForm }) {
 							name="price"
 							value={eventData.price}
 							onChange={handleInputChange}
-							required
+							// required
 						/>
 					</div>{' '}
 					<div className={styles.form__labelBox}>
