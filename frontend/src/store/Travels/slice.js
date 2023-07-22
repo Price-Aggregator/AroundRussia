@@ -1,40 +1,87 @@
 /* eslint-disable no-param-reassign */
-import { createSlice } from '@reduxjs/toolkit';
-import { TRAVEL_LIST_DATA } from '../../utils/constants';
+import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import { BASE_URL } from '../../utils/constants';
+import checkResponse from '../../utils/check-response';
 
 export const travelsName = 'travels';
 
 const initialState = {
-	travels: JSON.parse(localStorage.getItem('travels')) || TRAVEL_LIST_DATA,
+  travels: []
 };
 
+
+export const fetchNewTravel = createAsyncThunk(
+  `${travelsName}/newTravels`,
+  async ({ newTravel, token }) => {
+    // const images = newTravel.images.length > 0 ? newTravel.images : null
+    const res = await fetch(`${BASE_URL}/travels/`, {
+      method: 'POST',
+      headers: {
+        'Authorization': `Token ${token}`,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        name: newTravel.name,
+        start_date: newTravel.start_date,
+        end_date: newTravel.end_date,
+        image: null
+      })
+    }).then(checkResponse);
+    return res
+  }
+)
+
+export const fetchTravels = createAsyncThunk(
+  `${travelsName}/allTravels`,
+  async (token) => {
+    const res = await fetch(`${BASE_URL}/travels`, {
+      method: 'GET',
+      headers: {
+        'Authorization': `Token ${token}`,
+        'Content-Type': 'application/json',
+      },
+    }).then(checkResponse);
+    return res
+  }
+)
+
 const travelsSlice = createSlice({
-	name: travelsName,
-	initialState,
-	reducers: {
-		setTravels: (state, action) => ({
-			...state,
-			travels: action.payload,
-		}),
-		addTravel: (state, action) => ({
-			...state,
-			travels: [action.payload, ...state.travels],
-		}),
-		editTravel: (state, action) => {
-			const { id, data } = action.payload;
-			state.travels = state.travels.map((travel) =>
-				travel.id === id ? { ...travel, ...data } : travel
-			);
-		},
-		removeTravel: (state, action) => {
-			const travelId = action.payload;
-			state.travels = state.travels.filter((travel) => travel.id !== travelId);
-		},
-	},
+  name: travelsName,
+  initialState,
+  reducers: {
+    setTravels: (state, action) => ({
+      ...state,
+      travels: action.payload,
+    }),
+    addTravel: (state, action) => ({
+      ...state,
+      travels: [action.payload, ...state.travels],
+    }),
+    editTravel: (state, action) => {
+      const { id, data } = action.payload;
+      state.travels = state.travels.map((travel) =>
+        travel.id === id ? { ...travel, ...data } : travel
+      );
+    },
+    removeTravel: (state, action) => {
+      const travelId = action.payload;
+      state.travels = state.travels.filter((travel) => travel.id !== travelId);
+    },
+  },
+  extraReducers: (builder) => {
+    builder.addCase(fetchNewTravel.fulfilled, (state, action) => ({
+      ...state,
+      travels: [...state.travels, action.payload]
+    }))
+      .addCase(fetchTravels.fulfilled, (state, action) => ({
+        ...state,
+        travels: action.payload
+      }))
+  }
 });
 
 export const { setTravels, addTravel, editTravel, removeTravel } =
-	travelsSlice.actions;
+  travelsSlice.actions;
 export const travelsReducer = travelsSlice.reducer;
 
 /*

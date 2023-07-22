@@ -24,6 +24,19 @@ const router = createBrowserRouter([
         path: 'result',
         element: <ResultPage />,
       },
+      // {
+      //   path: 'diary',
+      //   element: <DiaryPage />,
+      // },
+      // {
+      //   path: '/diary/:travelId',
+      //   element: <DiaryTravelPage />,
+      // },
+    ],
+  },
+  {
+    element: <ProtectedRoute />,
+    children: [
       {
         path: 'diary',
         element: <DiaryPage />,
@@ -32,18 +45,7 @@ const router = createBrowserRouter([
         path: '/diary/:travelId',
         element: <DiaryTravelPage />,
       },
-    ],
-  },
-  {
-    element: <ProtectedRoute />,
-    // children: [
-    //   {
-    //     path: 'travel/plan',
-    //     element: (
-    //       <TravelPlanPage />
-    //     )
-    //   }
-    // ]
+    ]
   },
   {
     path: '/*',
