@@ -8,7 +8,7 @@ import ActivityForm from "../DiaryTravelCategories/ActivityForm/ActivityForm";
 import PropertyForm from "../DiaryTravelCategories/PropertyForm/PropertyForm";
 
 
-function EventBox({ type, time, price, description, adress, eventName }) {
+function EventBox({ category, time, price, description, adress, eventName }) {
 
   const [editForm, setEditForm] = useState(false)
 
@@ -26,7 +26,7 @@ function EventBox({ type, time, price, description, adress, eventName }) {
             {/* <span className={styles.eventTime}>14:00</span>  */}
             <span className={styles.eventTime}>{time}</span>
           </div>
-          <img src={image[type]} alt="icon" className={styles.eventIcon} />
+          <img src={image[category]} alt="icon" className={styles.eventIcon} />
         </div>
         <div className={styles.eventSecondBox}>
           <div className={styles.eventButtonBox}>
@@ -47,9 +47,9 @@ function EventBox({ type, time, price, description, adress, eventName }) {
         </div>
       </div>
       {editForm && <div>
-        {type === 'plane' && <TransportForm closeForm={() => setEditForm(false)} />}
-        {type === 'event' && <ActivityForm closeForm={() => setEditForm(false)} />}
-        {type === 'hotel' && <PropertyForm closeForm={() => setEditForm(false)} />}
+        {category === 'plane' && <TransportForm closeForm={() => setEditForm(false)} />}
+        {category === 'event' && <ActivityForm closeForm={() => setEditForm(false)} />}
+        {category === 'hotel' && <PropertyForm closeForm={() => setEditForm(false)} />}
       </div>}
     </div>
   )
@@ -68,7 +68,7 @@ function TravelPlanBox({ day }) {
     {wrap && events && <div style={{ width: '100%' }}>
       {events.map((item, index) =>
         // eslint-disable-next-line
-        <EventBox type={item.type} time={item.time} adress={item.adress} description={item.description} price={item.price} eventName={item.eventName} key={index} />
+        <EventBox category={item.category} time={item.time} adress={item.adress} description={item.description} price={item.price} eventName={item.eventName} key={index} />
       )}
     </div>
     }
@@ -76,7 +76,7 @@ function TravelPlanBox({ day }) {
 }
 
 EventBox.propTypes = {
-  type: PropTypes.string.isRequired,
+  category: PropTypes.string.isRequired,
   time: PropTypes.string.isRequired,
   adress: PropTypes.string,
   price: PropTypes.string,

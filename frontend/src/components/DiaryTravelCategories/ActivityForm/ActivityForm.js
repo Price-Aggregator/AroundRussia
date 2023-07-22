@@ -1,45 +1,137 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable jsx-a11y/label-has-associated-control */
 /* eslint-disable import/no-extraneous-dependencies */
-import React, { useState } from 'react';
+import React, { useState, useEffect, useImmer } from 'react';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import PropTypes from 'prop-types';
+import { useDispatch, useSelector } from 'react-redux';
+import { useParams } from 'react-router-dom';
 import styles from './ActivityForm.module.css';
+// import { updateTravel } from '../../../store/Travels/slice';
+// import { setTravels } from '../../../store/Travels/slice';
+import { editTravel } from '../../../store/Travels/slice';
+import { generateUniqueKey, formatDate } from '../../../utils/utils';
 
 function ActivityForm({ closeForm }) {
-	const [travelData, setTravelData] = useState({
-		title: '',
+	const [events, setEvents] = useState([]);
+	console.log('events:', events);
+	const { travelId } = useParams();
+	const dispatch = useDispatch();
+	const travels = useSelector((state) => state.travels.travels);
+
+	// const updatedTravels = Object.assign({}, travels);
+
+	// const [updatedTravels, setUpdatedTravels] = useState({
+
+	// })
+
+	const [eventData, setЕventData] = useState({
+		category: 'plane',
+		eventName: '',
+		address: '',
+		date: null,
+		time: null,
 		description: '',
-		startDate: null,
-		startTime: null,
+		price: '',
 	});
+
+	useEffect(() => {
+		// Retrieve data from localStorage when the component mounts
+		const storedEvents = JSON.parse(localStorage.getItem('events'));
+		if (storedEvents) {
+			setEvents(storedEvents);
+		}
+	}, []);
+
+	const handleUpdate = () => {
+		setEvents([]);
+		// localStorage.removeItem('events');
+
+		const newEvent = {
+			category: eventData.category,
+			eventName: eventData.eventName,
+			address: eventData.address,
+			date: formatDate(eventData.date),
+			time: eventData.time,
+			description: eventData.description,
+			price: eventData.price,
+		};
+
+		const testEvent = {
+			date: formatDate(eventData.date),
+			events: [
+				{
+					category: eventData.category,
+					time: eventData.time,
+					adress: eventData.address,
+					description: eventData.description,
+					price: eventData.price,
+					eventName: eventData.eventName,
+				},
+			],
+			// category: eventData.category,
+			// eventName: eventData.eventName,
+			// address: eventData.address,
+			// time: eventData.time,
+			// description: eventData.description,
+			// price: eventData.price,
+		};
+
+		const userTravel = travels.find((card) => card.id === travelId);
+		console.log('userTravel:', userTravel);
+		const newObj = Object.assign({}, userTravel);
+		console.log('newObj:', newObj);
+		setEvents([...events, testEvent]);
+		newObj.travelDaysEvents = events;
+		localStorage.setItem('events', JSON.stringify([...events, testEvent]));
+		console.log('newObj.travelDaysEvents:', newObj.travelDaysEvents);
+		// dispatch.editTravel(newObj);
+		dispatch(editTravel({ id: travelId, data: newObj }));
+		// travels.travelDaysEvents = eventData;
+		// setTravels((currentTravels) => ({
+		//   ...currentTravels,
+		//   travelDaysEvents: eventData
+		// }));
+		// console.log('travels:', travels)
+		// const itemIdToUpdate = travelId;
+		// const updatedPropertyName = 'travelDaysEvents';
+		// const updatedPropertyValue = events;
+		// dispatch(
+		// 	updateTravel(
+		// 		itemIdToUpdate,
+		// 		updatedPropertyName,
+		// 		updatedPropertyValue
+		// 	)
+		// );
+	};
 
 	const handleInputChange = (event) => {
 		const { name, value } = event.target;
-		setTravelData((prevData) => ({
+		setЕventData((prevData) => ({
 			...prevData,
 			[name]: value,
 		}));
 	};
 
 	const handleStartDateChange = (date) => {
-		setTravelData((prevData) => ({
+		setЕventData((prevData) => ({
 			...prevData,
-			startDate: date,
+			date,
 		}));
 	};
 
 	const handleStartTimeChange = (time) => {
-		setTravelData((prevData) => ({
+		setЕventData((prevData) => ({
 			...prevData,
-			startTime: time,
+			time,
 		}));
 	};
 
 	const handleSubmit = (event) => {
 		event.preventDefault();
-		console.log(travelData);
+		handleUpdate();
+		closeForm();
 	};
 
 	return (
@@ -48,43 +140,43 @@ function ActivityForm({ closeForm }) {
 			<div className={styles.form__box}>
 				<div className={styles.form__inputBox}>
 					<div className={styles.form__labelBox}>
-						<label htmlFor="title" className={styles.form__labelText}>
+						<label htmlFor="eventName" className={styles.form__labelText}>
 							Название активности*
 						</label>
 						<input
 							className={`${styles.form__input} ${styles.form__input_title}`}
 							type="text"
-							id="title"
-							name="title"
-							value={travelData.title}
+							id="eventName"
+							name="eventName"
+							value={eventData.title}
 							onChange={handleInputChange}
 							required
 						/>
 					</div>{' '}
 					<div className={styles.form__labelBox}>
-						<label htmlFor="title" className={styles.form__labelText}>
+						<label htmlFor="address" className={styles.form__labelText}>
 							Адрес*
 						</label>
 						<input
 							className={`${styles.form__input} ${styles.form__input_title}`}
 							type="text"
-							id="title"
-							name="title"
-							value={travelData.title}
+							id="address"
+							name="address"
+							value={eventData.title}
 							onChange={handleInputChange}
 							required
 						/>
 					</div>{' '}
 					<div className={styles.form__dateBox}>
 						<div className={styles.form__labelBox}>
-							<label htmlFor="startDate" className={styles.form__labelText}>
+							<label htmlFor="date" className={styles.form__labelText}>
 								Дата начала* (дд.мм.гггг)
 							</label>
 							<div className={styles.form__dateInputContainer}>
 								<DatePicker
 									className={`${styles.form__input} ${styles.form__input_date}`}
-									id="startDate"
-									selected={travelData.startDate}
+									id="date"
+									selected={eventData.date}
 									onChange={handleStartDateChange}
 									dateFormat="dd.MM.yyyy"
 									placeholderText=""
@@ -93,14 +185,14 @@ function ActivityForm({ closeForm }) {
 							</div>
 						</div>
 						<div className={styles.form__labelBox}>
-							<label htmlFor="startTime" className={styles.form__labelText}>
+							<label htmlFor="time" className={styles.form__labelText}>
 								Время начала* (чч:мм)
 							</label>
 							<div className={styles.form__timeInputContainer}>
 								<DatePicker
 									className={`${styles.form__input} ${styles.form__input_date}`}
-									id="startTime"
-									selected={travelData.startTime}
+									id="time"
+									selected={eventData.time}
 									onChange={handleStartTimeChange}
 									showTimeSelect
 									showTimeSelectOnly
@@ -115,38 +207,38 @@ function ActivityForm({ closeForm }) {
 						</div>
 					</div>{' '}
 					<div className={styles.form__labelBox}>
-						<label htmlFor="title" className={styles.form__labelText}>
+						<label htmlFor="description" className={styles.form__labelText}>
 							Описание
 						</label>
 						<input
 							className={`${styles.form__input} ${styles.form__input_title}`}
 							type="text"
-							id="title"
-							name="title"
-							value={travelData.title}
+							id="description"
+							name="description"
+							value={eventData.description}
 							onChange={handleInputChange}
 							required
 						/>
 					</div>{' '}
 					<div className={styles.form__labelBox}>
-						<label htmlFor="title" className={styles.form__labelText}>
+						<label htmlFor="price" className={styles.form__labelText}>
 							Стоимость
 						</label>
 						<input
 							className={`${styles.form__input} ${styles.form__input_title}`}
 							type="text"
-							id="title"
-							name="title"
-							value={travelData.title}
+							id="price"
+							name="price"
+							value={eventData.price}
 							onChange={handleInputChange}
 							required
 						/>
 					</div>{' '}
 					<div className={styles.form__labelBox}>
-						<label htmlFor="title" className={styles.form__labelText}>
+						<label htmlFor="media" className={styles.form__labelText}>
 							Прикрепите фото, документы, билеты
 						</label>
-						<div className={styles.form__files}>
+						<div className={styles.form__files} id="media">
 							<div className={styles.form__fileBox}>
 								<button
 									className={`${styles.form__button} ${styles.form__button_addFile}`}

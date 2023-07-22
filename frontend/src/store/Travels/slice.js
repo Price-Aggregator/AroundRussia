@@ -1,13 +1,20 @@
 /* eslint-disable no-param-reassign */
+// import produce from 'immer';
 import { createSlice } from '@reduxjs/toolkit';
 import { TRAVEL_LIST_DATA } from '../../utils/constants';
 
 export const travelsName = 'travels';
 
+const travels = JSON.parse(localStorage.getItem('travels')) || TRAVEL_LIST_DATA;
+const events = JSON.parse(localStorage.getItem('events'));
+console.log('events:', events);
+console.log('travels:', travels);
+
 const initialState = {
-	travels: JSON.parse(localStorage.getItem('travels')) || TRAVEL_LIST_DATA,
+	travels: travels,
 };
 
+console.log('initialState:', initialState);
 const travelsSlice = createSlice({
 	name: travelsName,
 	initialState,
@@ -30,6 +37,22 @@ const travelsSlice = createSlice({
 			const travelId = action.payload;
 			state.travels = state.travels.filter((travel) => travel.id !== travelId);
 		},
+
+		// updateTravel: (state, action) => {
+		// 	state.travels = state.travels.map((travel) => {
+		// 		if (travel.id === itemId) {
+		// 			return produce(state, (draft) => {
+		//         draft.propertyName = action.payload
+		//       })
+		// 		}
+		// 		return travel;
+		// 	});
+		// 	localStorage.setItem('travels', JSON.stringify(state.travels));
+		// 	return {
+		// 		...state,
+		// 		travels: state.travels,
+		// 	};
+		// },
 	},
 });
 
