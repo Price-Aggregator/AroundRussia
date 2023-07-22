@@ -18,6 +18,7 @@ import defaultPicture from '../images/picture_travellist_default.png';
 
 const BASE_URL = 'http://localhost/api/v1';
 // const BASE_URL = 'http://aroundrussia.acceleratorpracticum.ru/api/v1';
+const MEDIA_URL = 'http://localhost/media'
 
 const TICKETS_ON_PAGE = 3;
 
@@ -315,4 +316,5 @@ export {
   airlines,
   TRAVEL_LIST_DATA,
   TRAVEL_DAIRY,
+  MEDIA_URL
 };

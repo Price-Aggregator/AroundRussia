@@ -4,10 +4,10 @@ import PropTypes from 'prop-types';
 import styles from './DiaryCardPreview.module.css';
 import { generateUniqueKey } from '../../utils/utils';
 import defaultPicture from '../../images/dairy_picture_default.png';
+import { MEDIA_URL } from '../../utils/constants';
 
 function DiaryCardPreview({ card }) {
-  const imagesIs = card.image
-  console.log(imagesIs)
+  const imagesIs = card.images
 
   return (
     <Link to={`/diary/${card.id}`} className={styles.card__link}>
@@ -22,11 +22,11 @@ function DiaryCardPreview({ card }) {
         {imagesIs && <div className={styles.card__pictureBox}>
           <img
             className={styles.card__mainPicture}
-            src={card.image && card.image[0] ? card.image[0] : defaultPicture}
+            src={card.images && card.images[0] ? `${MEDIA_URL}/${card.images[0]}` : defaultPicture}
             alt={card.name}
           />
           <div className={styles.card__pictureList}>
-            {card.image?.slice([1], [4]).map((picture) => (
+            {card.images?.slice([1], [4]).map((picture) => (
               <img
                 className={styles.card__picture}
                 src={picture}
@@ -34,10 +34,10 @@ function DiaryCardPreview({ card }) {
                 key={generateUniqueKey()}
               />
             ))}
-            {card.image.length > 4 ? (
+            {card.images.length > 4 ? (
               <div className={styles.card__countBox}>
                 <p className={styles.card__countNumber}>
-                  +{card.image.length - 4}
+                  +{card.images.length - 4}
                 </p>
               </div>
             ) : null}
@@ -57,6 +57,6 @@ DiaryCardPreview.propTypes = {
     end_date: PropTypes.string.isRequired,
     description: PropTypes.string.isRequired,
     id: PropTypes.string.isRequired,
-    image: PropTypes.arrayOf(PropTypes.string).isRequired,
+    images: PropTypes.arrayOf(PropTypes.string).isRequired,
   }).isRequired,
 };
