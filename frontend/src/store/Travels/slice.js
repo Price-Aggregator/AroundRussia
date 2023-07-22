@@ -9,7 +9,7 @@ const initialState = {
   travels: []
 };
 
-
+// Асинхронный action creator для добавления нового путешествия на сервер
 export const fetchNewTravel = createAsyncThunk(
   `${travelsName}/newTravels`,
   async ({ newTravel, token }) => {
@@ -32,6 +32,7 @@ export const fetchNewTravel = createAsyncThunk(
   }
 )
 
+// Асинхронный action creator для получения списка путешествий с сервера
 export const fetchTravels = createAsyncThunk(
   `${travelsName}/allTravels`,
   async (token) => {

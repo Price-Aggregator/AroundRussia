@@ -56,7 +56,7 @@ DiaryCardPreview.propTypes = {
     start_date: PropTypes.string.isRequired,
     end_date: PropTypes.string.isRequired,
     description: PropTypes.string.isRequired,
-    id: PropTypes.string.isRequired,
+    id: PropTypes.number.isRequired,
     images: PropTypes.arrayOf(PropTypes.string).isRequired,
   }).isRequired,
 };
