@@ -7,6 +7,7 @@ import classNames from 'classnames';
 import logo from '../../images/logo.svg';
 import styles from './Header.module.css';
 import LoginForm from '../LoginForm/LoginForm';
+import useClickOutside from '../../hooks/UseOutsideClick';
 import {
 	setUserToken,
 	setUserEmail,
@@ -18,7 +19,6 @@ import {
 import * as api from '../../utils/authApi';
 import ResetPassword from '../LoginForm/ResetPassword';
 import Registration from '../LoginForm/Registration';
-// import useOutsideClick from '../../hooks/UseOutsideClick';
 
 function Header() {
 	const location = useLocation();
@@ -32,13 +32,19 @@ function Header() {
 	const [isAuth, setIsAuth] = useState(false);
 
 	const accountMenuRef = useRef(null);
-	// useOutsideClick(accountMenuRef, closeForms, opened);
+	const formsRef = useRef(null);
+	useClickOutside(accountMenuRef, () => {
+		setAccountMenu(false);
+	});
+
 	const closeForms = () => {
 		setLoginForm(false);
 		setResetPasswordForm(false);
 		setRegistrationForm(false);
 	};
-
+	useClickOutside(formsRef, () => {
+		closeForms();
+	});
 	const openPasswordForm = () => {
 		closeForms();
 		setResetPasswordForm(true);
@@ -190,6 +196,7 @@ function Header() {
 								styles.header__accountMenu,
 								styles.header__accountExitMenu
 							)}
+							ref={accountMenuRef}
 						>
 							<button
 								type="button"
@@ -204,7 +211,7 @@ function Header() {
 						</div>
 					))}
 
-				<div className={styles.header__loginForm}>
+				<div className={styles.header__loginForm} ref={formsRef}>
 					{loginForm && (
 						<LoginForm
 							onClose={closeForms}
