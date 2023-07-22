@@ -1,6 +1,7 @@
-import plane from './plane.svg'
+import flight from './plane.svg'
 import hotel from './hotel.svg'
-import event from './event.svg'
+import activity from './event.svg'
+import defaultImage from './default_event_image.png'
 
-export { plane, hotel, event }
+export { flight, hotel, activity, defaultImage }
 
