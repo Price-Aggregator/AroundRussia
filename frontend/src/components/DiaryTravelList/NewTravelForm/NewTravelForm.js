@@ -17,7 +17,7 @@ function NewTravelForm({ closeForm }) {
 		description: '',
 		start_date: null,
 		end_date: null,
-		pictures: [],
+		images: [],
 	});
 
 	const travels = useSelector((state) => state.travels.travels);
@@ -50,7 +50,7 @@ function NewTravelForm({ closeForm }) {
 			description: travelData.description,
 			start_date: formatDate(travelData.start_date),
 			end_date: formatDate(travelData.end_date),
-			pictures: travelData.pictures,
+			images: travelData.images,
 			travelDaysEvents: [],
 		};
 
@@ -65,7 +65,7 @@ function NewTravelForm({ closeForm }) {
 					description: travelData.description,
 					start_date: formatDate(travelData.start_date),
 					end_date: formatDate(travelData.end_date),
-					pictures: travelData.pictures,
+					images: travelData.images,
 				};
 				const updatedTravel = {
 					...existingTravel,
@@ -89,7 +89,7 @@ function NewTravelForm({ closeForm }) {
 				reader.onload = (e) => {
 					setTravelData((prevData) => ({
 						...prevData,
-						pictures: [e.target.result],
+						images: [e.target.result],
 					}));
 				};
 				reader.readAsDataURL(file);
@@ -104,14 +104,14 @@ function NewTravelForm({ closeForm }) {
 		if (isDiaryPage()) {
 			const travelId = location.pathname.split('/diary/')[1];
 			const existingTravel = travels.find((travel) => travel.id === travelId);
-			const pictures =
-				existingTravel && existingTravel.pictures.length
-					? existingTravel.pictures
+			const images =
+				existingTravel && existingTravel.images.length
+					? existingTravel.images
 					: [];
 
 			setTravelData((prevData) => ({
 				...prevData,
-				pictures,
+				images,
 			}));
 		}
 	}, [location.pathname, travels]);
@@ -190,9 +190,7 @@ function NewTravelForm({ closeForm }) {
 				<div className={styles.form__picBox}>
 					<img
 						className={styles.form__picture}
-						src={
-							travelData.pictures[0] ? travelData.pictures[0] : DefaultPicture
-						}
+						src={travelData.images[0] ? travelData.images[0] : DefaultPicture}
 						alt="здесь будет осмысленный альт"
 					/>
 					<button

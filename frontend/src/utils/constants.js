@@ -282,7 +282,7 @@ const TRAVEL_LIST_DATA = [
 		start_date: '2023-07-09',
 		end_date: '2023-07-11',
 		total_price: 1286,
-		pictures: [
+		images: [
 			defaultPicture,
 			defaultPicture,
 			defaultPicture,
@@ -296,11 +296,11 @@ const TRAVEL_LIST_DATA = [
 		id: '2',
 		name: 'Санкт-Петербург',
 		description:
-			'Едем на белые ночи. Взять напрокат лодку на развод мостов.Встретиться с друзьями.',
+			'Едем на белые ночи.Взять напрокат лодку на развод мостов.Встретиться с друзьями.',
 		start_date: '2023-07-12',
 		end_date: '2023-07-16',
 		total_price: 1286,
-		pictures: [defaultPicture],
+		images: [defaultPicture],
 		travelDaysEvents: [],
 	},
 ];
