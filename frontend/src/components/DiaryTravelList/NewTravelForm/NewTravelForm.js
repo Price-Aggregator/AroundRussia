@@ -23,7 +23,6 @@ function NewTravelForm({ closeForm }) {
 
   const travels = useSelector((state) => state.travels.travels);
   const token = useSelector(getUserToken)
-  console.log(token)
   const isDiaryPage = () => location.pathname.includes('/diary/');
 
   const handleInputChange = (event) => {

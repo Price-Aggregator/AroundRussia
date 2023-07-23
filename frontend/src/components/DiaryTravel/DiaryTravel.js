@@ -88,7 +88,7 @@ function DiaryTravel({ card }) {
   };
 
   useEffect(() => {
-    if (card.activities && card.activities.length > 1) {
+    if (card.activities && card.activities.length > 0) {
       setIsEmpty(false);
     } else {
       setIsEmpty(true);
