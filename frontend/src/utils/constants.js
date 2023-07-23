@@ -18,6 +18,7 @@ import defaultPicture from '../images/picture_travellist_default.png';
 
 const BASE_URL = 'http://localhost/api/v1';
 // const BASE_URL = 'http://aroundrussia.acceleratorpracticum.ru/api/v1';
+const MEDIA_URL = 'http://localhost/media'
 
 const TICKETS_ON_PAGE = 3;
 
@@ -169,7 +170,7 @@ const TRAVEL_DAIRY = [
         adress: 'Аэропорт Шереметьево, терминал B',
         description: 'Заселение в 14:00. Спросить про вид на сад',
         price: '18 000',
-        eventName: 'Перелёт'
+        eventName: 'Перелёт',
       },
       {
         time: '14:00',
@@ -177,7 +178,7 @@ const TRAVEL_DAIRY = [
         adress: 'Аэропорт Шереметьево, терминал B',
         description: 'Заселение в 14:00. Спросить про вид на сад',
         price: '18 000',
-        eventName: 'Перелёт'
+        eventName: 'Перелёт',
       },
       {
         time: '15:00',
@@ -185,7 +186,7 @@ const TRAVEL_DAIRY = [
         adress: 'Аэропорт Шереметьево, терминал B',
         description: 'Заселение в 14:00. Спросить про вид на сад',
         price: '18 000',
-        eventName: 'Перелёт'
+        eventName: 'Перелёт',
       },
       {
         time: '16:00',
@@ -193,9 +194,9 @@ const TRAVEL_DAIRY = [
         adress: 'Аэропорт Шереметьево, терминал B',
         description: 'Заселение в 14:00. Спросить про вид на сад',
         price: '18 000',
-        eventName: 'Перелёт'
+        eventName: 'Перелёт',
       },
-    ]
+    ],
   },
   {
     date: '10 июля, Пн',
@@ -206,7 +207,7 @@ const TRAVEL_DAIRY = [
         adress: 'Аэропорт Шереметьево, терминал B',
         description: 'Заселение в 14:00. Спросить про вид на сад',
         price: '18 000',
-        eventName: 'Перелёт'
+        eventName: 'Перелёт',
       },
       {
         time: '14:00',
@@ -214,7 +215,7 @@ const TRAVEL_DAIRY = [
         adress: 'Аэропорт Шереметьево, терминал B',
         description: 'Заселение в 14:00. Спросить про вид на сад',
         price: '18 000',
-        eventName: 'Перелёт'
+        eventName: 'Перелёт',
       },
       {
         time: '14:00',
@@ -222,7 +223,7 @@ const TRAVEL_DAIRY = [
         adress: 'Аэропорт Шереметьево, терминал B',
         description: 'Заселение в 14:00. Спросить про вид на сад',
         price: '18 000',
-        eventName: 'Перелёт'
+        eventName: 'Перелёт',
       },
       {
         time: '14:00',
@@ -230,9 +231,9 @@ const TRAVEL_DAIRY = [
         adress: 'Аэропорт Шереметьево, терминал B',
         description: 'Заселение в 14:00. Спросить про вид на сад',
         price: '18 000',
-        eventName: 'Перелёт'
+        eventName: 'Перелёт',
       },
-    ]
+    ],
   },
   {
     date: '11 июля, Вт',
@@ -243,7 +244,7 @@ const TRAVEL_DAIRY = [
         adress: 'Аэропорт Шереметьево, терминал B',
         description: 'Заселение в 14:00. Спросить про вид на сад',
         price: '18 000',
-        eventName: 'Перелёт'
+        eventName: 'Перелёт',
       },
       {
         time: '14:00',
@@ -251,7 +252,7 @@ const TRAVEL_DAIRY = [
         adress: 'Аэропорт Шереметьево, терминал B',
         description: 'Заселение в 14:00. Спросить про вид на сад',
         price: '18 000',
-        eventName: 'Перелёт'
+        eventName: 'Перелёт',
       },
       {
         time: '14:00',
@@ -259,7 +260,7 @@ const TRAVEL_DAIRY = [
         adress: 'Аэропорт Шереметьево, терминал B',
         description: 'Заселение в 14:00. Спросить про вид на сад',
         price: '18 000',
-        eventName: 'Перелёт'
+        eventName: 'Перелёт',
       },
       {
         time: '14:00',
@@ -267,21 +268,22 @@ const TRAVEL_DAIRY = [
         adress: 'Аэропорт Шереметьево, терминал B',
         description: 'Заселение в 14:00. Спросить про вид на сад',
         price: '18 000',
-        eventName: 'Перелёт'
+        eventName: 'Перелёт',
       },
-    ]
+    ],
   },
-]
+];
 
 const TRAVEL_LIST_DATA = [
   {
     id: '1',
-    title: 'Алтай',
+    name: 'Алтай',
     description:
       'Путешествие на авто по Алтаю. Всего 15 локаций. Обязательно нужно купить сувениры и побывать около Белухи.',
-    startDate: '2023-07-09',
-    finishDate: '2023-07-11',
-    pictures: [
+    start_date: '2023-07-09',
+    end_date: '2023-07-11',
+    total_price: 1286,
+    image: [
       defaultPicture,
       defaultPicture,
       defaultPicture,
@@ -289,21 +291,20 @@ const TRAVEL_LIST_DATA = [
       defaultPicture,
       defaultPicture,
     ],
-    travelDaysEvents: TRAVEL_DAIRY
+    travelDaysEvents: TRAVEL_DAIRY,
   },
   {
     id: '2',
-    title: 'Санкт-Петербург',
+    name: 'Санкт-Петербург',
     description:
-      'Едем на белые ночи. Взять напрокат лодку на развод мостов.Встретиться с друзьями.',
-    startDate: '2023-07-12',
-    finishDate: '2023-07-16',
-    pictures: [defaultPicture],
-    travelDaysEvents: []
+      'Едем на белые ночи.Взять напрокат лодку на развод мостов.Встретиться с друзьями.',
+    start_date: '2023-07-12',
+    end_date: '2023-07-16',
+    total_price: 1286,
+    image: [defaultPicture],
+    travelDaysEvents: [],
   },
 ];
-
-
 
 export {
   TICKETS_ON_PAGE,
@@ -314,5 +315,6 @@ export {
   monthsInTicket,
   airlines,
   TRAVEL_LIST_DATA,
-  TRAVEL_DAIRY
+  TRAVEL_DAIRY,
+  MEDIA_URL
 };

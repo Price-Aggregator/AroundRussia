@@ -9,11 +9,11 @@ import styles from './Header.module.css';
 import LoginForm from '../LoginForm/LoginForm';
 import useClickOutside from '../../hooks/UseOutsideClick';
 import {
-	setUserToken,
-	setUserEmail,
-	yesAuth,
-	removeUser,
-	noAuth,
+  setUserToken,
+  setUserEmail,
+  yesAuth,
+  removeUser,
+  noAuth,
 } from '../../store/User/slice';
 
 import * as api from '../../utils/authApi';
@@ -21,6 +21,7 @@ import ResetPassword from '../LoginForm/ResetPassword';
 import Registration from '../LoginForm/Registration';
 
 function Header() {
+
 	const location = useLocation();
 	const navigate = useNavigate();
 	const [accountMenu, setAccountMenu] = useState(false);
@@ -237,6 +238,7 @@ function Header() {
 			</div>
 		</header>
 	);
+ 
 }
 
 export default Header;

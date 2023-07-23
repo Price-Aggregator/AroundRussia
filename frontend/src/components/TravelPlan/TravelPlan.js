@@ -4,11 +4,14 @@ import styles from './TravelPlan.module.css'
 import TravelPlanBox from "./TravelPlanBox";
 
 function TravelPlan({ travelPlan }) {
+  console.log(travelPlan)
+  const datesOfTravel = [... new Set(travelPlan.map((item) => item.date))]
+  console.log(datesOfTravel)
 
   return <div className={styles.travel}>
-    {travelPlan && travelPlan.map((item, index) => (
+    {datesOfTravel && datesOfTravel.map((item) => (
       // eslint-disable-next-line
-      <TravelPlanBox day={item} key={index} />
+      <TravelPlanBox day={item} key={item.id} activities={travelPlan} />
     ))}
   </div>
 }
