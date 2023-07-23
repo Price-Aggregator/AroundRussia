@@ -29,4 +29,19 @@ export const resetPassword = (email) =>
 			'Content-Type': 'application/json',
 		},
 		body: JSON.stringify({ email }),
+	}).then(alert('Проверь почту'));
+
+export const resetPasswordConfirm = (id, userToken, newPassword) => {
+	fetch(`${BASE_URL}/users/reset_password_confirm/`, {
+		method: 'POST',
+		headers: {
+			Accept: 'application/json',
+			'Content-Type': 'application/json',
+		},
+		body: JSON.stringify({
+			uid: id,
+			token: userToken,
+			new_password: newPassword,
+		}),
 	}).then((res) => checkResponse(res));
+};
