@@ -15,58 +15,60 @@ import ResetPasswordConfirmPage from '../../pages/ResetPasswordConfirmPage';
 
 const router = createBrowserRouter([
 
-	{
-		element: <Layout />,
-		children: [
-			{
-				path: '/',
-				element: <MainPage />,
-			},
-			{
-				path: 'result',
-				element: <ResultPage />,
-			},
-			{
-				path: 'diary',
-				element: <DiaryPage />,
-			},
-			{
-				path: '/diary/:travelId',
-				element: <DiaryTravelPage />,
-			},
-			{
-				path: '/password-reset/*',
-				element: <ResetPasswordConfirmPage />,
-			},
-		],
-	},
-	{
-		element: <ProtectedRoute />,
-		// children: [
-		//   {
-		//     path: 'travel/plan',
-		//     element: (
-		//       <TravelPlanPage />
-		//     )
-		//   }
-		// ]
-	},
-	{
-		path: '/*',
-		element: <NotFound />,
-	},
+  {
+    element: <Layout />,
+    children: [
+      {
+        path: '/',
+        element: <MainPage />,
+      },
+      {
+        path: 'result',
+        element: <ResultPage />,
+      },
+      // {
+      //   path: 'diary',
+      //   element: <DiaryPage />,
+      // },
+      // {
+      //   path: '/diary/:travelId',
+      //   element: <DiaryTravelPage />,
+      // },
+      {
+        path: '/password-reset/*',
+        element: <ResetPasswordConfirmPage />,
+      },
+    ],
+  },
+  {
+    element: <ProtectedRoute />,
+    children: [
+      {
+        path: 'diary',
+        element: <DiaryPage />,
+      },
+      {
+        path: '/diary/:travelId',
+        element: <DiaryTravelPage />,
+      },
+    ]
+  },
+  {
+    path: '/*',
+    element: <NotFound />,
+  },
 
 ]);
 
 function App() {
-	const dispatch = useDispatch();
-	dispatch(getCities());
+  const dispatch = useDispatch();
+  dispatch(getCities());
 
-	return (
-		<div className={styles.app}>
-			<RouterProvider router={router} />
-		</div>
-	);
+  return (
+    <div className={styles.app}>
+      <RouterProvider router={router} />
+    </div>
+  );
 }
 
 export default App;
