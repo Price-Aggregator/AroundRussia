@@ -37,7 +37,7 @@ function EventBox({ type, time, price, description, adress, eventName, media, ev
             {/* <span className={styles.eventTime}>14:00</span>  */}
             <span className={styles.eventTime}>{time.slice(0, 5)}</span>
           </div>
-          <img src={image[type]} alt="icon" className={styles.eventIcon} />
+          <img src={image[category]} alt="icon" className={styles.eventIcon} />
         </div>
         <div className={styles.eventSecondBox}>
           <div className={styles.eventButtonBox}>
@@ -46,7 +46,7 @@ function EventBox({ type, time, price, description, adress, eventName, media, ev
             <button type="button" className={styles.eventButtonTrash} onClick={onDelete}> </button>
           </div>
           <div className={styles.eventDescriptionBox}>
-            <p className={styles.eventSmallText}>{adress}</p>
+            <p className={styles.eventSmallText}>{address}</p>
             <p className={styles.eventSmallText}>{description}</p>
             {price && <p className={styles.eventPriceText}>{price}
               <span className={styles.eventPriceText}> ₽</span>
@@ -92,9 +92,9 @@ function TravelPlanBox({ day, activities }) {
 }
 
 EventBox.propTypes = {
-  type: PropTypes.string.isRequired,
+  category: PropTypes.string.isRequired,
   time: PropTypes.string.isRequired,
-  adress: PropTypes.string,
+  address: PropTypes.string,
   price: PropTypes.string,
   description: PropTypes.string,
   eventName: PropTypes.string.isRequired,
@@ -103,7 +103,7 @@ EventBox.propTypes = {
 }
 
 EventBox.defaultProps = {
-  adress: '',
+  address: '',
   price: '',
   description: '',
   media: ''
