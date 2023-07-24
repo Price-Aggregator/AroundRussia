@@ -84,7 +84,7 @@ function TravelPlanBox({ day, activities }) {
     {wrap && events && <div style={{ width: '100%' }}>
       {events.map((item) =>
         // eslint-disable-next-line
-        <EventBox type={item.category} time={item.time} adress={item.address} description={item.description} price={item.price} eventName={item.name} key={item.id} media={item.media} eventId={item.id} />
+        <EventBox category={item.category} time={item.time} adress={item.address} description={item.description} price={item.price} eventName={item.name} key={item.id} media={item.media} eventId={item.id} />
       )}
     </div>
     }

@@ -8,14 +8,16 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import styles from './PropertyForm.module.css';
-import { editTravel } from '../../../store/Travels/slice';
+import { editTravel, fetchAddEvent, fetchTravels } from '../../../store/Travels/slice';
 import { formatDate } from '../../../utils/utils';
+import { getUserToken } from '../../../store/User/selectors';
 
 function PropertyForm({ closeForm }) {
   const [events, setEvents] = useState([]);
   const { travelId } = useParams();
   const dispatch = useDispatch();
   const travels = useSelector((state) => state.travels.travels);
+  const token = useSelector(getUserToken)
 
   const [propertyData, setPropertyData] = useState({
     category: 'hotel',
@@ -42,46 +44,45 @@ function PropertyForm({ closeForm }) {
     }
   }, []);
 
-  const handleUpdate = () => {
-    const options = {
-      day: '2-digit',
-      month: 'long',
-      weekday: 'short',
-      timeZone: 'UTC',
-    };
-    const newProperty = {
-      date: propertyData.startDate.toLocaleDateString('ru-RU', options),
-      events: [
-        {
-          category: propertyData.category,
-          eventName: propertyData.eventName,
-          address: propertyData.address,
-          start_date: formatDate(propertyData.startDate),
-          time: propertyData.startTime.toLocaleTimeString([], {
-            hour: '2-digit',
-            minute: '2-digit',
-          }),
-          end_time: propertyData.endTime.toLocaleTimeString([], {
-            hour: '2-digit',
-            minute: '2-digit',
-          }),
-          end_date: formatDate(propertyData.endDate),
-          description: propertyData.description,
-          price: propertyData.price,
-        },
-      ],
-    };
-    const userTravel = travels.find((card) => card.id === travelId);
-    const newObj = { ...userTravel };
-    setEvents([...events, newProperty]);
-    newObj.travelDaysEvents = events;
-    localStorage.setItem('events', JSON.stringify([...events, newProperty]));
-    dispatch(editTravel({ id: travelId, data: newObj }));
-  };
+  // const handleUpdate = () => {
+  //   const options = {
+  //     day: '2-digit',
+  //     month: 'long',
+  //     weekday: 'short',
+  //     timeZone: 'UTC',
+  //   };
+  //   const newProperty = {
+  //     date: propertyData.startDate.toLocaleDateString('ru-RU', options),
+  //     events: [
+  //       {
+  //         category: propertyData.category,
+  //         eventName: propertyData.eventName,
+  //         address: propertyData.address,
+  //         start_date: formatDate(propertyData.startDate),
+  //         time: propertyData.startTime.toLocaleTimeString([], {
+  //           hour: '2-digit',
+  //           minute: '2-digit',
+  //         }),
+  //         end_time: propertyData.endTime.toLocaleTimeString([], {
+  //           hour: '2-digit',
+  //           minute: '2-digit',
+  //         }),
+  //         end_date: formatDate(propertyData.endDate),
+  //         description: propertyData.description,
+  //         price: propertyData.price,
+  //       },
+  //     ],
+  //   };
+  //   const userTravel = travels.find((card) => card.id === travelId);
+  //   const newObj = { ...userTravel };
+  //   setEvents([...events, newProperty]);
+  //   newObj.travelDaysEvents = events;
+  //   localStorage.setItem('events', JSON.stringify([...events, newProperty]));
+  //   dispatch(editTravel({ id: travelId, data: newObj }));
+  // };
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;
-    console.log(name, value)
     setPropertyData((prevData) => ({
       ...prevData,
       [name]: value,
@@ -116,9 +117,26 @@ function PropertyForm({ closeForm }) {
     }));
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    handleUpdate();
+    // handleUpdate();
+
+    const newEvent = {
+      startDate: formatDate(propertyData.startDate),
+      category: propertyData.category,
+      startTime: propertyData.startTime.toLocaleTimeString([], {
+        hour: '2-digit',
+        minute: '2-digit',
+      }),
+      address: propertyData.address,
+      description: propertyData.description,
+      price: propertyData.price,
+      eventName: propertyData.eventName,
+    };
+
+    await dispatch(fetchAddEvent({ travelId, token, data: newEvent })).then(() => {
+      dispatch(fetchTravels(token))
+    })
     closeForm();
   };
 
