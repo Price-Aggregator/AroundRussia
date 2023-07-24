@@ -5,6 +5,7 @@ import { useLocation } from 'react-router';
 import classNames from 'classnames';
 import styles from './LoginForm.module.css';
 import { resetPasswordConfirm } from '../../utils/authApi';
+import { regexPassword } from '../../utils/constants';
 
 export default function ResetPasswordComfirm() {
 	const location = useLocation();
@@ -51,6 +52,10 @@ export default function ResetPasswordComfirm() {
 						{...register('password', {
 							required: 'Поле обязательно к заполнению',
 							minLength: { value: 3, message: 'Введите минимум 3 символа' },
+							pattern: {
+								value: regexPassword,
+								message: 'Используйте заглавные, строчные буквы и цифры.',
+							},
 						})}
 					/>
 					{errors?.password && (
