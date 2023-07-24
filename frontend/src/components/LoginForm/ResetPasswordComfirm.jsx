@@ -29,7 +29,10 @@ export default function ResetPasswordComfirm() {
 
 	return (
 		<div className={styles.form__reset_password_confirm}>
-			<form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
+			<form
+				className={classNames(styles.form, styles.form__zIndex_1)}
+				onSubmit={handleSubmit(onSubmit)}
+			>
 				<h2 className={styles.form__title}>Обновление пароля</h2>
 				<div className={styles.form__inputContainer}>
 					<label htmlFor="registration-password" className={styles.form__label}>

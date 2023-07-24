@@ -19,6 +19,10 @@
 	padding: 70px;
 }
 
+.form__zIndex_1 {
+	z-index: 1;
+}
+
 .form__cross {
 	position: absolute;
 	top: 10px;
