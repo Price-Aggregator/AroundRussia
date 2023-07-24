@@ -21,4 +21,16 @@ function createTicketsFetchObj({
 // eslint-disable-next-line
 const noReturn = ({ return_at, ...rest }) => rest;
 
-export { generateUniqueKey, createTicketsFetchObj, noReturn };
+// функция для трансформации date в нужный беку формат
+function formatDate(date) {
+	const day = date.getDate();
+	const month = date.getMonth() + 1;
+	const year = date.getFullYear();
+	const formattedDay = day < 10 ? `0${day}` : day;
+	const formattedMonth = month < 10 ? `0${month}` : month;
+	return `${year}-${formattedMonth}-${formattedDay}`;
+}
+
+
+
+export { generateUniqueKey, createTicketsFetchObj, noReturn, formatDate };

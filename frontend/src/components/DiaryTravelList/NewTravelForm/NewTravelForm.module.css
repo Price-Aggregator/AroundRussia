@@ -1,0 +1,154 @@
+.form_active {
+	background-color: white;
+	border-radius: 10px;
+	padding: 50px;
+	margin: 0 auto;
+	max-width: 1110px;
+	box-shadow: 0px 5px 5px 0px rgba(0, 0, 0, 0.1);
+	position: relative;
+	top: -70px;
+	box-sizing: border-box;
+	display: flex;
+	flex-direction: column;
+	gap: 30px;
+}
+
+.form_withBorder {
+	border-left: 1px solid#EBA534;
+	border-right: 1px solid#EBA534;
+	border-bottom: 1px solid#EBA534;
+	box-shadow: none;
+}
+
+.form__box {
+	display: flex;
+	justify-content: space-between;
+	gap: 60px;
+}
+
+.form__inputBox {
+	display: flex;
+	flex-direction: column;
+	gap: 20px;
+	width: 550px;
+}
+
+.form__dateBox {
+	display: flex;
+	gap: 50px;
+}
+
+.form__labelBox {
+	display: flex;
+	flex-direction: column;
+	gap: 5px;
+}
+
+.form__labelText {
+	font-family: Roboto;
+	font-size: 15px;
+	font-style: normal;
+	font-weight: 400;
+	line-height: 18px;
+	margin: 0;
+}
+
+.form__input {
+	background: #ecf1f1;
+	border: none;
+	border-radius: 10px;
+	padding: 15px;
+	box-sizing: border-box;
+	font-family: inherit;
+	font-size: 15px;
+	font-style: normal;
+	font-weight: 400;
+	line-height: 18px;
+}
+
+.form__input:focus {
+	outline-color: #eba534;
+	outline-style: solid;
+	outline-width: 1px;
+}
+
+.form__input_title {
+	width: 100%;
+	min-height: 55px;
+}
+
+.form__input_description {
+	width: 100%;
+	min-height: 120px;
+}
+
+.form__input_date {
+	width: 250px;
+	padding-right: 50px;
+	min-height: 40px;
+}
+
+.form__dateInputContainer {
+	position: relative;
+}
+
+.form__dateInputContainer::after {
+	content: '';
+	position: absolute;
+	background-image: url(../../../images/calendar.svg);
+	width: 24px;
+	height: 24px;
+	top: 10px;
+	right: 15px;
+}
+
+.form__button {
+	padding: 15px 25px;
+	border-radius: 10px;
+	border: none;
+	font-family: Roboto;
+	font-size: 20px;
+	font-style: normal;
+	font-weight: 500;
+	line-height: normal;
+	display: flex;
+	align-items: center;
+	cursor: pointer;
+	border: 1px solid #f8c747;
+	background: #fff;
+}
+
+.form__buttonBox {
+	display: flex;
+	flex-direction: row;
+	max-width: 325px;
+	gap: 30px;
+}
+
+/* .form__button_cancel {
+}*/
+
+.form__button_save {
+	background: #f8c747;
+}
+
+.form__picture {
+	border-radius: 10px;
+	width: 400px;
+	height: 250px;
+	object-fit: cover;
+	border: 1px solid rgba(33, 49, 51, 0.4);
+}
+
+.form__picBox {
+	max-width: 400px;
+	width: 100%;
+	position: relative;
+}
+
+.form__button_addPicture {
+	position: absolute;
+	top: 37%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+}
