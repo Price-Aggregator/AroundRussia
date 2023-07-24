@@ -72,11 +72,11 @@ function DiaryTravel({ card }) {
     setIsActiveActivityForm(false);
   };
 
-  console.log(card);
+  // console.log(card);
 
   const handleDelete = () => {
     const cardId = card.id;
-    console.log({ cardId, token });
+    // console.log({ cardId, token });
     dispatch(fetchRemoveTravel({ cardId, token }));
     navigate('/diary');
     /* dispatch(removeTravel(card.id));
