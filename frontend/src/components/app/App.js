@@ -14,6 +14,7 @@ import ResetPasswordConfirmPage from '../../pages/ResetPasswordConfirmPage';
 // import TravelPlanPage from '../../pages/TravelPlanPage';
 
 const router = createBrowserRouter([
+
 	{
 		element: <Layout />,
 		children: [
@@ -54,6 +55,7 @@ const router = createBrowserRouter([
 		path: '/*',
 		element: <NotFound />,
 	},
+
 ]);
 
 function App() {

@@ -1,21 +1,20 @@
 import React, { useState } from "react";
 import PropTypes from 'prop-types';
 import styles from './TravelPlan.module.css'
-import travelTicket from '../../images/travel-plan/ticket.png'
-import { hotel, event, plane } from "../../images/travel-plan";
+import { hotel, activity, flight, defaultImage } from "../../images/travel-plan";
 import TransportForm from "../DiaryTravelCategories/TransportForm/TransportForm";
 import ActivityForm from "../DiaryTravelCategories/ActivityForm/ActivityForm";
 import PropertyForm from "../DiaryTravelCategories/PropertyForm/PropertyForm";
 
 
-function EventBox({ type, time, price, description, adress, eventName }) {
+function EventBox({ type, time, price, description, adress, eventName, media }) {
 
   const [editForm, setEditForm] = useState(false)
 
   const image = {
-    plane,
+    flight,
     hotel,
-    event
+    activity
   }
 
   return (
@@ -43,32 +42,35 @@ function EventBox({ type, time, price, description, adress, eventName }) {
           </div>
         </div>
         <div className={styles.eventImageBox}>
-          <img src={travelTicket} alt="Ticket" className={styles.eventImage} />
+          <img src={media || defaultImage} alt="Изображение" className={styles.eventImage} />
         </div>
       </div>
       {editForm && <div>
-        {type === 'plane' && <TransportForm closeForm={() => setEditForm(false)} />}
-        {type === 'event' && <ActivityForm closeForm={() => setEditForm(false)} />}
+        {type === 'flight' && <TransportForm closeForm={() => setEditForm(false)} />}
+        {type === 'activity' && <ActivityForm closeForm={() => setEditForm(false)} />}
         {type === 'hotel' && <PropertyForm closeForm={() => setEditForm(false)} />}
       </div>}
     </div>
   )
 }
 
-function TravelPlanBox({ day }) {
+function TravelPlanBox({ day, activities }) {
+  console.log(day)
   const [wrap, setWrap] = useState(true)
 
-  const { date, events } = day
+  const events = activities.filter((item) => item.date === day)
+  console.log(events)
+  // const { date, events } = day
 
   return <div className={styles.box}>
     <div className={styles.dateBox}>
-      <h2 className={styles.date}>{date}</h2>
+      <h2 className={styles.date}>{day}</h2>
       <button type="button" className={wrap ? styles.triangle : styles.triangleClose} onClick={() => setWrap(!wrap)}> </button>
     </ div>
     {wrap && events && <div style={{ width: '100%' }}>
-      {events.map((item, index) =>
+      {events.map((item) =>
         // eslint-disable-next-line
-        <EventBox type={item.type} time={item.time} adress={item.adress} description={item.description} price={item.price} eventName={item.eventName} key={index} />
+        <EventBox type={item.category} time={item.time} adress={item.address} description={item.description} price={item.price} eventName={item.name} key={item.id} media={item.media} />
       )}
     </div>
     }
@@ -81,21 +83,24 @@ EventBox.propTypes = {
   adress: PropTypes.string,
   price: PropTypes.string,
   description: PropTypes.string,
-  eventName: PropTypes.string.isRequired
+  eventName: PropTypes.string.isRequired,
+  media: PropTypes.string
 }
 
 EventBox.defaultProps = {
   adress: '',
   price: '',
-  description: ''
+  description: '',
+  media: ''
 }
 
 TravelPlanBox.propTypes = {
-  day: PropTypes.objectOf(PropTypes.oneOfType([
+  activities: PropTypes.objectOf(PropTypes.oneOfType([
     PropTypes.string,
     PropTypes.number,
     PropTypes.array
-  ])).isRequired
+  ])).isRequired,
+  day: PropTypes.string.isRequired
 }
 
 export default TravelPlanBox

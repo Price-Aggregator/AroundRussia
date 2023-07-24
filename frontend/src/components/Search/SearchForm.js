@@ -336,9 +336,6 @@ function SearchForm() {
 						К сожалению, таких предложений нет. Попробуйте выбрать другое
 						направление или дату
 					</p>
-					<button className={styles.validation__button} type="submit">
-						Смотреть похожие варианты
-					</button>
 				</div>
 			)}
 			</form>
