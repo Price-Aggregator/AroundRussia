@@ -19,7 +19,7 @@ function TransportForm({ closeForm }) {
 
 	const [transportData, setTransportData] = useState({
 		category: 'flight',
-		transportName: '',
+		eventName: '',
 		startAddress: '',
 		endAddress: '',
 		startDate: null,
@@ -55,7 +55,7 @@ function TransportForm({ closeForm }) {
 			events: [
 				{
 					category: transportData.category,
-					transportName: transportData.transportName,
+					eventName: transportData.eventName,
 					start_address: transportData.startAddress,
 					end_address: transportData.endAddress,
 					start_date: formatDate(transportData.startDate),
@@ -135,9 +135,9 @@ function TransportForm({ closeForm }) {
 						<input
 							className={`${styles.form__input} ${styles.form__input_title}`}
 							type="text"
-							id="transportName"
-							name="transportName"
-							value={transportData.transportName}
+							id="eventName"
+							name="eventName"
+							value={transportData.eventName}
 							onChange={handleInputChange}
 							required
 						/>

@@ -86,6 +86,33 @@ export const fetchRemoveEvent = createAsyncThunk(
   }
 )
 
+
+export const fetchAddEvent = createAsyncThunk(
+  `${travelsName}/addEvent`,
+  async ({ travelId, token, data }) => {
+    const event = await fetch(`${BASE_URL}/activity/`, {
+      method: 'POST',
+      headers: {
+        Authorization: `Token ${token}`,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        "travel": travelId,
+        "name": "string",
+        "category": data.category,
+        "date": "2023-07-24",
+        "time": "string",
+        "price": "4.27",
+        "media": "string",
+        "address": "string",
+        "origin": "string",
+        "destination": "string"
+      })
+    })
+  }
+)
+
+
 const travelsSlice = createSlice({
   name: travelsName,
   initialState,
