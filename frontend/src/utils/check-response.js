@@ -1,7 +1,7 @@
 function checkResponse(res) {
 	if (res.ok) {
 		if (res.status === 204) {
-			return alert('Действие выполнено успешно');
+			return res;
 		}
 		return res.json();
 	}

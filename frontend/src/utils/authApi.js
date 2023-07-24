@@ -29,7 +29,7 @@ export const resetPassword = (email) =>
 			'Content-Type': 'application/json',
 		},
 		body: JSON.stringify({ email }),
-	}).then(alert('Проверь почту'));
+	}).then((res) => checkResponse(res));
 
 export const resetPasswordConfirm = (id, userToken, newPassword) =>
 	fetch(`${BASE_URL}/users/reset_password_confirm/`, {

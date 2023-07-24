@@ -24,7 +24,9 @@ export default function ResetPasswordComfirm() {
 		console.log(id);
 		console.log(token);
 
-		resetPasswordConfirm(id, token, newPassword);
+		resetPasswordConfirm(id, token, newPassword).then(
+			alert('Пароль успешно изменен')
+		);
 	};
 
 	return (
