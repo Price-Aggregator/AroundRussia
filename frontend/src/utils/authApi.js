@@ -30,3 +30,17 @@ export const resetPassword = (email) =>
 		},
 		body: JSON.stringify({ email }),
 	}).then((res) => checkResponse(res));
+
+export const resetPasswordConfirm = (id, userToken, newPassword) =>
+	fetch(`${BASE_URL}/users/reset_password_confirm/`, {
+		method: 'POST',
+		headers: {
+			Accept: 'application/json',
+			'Content-Type': 'application/json',
+		},
+		body: JSON.stringify({
+			uid: id,
+			token: userToken,
+			new_password: newPassword,
+		}),
+	}).then((res) => checkResponse(res));

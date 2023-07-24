@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import PropTypes from 'prop-types';
-import { editTravel, fetchNewTravel } from '../../../store/Travels/slice';
+import { editTravel, fetchNewTravel, fetchTravels } from '../../../store/Travels/slice';
 import styles from './NewTravelForm.module.css';
 import DefaultPicture from '../../../images/dairy_picture_default.png';
 import { generateUniqueKey, formatDate } from '../../../utils/utils';
@@ -23,7 +23,6 @@ function NewTravelForm({ closeForm }) {
 
   const travels = useSelector((state) => state.travels.travels);
   const token = useSelector(getUserToken)
-  console.log(token)
   const isDiaryPage = () => location.pathname.includes('/diary/');
 
   const handleInputChange = (event) => {
@@ -59,8 +58,8 @@ function NewTravelForm({ closeForm }) {
 
     if (location.pathname === '/diary') {
       // dispatch(addTravel(newTravel));
-      console.log('qwe')
       dispatch(fetchNewTravel({ newTravel, token }))
+      dispatch(fetchTravels(token))
     } else if (isDiaryPage()) {
       const existingTravel = travels.find((travel) => travel.id === travelId);
       if (existingTravel) {

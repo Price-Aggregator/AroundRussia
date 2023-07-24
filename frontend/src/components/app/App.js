@@ -10,9 +10,11 @@ import Layout from '../Layout/Layout';
 import styles from './App.module.css';
 import { getCities } from '../../store/Cities/slice';
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
+import ResetPasswordConfirmPage from '../../pages/ResetPasswordConfirmPage';
 // import TravelPlanPage from '../../pages/TravelPlanPage';
 
 const router = createBrowserRouter([
+
   {
     element: <Layout />,
     children: [
@@ -32,6 +34,10 @@ const router = createBrowserRouter([
       //   path: '/diary/:travelId',
       //   element: <DiaryTravelPage />,
       // },
+      {
+        path: '/password-reset/*',
+        element: <ResetPasswordConfirmPage />,
+      },
     ],
   },
   {
@@ -51,6 +57,7 @@ const router = createBrowserRouter([
     path: '/*',
     element: <NotFound />,
   },
+
 ]);
 
 function App() {

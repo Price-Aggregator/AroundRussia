@@ -1,27 +1,16 @@
-/* eslint consistent-return: ["error", { "treatUndefinedAsUnspecified": false }] */
 import { useEffect } from 'react';
-import { useLatest } from './UseLatest';
 
-function useOutsideClick(elementRef, handler, attached = true) {
-	const latestHandler = useLatest(handler);
-
+const useClickOutside = (ref, callback) => {
+	const handleClick = (e) => {
+		if (ref.current && !ref.current.contains(e.target)) {
+			callback();
+		}
+	};
 	useEffect(() => {
-		if (!attached) return;
-
-		const handleClick = (e) => {
-			if (!elementRef.current) return;
-
-			if (!elementRef.current.contains(e.target)) {
-				latestHandler.current();
-			}
-		};
-
-		document.addEventListener('click', handleClick);
-
+		document.addEventListener('mousedown', handleClick);
 		return () => {
-			document.removeEventListener('click', handleClick);
+			document.removeEventListener('mousedown', handleClick);
 		};
-	}, [elementRef, latestHandler, attached]);
-}
-
-export default useOutsideClick;
+	});
+};
+export default useClickOutside;
