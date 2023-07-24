@@ -5,7 +5,7 @@ import { useForm } from 'react-hook-form';
 import classNames from 'classnames';
 import styles from './LoginForm.module.css';
 import cross from '../../images/form-cross.svg';
-import { regexEmail } from '../../utils/constants';
+import { regexEmail, regexPassword } from '../../utils/constants';
 
 export default function Registration({ handleClick, onClose }) {
 	const {
@@ -47,10 +47,14 @@ export default function Registration({ handleClick, onClose }) {
 					}
 					{...register('email', {
 						required: 'Поле обязательно к заполнению',
-						minLength: { value: 3, message: 'Введите минимум 3 символа' },
+						minLength: { value: 5, message: 'Введите минимум 3 символа' },
+						maxLength: {
+							value: 32,
+							message: 'Максимальная длина email - 32 символа',
+						},
 						pattern: {
 							value: regexEmail,
-							message: 'Введите корректный email',
+							message: 'Некорректно введён адрес эл. почты.',
 						},
 					})}
 				/>
@@ -71,6 +75,10 @@ export default function Registration({ handleClick, onClose }) {
 					{...register('password', {
 						required: 'Поле обязательно к заполнению',
 						minLength: { value: 3, message: 'Введите минимум 3 символа' },
+						pattern: {
+							value: regexPassword,
+							message: 'Используйте заглавные, строчные буквы и цифры.',
+						},
 					})}
 				/>
 				{errors?.password && (

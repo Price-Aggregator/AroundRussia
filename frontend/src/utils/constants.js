@@ -26,7 +26,9 @@ const MEDIA_URL = `${URL}/media`;
 const TICKETS_ON_PAGE = 3;
 
 const regexEmail =
-	/^[a-z0-9+_-]+(?:\.[a-z0-9+_-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$/;
+	/^[A-Za-z0-9_-]+(?:\.[A-Za-z0-9_-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$/;
+
+const regexPassword = /((?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])[\w-_.])/;
 
 const calendarData = [
 	{ date: '2022-06-29', price: 2000 },
@@ -324,4 +326,5 @@ export {
 	TRAVEL_DAIRY,
 	MEDIA_URL,
 	regexEmail,
+	regexPassword,
 };
