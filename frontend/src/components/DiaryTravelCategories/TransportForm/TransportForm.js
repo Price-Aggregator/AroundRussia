@@ -18,7 +18,7 @@ function TransportForm({ closeForm }) {
 	const travels = useSelector((state) => state.travels.travels);
 
 	const [transportData, setTransportData] = useState({
-		category: 'plane',
+		category: 'flight',
 		transportName: '',
 		startAddress: '',
 		endAddress: '',

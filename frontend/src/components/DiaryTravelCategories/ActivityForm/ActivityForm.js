@@ -17,7 +17,7 @@ function ActivityForm({ closeForm }) {
 	const travels = useSelector((state) => state.travels.travels);
 
 	const [eventData, setЕventData] = useState({
-		category: 'event',
+		category: 'activity',
 		eventName: '',
 		address: '',
 		date: null,
