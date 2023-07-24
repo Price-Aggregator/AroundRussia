@@ -137,7 +137,7 @@ function DiaryTravel({ card }) {
             />
           </div>
         </div>
-        <PictureBox card={card} />
+        {card.images && card.images.length > 0 && <PictureBox card={card} />}
       </article>
       {IsActiveTransportForm && (
         <TransportForm closeForm={closeTransportForm} />
