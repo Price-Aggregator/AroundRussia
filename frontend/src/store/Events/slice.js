@@ -6,6 +6,7 @@ const initialState = {
 	events: JSON.parse(localStorage.getItem('events')),
 };
 
+
 const eventsSlice = createSlice({
 	name: eventsName,
 	initialState,

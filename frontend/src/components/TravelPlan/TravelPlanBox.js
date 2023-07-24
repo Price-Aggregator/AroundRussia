@@ -11,7 +11,7 @@ import { fetchRemoveEvent, fetchTravels } from "../../store/Travels/slice";
 import { getUserToken } from "../../store/User/selectors";
 
 
-function EventBox({ type, time, price, description, adress, eventName, media, eventId }) {
+function EventBox({ category, time, price, description, address, eventName, media, eventId }) {
   const dispatch = useDispatch()
   const token = useSelector(getUserToken)
 
@@ -58,9 +58,9 @@ function EventBox({ type, time, price, description, adress, eventName, media, ev
         </div>
       </div>
       {editForm && <div>
-        {type === 'flight' && <TransportForm closeForm={() => setEditForm(false)} />}
-        {type === 'activity' && <ActivityForm closeForm={() => setEditForm(false)} />}
-        {type === 'hotel' && <PropertyForm closeForm={() => setEditForm(false)} />}
+        {category === 'flight' && <TransportForm closeForm={() => setEditForm(false)} />}
+        {category === 'activity' && <ActivityForm closeForm={() => setEditForm(false)} />}
+        {category === 'hotel' && <PropertyForm closeForm={() => setEditForm(false)} />}
       </div>}
     </div>
   )
@@ -84,7 +84,7 @@ function TravelPlanBox({ day, activities }) {
     {wrap && events && <div style={{ width: '100%' }}>
       {events.map((item) =>
         // eslint-disable-next-line
-        <EventBox type={item.category} time={item.time} adress={item.address} description={item.description} price={item.price} eventName={item.name} key={item.id} media={item.media} eventId={item.id} />
+        <EventBox category={item.category} time={item.time} adress={item.address} description={item.description} price={item.price} eventName={item.name} key={item.id} media={item.media} eventId={item.id} />
       )}
     </div>
     }
