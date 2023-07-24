@@ -63,10 +63,28 @@ export const fetchRemoveTravel = createAsyncThunk(
       }
       return Promise.reject(new Error(`Ошибка: ${res.status}`));
     })
-
     return del;
   }
 );
+
+export const fetchRemoveEvent = createAsyncThunk(
+  `${travelsName}/removeEvent`,
+  async ({ eventId, token }) => {
+    const deleted = await fetch(`${BASE_URL}/activity/${eventId}`, {
+      method: 'DELETE',
+      headers: {
+        Authorization: `Token ${token}`,
+        'Content-Type': 'application/json',
+      },
+    }).then((res) => {
+      if (res.ok) {
+        return eventId
+      }
+      return Promise.reject(new Error(`Ошибка: ${res.status}`));
+    })
+    return deleted
+  }
+)
 
 const travelsSlice = createSlice({
   name: travelsName,

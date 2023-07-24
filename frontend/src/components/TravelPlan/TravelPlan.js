@@ -4,9 +4,7 @@ import styles from './TravelPlan.module.css'
 import TravelPlanBox from "./TravelPlanBox";
 
 function TravelPlan({ travelPlan }) {
-  console.log(travelPlan)
   const datesOfTravel = [... new Set(travelPlan.map((item) => item.date))]
-  console.log(datesOfTravel)
 
   return <div className={styles.travel}>
     {datesOfTravel && datesOfTravel.map((item) => (

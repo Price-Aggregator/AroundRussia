@@ -60,6 +60,7 @@ function Header() {
 		if (token) {
 			setIsAuth(true);
 			dispatch(yesAuth());
+      dispatch(setUserToken({ token }))
 		}
 	}, []);
 

@@ -12,7 +12,6 @@ function DiaryPage() {
   // dispatch(setTravels(hardTravels))
 
   const token = useSelector(getUserToken)
-  console.log(token)
   dispatch(fetchTravels(token))
 
   return <DiaryTravelList />;
