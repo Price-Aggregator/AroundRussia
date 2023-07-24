@@ -11,7 +11,6 @@ function DiaryTravelPage() {
 	const travels = useSelector(getTravels);
 
 	const userTravel = travels.find((card) => card.id === travelId);
-	console.log('DIARYuserTravel:', userTravel);
 
 	return (
 		<>

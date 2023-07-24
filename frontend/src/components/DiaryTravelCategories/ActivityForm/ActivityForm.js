@@ -27,8 +27,13 @@ function ActivityForm({ closeForm }) {
 	});
 
 	useEffect(() => {
-		const storedEvents = JSON.parse(localStorage.getItem('events'));
-		console.log('storedEvents:', storedEvents);
+		let storedEvents;
+		try {
+			storedEvents = JSON.parse(localStorage.getItem('events'));
+		} catch (error) {
+			console.error('Error parsing stored events:', error);
+			storedEvents = undefined;
+		}
 		if (storedEvents) {
 			setEvents(storedEvents);
 		}
@@ -57,15 +62,11 @@ function ActivityForm({ closeForm }) {
 				},
 			],
 		};
-
 		const userTravel = travels.find((card) => card.id === travelId);
-		console.log('userTravel:', userTravel);
-		const newObj = Object.assign({}, userTravel);
-		console.log('newObj:', newObj);
+		const newObj = { ...userTravel };
 		setEvents([...events, newEvent]);
 		newObj.travelDaysEvents = events;
 		localStorage.setItem('events', JSON.stringify([...events, newEvent]));
-		console.log('newObj.travelDaysEvents:', newObj.travelDaysEvents);
 		dispatch(editTravel({ id: travelId, data: newObj }));
 	};
 
@@ -113,7 +114,7 @@ function ActivityForm({ closeForm }) {
 							name="eventName"
 							value={eventData.title}
 							onChange={handleInputChange}
-							// required
+							required
 						/>
 					</div>{' '}
 					<div className={styles.form__labelBox}>
@@ -127,7 +128,7 @@ function ActivityForm({ closeForm }) {
 							name="address"
 							value={eventData.title}
 							onChange={handleInputChange}
-							// required
+							required
 						/>
 					</div>{' '}
 					<div className={styles.form__dateBox}>
@@ -180,7 +181,6 @@ function ActivityForm({ closeForm }) {
 							name="description"
 							value={eventData.description}
 							onChange={handleInputChange}
-							// required
 						/>
 					</div>{' '}
 					<div className={styles.form__labelBox}>
@@ -194,7 +194,6 @@ function ActivityForm({ closeForm }) {
 							name="price"
 							value={eventData.price}
 							onChange={handleInputChange}
-							// required
 						/>
 					</div>{' '}
 					<div className={styles.form__labelBox}>

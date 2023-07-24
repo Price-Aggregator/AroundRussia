@@ -5,16 +5,10 @@ import { TRAVEL_LIST_DATA } from '../../utils/constants';
 
 export const travelsName = 'travels';
 
-const travels = JSON.parse(localStorage.getItem('travels')) || TRAVEL_LIST_DATA;
-const events = JSON.parse(localStorage.getItem('events'));
-console.log('events:', events);
-console.log('travels:', travels);
-
 const initialState = {
-	travels: travels,
+	travels: JSON.parse(localStorage.getItem('travels')) || TRAVEL_LIST_DATA,
 };
 
-console.log('initialState:', initialState);
 const travelsSlice = createSlice({
 	name: travelsName,
 	initialState,

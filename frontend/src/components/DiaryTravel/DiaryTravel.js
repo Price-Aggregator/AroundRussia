@@ -79,8 +79,6 @@ function DiaryTravel({ card }) {
 	};
 
 	useEffect(() => {
-		console.log('card:', card);
-		console.log('card.travelDaysEvents:', card.travelDaysEvents);
 		if (card && card.travelDaysEvents.length > 1) {
 			setIsEmpty(false);
 		} else {
