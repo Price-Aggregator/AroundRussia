@@ -5,6 +5,7 @@ import { useForm } from 'react-hook-form';
 import classNames from 'classnames';
 import styles from './LoginForm.module.css';
 import cross from '../../images/form-cross.svg';
+import { regexEmail } from '../../utils/constants';
 
 export default function LoginForm({
 	onClose,
@@ -53,8 +54,7 @@ export default function LoginForm({
 						required: 'Поле обязательно к заполнению',
 						minLength: { value: 3, message: 'Введите минимум 3 символа' },
 						pattern: {
-							value:
-								/^[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$/,
+							value: regexEmail,
 							message: 'Введите корректный email',
 						},
 					})}
