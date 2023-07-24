@@ -7,17 +7,17 @@ import getTravels from '../store/Travels/selectors';
 // import TravelPlan from '../components/TravelPlan/TravelPlan';
 
 function DiaryTravelPage() {
-	const { travelId } = useParams();
-	const travels = useSelector(getTravels);
+  const { travelId } = useParams();
+  const travels = useSelector(getTravels);
 
-	const userTravel = travels.find((card) => card.id === travelId);
+  const userTravel = travels.find((card) => card.id.toString() === travelId);
 
-	return (
-		<>
-			<DiaryTravel card={userTravel} />
-			{/* <TravelPlan travelPlan={TRAVEL_DAIRY} /> */}
-		</>
-	);
+  return (
+    <>
+      {userTravel && <DiaryTravel card={userTravel} />}
+      {/* <TravelPlan travelPlan={TRAVEL_DAIRY} /> */}
+    </>
+  );
 }
 
 export default DiaryTravelPage;

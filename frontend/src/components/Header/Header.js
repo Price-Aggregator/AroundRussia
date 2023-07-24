@@ -1,91 +1,241 @@
 /* eslint-disable import/no-extraneous-dependencies */
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { HashLink as Link } from 'react-router-hash-link';
 import { useLocation, useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
 import classNames from 'classnames';
 import logo from '../../images/logo.svg';
 import styles from './Header.module.css';
-import icon from '../../images/header-profile-icon.svg'
-import iconActive from '../../images/header-profile-icon-active.svg'
 import LoginForm from '../LoginForm/LoginForm';
+import useClickOutside from '../../hooks/UseOutsideClick';
+import {
+	setUserToken,
+	setUserEmail,
+	yesAuth,
+	removeUser,
+	noAuth,
+} from '../../store/User/slice';
+
+import * as api from '../../utils/authApi';
+import ResetPassword from '../LoginForm/ResetPassword';
+import Registration from '../LoginForm/Registration';
 
 function Header() {
-  const location = useLocation();
-  const navigate = useNavigate();
-  const [accountMenu, setAccountMenu] = useState(true);
-  const [accountExitMenu, setAccountExitMenu] = useState(false);
-  const [isLogged, setIsLogged] = useState(false)
-  const [formActive, setFormActive] = useState(false)
-  const [loginForm, setLoginForm] = useState(false)
-  const [passwordForm, setPasswordForm] = useState(false)
-  const [registrationForm, setRegistrationForm] = useState(false)
+	const location = useLocation();
+	const navigate = useNavigate();
+	const [accountMenu, setAccountMenu] = useState(false);
 
-  const closeForms = () => {
-    setLoginForm(false)
-    setPasswordForm(false)
-    setRegistrationForm(false)
-  }
+	const [loginForm, setLoginForm] = useState(false);
+	const [resetPasswordForm, setResetPasswordForm] = useState(false);
+	const [registrationForm, setRegistrationForm] = useState(false);
+	const dispatch = useDispatch();
+	const [isAuth, setIsAuth] = useState(false);
 
-  const openPasswordForm = () => {
-    closeForms()
-    setPasswordForm(true)
-  }
+	const accountMenuRef = useRef(null);
+	const formsRef = useRef(null);
+	useClickOutside(accountMenuRef, () => {
+		setAccountMenu(false);
+	});
 
-  const openRegistrationForm = () => {
-    closeForms()
-    setRegistrationForm(true)
-  }
+	const closeForms = () => {
+		setLoginForm(false);
+		setResetPasswordForm(false);
+		setRegistrationForm(false);
+	};
+	useClickOutside(formsRef, () => {
+		closeForms();
+	});
+	const openPasswordForm = () => {
+		closeForms();
+		setResetPasswordForm(true);
+	};
 
+	const openRegistrationForm = () => {
+		closeForms();
+		setRegistrationForm(true);
+	};
+	useEffect(() => {
+		const token = localStorage.getItem('token');
 
+		if (token) {
+			setIsAuth(true);
+			dispatch(yesAuth());
+      dispatch(setUserToken({ token }))
+		}
+	}, []);
 
+	const handleAuthorize = (data) => {
+		console.log(data);
+		api
+			.authorize(data.email, data.password)
+			.then((token) => {
+				if (token) {
+					dispatch(
+						setUserToken({
+							token: token.auth_token,
+						})
+					);
+					dispatch(
+						setUserEmail({
+							email: data.email,
+						})
+					);
+					dispatch(yesAuth());
+					localStorage.setItem('token', token.auth_token);
+					console.log(token.auth_token);
+				}
+			})
+			.catch((err) => {
+				console.log(err);
+			})
+			.finally(setIsAuth(true), closeForms());
+	};
 
+	const handleRegister = (email, password) => {
+		api
+			.register(email, password)
+			.then((user) => {
+				dispatch(
+					setUserEmail({
+						email: user.email,
+					})
+				);
+				handleAuthorize({ email, password });
+			})
+			.catch((error) => {
+				console.log(error);
+			})
+			.finally(closeForms());
+	};
 
+	const handleSignOut = () => {
+		localStorage.removeItem('token');
+		dispatch(removeUser());
+		dispatch(noAuth());
+		setIsAuth(false);
+	};
 
-  return (
-    <header className={styles.header}>
-      <Link
-        to="/"
-        onClick={location.pathname === '/' ? () => navigate(0) : null}
-      >
-        <img src={logo} className={styles.header__logo} alt="logo" />
-      </Link>
-      <div className={styles.header__linkContainer}>
-        <Link
-          smooth
-          to={location.pathname === '/' ? '#faq' : '/#faq'}
-          className={styles.header__link}
-        >
-          Вопросы и ответы
-        </Link>
-        <Link
-          smooth
-          to="/diary"
-          className={styles.header__link}
-        >
-          Дневник путешествинника
-        </Link>
-        {isLogged === false && <button type='button' className={styles.header__accountButton} onClick={() => { setAccountMenu(!accountMenu); setAccountExitMenu(!accountExitMenu); setIsLogged(!isLogged) }}>
-          <img src={icon} alt='Иконка аккауна' />
-        </button>}
-        {isLogged === true && <button type='button' className={styles.header__accountButton} onClick={() => { setAccountMenu(!accountMenu); setAccountExitMenu(!accountExitMenu); setIsLogged(!isLogged) }}>
-          <img src={iconActive} alt='Иконка аккауна' />
-        </button>}
-        {accountMenu && <div className={styles.header__accountMenu}>
-          <button type='button' className={styles.header__accountMenuButton} onClick={() => { setLoginForm(true); setFormActive(true) }}>Войти</button>
-          <button type='button' className={classNames(styles.header__accountMenuButton, styles.header__accountMenuButtonDark)} onClick={() => { setRegistrationForm(true); setFormActive(true) }}>Зарегистрироваться</button>
-        </div>}
-        {accountExitMenu && <div className={classNames(styles.header__accountMenu, styles.header__accountExitMenu)}>
-          <button type='button' className={styles.header__accountMenuButton}>Выйти</button>
-        </div>}
-        {formActive && <div className={styles.header__loginForm}>
-          <LoginForm loginForm={loginForm} onClose={closeForms} passwordForm={passwordForm} registrationForm={registrationForm} openPasswordForm={openPasswordForm} openRegistrationForm={openRegistrationForm} />
-        </div>}
-      </div>
+	const handleResetPassword = (email) => {
+		api
+			.resetPassword(email)
+			.then(alert('Ссылка для восстановления отправлена на почту'))
+			.finally(closeForms());
+	};
 
+	return (
+		<header className={styles.header}>
+			<Link
+				to="/"
+				onClick={location.pathname === '/' ? () => navigate(0) : null}
+			>
+				<img src={logo} className={styles.header__logo} alt="logo" />
+			</Link>
+			<div className={styles.header__linkContainer}>
+				<Link
+					smooth
+					to={location.pathname === '/' ? '#faq' : '/#faq'}
+					className={styles.header__link}
+				>
+					Вопросы и ответы
+				</Link>
+				<Link smooth to="/diary" className={styles.header__link}>
+					Дневник путешествинника
+				</Link>
 
-    </header>
-  );
+				<button
+					type="button"
+					className={styles.header__accountButton}
+					onClick={() => {
+						setAccountMenu(!accountMenu);
+						// setIsLogged(!isLogged);
+					}}
+				>
+					<div
+						className={
+							isAuth
+								? classNames(
+										styles.header__accountLogo,
+										styles.header__accountLogo_active
+								  )
+								: styles.header__accountLogo
+						}
+					/>
+				</button>
 
+				{accountMenu &&
+					(!isAuth ? (
+						<div className={styles.header__accountMenu} ref={accountMenuRef}>
+							<button
+								type="button"
+								className={styles.header__accountMenuButton}
+								onClick={() => {
+									setLoginForm(true);
+									setAccountMenu(false);
+								}}
+							>
+								Войти
+							</button>
+							<button
+								type="button"
+								className={classNames(
+									styles.header__accountMenuButton,
+									styles.header__accountMenuButtonDark
+								)}
+								onClick={() => {
+									setRegistrationForm(true);
+									setAccountMenu(false);
+								}}
+							>
+								Зарегистрироваться
+							</button>
+						</div>
+					) : (
+						<div
+							className={classNames(
+								styles.header__accountMenu,
+								styles.header__accountExitMenu
+							)}
+							ref={accountMenuRef}
+						>
+							<button
+								type="button"
+								className={styles.header__accountMenuButton}
+								onClick={() => {
+									handleSignOut();
+									setAccountMenu(false);
+								}}
+							>
+								Выйти
+							</button>
+						</div>
+					))}
+
+				<div className={styles.header__loginForm} ref={formsRef}>
+					{loginForm && (
+						<LoginForm
+							onClose={closeForms}
+							openPasswordForm={openPasswordForm}
+							openRegistrationForm={openRegistrationForm}
+							handleClick={handleAuthorize}
+						/>
+					)}
+					{resetPasswordForm && (
+						<ResetPassword
+							onClose={closeForms}
+							handleClick={handleResetPassword}
+						/>
+					)}
+					{registrationForm && (
+						<Registration
+							onClose={closeForms}
+							openPasswordForm={openPasswordForm}
+							handleClick={handleRegister}
+						/>
+					)}
+				</div>
+			</div>
+		</header>
+	);
 }
 
 export default Header;

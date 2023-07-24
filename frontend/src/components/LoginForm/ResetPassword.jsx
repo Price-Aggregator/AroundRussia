@@ -6,12 +6,7 @@ import classNames from 'classnames';
 import styles from './LoginForm.module.css';
 import cross from '../../images/form-cross.svg';
 
-export default function LoginForm({
-	onClose,
-	openPasswordForm,
-	openRegistrationForm,
-	handleClick,
-}) {
+export default function ResetPassword({ handleClick, onClose }) {
 	const {
 		register,
 		handleSubmit,
@@ -20,8 +15,7 @@ export default function LoginForm({
 	} = useForm({ mode: 'onChange' });
 
 	const onSubmit = (data) => {
-		console.log(data);
-		handleClick(data);
+		handleClick(data.email);
 	};
 
 	return (
@@ -36,14 +30,14 @@ export default function LoginForm({
 			>
 				<img src={cross} alt="Крестик закрытия" />
 			</button>
-			<h2 className={styles.form__title}>Вход</h2>
+			<h2 className={styles.form__title}>Забыли пароль?</h2>
 			<div className={styles.form__inputContainer}>
-				<label htmlFor="login-email" className={styles.form__label}>
+				<label htmlFor="forgot-password-email" className={styles.form__label}>
 					Электронный адрес
 				</label>
 				<input
 					type="email"
-					id="login-email"
+					id="forgot-password-email"
 					className={
 						errors?.email
 							? classNames(styles.form__input, styles.form__input_error)
@@ -62,55 +56,15 @@ export default function LoginForm({
 				{errors?.email && (
 					<span className={styles.form__error}>{errors?.email?.message}</span>
 				)}
-
-				<label htmlFor="login-password" className={styles.form__label}>
-					Пароль
-				</label>
-				<input
-					type="password"
-					id="login-password"
-					className={
-						errors?.password
-							? classNames(styles.form__input, styles.form__input_error)
-							: styles.form__input
-					}
-					{...register('password', {
-						required: 'Поле обязательно к заполнению',
-						minLength: { value: 3, message: 'Введите минимум 3 символа' },
-					})}
-				/>
-				{errors?.password && (
-					<span className={styles.form__error}>
-						{errors?.password?.message}
-					</span>
-				)}
 			</div>
 			<button type="submit" className={styles.form__button} disabled={!isValid}>
-				Войти
+				Отправить ссылку для сброса
 			</button>
-			<div className={styles.form__linkContainer}>
-				<button
-					className={styles.form__link}
-					type="submit"
-					onClick={openRegistrationForm}
-				>
-					Зарегистрироваться
-				</button>
-				<button
-					className={styles.form__link}
-					type="submit"
-					onClick={openPasswordForm}
-				>
-					Забыли пароль?
-				</button>
-			</div>
 		</form>
 	);
 }
 
-LoginForm.propTypes = {
+ResetPassword.propTypes = {
 	onClose: PropTypes.func.isRequired,
 	handleClick: PropTypes.func.isRequired,
-	openPasswordForm: PropTypes.func.isRequired,
-	openRegistrationForm: PropTypes.func.isRequired,
 };
