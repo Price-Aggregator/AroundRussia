@@ -1,7 +1,7 @@
 /* eslint-disable no-nested-ternary */
 /* eslint-disable no-unused-vars */
 import React, { useState, useEffect } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
@@ -26,11 +26,17 @@ function NewTravelForm({ closeForm }) {
 		start_date: null,
 		end_date: null,
 		images: [],
+		id: 0,
 	});
 
 	const travels = useSelector((state) => state.travels.travels);
 	const token = useSelector(getUserToken);
 	const isDiaryPage = () => location.pathname.includes('/diary/');
+	const { travelId } = useParams();
+	const userTravel = travels.find((card) => card.id.toString() === travelId);
+
+	console.log(userTravel);
+	console.log(travelId);
 
 	const handleInputChange = (event) => {
 		const { name, value } = event.target;
@@ -49,9 +55,9 @@ function NewTravelForm({ closeForm }) {
 
 	const handleSubmitNewTravel = (event) => {
 		event.preventDefault();
-		const travelId = generateUniqueKey();
+		const someId = generateUniqueKey();
 		const newTravel = {
-			id: travelId,
+			id: someId,
 			name: travelData.name,
 			description: travelData.description,
 			start_date: formatDate(travelData.start_date),
@@ -68,11 +74,11 @@ function NewTravelForm({ closeForm }) {
 
 	const handleSubmitEditTravel = (event) => {
 		event.preventDefault();
-		const travelId = +location.pathname.split('/diary/')[1];
-		const existingTravel = travels.find((travel) => travel.id === travelId);
+		const someId = +location.pathname.split('/diary/')[1];
+		const existingTravel = travels.find((travel) => travel.id === someId);
 		if (existingTravel) {
 			const changedTravel = {
-				id: travelId,
+				id: someId,
 				name: travelData.name,
 				description: travelData.description,
 				start_date: formatDate(travelData.start_date),
@@ -83,12 +89,9 @@ function NewTravelForm({ closeForm }) {
 				...existingTravel,
 				...changedTravel,
 			};
-			console.log(updatedTravel);
-			dispatch(
-				fetchEditTravel({ cardId: travelId, data: updatedTravel, token })
-			);
-			dispatch(fetchTravels(token));
+			dispatch(fetchEditTravel({ cardId: someId, data: updatedTravel, token }));
 		}
+		dispatch(fetchTravels(token));
 		closeForm();
 	};
 
@@ -117,10 +120,10 @@ function NewTravelForm({ closeForm }) {
 
 	console.log(travelData);
 
-	useEffect(() => {
+	/* useEffect(() => {
 		if (isDiaryPage()) {
-			const travelId = +location.pathname.split('/diary/')[1];
-			const existingTravel = travels.find((travel) => travel.id === travelId);
+			const someId = +location.pathname.split('/diary/')[1];
+			const existingTravel = travels.find((travel) => travel.id === someId);
 			const images =
 				existingTravel && existingTravel.images.length
 					? [`${MEDIA_URL}/${existingTravel.images[0]}`]
@@ -132,6 +135,59 @@ function NewTravelForm({ closeForm }) {
 			}));
 		}
 	}, [location.pathname, travels]);
+
+	/* useEffect(() => {
+		const isEditPage = isDiaryPage();
+		if (isEditPage) {
+			const someId = +location.pathname.split('/diary/')[1];
+			const existingTravel = travels.find((travel) => travel.id === someId);
+			if (existingTravel) {
+				const images = existingTravel.images.length
+					? [`${MEDIA_URL}/${existingTravel.images[0]}`]
+					: [];
+
+				setTravelData({
+					name: existingTravel.name,
+					description: existingTravel.description,
+					start_date: new Date(existingTravel.start_date),
+					end_date: new Date(existingTravel.end_date),
+					images,
+				});
+			}
+		}
+	}, [travels]);
+
+	/* useEffect(() => {
+		if (isDiaryPage() && userTravel) {
+			setTravelData({
+				name: userTravel.name,
+				description: userTravel.description,
+				start_date: new Date(userTravel.start_date),
+				end_date: new Date(userTravel.end_date),
+				images: userTravel.images,
+			});
+		}
+	}, [isDiaryPage, userTravel]); */
+
+	useEffect(() => {
+		const isEditPage = isDiaryPage();
+		if (isEditPage) {
+			if (userTravel) {
+				const images = userTravel.images.length
+					? [`${MEDIA_URL}/${userTravel.images[0]}`]
+					: [];
+
+				setTravelData({
+					name: userTravel.name,
+					description: userTravel.description,
+					start_date: new Date(userTravel.start_date),
+					end_date: new Date(userTravel.end_date),
+					id: userTravel.id,
+					images,
+				});
+			}
+		}
+	}, [travels]);
 
 	return (
 		<form
