@@ -16,9 +16,12 @@ import {
 } from '../images/avia-company/index';
 import defaultPicture from '../images/picture_travellist_default.png';
 
-// const BASE_URL = 'http://localhost/api/v1';
-const BASE_URL = 'http://aroundrussia.acceleratorpracticum.ru/api/v1';
-const MEDIA_URL = 'http://localhost/media';
+// const URL = 'http://localhost'
+const URL = 'http://aroundrussia.acceleratorpracticum.ru'
+
+
+const BASE_URL = `${URL}/api/v1`;
+const MEDIA_URL = `${URL}/media`;
 
 const TICKETS_ON_PAGE = 3;
 
