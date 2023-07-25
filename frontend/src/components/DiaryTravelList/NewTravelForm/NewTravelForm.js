@@ -7,9 +7,9 @@ import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import PropTypes from 'prop-types';
 import {
-	fetchNewTravel,
-	fetchTravels,
-	fetchEditTravel,
+  fetchNewTravel,
+  fetchTravels,
+  fetchEditTravel,
 } from '../../../store/Travels/slice';
 import styles from './NewTravelForm.module.css';
 import DefaultPicture from '../../../images/dairy_picture_default.png';
@@ -38,20 +38,21 @@ function NewTravelForm({ closeForm }) {
 	console.log(userTravel);
 	console.log(travelId);
 
-	const handleInputChange = (event) => {
-		const { name, value } = event.target;
-		setTravelData((prevData) => ({
-			...prevData,
-			[name]: value,
-		}));
-	};
 
-	const handleDateChange = (date, field) => {
-		setTravelData((prevData) => ({
-			...prevData,
-			[field]: date,
-		}));
-	};
+  const handleInputChange = (event) => {
+    const { name, value } = event.target;
+    setTravelData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
+  };
+
+  const handleDateChange = (date, field) => {
+    setTravelData((prevData) => ({
+      ...prevData,
+      [field]: date,
+    }));
+  };
 
 	const handleSubmitNewTravel = (event) => {
 		event.preventDefault();
@@ -70,7 +71,8 @@ function NewTravelForm({ closeForm }) {
 		closeForm();
 	};
 
-	console.log(travelData);
+
+  // console.log(travelData);
 
 	const handleSubmitEditTravel = (event) => {
 		event.preventDefault();
@@ -95,30 +97,31 @@ function NewTravelForm({ closeForm }) {
 		closeForm();
 	};
 
-	const handleAddPhoto = () => {
-		const input = document.createElement('input');
-		input.type = 'file';
-		input.accept = 'image/*';
-		input.style.display = 'none';
-		input.onchange = (event) => {
-			const file = event.target.files[0];
-			if (file) {
-				const reader = new FileReader();
-				reader.onload = (e) => {
-					setTravelData((prevData) => ({
-						...prevData,
-						images: [e.target.result],
-					}));
-				};
-				reader.readAsDataURL(file);
-			}
-		};
-		document.body.appendChild(input);
-		input.click();
-		document.body.removeChild(input);
-	};
 
-	console.log(travelData);
+  const handleAddPhoto = () => {
+    const input = document.createElement('input');
+    input.type = 'file';
+    input.accept = 'image/*';
+    input.style.display = 'none';
+    input.onchange = (event) => {
+      const file = event.target.files[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = (e) => {
+          setTravelData((prevData) => ({
+            ...prevData,
+            images: [e.target.result],
+          }));
+        };
+        reader.readAsDataURL(file);
+      }
+    };
+    document.body.appendChild(input);
+    input.click();
+    document.body.removeChild(input);
+  };
+
+  // console.log(travelData);
 
 	/* useEffect(() => {
 		if (isDiaryPage()) {
@@ -129,12 +132,13 @@ function NewTravelForm({ closeForm }) {
 					? [`${MEDIA_URL}/${existingTravel.images[0]}`]
 					: [];
 
-			setTravelData((prevData) => ({
-				...prevData,
-				images,
-			}));
-		}
-	}, [location.pathname, travels]);
+
+      setTravelData((prevData) => ({
+        ...prevData,
+        images,
+      }));
+    }
+  }, [location.pathname, travels]);
 
 	/* useEffect(() => {
 		const isEditPage = isDiaryPage();
@@ -292,14 +296,15 @@ function NewTravelForm({ closeForm }) {
 			</div>
 		</form>
 	);
+
 }
 
 export default NewTravelForm;
 
 NewTravelForm.propTypes = {
-	closeForm: PropTypes.func,
+  closeForm: PropTypes.func,
 };
 
 NewTravelForm.defaultProps = {
-	closeForm: () => {},
+  closeForm: () => { },
 };

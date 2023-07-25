@@ -6,6 +6,7 @@ import styles from './Search.module.css';
 import { setForm } from '../../store/SearchForm/slice';
 import { clearTickets, fetchTickets } from '../../store/Tickets/slice';
 import { getAllCities, getCityByLetter } from '../../store/Cities/selectors';
+import { fetchCalendar } from '../../store/Calendar/slice';
 import {
 	clearCitiesByLetter,
 	fetchCitiesByLetter,
@@ -153,6 +154,7 @@ function SearchForm() {
 		await setFormLocaleStorage(formForLocale);
 		dispatch(clearTickets());
 		dispatch(fetchTickets(formData));
+    dispatch(fetchCalendar(formData));
 		navigate('/result');
 	};
 	useEffect(() => {
@@ -183,6 +185,7 @@ function SearchForm() {
 			setFormLocaleStorage(formForLocale);
 			dispatch(clearTickets());
 			dispatch(fetchTickets(formData));
+      dispatch(fetchCalendar(formData));
 		}
 	}, [filters.sorting, filters.direct]);
 

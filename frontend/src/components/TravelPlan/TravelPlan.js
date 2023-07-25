@@ -4,7 +4,7 @@ import styles from './TravelPlan.module.css'
 import TravelPlanBox from "./TravelPlanBox";
 
 function TravelPlan({ travelPlan }) {
-  const datesOfTravel = [... new Set(travelPlan.map((item) => item.date))]
+  const datesOfTravel = [... new Set(travelPlan.map((item) => item.date))].sort((a, b) => a > b)
 
   return <div className={styles.travel}>
     {datesOfTravel && datesOfTravel.map((item) => (
