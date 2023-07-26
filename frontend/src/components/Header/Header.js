@@ -65,7 +65,6 @@ function Header() {
 	}, []);
 
 	const handleAuthorize = (data) => {
-		console.log(data);
 		api
 			.authorize(data.email, data.password)
 			.then((token) => {
@@ -82,7 +81,6 @@ function Header() {
 					);
 					dispatch(yesAuth());
 					localStorage.setItem('token', token.auth_token);
-					console.log(token.auth_token);
 				}
 			})
 			.catch((err) => {
