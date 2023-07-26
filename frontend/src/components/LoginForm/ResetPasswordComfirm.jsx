@@ -51,7 +51,7 @@ export default function ResetPasswordComfirm() {
 						}
 						{...register('password', {
 							required: 'Поле обязательно к заполнению',
-							minLength: { value: 3, message: 'Введите минимум 3 символа' },
+							minLength: { value: 8, message: 'Введите минимум 8 символов' },
 							pattern: {
 								value: regexPassword,
 								message: 'Используйте заглавные, строчные буквы и цифры.',
@@ -79,7 +79,7 @@ export default function ResetPasswordComfirm() {
 						}
 						{...register('repeatPassword', {
 							required: 'Поле обязательно к заполнению',
-							minLength: { value: 3, message: 'Введите минимум 3 символа' },
+							minLength: { value: 8, message: 'Введите минимум 8 символов' },
 							validate: (value) =>
 								value === watch('password') || 'Пароли не совпадают',
 						})}
