@@ -52,7 +52,7 @@ export default function LoginForm({
 					}
 					{...register('email', {
 						required: 'Поле обязательно к заполнению',
-						minLength: { value: 5, message: 'Введите минимум 3 символа' },
+						minLength: { value: 5, message: 'Введите минимум 5 символов' },
 						maxLength: {
 							value: 32,
 							message: 'Максимальная длина email - 32 символа',
@@ -80,7 +80,7 @@ export default function LoginForm({
 					}
 					{...register('password', {
 						required: 'Поле обязательно к заполнению',
-						minLength: { value: 3, message: 'Введите минимум 3 символа' },
+						minLength: { value: 8, message: 'Введите минимум 8 символоав' },
 						pattern: {
 							value: regexPassword,
 							message: ' Используйте заглавные, строчные буквы и цифры.',

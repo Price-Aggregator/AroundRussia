@@ -46,7 +46,7 @@ export default function ResetPassword({ handleClick, onClose }) {
 					}
 					{...register('email', {
 						required: 'Поле обязательно к заполнению',
-						minLength: { value: 5, message: 'Введите минимум 3 символа' },
+						minLength: { value: 5, message: 'Введите минимум 5 символов' },
 						maxLength: {
 							value: 32,
 							message: 'Максимальная длина email - 32 символа',
