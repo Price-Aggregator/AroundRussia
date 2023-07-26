@@ -2,11 +2,11 @@ import React, { useState } from "react";
 import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from "react-redux";
 import styles from './TravelPlan.module.css'
-import { hotel, activity, flight, defaultImage } from "../../images/travel-plan";
+// import { hotel, activity, flight, defaultImage } from "../../images/travel-plan";
 import TransportForm from "../DiaryTravelCategories/TransportForm/TransportForm";
 import ActivityForm from "../DiaryTravelCategories/ActivityForm/ActivityForm";
 import PropertyForm from "../DiaryTravelCategories/PropertyForm/PropertyForm";
-import { dayOfWeek, monthsInTicket } from "../../utils/constants";
+import { dayOfWeek, monthsInTicket, eventImages } from "../../utils/constants";
 import { fetchRemoveEvent, fetchTravels } from "../../store/Travels/slice";
 import { getUserToken } from "../../store/User/selectors";
 
@@ -17,11 +17,13 @@ function EventBox({ category, time, price, description, address, eventName, medi
 
   const [editForm, setEditForm] = useState(false)
 
-  const image = {
-    flight,
-    hotel,
-    activity
-  }
+  // const image = {
+  //   flight,
+  //   hotel,
+  //   activity
+  // }
+
+  // console.log(image)
 
   const onDelete = async () => {
     await dispatch(fetchRemoveEvent({ eventId, token })).then(() => {
@@ -37,7 +39,7 @@ function EventBox({ category, time, price, description, address, eventName, medi
             {/* <span className={styles.eventTime}>14:00</span>  */}
             <span className={styles.eventTime}>{time.slice(0, 5)}</span>
           </div>
-          <img src={image[category]} alt="icon" className={styles.eventIcon} />
+          <img src={eventImages[category]} alt="icon" className={styles.eventIcon} />
         </div>
         <div className={styles.eventSecondBox}>
           <div className={styles.eventButtonBox}>
@@ -54,7 +56,7 @@ function EventBox({ category, time, price, description, address, eventName, medi
           </div>
         </div>
         <div className={styles.eventImageBox}>
-          <img src={media || defaultImage} alt="Изображение" className={styles.eventImage} />
+          <img src={media || eventImages.defaultImage} alt="Изображение" className={styles.eventImage} />
         </div>
       </div>
       {editForm && <div>
@@ -70,6 +72,8 @@ function TravelPlanBox({ day, activities }) {
   const [wrap, setWrap] = useState(true)
 
   const events = activities.filter((item) => item.date === day).sort((a, b) => a.time > b.time)
+
+  console.log(events)
 
   const dayDate = new Date(day)
   const dayOnWeek = dayDate.toUTCString().slice(0, 3)
