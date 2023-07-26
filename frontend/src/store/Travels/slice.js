@@ -129,7 +129,7 @@ export const fetchAddEvent = createAsyncThunk(
         "date": data.startDate,
         "time": data.startTime,
         "price": data.price,
-        "media": null,
+        "medias": null,
         "address": data.address,
         "origin": null,
         "destination": null
