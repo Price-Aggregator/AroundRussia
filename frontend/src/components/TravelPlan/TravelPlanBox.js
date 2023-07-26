@@ -37,7 +37,7 @@ function EventBox({ category, time, price, description, address, eventName, medi
             {/* <span className={styles.eventTime}>14:00</span>  */}
             <span className={styles.eventTime}>{time.slice(0, 5)}</span>
           </div>
-          <img src={`../${image[category]}`} alt="icon" className={styles.eventIcon} />
+          <img src={image[category]} alt="icon" className={styles.eventIcon} />
         </div>
         <div className={styles.eventSecondBox}>
           <div className={styles.eventButtonBox}>
@@ -54,7 +54,7 @@ function EventBox({ category, time, price, description, address, eventName, medi
           </div>
         </div>
         <div className={styles.eventImageBox}>
-          <img src={media || `../${defaultImage}`} alt="Изображение" className={styles.eventImage} />
+          <img src={media || defaultImage} alt="Изображение" className={styles.eventImage} />
         </div>
       </div>
       {editForm && <div>
