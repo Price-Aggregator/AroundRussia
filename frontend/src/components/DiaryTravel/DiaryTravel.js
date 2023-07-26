@@ -72,8 +72,6 @@ function DiaryTravel({ card }) {
     setIsActiveActivityForm(false);
   };
 
-  console.log(card);
-
   const handleDelete = () => {
     const cardId = card.id;
     dispatch(fetchRemoveTravel({ cardId, token }));

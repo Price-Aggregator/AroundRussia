@@ -35,10 +35,6 @@ function NewTravelForm({ closeForm }) {
   const { travelId } = useParams();
   const userTravel = travels.find((card) => card.id.toString() === travelId);
 
-  console.log(userTravel);
-  console.log(travelId);
-
-
   const handleInputChange = (event) => {
     const { name, value } = event.target;
     setTravelData((prevData) => ({
@@ -72,9 +68,6 @@ function NewTravelForm({ closeForm }) {
     closeForm();
   };
 
-
-  // console.log(travelData);
-
   const handleSubmitEditTravel = async (event) => {
     event.preventDefault();
     const someId = +location.pathname.split('/diary/')[1];
@@ -100,7 +93,6 @@ function NewTravelForm({ closeForm }) {
     closeForm();
   };
 
-
   const handleAddPhoto = () => {
     const input = document.createElement('input');
     input.type = 'file';
@@ -123,8 +115,6 @@ function NewTravelForm({ closeForm }) {
     input.click();
     document.body.removeChild(input);
   };
-
-  // console.log(travelData);
 
   /* useEffect(() => {
     if (isDiaryPage()) {
