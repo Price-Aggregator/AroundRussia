@@ -12,7 +12,7 @@ import { editTravel, fetchAddEvent, fetchTravels } from '../../../store/Travels/
 import { getUserToken } from '../../../store/User/selectors';
 import { formatDate } from '../../../utils/utils';
 
-function ActivityForm({ closeForm }) {
+function ActivityForm({ closeForm, actionName }) {
   const [events, setEvents] = useState([]);
   const { travelId } = useParams();
   const dispatch = useDispatch();
@@ -99,7 +99,7 @@ function ActivityForm({ closeForm }) {
     event.preventDefault();
 
     // handleUpdate();
-    
+
     const newEvent = {
       startDate: formatDate(eventData.startDate),
       category: eventData.category,
@@ -121,7 +121,7 @@ function ActivityForm({ closeForm }) {
 
   return (
     <form className={styles.form_active} onSubmit={handleSubmit}>
-      <h2 className={styles.form__title}>Добавить активность</h2>
+      <h2 className={styles.form__title}>{`${actionName} активность`}</h2>
       <div className={styles.form__box}>
         <div className={styles.form__inputBox}>
           <div className={styles.form__labelBox}>
@@ -267,8 +267,11 @@ export default ActivityForm;
 
 ActivityForm.propTypes = {
   closeForm: PropTypes.func,
+  actionName: PropTypes.string
+
 };
 
 ActivityForm.defaultProps = {
   closeForm: () => { },
+  actionName: 'Добавить'
 };

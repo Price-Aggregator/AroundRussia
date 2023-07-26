@@ -12,7 +12,7 @@ import { editTravel, fetchAddEvent, fetchTravels } from '../../../store/Travels/
 import { formatDate } from '../../../utils/utils';
 import { getUserToken } from '../../../store/User/selectors';
 
-function PropertyForm({ closeForm }) {
+function PropertyForm({ closeForm, actionName }) {
   const [events, setEvents] = useState([]);
   const { travelId } = useParams();
   const dispatch = useDispatch();
@@ -142,7 +142,7 @@ function PropertyForm({ closeForm }) {
 
   return (
     <form className={styles.form_active} onSubmit={handleSubmit}>
-      <h2 className={styles.form__title}>Добавить жильё</h2>
+      <h2 className={styles.form__title}>{`${actionName} жильё`}</h2>
       <div className={styles.form__box}>
         <div className={styles.form__inputBox}>
           <div className={styles.form__labelBox}>
@@ -328,8 +328,10 @@ export default PropertyForm;
 
 PropertyForm.propTypes = {
   closeForm: PropTypes.func,
+  actionName: PropTypes.string
 };
 
 PropertyForm.defaultProps = {
   closeForm: () => { },
+  actionName: 'Добавить'
 };
