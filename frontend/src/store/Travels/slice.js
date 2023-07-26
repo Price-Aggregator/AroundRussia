@@ -130,8 +130,9 @@ export const fetchAddEvent = createAsyncThunk(
         "price": data.price,
         "medias": [],
         "address": data.address,
-        "origin": null,
-        "destination": null
+        "origin": data.origin || null,
+        "destination": data.destination || null,
+        "description": data.description
       })
     }).then((res) => {
       if (res.ok) {

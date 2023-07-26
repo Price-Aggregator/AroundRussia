@@ -58,9 +58,9 @@ function EventBox({ category, time, price, description, address, eventName, medi
         </div>
       </div>
       {editForm && <div>
-        {category === 'flight' && <TransportForm closeForm={() => setEditForm(false)} />}
-        {category === 'activity' && <ActivityForm closeForm={() => setEditForm(false)} />}
-        {category === 'hotel' && <PropertyForm closeForm={() => setEditForm(false)} />}
+        {category === 'flight' && <TransportForm closeForm={() => setEditForm(false)} actionName='Редактировать' />}
+        {category === 'activity' && <ActivityForm closeForm={() => setEditForm(false)} actionName='Редактировать' />}
+        {category === 'hotel' && <PropertyForm closeForm={() => setEditForm(false)} actionName='Редактировать' />}
       </div>}
     </div>
   )
@@ -84,7 +84,7 @@ function TravelPlanBox({ day, activities }) {
     {wrap && events && <div style={{ width: '100%' }}>
       {events.map((item) =>
         // eslint-disable-next-line
-        <EventBox category={item.category} time={item.time} adress={item.address} description={item.description} price={item.price} eventName={item.name} key={item.id} media={item.media} eventId={item.id} />
+        <EventBox category={item.category} time={item.time} address={item.address || item.origin} description={item.description} price={item.price} eventName={item.name} key={item.id} media={item.media} eventId={item.id} />
       )}
     </div>
     }

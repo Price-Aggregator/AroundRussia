@@ -12,7 +12,7 @@ import { editTravel, fetchAddEvent, fetchTravels } from '../../../store/Travels/
 import { formatDate } from '../../../utils/utils';
 import { getUserToken } from '../../../store/User/selectors';
 
-function TransportForm({ closeForm }) {
+function TransportForm({ closeForm, actionName }) {
   const [events, setEvents] = useState([]);
   const { travelId } = useParams();
   const dispatch = useDispatch();
@@ -131,7 +131,7 @@ function TransportForm({ closeForm }) {
         hour: '2-digit',
         minute: '2-digit',
       }),
-      address: transportData.address,
+      origin: transportData.address,
       description: transportData.description,
       price: transportData.price,
       eventName: transportData.eventName,
@@ -145,7 +145,7 @@ function TransportForm({ closeForm }) {
 
   return (
     <form className={styles.form_active} onSubmit={handleSubmit}>
-      <h2 className={styles.form__title}>Добавить транспорт</h2>
+      <h2 className={styles.form__title}>{`${actionName} транспорт`}</h2>
       <div className={styles.form__box}>
         <div className={styles.form__inputBox}>
           <div className={styles.form__labelBox}>
@@ -347,8 +347,10 @@ export default TransportForm;
 
 TransportForm.propTypes = {
   closeForm: PropTypes.func,
+  actionName: PropTypes.string
 };
 
 TransportForm.defaultProps = {
   closeForm: () => { },
+  actionName: 'Добавить'
 };
