@@ -105,7 +105,7 @@ function NewTravelForm({ closeForm }) {
         reader.onload = (e) => {
           setTravelData((prevData) => ({
             ...prevData,
-            images: [e.target.result],
+            images: [...travelData.images, e.target.result],
           }));
         };
         reader.readAsDataURL(file);
