@@ -144,6 +144,39 @@ export const fetchAddEvent = createAsyncThunk(
   }
 )
 
+export const fetchPatchEvent = createAsyncThunk(
+  `${travelsName}/editEvent`,
+  async ({ travelId, token, data, eventId }) => {
+    const event = await fetch(`${BASE_URL}/activity/${eventId}/`, {
+      method: 'PUT',
+      headers: {
+        Authorization: `Token ${token}`,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        "travel": travelId,
+        "name": data.eventName,
+        "category": data.category,
+        "date": data.startDate,
+        "time": data.startTime,
+        "price": data.price,
+        "medias": [],
+        "address": data.address,
+        "origin": data.origin || null,
+        "destination": data.destination || null,
+        "description": data.description
+      })
+    })
+      .then((res) => {
+        if (res.ok) {
+          return travelId;
+        }
+        return Promise.reject(new Error(`Ошибка: ${res.status}`));
+      });
+    return event
+  }
+)
+
 const travelsSlice = createSlice({
   name: travelsName,
   initialState,
