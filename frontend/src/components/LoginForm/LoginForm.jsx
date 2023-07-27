@@ -80,7 +80,7 @@ export default function LoginForm({
 					}
 					{...register('password', {
 						required: 'Поле обязательно к заполнению',
-						minLength: { value: 8, message: 'Введите минимум 8 символоав' },
+						minLength: { value: 8, message: 'Введите минимум 8 символов' },
 						pattern: {
 							value: regexPassword,
 							message: ' Используйте заглавные, строчные буквы и цифры.',
