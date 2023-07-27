@@ -8,11 +8,12 @@ import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import styles from './ActivityForm.module.css';
-import { editTravel, fetchAddEvent, fetchTravels } from '../../../store/Travels/slice';
+import { editTravel, fetchAddEvent, fetchPatchEvent, fetchTravels } from '../../../store/Travels/slice';
 import { getUserToken } from '../../../store/User/selectors';
 import { formatDate } from '../../../utils/utils';
+import { TRAVEL_EVENT_EDIT } from '../../../utils/constants';
 
-function ActivityForm({ closeForm, actionName }) {
+function ActivityForm({ closeForm, actionName, eventId }) {
   const [events, setEvents] = useState([]);
   const { travelId } = useParams();
   const dispatch = useDispatch();
@@ -113,9 +114,16 @@ function ActivityForm({ closeForm, actionName }) {
       eventName: eventData.eventName,
     };
 
-    await dispatch(fetchAddEvent({ travelId, token, data: newEvent })).then(() => {
-      dispatch(fetchTravels(token))
-    })
+    if (actionName === TRAVEL_EVENT_EDIT) {
+      await dispatch(fetchPatchEvent({ travelId, token, data: newEvent, eventId })).then(() => {
+        dispatch(fetchTravels(token))
+      })
+    } else {
+      await dispatch(fetchAddEvent({ travelId, token, data: newEvent })).then(() => {
+        dispatch(fetchTravels(token))
+      })
+    }
+
     closeForm();
   };
 
@@ -267,11 +275,13 @@ export default ActivityForm;
 
 ActivityForm.propTypes = {
   closeForm: PropTypes.func,
-  actionName: PropTypes.string
+  actionName: PropTypes.string,
+  eventId: PropTypes.string
 
 };
 
 ActivityForm.defaultProps = {
   closeForm: () => { },
-  actionName: 'Добавить'
+  actionName: 'Добавить',
+  eventId: ''
 };

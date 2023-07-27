@@ -8,11 +8,13 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import styles from './TransportForm.module.css';
-import { editTravel, fetchAddEvent, fetchTravels } from '../../../store/Travels/slice';
+import { editTravel, fetchAddEvent, fetchTravels, fetchPatchEvent } from '../../../store/Travels/slice';
 import { formatDate } from '../../../utils/utils';
 import { getUserToken } from '../../../store/User/selectors';
+import { TRAVEL_EVENT_EDIT } from '../../../utils/constants';
 
-function TransportForm({ closeForm, actionName }) {
+
+function TransportForm({ closeForm, actionName, eventId }) {
   const [events, setEvents] = useState([]);
   const { travelId } = useParams();
   const dispatch = useDispatch();
@@ -120,7 +122,7 @@ function TransportForm({ closeForm, actionName }) {
     }));
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
     // handleUpdate();
 
@@ -137,9 +139,16 @@ function TransportForm({ closeForm, actionName }) {
       eventName: transportData.eventName,
     };
 
-    dispatch(fetchAddEvent({ travelId, token, data: newEvent })).then(() => {
-      dispatch(fetchTravels(token))
-    })
+
+    if (actionName === TRAVEL_EVENT_EDIT) {
+      await dispatch(fetchPatchEvent({ travelId, token, data: newEvent, eventId })).then(() => {
+        dispatch(fetchTravels(token))
+      })
+    } else {
+      await dispatch(fetchAddEvent({ travelId, token, data: newEvent })).then(() => {
+        dispatch(fetchTravels(token))
+      })
+    }
     closeForm();
   };
 
@@ -347,10 +356,12 @@ export default TransportForm;
 
 TransportForm.propTypes = {
   closeForm: PropTypes.func,
-  actionName: PropTypes.string
+  actionName: PropTypes.string,
+  eventId: PropTypes.string
 };
 
 TransportForm.defaultProps = {
   closeForm: () => { },
-  actionName: 'Добавить'
+  actionName: 'Добавить',
+  eventId: ''
 };

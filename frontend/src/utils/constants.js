@@ -322,6 +322,8 @@ const TRAVEL_LIST_DATA = [
   },
 ];
 
+const TRAVEL_EVENT_EDIT = 'Редактировать'
+
 export {
   TICKETS_ON_PAGE,
   calendarData,
@@ -335,5 +337,6 @@ export {
   MEDIA_URL,
   regexEmail,
   regexPassword,
-  eventImages
+  eventImages,
+  TRAVEL_EVENT_EDIT
 };
