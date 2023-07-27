@@ -8,11 +8,13 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import styles from './PropertyForm.module.css';
-import { editTravel, fetchAddEvent, fetchTravels } from '../../../store/Travels/slice';
+import { editTravel, fetchAddEvent, fetchTravels, fetchPatchEvent } from '../../../store/Travels/slice';
 import { formatDate } from '../../../utils/utils';
 import { getUserToken } from '../../../store/User/selectors';
+import { TRAVEL_EVENT_EDIT } from '../../../utils/constants';
 
-function PropertyForm({ closeForm, actionName }) {
+
+function PropertyForm({ closeForm, actionName, eventId }) {
   const [events, setEvents] = useState([]);
   const { travelId } = useParams();
   const dispatch = useDispatch();
@@ -134,9 +136,16 @@ function PropertyForm({ closeForm, actionName }) {
       eventName: propertyData.eventName,
     };
 
-    await dispatch(fetchAddEvent({ travelId, token, data: newEvent })).then(() => {
-      dispatch(fetchTravels(token))
-    })
+
+    if (actionName === TRAVEL_EVENT_EDIT) {
+      await dispatch(fetchPatchEvent({ travelId, token, data: newEvent, eventId })).then(() => {
+        dispatch(fetchTravels(token))
+      })
+    } else {
+      await dispatch(fetchAddEvent({ travelId, token, data: newEvent })).then(() => {
+        dispatch(fetchTravels(token))
+      })
+    }
     closeForm();
   };
 
@@ -328,10 +337,12 @@ export default PropertyForm;
 
 PropertyForm.propTypes = {
   closeForm: PropTypes.func,
-  actionName: PropTypes.string
+  actionName: PropTypes.string,
+  eventId: PropTypes.string
 };
 
 PropertyForm.defaultProps = {
   closeForm: () => { },
-  actionName: 'Добавить'
+  actionName: 'Добавить',
+  eventId: ''
 };

@@ -6,7 +6,7 @@ import { hotel, activity, flight, defaultImage } from "../../images/travel-plan"
 import TransportForm from "../DiaryTravelCategories/TransportForm/TransportForm";
 import ActivityForm from "../DiaryTravelCategories/ActivityForm/ActivityForm";
 import PropertyForm from "../DiaryTravelCategories/PropertyForm/PropertyForm";
-import { dayOfWeek, monthsInTicket } from "../../utils/constants";
+import { dayOfWeek, monthsInTicket, TRAVEL_EVENT_EDIT } from "../../utils/constants";
 import { fetchRemoveEvent, fetchTravels } from "../../store/Travels/slice";
 import { getUserToken } from "../../store/User/selectors";
 
@@ -58,9 +58,9 @@ function EventBox({ category, time, price, description, address, eventName, medi
         </div>
       </div>
       {editForm && <div>
-        {category === 'flight' && <TransportForm closeForm={() => setEditForm(false)} actionName='Редактировать' />}
-        {category === 'activity' && <ActivityForm closeForm={() => setEditForm(false)} actionName='Редактировать' />}
-        {category === 'hotel' && <PropertyForm closeForm={() => setEditForm(false)} actionName='Редактировать' />}
+        {category === 'flight' && <TransportForm closeForm={() => setEditForm(false)} actionName={TRAVEL_EVENT_EDIT} eventId={eventId} />}
+        {category === 'activity' && <ActivityForm closeForm={() => setEditForm(false)} actionName={TRAVEL_EVENT_EDIT} eventId={eventId} />}
+        {category === 'hotel' && <PropertyForm closeForm={() => setEditForm(false)} actionName={TRAVEL_EVENT_EDIT} eventId={eventId} />}
       </div>}
     </div>
   )

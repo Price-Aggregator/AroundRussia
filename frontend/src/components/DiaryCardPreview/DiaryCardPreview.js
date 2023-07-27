@@ -29,7 +29,7 @@ function DiaryCardPreview({ card }) {
             {card.images?.slice([1], [4]).map((picture) => (
               <img
                 className={styles.card__picture}
-                src={picture}
+                src={`${MEDIA_URL}/${picture}`}
                 alt={picture}
                 key={generateUniqueKey()}
               />
