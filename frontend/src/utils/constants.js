@@ -28,7 +28,7 @@ const TICKETS_ON_PAGE = 3;
 const regexEmail =
 	/^[A-Za-z0-9_-]+(?:\.[A-Za-z0-9_-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$/;
 
-const regexPassword = /((?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])[\w-_.])/;
+const regexPassword = /((?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])[\w-_.])(?=.*[\S])/;
 
 const eventImages = {
 	flight,
