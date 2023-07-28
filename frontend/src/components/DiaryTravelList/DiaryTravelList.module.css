@@ -1,7 +1,7 @@
 .diary__background {
 	width: 100%;
 	padding: 106px 165px 128px;
-	background-image: url(../../images/bg.svg);
+  background-image: url('../../images/summer.svg');
 	background-repeat: no-repeat;
 	box-sizing: border-box;
 	background-size: cover;
