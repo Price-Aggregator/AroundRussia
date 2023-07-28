@@ -85,8 +85,8 @@ function Header() {
 				setIsAuth(true);
 				closeForms();
 			})
-			.catch(() => {
-				alert('Неправильный логин или пароль');
+			.catch((err) => {
+				alert(err);
 			});
 	};
 
@@ -103,10 +103,8 @@ function Header() {
 				handleAuthorize({ email, password });
 				closeForms();
 			})
-			.catch(() => {
-				alert(
-					'Ваш пароль слишком простой, либо похож на email, либо пользователь с такими данными уже сущестует'
-				);
+			.catch((err) => {
+				alert(err);
 			});
 	};
 
@@ -121,6 +119,9 @@ function Header() {
 		api
 			.resetPassword(email)
 			.then(alert('Ссылка для восстановления отправлена на почту'))
+			.catch((err) => {
+				alert(err);
+			})
 			.finally(closeForms());
 	};
 
