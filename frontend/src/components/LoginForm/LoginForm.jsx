@@ -54,8 +54,8 @@ export default function LoginForm({
 						required: 'Поле обязательно к заполнению',
 						minLength: { value: 5, message: 'Введите минимум 5 символов' },
 						maxLength: {
-							value: 32,
-							message: 'Максимальная длина email - 32 символа',
+							value: 38,
+							message: 'Максимальная длина email - 38 символов',
 						},
 						pattern: {
 							value: regexEmail,

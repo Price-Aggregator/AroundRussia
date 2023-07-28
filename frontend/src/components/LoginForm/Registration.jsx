@@ -49,8 +49,8 @@ export default function Registration({ handleClick, onClose }) {
 						required: 'Поле обязательно к заполнению',
 						minLength: { value: 5, message: 'Введите минимум 5 символов' },
 						maxLength: {
-							value: 32,
-							message: 'Максимальная длина email - 32 символа',
+							value: 38,
+							message: 'Максимальная длина email - 38 символов',
 						},
 						pattern: {
 							value: regexEmail,
@@ -77,7 +77,7 @@ export default function Registration({ handleClick, onClose }) {
 						minLength: { value: 8, message: 'Введите минимум 8 символов' },
 						pattern: {
 							value: regexPassword,
-							message: 'Используйте заглавные, строчные буквы и цифры.',
+							message: 'Используйте только заглавные, строчные буквы и цифры.',
 						},
 					})}
 				/>
