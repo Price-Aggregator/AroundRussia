@@ -289,7 +289,6 @@ function TransportForm({ closeForm, actionName, eventId }) {
               name="description"
               value={transportData.description}
               onChange={handleInputChange}
-              required
             />
           </div>{' '}
           <div className={styles.form__labelBox}>
@@ -303,7 +302,6 @@ function TransportForm({ closeForm, actionName, eventId }) {
               name="price"
               value={transportData.price}
               onChange={handleInputChange}
-              required
             />
           </div>{' '}
           <div className={styles.form__labelBox}>

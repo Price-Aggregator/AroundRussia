@@ -54,4 +54,4 @@ jobs:
             sudo docker-compose rm -f frontend
             sudo docker-compose pull frontend
             sudo docker-compose up -d
-            sudo docker image prune          
+            sudo docker image prune

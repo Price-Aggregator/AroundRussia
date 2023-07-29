@@ -28,6 +28,7 @@ function NewTravelForm({ closeForm }) {
     images: [],
     id: 0,
   });
+  const [submitButton, setSubmitButton] = useState(false)
 
   const travels = useSelector((state) => state.travels.travels);
   const token = useSelector(getUserToken);
@@ -52,6 +53,7 @@ function NewTravelForm({ closeForm }) {
 
   const handleSubmitNewTravel = async (event) => {
     event.preventDefault();
+    setSubmitButton(true)
     const someId = generateUniqueKey();
     const newTravel = {
       id: someId,
@@ -63,13 +65,14 @@ function NewTravelForm({ closeForm }) {
       travelDaysEvents: [],
     };
     await dispatch(fetchNewTravel({ newTravel, token })).then(() => {
-      dispatch(fetchTravels(token));
+      dispatch(fetchTravels(token)).then(() => setSubmitButton(false));
     })
     closeForm();
   };
 
   const handleSubmitEditTravel = async (event) => {
     event.preventDefault();
+    setSubmitButton(true)
     const someId = +location.pathname.split('/diary/')[1];
     const existingTravel = travels.find((travel) => travel.id === someId);
     if (existingTravel) {
@@ -86,10 +89,10 @@ function NewTravelForm({ closeForm }) {
         ...changedTravel,
       };
       await dispatch(fetchEditTravel({ cardId: someId, data: updatedTravel, token })).then(() => {
-        dispatch(fetchTravels(token));
-
+        dispatch(fetchTravels(token)).then(() => setSubmitButton(false));
       })
     }
+
     closeForm();
   };
 
@@ -282,6 +285,7 @@ function NewTravelForm({ closeForm }) {
         <button
           className={`${styles.form__button} ${styles.form__button_save}`}
           type="submit"
+          disabled={submitButton}
         >
           Сохранить
         </button>
