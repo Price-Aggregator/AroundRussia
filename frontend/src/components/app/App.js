@@ -61,6 +61,7 @@ const router = createBrowserRouter([
 ]);
 
 function App() {
+  // Строчка проверки <---
   const dispatch = useDispatch();
   dispatch(getCities());
 

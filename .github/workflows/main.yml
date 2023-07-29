@@ -51,21 +51,7 @@ jobs:
           script: |
             cd aroundrussia-app
             sudo docker-compose down --remove-orphans
-            sudo docker-compose rm -f backend frontend
-            sudo docker pull ${{ secrets.DOCKER_USERNAME }}/around-russia-backend
-            sudo docker pull ${{ secrets.DOCKER_USERNAME }}/around-russia-frontend
-            rm -f .env
-            touch .env
-            echo DB_ENGINE=${{ secrets.DB_ENGINE }} >> .env
-            echo DB_NAME=${{ secrets.DB_NAME }} >> .env
-            echo POSTGRES_USER=${{ secrets.POSTGRES_USER }} >> .env
-            echo POSTGRES_PASSWORD=${{ secrets.POSTGRES_PASSWORD }} >> .env
-            echo DB_HOST=${{ secrets.DB_HOST }} >> .env
-            echo DB_PORT=${{ secrets.DB_PORT }} >> .env
-            echo DJANGO_KEY=${{ secrets.DJANGO_KEY }} >> .env
-            echo DEBUG=${{ secrets.DEBUG }} >> .env
-            echo HOST=${{ secrets.HOST }} >> .env
-            echo TOKEN=${{ secrets.AVIA_TOKEN }} >> .env
-            echo ALLOWED_HOSTS=${{ secrets.ALLOWED_HOSTS }} >> .env
+            sudo docker-compose rm -f frontend
+            sudo docker-compose pull frontend
             sudo docker-compose up -d
             sudo docker image prune          
