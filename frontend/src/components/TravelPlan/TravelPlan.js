@@ -4,7 +4,9 @@ import styles from './TravelPlan.module.css'
 import TravelPlanBox from "./TravelPlanBox";
 
 function TravelPlan({ travelPlan }) {
-  const datesOfTravel = [... new Set(travelPlan.map((item) => item.date))].sort((a, b) => a > b)
+  const datesOfTravel = [... new Set(travelPlan.map((item) => item.date))].sort((a, b) => a.localeCompare(b))
+
+  console.log(datesOfTravel)
 
   return <div className={styles.travel}>
     {datesOfTravel && datesOfTravel.map((item) => (
