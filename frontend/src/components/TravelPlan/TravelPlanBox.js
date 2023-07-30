@@ -127,7 +127,7 @@ function TravelPlanBox({ day, activities }) {
 
 	const events = activities
 		.filter((item) => item.date === day)
-		.sort((a, b) => a.time > b.time);
+		.sort((a, b) => a.time.localeCompare(b.time));
 
 	const dayDate = new Date(day);
 	const dayOnWeek = dayDate.toUTCString().slice(0, 3);
