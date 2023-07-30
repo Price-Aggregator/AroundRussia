@@ -6,7 +6,7 @@ import {
 	hotel,
 	activity,
 	flight,
-	defaultImage,
+	// defaultImage,
 } from '../../images/travel-plan';
 import TransportForm from '../DiaryTravelCategories/TransportForm/TransportForm';
 import ActivityForm from '../DiaryTravelCategories/ActivityForm/ActivityForm';
@@ -86,11 +86,7 @@ function EventBox({
 					</div>
 				</div>
 				<div className={styles.eventImageBox}>
-					<img
-						src={media || defaultImage}
-						alt="Изображение"
-						className={styles.eventImage}
-					/>
+					<img src={media} alt="Изображение" className={styles.eventImage} />
 				</div>
 			</div>
 			{editForm && (
