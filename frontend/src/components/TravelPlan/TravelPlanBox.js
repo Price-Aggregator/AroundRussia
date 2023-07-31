@@ -6,7 +6,7 @@ import {
 	hotel,
 	activity,
 	flight,
-	defaultImage,
+	// defaultImage,
 } from '../../images/travel-plan';
 import TransportForm from '../DiaryTravelCategories/TransportForm/TransportForm';
 import ActivityForm from '../DiaryTravelCategories/ActivityForm/ActivityForm';
@@ -86,11 +86,7 @@ function EventBox({
 					</div>
 				</div>
 				<div className={styles.eventImageBox}>
-					<img
-						src={media || defaultImage}
-						alt="Изображение"
-						className={styles.eventImage}
-					/>
+					<img src={media} alt="Изображение" className={styles.eventImage} />
 				</div>
 			</div>
 			{editForm && (
@@ -127,7 +123,7 @@ function TravelPlanBox({ day, activities }) {
 
 	const events = activities
 		.filter((item) => item.date === day)
-		.sort((a, b) => a.time > b.time);
+		.sort((a, b) => a.time.localeCompare(b.time));
 
 	const dayDate = new Date(day);
 	const dayOnWeek = dayDate.toUTCString().slice(0, 3);
