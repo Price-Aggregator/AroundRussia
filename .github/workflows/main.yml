@@ -49,7 +49,7 @@ jobs:
           key: ${{ secrets.SSH_KEY }}
           passphrase: ${{ secrets.PASSPHRASE }}
           script: |
-            cd aroundrussia-app
+            cd app
             sudo docker-compose down --remove-orphans
             sudo docker-compose rm -f frontend
             sudo docker-compose pull frontend
