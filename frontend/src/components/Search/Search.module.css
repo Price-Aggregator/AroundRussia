@@ -137,6 +137,11 @@ input[type='date']::-webkit-calendar-picker-indicator {
 	border: 0;
 }
 
+.search__button:hover {
+  box-shadow: 0 5px 5px rgba(0,0,0,.1);
+  cursor: pointer;
+}
+
 .search__wrapper {
 	position: relative;
 }
