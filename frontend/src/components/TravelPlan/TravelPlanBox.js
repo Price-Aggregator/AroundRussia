@@ -124,8 +124,8 @@ function TravelPlanBox({ day, activities }) {
 	const events = activities
 		.filter((item) => item.date === day)
 		.sort((a, b) => a.time.localeCompare(b.time));
-
-	const dayDate = new Date(day);
+  // eslint-disable-next-line
+	const dayDate = new Date(day.replace(/-/g, '/'));
 	const dayOnWeek = dayDate.toUTCString().slice(0, 3);
 	const dayEvent = dayDate.getDate();
 	const mounth = dayDate.getMonth() + 1;
