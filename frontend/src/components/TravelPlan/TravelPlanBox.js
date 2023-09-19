@@ -52,7 +52,11 @@ function EventBox({
 				<div className={styles.eventTimeAndIconBox}>
 					<div className={styles.eventTimeBox}>
 						{/* <span className={styles.eventTime}>14:00</span>  */}
-						<span className={styles.eventTime}>{time.slice(0, 5)}</span>
+						{time ? (
+							<span className={styles.eventTime}>{time.slice(0, 5)}</span>
+						) :
+            <div className={styles.eventEmptyTime}/>
+            }
 					</div>
 					<img src={image[category]} alt="icon" className={styles.eventIcon} />
 				</div>
@@ -123,8 +127,19 @@ function TravelPlanBox({ day, activities }) {
 
 	const events = activities
 		.filter((item) => item.date === day)
-		.sort((a, b) => a.time.localeCompare(b.time));
-  // eslint-disable-next-line
+		.sort((a, b) => {
+			if (a.time && b.time) {
+				return a.time.localeCompare(b.time);
+			}
+			if (!a.time && !b.time) {
+				return 0;
+			}
+			if (!a.time) {
+				return 1;
+			}
+			return -1;
+		});
+	// eslint-disable-next-line
 	const dayDate = new Date(day.replace(/-/g, '/'));
 	const dayOnWeek = dayDate.toUTCString().slice(0, 3);
 	const dayEvent = dayDate.getDate();
@@ -150,7 +165,7 @@ function TravelPlanBox({ day, activities }) {
 						// eslint-disable-next-line
 						<EventBox
 							category={item.category}
-							time={item.time}
+							time={item.time || ''}
 							address={item.address || item.origin}
 							description={item.description}
 							price={item.price}
@@ -168,7 +183,7 @@ function TravelPlanBox({ day, activities }) {
 
 EventBox.propTypes = {
 	category: PropTypes.string.isRequired,
-	time: PropTypes.string.isRequired,
+	time: PropTypes.string,
 	address: PropTypes.string,
 	price: PropTypes.string,
 	description: PropTypes.string,
@@ -182,6 +197,7 @@ EventBox.defaultProps = {
 	price: '',
 	description: '',
 	media: '',
+	time: '',
 };
 
 TravelPlanBox.propTypes = {
