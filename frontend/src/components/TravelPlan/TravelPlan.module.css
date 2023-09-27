@@ -98,6 +98,10 @@ height: 29px; */
 	color: #132529;
 }
 
+.eventEmptyTime {
+	width: 50.781px;
+}
+
 .eventButtonBox {
 	display: flex;
 	flex-direction: row;

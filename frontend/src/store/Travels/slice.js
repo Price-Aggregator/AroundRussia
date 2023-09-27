@@ -116,25 +116,28 @@ export const fetchAddEventStart = createAsyncThunk(
 	`${travelsName}/addEvent`,
 	async ({ travelId, token, data }) => {
 		console.log('EventStartdata:', data);
+		const requestBody = {
+			travel: travelId,
+			name: data.eventName,
+			category: data.category,
+			date: data.startDate,
+			price: data.price || 0,
+			medias: [],
+			origin: data.origin || null,
+			address: data.address,
+			destination: data.destination || null,
+			description: data.description,
+		};
+		if (data.startTime) {
+			requestBody.time = data.startTime;
+		}
 		const event = await fetch(`${BASE_URL}/activity/`, {
 			method: 'POST',
 			headers: {
 				Authorization: `Token ${token}`,
 				'Content-Type': 'application/json',
 			},
-			body: JSON.stringify({
-				travel: travelId,
-				name: data.eventName,
-				category: data.category,
-				date: data.startDate,
-				time: data.startTime,
-				price: data.price || 0,
-				medias: [],
-				origin: data.origin || null,
-				address: data.address,
-				destination: data.destination || null,
-				description: data.description,
-			}),
+			body: JSON.stringify(requestBody),
 		}).then((res) => {
 			if (res.ok) {
 				return travelId;
@@ -184,25 +187,28 @@ export const fetchAddEventEnd = createAsyncThunk(
 export const fetchAddEvent = createAsyncThunk(
 	`${travelsName}/addEvent`,
 	async ({ travelId, token, data }) => {
+		const requestBody = {
+			travel: travelId,
+			name: data.eventName,
+			category: data.category,
+			date: data.startDate,
+			price: data.price || 0,
+			medias: [],
+			origin: data.origin || null,
+			address: data.address,
+			destination: data.destination || null,
+			description: data.description,
+		};
+		if (data.startTime) {
+			requestBody.time = data.startTime;
+		}
 		const event = await fetch(`${BASE_URL}/activity/`, {
 			method: 'POST',
 			headers: {
 				Authorization: `Token ${token}`,
 				'Content-Type': 'application/json',
 			},
-			body: JSON.stringify({
-				travel: travelId,
-				name: data.eventName,
-				category: data.category,
-				date: data.startDate,
-				time: data.startTime,
-				price: data.price || 0,
-				medias: [],
-				address: data.address,
-				origin: data.origin || null,
-				destination: data.destination || null,
-				description: data.description,
-			}),
+			body: JSON.stringify(requestBody),
 		}).then((res) => {
 			if (res.ok) {
 				return travelId;

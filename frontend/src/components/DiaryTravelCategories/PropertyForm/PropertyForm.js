@@ -90,19 +90,29 @@ function PropertyForm({ closeForm, actionName, eventId }) {
 	const handleSubmit = async (event) => {
 		event.preventDefault();
 		// handleUpdate();
-
+		let startTimeString = '';
+		let endTimeString = '';
+		if (propertyData.startTime) {
+			// Check if eventData.startTime is defined
+			startTimeString = propertyData.startTime.toLocaleTimeString([], {
+				hour: '2-digit',
+				minute: '2-digit',
+			});
+		}
+		if (propertyData.startTime) {
+			// Check if eventData.startTime is defined
+			endTimeString = propertyData.startTime.toLocaleTimeString([], {
+				hour: '2-digit',
+				minute: '2-digit',
+			});
+		}
 		const newEvent = {
 			startDate: formatDate(propertyData.startDate),
 			category: propertyData.category,
-			startTime: propertyData.startTime.toLocaleTimeString([], {
-				hour: '2-digit',
-				minute: '2-digit',
-			}),
+			startTime: startTimeString,
+
 			endDate: formatDate(propertyData.endDate),
-			endTime: propertyData.endTime.toLocaleTimeString([], {
-				hour: '2-digit',
-				minute: '2-digit',
-			}),
+			endTime: endTimeString,
 			address: propertyData.address,
 			description: propertyData.description,
 			price: propertyData.price,
@@ -182,7 +192,7 @@ function PropertyForm({ closeForm, actionName, eventId }) {
 						</div>
 						<div className={styles.form__labelBox}>
 							<label htmlFor="startTime" className={styles.form__labelText}>
-								Время заселения* (чч:мм)
+								Время заселения (чч:мм)
 							</label>
 							<div className={styles.form__timeInputContainer}>
 								<DatePicker
@@ -197,7 +207,6 @@ function PropertyForm({ closeForm, actionName, eventId }) {
 									timeFormat="HH:mm"
 									dateFormat="HH:mm"
 									placeholderText=""
-									required
 								/>
 							</div>
 						</div>
@@ -205,7 +214,7 @@ function PropertyForm({ closeForm, actionName, eventId }) {
 					<div className={styles.form__dateBox}>
 						<div className={styles.form__labelBox}>
 							<label htmlFor="endDate" className={styles.form__labelText}>
-								Дата выезда* (дд.мм.гггг)
+								Дата выезда (дд.мм.гггг)
 							</label>
 							<div className={styles.form__dateInputContainer}>
 								<DatePicker
@@ -215,14 +224,14 @@ function PropertyForm({ closeForm, actionName, eventId }) {
 									onChange={handleEndDateChange}
 									dateFormat="dd.MM.yyyy"
 									placeholderText=""
-									required
+									// required
 								/>
 							</div>
 						</div>
 
 						<div className={styles.form__labelBox}>
 							<label htmlFor="endTime" className={styles.form__labelText}>
-								Время выселения* (чч:мм)
+								Время выселения (чч:мм)
 							</label>
 							<div className={styles.form__timeInputContainer}>
 								<DatePicker
@@ -237,7 +246,6 @@ function PropertyForm({ closeForm, actionName, eventId }) {
 									timeFormat="HH:mm"
 									dateFormat="HH:mm"
 									placeholderText=""
-									required
 								/>
 							</div>
 						</div>

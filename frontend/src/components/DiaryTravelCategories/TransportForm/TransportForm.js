@@ -90,18 +90,28 @@ function TransportForm({ closeForm, actionName, eventId }) {
 
 	const handleSubmit = async (event) => {
 		event.preventDefault();
+		let startTimeString = '';
+		let endTimeString = '';
+		if (transportData.startTime) {
+			// Check if eventData.startTime is defined
+			startTimeString = transportData.startTime.toLocaleTimeString([], {
+				hour: '2-digit',
+				minute: '2-digit',
+			});
+		}
+		if (transportData.startTime) {
+			// Check if eventData.startTime is defined
+			endTimeString = transportData.startTime.toLocaleTimeString([], {
+				hour: '2-digit',
+				minute: '2-digit',
+			});
+		}
 		const newEvent = {
 			startDate: formatDate(transportData.startDate),
 			category: transportData.category,
-			startTime: transportData.startTime.toLocaleTimeString([], {
-				hour: '2-digit',
-				minute: '2-digit',
-			}),
+			startTime: startTimeString,
 			endDate: formatDate(transportData.endDate),
-			endTime: transportData.endTime.toLocaleTimeString([], {
-				hour: '2-digit',
-				minute: '2-digit',
-			}),
+			endTime: endTimeString,
 			origin: transportData.address,
 			description: transportData.description,
 			price: transportData.price,
@@ -195,7 +205,7 @@ function TransportForm({ closeForm, actionName, eventId }) {
 						</div>
 						<div className={styles.form__labelBox}>
 							<label htmlFor="startTime" className={styles.form__labelText}>
-								Время начала* (чч:мм)
+								Время начала (чч:мм)
 							</label>
 							<div className={styles.form__timeInputContainer}>
 								<DatePicker
@@ -210,7 +220,6 @@ function TransportForm({ closeForm, actionName, eventId }) {
 									timeFormat="HH:mm"
 									dateFormat="HH:mm"
 									placeholderText=""
-									required
 								/>
 							</div>
 						</div>
@@ -218,7 +227,7 @@ function TransportForm({ closeForm, actionName, eventId }) {
 					<div className={styles.form__dateBox}>
 						<div className={styles.form__labelBox}>
 							<label htmlFor="endDate" className={styles.form__labelText}>
-								Дата окончания* (дд.мм.гггг)
+								Дата окончания (дд.мм.гггг)
 							</label>
 							<div className={styles.form__dateInputContainer}>
 								<DatePicker
@@ -228,14 +237,13 @@ function TransportForm({ closeForm, actionName, eventId }) {
 									onChange={handleEndDateChange}
 									dateFormat="dd.MM.yyyy"
 									placeholderText=""
-									required
 								/>
 							</div>
 						</div>
 
 						<div className={styles.form__labelBox}>
 							<label htmlFor="endTime" className={styles.form__labelText}>
-								Время окончания* (чч:мм)
+								Время окончания (чч:мм)
 							</label>
 							<div className={styles.form__timeInputContainer}>
 								<DatePicker
@@ -250,7 +258,6 @@ function TransportForm({ closeForm, actionName, eventId }) {
 									timeFormat="HH:mm"
 									dateFormat="HH:mm"
 									placeholderText=""
-									required
 								/>
 							</div>
 						</div>
