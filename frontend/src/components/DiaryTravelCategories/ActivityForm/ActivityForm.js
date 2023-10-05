@@ -1,9 +1,12 @@
+/* eslint-disable react/jsx-props-no-spreading */
+/* eslint-disable prefer-promise-reject-errors */
 /* eslint-disable no-unused-vars */
 /* eslint-disable jsx-a11y/label-has-associated-control */
 /* eslint-disable import/no-extraneous-dependencies */
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
+import { useDropzone } from 'react-dropzone';
 import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
@@ -18,7 +21,105 @@ import { getUserToken } from '../../../store/User/selectors';
 import { formatDate } from '../../../utils/utils';
 import { TRAVEL_EVENT_EDIT } from '../../../utils/constants';
 
+const loadFile = (file) =>
+	new Promise((res, rej) => {
+		const reader = new FileReader();
+		const base = {
+			name: file.name,
+			size: file.size,
+		};
+		reader.addEventListener('abort', (e) => rej(`File upload aborted:${e}`));
+		reader.addEventListener('error', (e) => rej(`File upload error: ${e}`));
+		reader.addEventListener(
+			'load',
+			() =>
+				res({
+					...base,
+					encoded: reader.result,
+				}),
+			false
+		);
+		reader.readAsDataURL(file);
+	});
+
+const rejectFiles = (files) =>
+	files.map((f) => ({
+		name: f.name,
+		size: f.size,
+		error: 'File rejected',
+	}));
+
 function ActivityForm({ closeForm, actionName, eventId }) {
+	const [encodedFiles, setEncodedFiles] = useState([]);
+	const [selectedFilesFromInput, setSelectedFilesFromInput] = useState([]);
+	console.log('encodedFiles:', encodedFiles);
+	const [errors, setErrors] = useState([]);
+	const [previewFiles, setPreviewFiles] = useState([]);
+	const onChange = (newFiles) => {
+		// Create an array of file objects with name and preview properties for newly selected files
+		const newFilesWithPreview = newFiles.map((file) => ({
+			name: file.name,
+			preview: URL.createObjectURL(file), // Assuming this creates a preview URL
+		}));
+
+		// Update the state with all selected files (new and existing)
+		setPreviewFiles((prevFiles) => [...prevFiles, ...newFilesWithPreview]);
+	};
+
+	function renderFilePreviews(files) {
+		return files.map((file) => (
+			<div key={file.name} className={styles.form__fileBox}>
+				<img
+					src={file.preview}
+					alt={file.name}
+					className={styles.filePreview}
+				/>
+				{file.name}
+			</div>
+		));
+	}
+
+	const onDrop = useCallback((acceptedFiles, rejectedFiles) => {
+		onChange(
+			acceptedFiles.map((fl) =>
+				Object.assign(fl, {
+					preview: URL.createObjectURL(fl),
+					base64: localStorage.getItem('base64'),
+				})
+			)
+		);
+		setErrors(rejectFiles(rejectedFiles)); // set/reset errors
+		// setEncodedFiles([]); // reset UI
+		acceptedFiles.forEach((file) =>
+			loadFile(file)
+				.then((encFile) =>
+					setEncodedFiles((prevEncodedFiles) => [...prevEncodedFiles, encFile])
+				)
+				.catch((error) =>
+					setErrors((list) => [
+						...list,
+						{
+							name: file.name,
+							size: file.size,
+							error,
+						},
+					])
+				)
+		);
+	}, []);
+
+	const { acceptedFiles, getRootProps, getInputProps } = useDropzone({
+		accept: ['image/jpeg', 'image/png', 'image/gif', 'image/*'],
+		maxSize: 100000000,
+		multiple: true,
+		onDrop,
+	});
+
+	const [selectedFiles, setSelectedFiles] = useState([]);
+	const handleFilesAdded = (files) => {
+		setSelectedFilesFromInput((prevFiles) => [...prevFiles, ...files]);
+	};
+
 	const [events, setEvents] = useState([]);
 	const { travelId } = useParams();
 	const dispatch = useDispatch();
@@ -47,37 +148,6 @@ function ActivityForm({ closeForm, actionName, eventId }) {
 			setEvents(storedEvents);
 		}
 	}, []);
-
-	// const handleUpdate = () => {
-	// 	const options = {
-	// 		day: '2-digit',
-	// 		month: 'long',
-	// 		weekday: 'short',
-	// 		timeZone: 'UTC',
-	// 	};
-	// 	const newEvent = {
-	// 		date: eventData.startDate.toLocaleDateString('ru-RU', options),
-	// 		events: [
-	// 			{
-	// 				category: eventData.category,
-	// 				time: eventData.startTime.toLocaleTimeString([], {
-	// 					hour: '2-digit',
-	// 					minute: '2-digit',
-	// 				}),
-	// 				address: eventData.address,
-	// 				description: eventData.description,
-	// 				price: eventData.price,
-	// 				eventName: eventData.eventName,
-	// 			},
-	// 		],
-	// 	};
-	// 	const userTravel = travels.find((card) => card.id === travelId);
-	// 	const newObj = { ...userTravel };
-	// 	setEvents([...events, newEvent]);
-	// 	newObj.travelDaysEvents = events;
-	// 	localStorage.setItem('events', JSON.stringify([...events, newEvent]));
-	// 	dispatch(editTravel({ id: travelId, data: newObj }));
-	// };
 
 	const handleInputChange = (event) => {
 		const { name, value } = event.target;
@@ -126,6 +196,17 @@ function ActivityForm({ closeForm, actionName, eventId }) {
 			price: eventData.price,
 			eventName: eventData.eventName,
 		};
+
+		const formData = new FormData();
+		// Add selected files from onDrop to the formData
+		selectedFiles.forEach((file) => {
+			formData.append('files', file);
+		});
+
+		// Add selected files from handleFilesAdded to the formData
+		selectedFilesFromInput.forEach((file) => {
+			formData.append('files', file);
+		});
 
 		if (actionName === TRAVEL_EVENT_EDIT) {
 			await dispatch(
@@ -246,6 +327,21 @@ function ActivityForm({ closeForm, actionName, eventId }) {
 							Прикрепите фото, документы, билеты
 						</label>
 						<div className={styles.form__files} id="media">
+							<div className={styles.form__files} id="media">
+								{/* Render the FileDropzone component */}
+								<div {...getRootProps()}>
+									<input {...getInputProps()} />
+									<p>Drag drop some files here, or click to select files</p>
+								</div>
+								{renderFilePreviews(previewFiles)}
+
+								{/* Display a list of selected files */}
+								{selectedFiles.map((file) => (
+									<div key={file.name} className={styles.form__fileBox}>
+										{file.name}
+									</div>
+								))}
+							</div>
 							<div className={styles.form__fileBox}>
 								<button
 									className={`${styles.form__button} ${styles.form__button_addFile}`}
