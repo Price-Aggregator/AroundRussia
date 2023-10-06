@@ -6,7 +6,7 @@
 /* eslint-disable import/no-extraneous-dependencies */
 // @ts-ignore
 // @typescript-eslint/ban-ts-comment
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback, useMemo } from 'react';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import { useDropzone } from 'react-dropzone';
@@ -25,6 +25,24 @@ import { formatDate } from '../../../utils/utils';
 import { TRAVEL_EVENT_EDIT } from '../../../utils/constants';
 import pdfIcon from '../../../images/pdf-icon.svg';
 
+const baseStyle = {
+	backgroundColor: '#fafafa',
+	borderStyle: 'solid',
+};
+
+const focusedStyle = {
+	borderColor: '#2196f3',
+	borderStyle: 'dashed',
+};
+
+const acceptStyle = {
+	borderColor: '#f8c747',
+	borderStyle: 'dashed',
+};
+
+const rejectStyle = {
+	borderColor: '#ff1744',
+};
 const loadFile = (file) =>
 	new Promise((res, rej) => {
 		const reader = new FileReader();
@@ -128,7 +146,15 @@ function ActivityForm({ closeForm, actionName, eventId }) {
 		);
 	}, []);
 
-	const { acceptedFiles, getRootProps, getInputProps } = useDropzone({
+	const {
+		acceptedFiles,
+		getRootProps,
+		getInputProps,
+		isDragActive,
+		isFocused,
+		isDragAccept,
+		isDragReject,
+	} = useDropzone({
 		accept: [
 			'image/jpeg',
 			'image/png',
@@ -141,6 +167,17 @@ function ActivityForm({ closeForm, actionName, eventId }) {
 		maxFiles: 9,
 		onDrop,
 	});
+	console.log('isDragActive:', isDragActive);
+
+	const style = useMemo(
+		() => ({
+			...baseStyle,
+			...(isFocused ? focusedStyle : {}),
+			...(isDragAccept ? acceptStyle : {}),
+			...(isDragReject ? rejectStyle : {}),
+		}),
+		[isFocused, isDragAccept, isDragReject]
+	);
 
 	const [selectedFiles, setSelectedFiles] = useState([]);
 	const handleFilesAdded = (files) => {
@@ -360,7 +397,10 @@ function ActivityForm({ closeForm, actionName, eventId }) {
 						<div className={styles.form__filesContainer} id="media">
 							<div className={styles.form__filesContainer} id="media">
 								{/* Render the FileDropzone component */}
-								<div {...getRootProps()}>
+								<div
+									{...getRootProps({ style })}
+									className={styles.form__dropzone}
+								>
 									<input {...getInputProps()} />
 									<div className={styles.form__fileBox}>
 										<button
@@ -368,7 +408,7 @@ function ActivityForm({ closeForm, actionName, eventId }) {
 											type="button"
 											onClick={() => console.log('click')}
 										>
-											+ Файл
+											<span>+ Файл</span>
 										</button>
 									</div>
 								</div>
