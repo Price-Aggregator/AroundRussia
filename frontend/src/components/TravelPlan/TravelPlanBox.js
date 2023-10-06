@@ -8,6 +8,8 @@ import {
 	flight,
 	// defaultImage,
 } from '../../images/travel-plan';
+import pdfIcon from '../../images/pdf-icon.svg';
+
 import TransportForm from '../DiaryTravelCategories/TransportForm/TransportForm';
 import ActivityForm from '../DiaryTravelCategories/ActivityForm/ActivityForm';
 import PropertyForm from '../DiaryTravelCategories/PropertyForm/PropertyForm';
@@ -15,6 +17,7 @@ import {
 	dayOfWeek,
 	monthsInTicket,
 	TRAVEL_EVENT_EDIT,
+	MEDIA_FILES,
 } from '../../utils/constants';
 import { fetchRemoveEvent, fetchTravels } from '../../store/Travels/slice';
 import { getUserToken } from '../../store/User/selectors';
@@ -54,9 +57,9 @@ function EventBox({
 						{/* <span className={styles.eventTime}>14:00</span>  */}
 						{time ? (
 							<span className={styles.eventTime}>{time.slice(0, 5)}</span>
-						) :
-            <div className={styles.eventEmptyTime}/>
-            }
+						) : (
+							<div className={styles.eventEmptyTime} />
+						)}
 					</div>
 					<img src={image[category]} alt="icon" className={styles.eventIcon} />
 				</div>
@@ -90,7 +93,24 @@ function EventBox({
 					</div>
 				</div>
 				<div className={styles.eventImageBox}>
-					<img src={media} alt="Изображение" className={styles.eventImage} />
+					{media.map((mediaItem, index) => (
+						// eslint-disable-next-line react/no-array-index-key
+						<div key={index} className={styles.eventImageContainer}>
+							{mediaItem.toLowerCase().startsWith('data:application/pdf') ? (
+								<img
+									src={pdfIcon} // Replace with the source of your PDF image
+									alt='PDF Document'
+									className={styles.eventPDF}
+								/>
+							) : (
+								<img
+									src={mediaItem}
+									alt='Изображение'
+									className={styles.eventImage}
+								/>
+							)}
+						</div>
+					))}
 				</div>
 			</div>
 			{editForm && (
@@ -171,7 +191,7 @@ function TravelPlanBox({ day, activities }) {
 							price={item.price}
 							eventName={item.name}
 							key={item.id}
-							media={item.media}
+							media={MEDIA_FILES}
 							eventId={item.id}
 						/>
 					))}
