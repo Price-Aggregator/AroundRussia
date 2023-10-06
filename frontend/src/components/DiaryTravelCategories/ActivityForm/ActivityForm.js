@@ -1,3 +1,4 @@
+/* eslint-disable react/button-has-type */
 /* eslint-disable no-undef */
 /* eslint-disable react/jsx-props-no-spreading */
 /* eslint-disable prefer-promise-reject-errors */
@@ -80,6 +81,7 @@ function ActivityForm({ closeForm, actionName, eventId }) {
 	const [medias, setMedias] = useState([]);
 	console.log('medias:', medias);
 	const onChange = (newFiles) => {
+		console.log('newFiles:', newFiles);
 		// Create an array of file objects with name and preview properties for newly selected files
 		const newFilesWithPreview = newFiles.map((file) => ({
 			name: file.name,
@@ -89,6 +91,23 @@ function ActivityForm({ closeForm, actionName, eventId }) {
 		// Update the state with all selected files (new and existing)
 		setPreviewFiles((prevFiles) => [...prevFiles, ...newFilesWithPreview]);
 	};
+
+	const removeFile = (file) => () => {
+		const updatedEncodedFiles = encodedFiles.filter(
+			(f) => f.name !== file.name
+		);
+		const updatedPreviewFiles = previewFiles.filter(
+			(f) => f.name !== file.name
+		);
+		setEncodedFiles(updatedEncodedFiles);
+		setPreviewFiles(updatedPreviewFiles);
+	};
+
+  useEffect(() => {
+    // Create an array of encoded values from updated encodedFiles
+    const updatedMedias = encodedFiles.map((file) => file.encoded);
+    setMedias(updatedMedias);
+  }, [encodedFiles])
 
 	function renderFilePreviews(files) {
 		return files.map((file) => (
@@ -101,6 +120,7 @@ function ActivityForm({ closeForm, actionName, eventId }) {
 							className={styles.filePreviewPDF}
 						/>
 						<p className={styles.form__filename}>{file.name}</p>
+						<button onClick={removeFile(file)}>Remove File</button>
 					</>
 				) : (
 					<>
@@ -110,6 +130,7 @@ function ActivityForm({ closeForm, actionName, eventId }) {
 							className={styles.filePreviewImage}
 						/>
 						<p className={styles.form__filename}>{file.name}</p>
+						<button onClick={removeFile(file)}>Remove File</button>
 					</>
 				)}
 			</div>
