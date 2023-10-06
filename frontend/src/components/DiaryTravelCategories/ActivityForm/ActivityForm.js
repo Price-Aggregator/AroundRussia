@@ -3,6 +3,8 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable jsx-a11y/label-has-associated-control */
 /* eslint-disable import/no-extraneous-dependencies */
+// @ts-ignore
+// @typescript-eslint/ban-ts-comment
 import React, { useState, useEffect, useCallback } from 'react';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
@@ -55,6 +57,8 @@ function ActivityForm({ closeForm, actionName, eventId }) {
 	console.log('encodedFiles:', encodedFiles);
 	const [errors, setErrors] = useState([]);
 	const [previewFiles, setPreviewFiles] = useState([]);
+	const [medias, setMedias] = useState([]);
+	console.log('medias:', medias);
 	const onChange = (newFiles) => {
 		// Create an array of file objects with name and preview properties for newly selected files
 		const newFilesWithPreview = newFiles.map((file) => ({
@@ -92,9 +96,10 @@ function ActivityForm({ closeForm, actionName, eventId }) {
 		// setEncodedFiles([]); // reset UI
 		acceptedFiles.forEach((file) =>
 			loadFile(file)
-				.then((encFile) =>
-					setEncodedFiles((prevEncodedFiles) => [...prevEncodedFiles, encFile])
-				)
+				.then((encFile) => {
+					setEncodedFiles((prevEncodedFiles) => [...prevEncodedFiles, encFile]);
+					setMedias((prevMedias) => [...prevMedias, encFile.encoded]);
+				})
 				.catch((error) =>
 					setErrors((list) => [
 						...list,
@@ -134,6 +139,7 @@ function ActivityForm({ closeForm, actionName, eventId }) {
 		startTime: null,
 		description: '',
 		price: '',
+		medias: [],
 	});
 
 	useEffect(() => {
@@ -183,6 +189,7 @@ function ActivityForm({ closeForm, actionName, eventId }) {
 				minute: '2-digit',
 			});
 		}
+		eventData.medias = medias;
 		const newEvent = {
 			startDate: formatDate(eventData.startDate),
 			category: eventData.category,
@@ -195,7 +202,9 @@ function ActivityForm({ closeForm, actionName, eventId }) {
 			description: eventData.description,
 			price: eventData.price,
 			eventName: eventData.eventName,
+			medias,
 		};
+		console.log('newEvent:', newEvent);
 
 		const formData = new FormData();
 		// Add selected files from onDrop to the formData
