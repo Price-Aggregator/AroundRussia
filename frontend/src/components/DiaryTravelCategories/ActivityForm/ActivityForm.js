@@ -22,6 +22,7 @@ import {
 import { getUserToken } from '../../../store/User/selectors';
 import { formatDate } from '../../../utils/utils';
 import { TRAVEL_EVENT_EDIT } from '../../../utils/constants';
+import pdfIcon from '../../../images/pdf-icon.svg';
 
 const loadFile = (file) =>
 	new Promise((res, rej) => {
@@ -73,12 +74,21 @@ function ActivityForm({ closeForm, actionName, eventId }) {
 	function renderFilePreviews(files) {
 		return files.map((file) => (
 			<div key={file.name} className={styles.form__fileBox}>
-				<img
-					src={file.preview}
-					alt={file.name}
-					className={styles.filePreview}
-				/>
-				{file.name}
+				{file.name.toLowerCase().endsWith('.pdf') ? (
+					<>
+						<img src={pdfIcon} alt={file.name} className={styles.filePreview} />
+						{file.name}}
+					</>
+				) : (
+					<>
+						<img
+							src={file.preview}
+							alt={file.name}
+							className={styles.filePreview}
+						/>
+						{file.name}
+					</>
+				)}
 			</div>
 		));
 	}
@@ -114,7 +124,13 @@ function ActivityForm({ closeForm, actionName, eventId }) {
 	}, []);
 
 	const { acceptedFiles, getRootProps, getInputProps } = useDropzone({
-		accept: ['image/jpeg', 'image/png', 'image/gif', 'image/*'],
+		accept: [
+			'image/jpeg',
+			'image/png',
+			'image/gif',
+			'image/*',
+			'application/pdf',
+		],
 		maxSize: 100000000,
 		multiple: true,
 		onDrop,

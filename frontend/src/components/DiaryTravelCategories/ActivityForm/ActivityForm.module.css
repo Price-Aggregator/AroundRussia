@@ -184,6 +184,18 @@
 }
 
 .filePreview {
-  width: 100px;
-  height: 100px;
+	width: 100px;
+	height: 100px;
+}
+
+.pdfIcon {
+	width: 150px;
+	height: 150px;
+	background-image: url('../../../images/pdf-icon.svg');
+	background-repeat: no-repeat;
+	background-size: contain;
+	background-position: center;
+	outline: none;
+	border: none;
+
 }
