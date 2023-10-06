@@ -31,11 +31,6 @@ const baseStyle = {
 	borderStyle: 'solid',
 };
 
-const focusedStyle = {
-	borderColor: '#2196f3',
-	borderStyle: 'dashed',
-};
-
 const acceptStyle = {
 	borderColor: '#f8c747',
 	borderStyle: 'dashed',
@@ -184,7 +179,6 @@ function ActivityForm({ closeForm, actionName, eventId }) {
 		getRootProps,
 		getInputProps,
 		isDragActive,
-		isFocused,
 		isDragAccept,
 		isDragReject,
 	} = useDropzone({
@@ -205,11 +199,10 @@ function ActivityForm({ closeForm, actionName, eventId }) {
 	const style = useMemo(
 		() => ({
 			...baseStyle,
-			...(isFocused ? focusedStyle : {}),
 			...(isDragAccept ? acceptStyle : {}),
 			...(isDragReject ? rejectStyle : {}),
 		}),
-		[isFocused, isDragAccept, isDragReject]
+		[isDragAccept, isDragReject]
 	);
 
 	const [selectedFiles, setSelectedFiles] = useState([]);
