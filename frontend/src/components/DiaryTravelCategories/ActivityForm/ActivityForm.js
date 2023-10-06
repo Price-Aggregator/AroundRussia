@@ -103,34 +103,46 @@ function ActivityForm({ closeForm, actionName, eventId }) {
 		setPreviewFiles(updatedPreviewFiles);
 	};
 
-  useEffect(() => {
-    // Create an array of encoded values from updated encodedFiles
-    const updatedMedias = encodedFiles.map((file) => file.encoded);
-    setMedias(updatedMedias);
-  }, [encodedFiles])
+	useEffect(() => {
+		// Create an array of encoded values from updated encodedFiles
+		const updatedMedias = encodedFiles.map((file) => file.encoded);
+		setMedias(updatedMedias);
+	}, [encodedFiles]);
 
 	function renderFilePreviews(files) {
 		return files.map((file) => (
 			<div key={file.name} className={styles.form__fileBoxContent}>
 				{file.name.toLowerCase().endsWith('.pdf') ? (
 					<>
+						<button
+							type="button"
+							className={styles.dropzoneTrashBag}
+							onClick={removeFile(file)}
+						>
+							{' '}
+						</button>
 						<img
 							src={pdfIcon}
 							alt={file.name}
 							className={styles.filePreviewPDF}
 						/>
 						<p className={styles.form__filename}>{file.name}</p>
-						<button onClick={removeFile(file)}>Remove File</button>
 					</>
 				) : (
 					<>
+						<button
+							type="button"
+							className={styles.dropzoneTrashBag}
+							onClick={removeFile(file)}
+						>
+							{' '}
+						</button>{' '}
 						<img
 							src={file.preview}
 							alt={file.name}
 							className={styles.filePreviewImage}
 						/>
 						<p className={styles.form__filename}>{file.name}</p>
-						<button onClick={removeFile(file)}>Remove File</button>
 					</>
 				)}
 			</div>
