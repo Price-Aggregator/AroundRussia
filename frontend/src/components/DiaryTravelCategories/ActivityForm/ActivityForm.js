@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 /* eslint-disable react/jsx-props-no-spreading */
 /* eslint-disable prefer-promise-reject-errors */
 /* eslint-disable no-unused-vars */
@@ -73,20 +74,24 @@ function ActivityForm({ closeForm, actionName, eventId }) {
 
 	function renderFilePreviews(files) {
 		return files.map((file) => (
-			<div key={file.name} className={styles.form__fileBox}>
+			<div key={file.name} className={styles.form__fileBoxContent}>
 				{file.name.toLowerCase().endsWith('.pdf') ? (
 					<>
-						<img src={pdfIcon} alt={file.name} className={styles.filePreview} />
-						{file.name}}
+						<img
+							src={pdfIcon}
+							alt={file.name}
+							className={styles.filePreviewPDF}
+						/>
+						<p className={styles.form__filename}>{file.name}</p>
 					</>
 				) : (
 					<>
 						<img
 							src={file.preview}
 							alt={file.name}
-							className={styles.filePreview}
+							className={styles.filePreviewImage}
 						/>
-						{file.name}
+						<p className={styles.form__filename}>{file.name}</p>
 					</>
 				)}
 			</div>
@@ -133,6 +138,7 @@ function ActivityForm({ closeForm, actionName, eventId }) {
 		],
 		maxSize: 100000000,
 		multiple: true,
+		maxFiles: 9,
 		onDrop,
 	});
 
@@ -351,40 +357,25 @@ function ActivityForm({ closeForm, actionName, eventId }) {
 						<label htmlFor="media" className={styles.form__labelText}>
 							Прикрепите фото, документы, билеты
 						</label>
-						<div className={styles.form__files} id="media">
-							<div className={styles.form__files} id="media">
+						<div className={styles.form__filesContainer} id="media">
+							<div className={styles.form__filesContainer} id="media">
 								{/* Render the FileDropzone component */}
 								<div {...getRootProps()}>
 									<input {...getInputProps()} />
-									<p>Drag drop some files here, or click to select files</p>
-								</div>
-								{renderFilePreviews(previewFiles)}
-
-								{/* Display a list of selected files */}
-								{selectedFiles.map((file) => (
-									<div key={file.name} className={styles.form__fileBox}>
-										{file.name}
+									<div className={styles.form__fileBox}>
+										<button
+											className={`${styles.form__button} ${styles.form__button_addFile}`}
+											type="button"
+											onClick={() => console.log('click')}
+										>
+											+ Файл
+										</button>
 									</div>
-								))}
+								</div>
+								<div className={styles.form__attachments}>
+									{renderFilePreviews(previewFiles)}
+								</div>
 							</div>
-							<div className={styles.form__fileBox}>
-								<button
-									className={`${styles.form__button} ${styles.form__button_addFile}`}
-									type="button"
-									onClick={() => console.log('click')}
-								>
-									+ Файл
-								</button>
-							</div>{' '}
-							<div className={styles.form__fileBox}>
-								<button
-									className={`${styles.form__button} ${styles.form__button_addFile}`}
-									type="button"
-									onClick={() => console.log('click')}
-								>
-									+ Файл
-								</button>
-							</div>{' '}
 						</div>
 					</div>
 				</div>
