@@ -249,6 +249,7 @@ function ActivityForm({ closeForm, actionName, eventId }) {
 	};
 
 	const handleStartDateChange = (startDate) => {
+		console.log('startDate:', startDate);
 		setЕventData((prevData) => ({
 			...prevData,
 			startDate,
@@ -265,19 +266,19 @@ function ActivityForm({ closeForm, actionName, eventId }) {
 	useEffect(() => {
 		const filteredTravel = travels.find((travel) => travel.id === +travelId);
 
-		// Check if there's a matching travel and if the activity with eventId exists
+		// Check if there's a matching travel
 		if (filteredTravel) {
 			const filteredActivity = filteredTravel.activities.find(
 				(activity) => activity.id === eventId
 			);
 			console.log('useEffectfilteredActivity:', filteredActivity);
 
-			const newMediasWithPreview = filteredActivity.medias.map(
-				(media, index) => ({
-					name: index.toString(),
-					preview: media,
-				})
-			);
+			const newMediasWithPreview = filteredActivity
+				? filteredActivity.medias.map((media, index) => ({
+						name: index.toString(),
+						preview: media,
+				  }))
+				: [];
 
 			console.log('useEffectnewMediasWithPreview:', newMediasWithPreview);
 
@@ -286,6 +287,7 @@ function ActivityForm({ closeForm, actionName, eventId }) {
 				category: 'activity',
 				eventName: '', // Default value
 				address: '', // Default value
+				startDate: null,
 				description: '', // Default value
 				price: '', // Default value
 				medias: [],
@@ -295,6 +297,7 @@ function ActivityForm({ closeForm, actionName, eventId }) {
 			if (filteredActivity) {
 				updatedEventData.eventName = filteredActivity.name || '';
 				updatedEventData.address = filteredActivity.address || '';
+				updatedEventData.startDate = new Date(filteredActivity.date) || null;
 				updatedEventData.description = filteredActivity.description || '';
 				updatedEventData.price = filteredActivity.price || '';
 				updatedEventData.medias =
@@ -305,7 +308,7 @@ function ActivityForm({ closeForm, actionName, eventId }) {
 			setЕventData(updatedEventData);
 			setPreviewFiles(updatedEventData.medias);
 		}
-	}, [actionName, TRAVEL_EVENT_EDIT, eventId, travels, travelId]);
+	}, [actionName, TRAVEL_EVENT_EDIT]);
 
 	const handleSubmit = async (event) => {
 		event.preventDefault();
