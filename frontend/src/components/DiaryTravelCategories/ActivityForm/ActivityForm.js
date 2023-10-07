@@ -262,6 +262,51 @@ function ActivityForm({ closeForm, actionName, eventId }) {
 		}));
 	};
 
+	useEffect(() => {
+		const filteredTravel = travels.find((travel) => travel.id === +travelId);
+
+		// Check if there's a matching travel and if the activity with eventId exists
+		if (filteredTravel) {
+			const filteredActivity = filteredTravel.activities.find(
+				(activity) => activity.id === eventId
+			);
+			console.log('useEffectfilteredActivity:', filteredActivity);
+
+			const newMediasWithPreview = filteredActivity.medias.map(
+				(media, index) => ({
+					name: index.toString(),
+					preview: media,
+				})
+			);
+
+			console.log('useEffectnewMediasWithPreview:', newMediasWithPreview);
+
+			// Create a new object with default values
+			const updatedEventData = {
+				category: 'activity',
+				eventName: '', // Default value
+				address: '', // Default value
+				description: '', // Default value
+				price: '', // Default value
+				medias: [],
+			};
+
+			// If a matching activity was found in Redux, update the fields with its values
+			if (filteredActivity) {
+				updatedEventData.eventName = filteredActivity.name || '';
+				updatedEventData.address = filteredActivity.address || '';
+				updatedEventData.description = filteredActivity.description || '';
+				updatedEventData.price = filteredActivity.price || '';
+				updatedEventData.medias =
+					newMediasWithPreview.length > 0 ? newMediasWithPreview : [];
+			}
+
+			console.log('updatedEventData:', updatedEventData);
+			setЕventData(updatedEventData);
+			setPreviewFiles(updatedEventData.medias);
+		}
+	}, [actionName, TRAVEL_EVENT_EDIT, eventId, travels, travelId]);
+
 	const handleSubmit = async (event) => {
 		event.preventDefault();
 
@@ -289,6 +334,7 @@ function ActivityForm({ closeForm, actionName, eventId }) {
 			eventName: eventData.eventName,
 			medias,
 		};
+
 		console.log('newEvent:', newEvent);
 
 		const formData = new FormData();
@@ -333,7 +379,7 @@ function ActivityForm({ closeForm, actionName, eventId }) {
 							type="text"
 							id="eventName"
 							name="eventName"
-							value={eventData.title}
+							value={eventData.eventName}
 							onChange={handleInputChange}
 							required
 						/>
@@ -347,7 +393,7 @@ function ActivityForm({ closeForm, actionName, eventId }) {
 							type="text"
 							id="address"
 							name="address"
-							value={eventData.title}
+							value={eventData.address}
 							onChange={handleInputChange}
 							required
 						/>
@@ -470,7 +516,7 @@ export default ActivityForm;
 ActivityForm.propTypes = {
 	closeForm: PropTypes.func,
 	actionName: PropTypes.string,
-	eventId: PropTypes.string,
+	eventId: PropTypes.number,
 };
 
 ActivityForm.defaultProps = {
