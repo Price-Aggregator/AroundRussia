@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
+import Zoom from 'react-medium-image-zoom';
+import 'react-medium-image-zoom/dist/styles.css';
 import styles from './TravelPlan.module.css';
 import {
 	hotel,
@@ -99,15 +101,17 @@ function EventBox({
 							{mediaItem.toLowerCase().startsWith('data:application/pdf') ? (
 								<img
 									src={pdfIcon} // Replace with the source of your PDF image
-									alt='PDF Document'
+									alt="PDF Document"
 									className={styles.eventPDF}
 								/>
 							) : (
-								<img
-									src={mediaItem}
-									alt='Изображение'
-									className={styles.eventImage}
-								/>
+								<Zoom>
+									<img
+										src={mediaItem}
+										alt="Изображение"
+										className={styles.eventImage}
+									/>
+								</Zoom>
 							)}
 						</div>
 					))}
