@@ -257,6 +257,7 @@ function ActivityForm({ closeForm, actionName, eventId }) {
 	};
 
 	const handleStartTimeChange = (startTime) => {
+		console.log('startTime:', startTime);
 		setЕventData((prevData) => ({
 			...prevData,
 			startTime,
@@ -288,6 +289,7 @@ function ActivityForm({ closeForm, actionName, eventId }) {
 				eventName: '', // Default value
 				address: '', // Default value
 				startDate: null,
+				startTime: null,
 				description: '', // Default value
 				price: '', // Default value
 				medias: [],
@@ -298,6 +300,41 @@ function ActivityForm({ closeForm, actionName, eventId }) {
 				updatedEventData.eventName = filteredActivity.name || '';
 				updatedEventData.address = filteredActivity.address || '';
 				updatedEventData.startDate = new Date(filteredActivity.date) || null;
+				// Convert startTime to the desired format
+				// Convert startTime to the desired format
+				const startTimeParts = (filteredActivity.time || '').split(':');
+				let updatedStartDate = '';
+				if (startTimeParts.length === 3) {
+					const hours = parseInt(startTimeParts[0], 10); // Specify radix 10
+					const minutes = parseInt(startTimeParts[1], 10); // Specify radix 10
+					const seconds = parseInt(startTimeParts[2], 10); // Specify radix 10
+					if (
+						!Number.isNaN(hours) &&
+						!Number.isNaN(minutes) &&
+						!Number.isNaN(seconds)
+					) {
+						if (updatedEventData.startDate) {
+							// Clone the startDate and set the time components from startTime
+							updatedStartDate = new Date(updatedEventData.startDate);
+							updatedStartDate.setHours(hours);
+							updatedStartDate.setMinutes(minutes);
+							updatedStartDate.setSeconds(seconds);
+							updatedEventData.startTime = updatedStartDate;
+						} else {
+							// If startDate is null, create a new Date object with the date and time components
+							updatedEventData.startTime = new Date(
+								2023,
+								9,
+								13,
+								hours,
+								minutes,
+								seconds // 13 is for October, months are 0-indexed
+							);
+						}
+					}
+				}
+
+				updatedEventData.startTime = updatedStartDate;
 				updatedEventData.description = filteredActivity.description || '';
 				updatedEventData.price = filteredActivity.price || '';
 				updatedEventData.medias =
