@@ -23,14 +23,12 @@ const noReturn = ({ return_at, ...rest }) => rest;
 
 // функция для трансформации date в нужный беку формат
 function formatDate(date) {
-	const day = date.getDate();
-	const month = date.getMonth() + 1;
-	const year = date.getFullYear();
+	const day = date?.getDate();
+	const month = date ? (date.getMonth() + 1) : '';
+	const year = date?.getFullYear();
 	const formattedDay = day < 10 ? `0${day}` : day;
 	const formattedMonth = month < 10 ? `0${month}` : month;
 	return `${year}-${formattedMonth}-${formattedDay}`;
 }
-
-
 
 export { generateUniqueKey, createTicketsFetchObj, noReturn, formatDate };
