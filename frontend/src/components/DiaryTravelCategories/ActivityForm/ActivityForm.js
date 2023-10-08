@@ -68,7 +68,7 @@ const rejectFiles = (files) =>
 	}));
 
 function ActivityForm({ closeForm, actionName, eventId }) {
-		const [encodedFiles, setEncodedFiles] = useState([]);
+	const [encodedFiles, setEncodedFiles] = useState([]);
 	const [selectedFilesFromInput, setSelectedFilesFromInput] = useState([]);
 	console.log('encodedFiles:', encodedFiles);
 	const [errors, setErrors] = useState([]);
@@ -105,41 +105,35 @@ function ActivityForm({ closeForm, actionName, eventId }) {
 	}, [encodedFiles]);
 
 	function renderFilePreviews(files) {
+		console.log('files:', files);
+		console.log(
+			'file:',
+			files.map((file) => file.preview.toLowerCase().endsWith('.pdf'))
+		);
 		return files.map((file) => (
 			<div key={file.name} className={styles.form__fileBoxContent}>
-				{file.name.toLowerCase().endsWith('.pdf') ? (
-					<>
-						<button
-							type="button"
-							className={styles.dropzoneTrashBag}
-							onClick={removeFile(file)}
-						>
-							{' '}
-						</button>
-						<img
-							src={pdfIcon}
-							alt={file.name}
-							className={styles.filePreviewPDF}
-						/>
-						<p className={styles.form__filename}>{file.name}</p>
-					</>
+				<button
+					type="button"
+					className={styles.dropzoneTrashBag}
+					onClick={removeFile(file)}
+				>
+					{' '}
+				</button>
+				{file.name.toLowerCase().endsWith('.pdf') ||
+				file.preview.toLowerCase().endsWith('.pdf') ? (
+					<img
+						src={pdfIcon}
+						alt={file.name}
+						className={styles.filePreviewPDF}
+					/>
 				) : (
-					<>
-						<button
-							type="button"
-							className={styles.dropzoneTrashBag}
-							onClick={removeFile(file)}
-						>
-							{' '}
-						</button>{' '}
-						<img
-							src={file.preview}
-							alt={file.name}
-							className={styles.filePreviewImage}
-						/>
-						<p className={styles.form__filename}>{file.name}</p>
-					</>
+					<img
+						src={file.preview}
+						alt={file.name}
+						className={styles.filePreviewImage}
+					/>
 				)}
+				<p className={styles.form__filename}>{file.name}</p>
 			</div>
 		));
 	}
