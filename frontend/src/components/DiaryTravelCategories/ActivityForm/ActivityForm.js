@@ -68,7 +68,7 @@ const rejectFiles = (files) =>
 	}));
 
 function ActivityForm({ closeForm, actionName, eventId }) {
-	const [encodedFiles, setEncodedFiles] = useState([]);
+		const [encodedFiles, setEncodedFiles] = useState([]);
 	const [selectedFilesFromInput, setSelectedFilesFromInput] = useState([]);
 	console.log('encodedFiles:', encodedFiles);
 	const [errors, setErrors] = useState([]);
@@ -267,12 +267,10 @@ function ActivityForm({ closeForm, actionName, eventId }) {
 	useEffect(() => {
 		const filteredTravel = travels.find((travel) => travel.id === +travelId);
 
-		// Check if there's a matching travel
 		if (filteredTravel) {
 			const filteredActivity = filteredTravel.activities.find(
 				(activity) => activity.id === eventId
 			);
-			console.log('useEffectfilteredActivity:', filteredActivity);
 
 			const newMediasWithPreview = filteredActivity
 				? filteredActivity.medias.map((media, index) => ({
@@ -281,67 +279,48 @@ function ActivityForm({ closeForm, actionName, eventId }) {
 				  }))
 				: [];
 
-			console.log('useEffectnewMediasWithPreview:', newMediasWithPreview);
-
-			// Create a new object with default values
 			const updatedEventData = {
 				category: 'activity',
-				eventName: '', // Default value
-				address: '', // Default value
+				eventName: '',
+				address: '',
 				startDate: null,
 				startTime: null,
-				description: '', // Default value
-				price: '', // Default value
+				description: '',
+				price: '',
 				medias: [],
 			};
 
-			// If a matching activity was found in Redux, update the fields with its values
 			if (filteredActivity) {
 				updatedEventData.eventName = filteredActivity.name || '';
 				updatedEventData.address = filteredActivity.address || '';
-				updatedEventData.startDate = new Date(filteredActivity.date) || null;
-				// Convert startTime to the desired format
-				// Convert startTime to the desired format
+
+				// Use the date string from the server directly as a Date object
+				updatedEventData.startDate = new Date(
+					filteredActivity.date.replace(/-/g, '/')
+				);
+
 				const startTimeParts = (filteredActivity.time || '').split(':');
-				let updatedStartDate = '';
 				if (startTimeParts.length === 3) {
-					const hours = parseInt(startTimeParts[0], 10); // Specify radix 10
-					const minutes = parseInt(startTimeParts[1], 10); // Specify radix 10
-					const seconds = parseInt(startTimeParts[2], 10); // Specify radix 10
+					const hours = parseInt(startTimeParts[0], 10);
+					const minutes = parseInt(startTimeParts[1], 10);
+					const seconds = parseInt(startTimeParts[2], 10);
 					if (
 						!Number.isNaN(hours) &&
 						!Number.isNaN(minutes) &&
 						!Number.isNaN(seconds)
 					) {
-						if (updatedEventData.startDate) {
-							// Clone the startDate and set the time components from startTime
-							updatedStartDate = new Date(updatedEventData.startDate);
-							updatedStartDate.setHours(hours);
-							updatedStartDate.setMinutes(minutes);
-							updatedStartDate.setSeconds(seconds);
-							updatedEventData.startTime = updatedStartDate;
-						} else {
-							// If startDate is null, create a new Date object with the date and time components
-							updatedEventData.startTime = new Date(
-								2023,
-								9,
-								13,
-								hours,
-								minutes,
-								seconds // 13 is for October, months are 0-indexed
-							);
-						}
+						const updatedStartDate = new Date(updatedEventData.startDate);
+						updatedStartDate.setHours(hours, minutes, seconds);
+						updatedEventData.startTime = updatedStartDate;
 					}
 				}
 
-				updatedEventData.startTime = updatedStartDate;
 				updatedEventData.description = filteredActivity.description || '';
 				updatedEventData.price = filteredActivity.price || '';
 				updatedEventData.medias =
 					newMediasWithPreview.length > 0 ? newMediasWithPreview : [];
 			}
 
-			console.log('updatedEventData:', updatedEventData);
 			setЕventData(updatedEventData);
 			setPreviewFiles(updatedEventData.medias);
 		}
