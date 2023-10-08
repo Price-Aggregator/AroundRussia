@@ -260,6 +260,7 @@ function ActivityForm({ closeForm, actionName, eventId }) {
 
 	useEffect(() => {
 		const filteredTravel = travels.find((travel) => travel.id === +travelId);
+		console.log('filteredTravel:', filteredTravel);
 
 		if (filteredTravel) {
 			const filteredActivity = filteredTravel.activities.find(
@@ -350,17 +351,6 @@ function ActivityForm({ closeForm, actionName, eventId }) {
 
 		console.log('newEvent:', newEvent);
 
-		const formData = new FormData();
-		// Add selected files from onDrop to the formData
-		selectedFiles.forEach((file) => {
-			formData.append('files', file);
-		});
-
-		// Add selected files from handleFilesAdded to the formData
-		selectedFilesFromInput.forEach((file) => {
-			formData.append('files', file);
-		});
-
 		if (actionName === TRAVEL_EVENT_EDIT) {
 			await dispatch(
 				fetchPatchEvent({ travelId, token, data: newEvent, eventId })
@@ -368,6 +358,7 @@ function ActivityForm({ closeForm, actionName, eventId }) {
 				dispatch(fetchTravels(token));
 			});
 		} else {
+			console.log('dispatchnewEvent:', newEvent);
 			await dispatch(fetchAddEvent({ travelId, token, data: newEvent })).then(
 				() => {
 					dispatch(fetchTravels(token));

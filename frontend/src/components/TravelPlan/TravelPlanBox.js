@@ -19,7 +19,6 @@ import {
 	dayOfWeek,
 	monthsInTicket,
 	TRAVEL_EVENT_EDIT,
-	MEDIA_FILES,
 } from '../../utils/constants';
 import { fetchRemoveEvent, fetchTravels } from '../../store/Travels/slice';
 import { getUserToken } from '../../store/User/selectors';
@@ -98,12 +97,14 @@ function EventBox({
 					{media.map((mediaItem, index) => (
 						// eslint-disable-next-line react/no-array-index-key
 						<div key={index} className={styles.eventImageContainer}>
-							{mediaItem.toLowerCase().startsWith('data:application/pdf') ? (
-								<img
-									src={pdfIcon} // Replace with the source of your PDF image
-									alt="PDF Document"
-									className={styles.eventPDF}
-								/>
+							{mediaItem.toLowerCase().endsWith('pdf') ? (
+								<a href={mediaItem} target="_blank" rel="noreferrer">
+									<img
+										src={pdfIcon} // Replace with the source of your PDF image
+										alt="PDF Document"
+										className={styles.eventPDF}
+									/>
+								</a>
 							) : (
 								<Zoom>
 									<img
@@ -195,8 +196,8 @@ function TravelPlanBox({ day, activities }) {
 							price={item.price}
 							eventName={item.name}
 							key={item.id}
-							media={MEDIA_FILES}
 							eventId={item.id}
+							media={Array.isArray(item.medias) ? item.medias : []}
 						/>
 					))}
 				</div>
@@ -212,7 +213,7 @@ EventBox.propTypes = {
 	price: PropTypes.string,
 	description: PropTypes.string,
 	eventName: PropTypes.string.isRequired,
-	media: PropTypes.string,
+	media: PropTypes.arrayOf(PropTypes.string),
 	eventId: PropTypes.number.isRequired,
 };
 
@@ -220,7 +221,7 @@ EventBox.defaultProps = {
 	address: '',
 	price: '',
 	description: '',
-	media: '',
+	media: [],
 	time: '',
 };
 
