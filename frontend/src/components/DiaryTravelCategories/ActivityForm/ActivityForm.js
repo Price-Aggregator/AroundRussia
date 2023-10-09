@@ -60,16 +60,8 @@ const loadFile = (file) =>
 		reader.readAsDataURL(file);
 	});
 
-const rejectFiles = (files) =>
-	files.map((f) => ({
-		name: f.name,
-		size: f.size,
-		error: 'File rejected',
-	}));
-
 function ActivityForm({ closeForm, actionName, eventId }) {
 	const [encodedFiles, setEncodedFiles] = useState([]);
-	const [selectedFilesFromInput, setSelectedFilesFromInput] = useState([]);
 	const [previewFiles, setPreviewFiles] = useState([]);
 	const [medias, setMedias] = useState([]);
 
@@ -192,12 +184,6 @@ function ActivityForm({ closeForm, actionName, eventId }) {
 		[isDragAccept, isDragReject]
 	);
 
-	const [selectedFiles, setSelectedFiles] = useState([]);
-	const handleFilesAdded = (files) => {
-		setSelectedFilesFromInput((prevFiles) => [...prevFiles, ...files]);
-	};
-
-	console.log('fileRejections:', fileRejections);
 	const fileRejectionItems = fileRejections.map(({ file, errors }) => (
 		<ul>
 			{errors.map((e) => (
@@ -208,7 +194,6 @@ function ActivityForm({ closeForm, actionName, eventId }) {
 
 	const { travelId } = useParams();
 	const dispatch = useDispatch();
-	const travels = useSelector((state) => state.travels.travels);
 	const token = useSelector(getUserToken);
 
 	const [eventData, setЕventData] = useState({
