@@ -17,7 +17,8 @@ import { useParams } from 'react-router-dom';
 import imageToBase64 from 'image-to-base64/browser';
 import styles from './TransportForm.module.css';
 import {
-	fetchAddEvent,
+	fetchAddEventStart,
+	fetchAddEventEnd,
 	fetchPatchEvent,
 	fetchTravels,
 } from '../../../store/Travels/slice';
