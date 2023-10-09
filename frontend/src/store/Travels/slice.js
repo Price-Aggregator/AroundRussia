@@ -233,7 +233,7 @@ export const fetchPatchEvent = createAsyncThunk(
 				name: data.eventName,
 				category: data.category,
 				date: data.startDate,
-				time: data.startTime,
+				time: data.startTime || null,
 				price: data.price || 0,
 				medias: data.medias,
 				address: data.address,
