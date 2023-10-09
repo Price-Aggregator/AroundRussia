@@ -115,7 +115,6 @@ export const fetchRemoveEvent = createAsyncThunk(
 export const fetchAddEventStart = createAsyncThunk(
 	`${travelsName}/addEvent`,
 	async ({ travelId, token, data }) => {
-		console.log('EventStartdata:', data);
 		const requestBody = {
 			travel: travelId,
 			name: data.eventName,
@@ -151,10 +150,8 @@ export const fetchAddEventStart = createAsyncThunk(
 export const fetchAddEventEnd = createAsyncThunk(
 	`${travelsName}/addEvent`,
 	async ({ travelId, token, data }) => {
-		console.log('EventEnddata:', data);
 		const eventDescription =
 			data.category === 'hotel' ? () => 'Выселение' : () => 'Прибытие';
-		console.log('eventDescription:', eventDescription);
 		const event = await fetch(`${BASE_URL}/activity/`, {
 			method: 'POST',
 			headers: {
