@@ -135,9 +135,6 @@
 	gap: 30px;
 }
 
-/* .form__button_cancel {
-}*/
-
 .form__button_save {
 	background: #f8c747;
 }
@@ -155,7 +152,6 @@
 	padding: 49px 67px 48px 68px;
 	justify-content: center;
 	align-items: center;
-	/* position: relative; */
 	background: #ecf1f1;
 	border: none;
 	border-radius: 10px;
@@ -169,13 +165,6 @@
 	display: flex;
 	justify-content: space-between;
 	margin-bottom: 10px;
-}
-
-.form__button_addFile {
-	/* position: absolute;
-	top: 37%;
-	left: 50%;
-	transform: translate(-50%, -50%); */
 }
 
 .form__input_file {
