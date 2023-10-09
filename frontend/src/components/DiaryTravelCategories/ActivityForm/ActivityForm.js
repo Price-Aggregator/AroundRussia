@@ -70,9 +70,9 @@ const rejectFiles = (files) =>
 function ActivityForm({ closeForm, actionName, eventId }) {
 	const [encodedFiles, setEncodedFiles] = useState([]);
 	const [selectedFilesFromInput, setSelectedFilesFromInput] = useState([]);
-	const [errors, setErrors] = useState([]);
 	const [previewFiles, setPreviewFiles] = useState([]);
 	const [medias, setMedias] = useState([]);
+
 	const onChange = (newFiles) => {
 		const newFilesWithPreview = newFiles.map((file) => ({
 			name: file.name,
@@ -146,31 +146,21 @@ function ActivityForm({ closeForm, actionName, eventId }) {
 				})
 			)
 		);
-		setErrors(rejectFiles(rejectedFiles)); // set/reset errors
 		acceptedFiles.forEach((file) =>
 			loadFile(file)
 				.then((encFile) => {
 					setEncodedFiles((prevEncodedFiles) => [...prevEncodedFiles, encFile]);
 					setMedias((prevMedias) => [...prevMedias, encFile.encoded]);
 				})
-				.catch((error) =>
-					setErrors((list) => [
-						...list,
-						{
-							name: file.name,
-							size: file.size,
-							error,
-						},
-					])
-				)
+				.catch((error) => console.log('error:', error))
 		);
 	}, []);
 
 	const {
 		acceptedFiles,
+		fileRejections,
 		getRootProps,
 		getInputProps,
-		isDragActive,
 		isDragAccept,
 		isDragReject,
 	} = useDropzone({
@@ -182,6 +172,15 @@ function ActivityForm({ closeForm, actionName, eventId }) {
 		multiple: true,
 		maxFiles: 9,
 		onDrop,
+		validator: (file) => {
+			if (encodedFiles.some((f) => f.name === file.name)) {
+				return {
+					code: 'name-dublicates',
+					message: `Файл ${file.name} уже добавлен`,
+				};
+			}
+			return null;
+		},
 	});
 
 	const style = useMemo(
@@ -198,7 +197,15 @@ function ActivityForm({ closeForm, actionName, eventId }) {
 		setSelectedFilesFromInput((prevFiles) => [...prevFiles, ...files]);
 	};
 
-	const [events, setEvents] = useState([]);
+	console.log('fileRejections:', fileRejections);
+	const fileRejectionItems = fileRejections.map(({ file, errors }) => (
+		<ul>
+			{errors.map((e) => (
+				<li key={e.code}>{e.message}</li>
+			))}
+		</ul>
+	));
+
 	const { travelId } = useParams();
 	const dispatch = useDispatch();
 	const travels = useSelector((state) => state.travels.travels);
@@ -214,19 +221,6 @@ function ActivityForm({ closeForm, actionName, eventId }) {
 		price: '',
 		medias: [],
 	});
-
-	useEffect(() => {
-		let storedEvents;
-		try {
-			storedEvents = JSON.parse(localStorage.getItem('events'));
-		} catch (error) {
-			console.error('Error parsing stored events:', error);
-			storedEvents = undefined;
-		}
-		if (storedEvents) {
-			setEvents(storedEvents);
-		}
-	}, []);
 
 	const handleInputChange = (event) => {
 		const { name, value } = event.target;
@@ -392,7 +386,6 @@ function ActivityForm({ closeForm, actionName, eventId }) {
 						</label>
 						<div className={styles.form__filesContainer} id="media">
 							<div className={styles.form__filesContainer} id="media">
-								{/* Render the FileDropzone component */}
 								<div
 									{...getRootProps({ style })}
 									className={styles.form__dropzone}
@@ -408,6 +401,7 @@ function ActivityForm({ closeForm, actionName, eventId }) {
 									</div>
 								</div>
 								{isDragReject && <p>только картинки и PDF, пожалуйста</p>}
+								{fileRejections && <p>{fileRejectionItems}</p>}
 								<div className={styles.form__attachments}>
 									{renderFilePreviews(previewFiles)}
 								</div>
