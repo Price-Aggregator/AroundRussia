@@ -14,6 +14,7 @@ import { useDropzone } from 'react-dropzone';
 import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
+import imageToBase64 from 'image-to-base64/browser';
 import styles from './ActivityForm.module.css';
 import {
 	editTravel,
@@ -70,32 +71,36 @@ const rejectFiles = (files) =>
 function ActivityForm({ closeForm, actionName, eventId }) {
 	const [encodedFiles, setEncodedFiles] = useState([]);
 	const [selectedFilesFromInput, setSelectedFilesFromInput] = useState([]);
-	console.log('encodedFiles:', encodedFiles);
 	const [errors, setErrors] = useState([]);
 	const [previewFiles, setPreviewFiles] = useState([]);
 	const [medias, setMedias] = useState([]);
-	console.log('medias:', medias);
 	const onChange = (newFiles) => {
-		console.log('newFiles:', newFiles);
-		// Create an array of file objects with name and preview properties for newly selected files
 		const newFilesWithPreview = newFiles.map((file) => ({
 			name: file.name,
-			preview: URL.createObjectURL(file), // Assuming this creates a preview URL
+			preview: URL.createObjectURL(file),
 		}));
-
-		// Update the state with all selected files (new and existing)
 		setPreviewFiles((prevFiles) => [...prevFiles, ...newFilesWithPreview]);
 	};
 
 	const removeFile = (file) => () => {
-		const updatedEncodedFiles = encodedFiles.filter(
-			(f) => f.name !== file.name
-		);
 		const updatedPreviewFiles = previewFiles.filter(
 			(f) => f.name !== file.name
 		);
-		setEncodedFiles(updatedEncodedFiles);
 		setPreviewFiles(updatedPreviewFiles);
+
+		imageToBase64(file.preview)
+			.then((response) => {
+				const updatedEncodedFiles = encodedFiles.filter((encodedFile) => {
+					if (typeof encodedFile.encoded === 'string') {
+						return !encodedFile.encoded.includes(response.slice(0, 100));
+					}
+					return true;
+				});
+				setEncodedFiles(updatedEncodedFiles);
+			})
+			.catch((error) => {
+				console.log('error:', error);
+			});
 	};
 
 	useEffect(() => {
@@ -105,11 +110,7 @@ function ActivityForm({ closeForm, actionName, eventId }) {
 	}, [encodedFiles]);
 
 	function renderFilePreviews(files) {
-		console.log('files:', files);
-		console.log(
-			'file:',
-			files.map((file) => file.preview.toLowerCase().endsWith('.pdf'))
-		);
+		files.map((file) => file.preview.toLowerCase().endsWith('.pdf'));
 		return files.map((file) => (
 			<div key={file.name} className={styles.form__fileBoxContent}>
 				<button
@@ -148,7 +149,6 @@ function ActivityForm({ closeForm, actionName, eventId }) {
 			)
 		);
 		setErrors(rejectFiles(rejectedFiles)); // set/reset errors
-		// setEncodedFiles([]); // reset UI
 		acceptedFiles.forEach((file) =>
 			loadFile(file)
 				.then((encFile) => {
@@ -188,7 +188,6 @@ function ActivityForm({ closeForm, actionName, eventId }) {
 		maxFiles: 9,
 		onDrop,
 	});
-	console.log('isDragActive:', isDragActive);
 
 	const style = useMemo(
 		() => ({
@@ -243,7 +242,6 @@ function ActivityForm({ closeForm, actionName, eventId }) {
 	};
 
 	const handleStartDateChange = (startDate) => {
-		console.log('startDate:', startDate);
 		setЕventData((prevData) => ({
 			...prevData,
 			startDate,
@@ -251,83 +249,147 @@ function ActivityForm({ closeForm, actionName, eventId }) {
 	};
 
 	const handleStartTimeChange = (startTime) => {
-		console.log('startTime:', startTime);
 		setЕventData((prevData) => ({
 			...prevData,
 			startTime,
 		}));
 	};
 
-	useEffect(() => {
-		const filteredTravel = travels.find((travel) => travel.id === +travelId);
-		console.log('filteredTravel:', filteredTravel);
-
-		if (filteredTravel) {
-			const filteredActivity = filteredTravel.activities.find(
-				(activity) => activity.id === eventId
-			);
-
-			const newMediasWithPreview = filteredActivity
-				? filteredActivity.medias.map((media, index) => ({
-						name: index.toString(),
-						preview: media,
-				  }))
-				: [];
-
-			const updatedEventData = {
-				category: 'activity',
-				eventName: '',
-				address: '',
-				startDate: null,
-				startTime: null,
-				description: '',
-				price: '',
-				medias: [],
-			};
-
-			if (filteredActivity) {
-				updatedEventData.eventName = filteredActivity.name || '';
-				updatedEventData.address = filteredActivity.address || '';
-
-				// Use the date string from the server directly as a Date object
-				updatedEventData.startDate = new Date(
-					filteredActivity.date.replace(/-/g, '/')
-				);
-
-				const startTimeParts = (filteredActivity.time || '').split(':');
-				if (startTimeParts.length === 3) {
-					const hours = parseInt(startTimeParts[0], 10);
-					const minutes = parseInt(startTimeParts[1], 10);
-					const seconds = parseInt(startTimeParts[2], 10);
-					if (
-						!Number.isNaN(hours) &&
-						!Number.isNaN(minutes) &&
-						!Number.isNaN(seconds)
-					) {
-						const updatedStartDate = new Date(updatedEventData.startDate);
-						updatedStartDate.setHours(hours, minutes, seconds);
-						updatedEventData.startTime = updatedStartDate;
-					}
-				}
-
-				updatedEventData.description = filteredActivity.description || '';
-				updatedEventData.price = filteredActivity.price || '';
-				updatedEventData.medias =
-					newMediasWithPreview.length > 0 ? newMediasWithPreview : [];
-			}
-
-			setЕventData(updatedEventData);
-			setPreviewFiles(updatedEventData.medias);
+	function inferBlobTypeFromUrl(url) {
+		const fileExtension = url.split('.').pop();
+		switch (fileExtension.toLowerCase()) {
+			case 'pdf':
+				return 'application/pdf';
+			case 'png':
+				return 'image/png';
+			case 'jpg':
+			case 'jpeg':
+				return 'image/jpeg';
+			case 'gif':
+				return 'image/gif';
+			case 'bmp':
+				return 'image/bmp';
+			default:
+				return null;
 		}
+	}
+
+	useEffect(() => {
+		const fetchAndConvertToBase64 = async (url) => {
+			try {
+				const response = await fetch(url);
+				if (!response.ok) {
+					throw new Error(`Failed to fetch ${url}`);
+				}
+				const blob = await response.blob();
+				const blobType = inferBlobTypeFromUrl(url); // Infer the blob type based on the URL
+				const reader = new FileReader();
+				return new Promise((resolve, reject) => {
+					reader.onload = () => {
+						if (reader.result) {
+							const base64String = reader.result.split(',')[1]; // Get the base64-encoded data
+							if (base64String) {
+								const base64URL = `data:${blobType};base64,${base64String}`;
+								resolve(base64URL);
+							} else {
+								reject(new Error('Base64 conversion failed'));
+							}
+						} else {
+							reject(new Error('Base64 conversion failed'));
+						}
+					};
+					reader.onerror = (error) => {
+						reject(error);
+					};
+					reader.readAsDataURL(blob);
+				});
+			} catch (error) {
+				console.error('Error fetching and converting to base64:', error);
+				return null;
+			}
+		};
+
+		const populateEncodedFiles = async () => {
+			const filteredTravel = travels.find((travel) => travel.id === +travelId);
+			if (filteredTravel) {
+				const filteredActivity = filteredTravel.activities.find(
+					(activity) => activity.id === eventId
+				);
+				if (filteredActivity) {
+					const newMediasWithPreview = filteredActivity.medias.map(
+						(media, index) => ({
+							name: index.toString(),
+							preview: media,
+						})
+					);
+
+					const updatedEventData = {
+						category: 'activity',
+						eventName: filteredActivity.name || '',
+						address: filteredActivity.address || '',
+						startDate:
+							new Date(filteredActivity.date.replace(/-/g, '/')) || null,
+						startTime: null,
+						description: filteredActivity.description || '',
+						price: filteredActivity.price || '',
+						medias: newMediasWithPreview.length > 0 ? newMediasWithPreview : [],
+					};
+
+					const startTimeParts = (filteredActivity.time || '').split(':');
+					if (startTimeParts.length === 3) {
+						const hours = parseInt(startTimeParts[0], 10);
+						const minutes = parseInt(startTimeParts[1], 10);
+						const seconds = parseInt(startTimeParts[2], 10);
+						if (
+							!Number.isNaN(hours) &&
+							!Number.isNaN(minutes) &&
+							!Number.isNaN(seconds)
+						) {
+							const updatedStartDate = new Date(updatedEventData.startDate);
+							updatedStartDate.setHours(hours, minutes, seconds);
+							updatedEventData.startTime = updatedStartDate || null;
+						}
+					}
+					const newMediasWithEncoded = await Promise.all(
+						filteredActivity.medias.map(async (media, index) => {
+							try {
+								const encoded = await fetchAndConvertToBase64(media);
+								if (encoded) {
+									return {
+										encoded,
+										name: `File${index + 1}.pdf`, // Customize the name as needed
+									};
+								}
+								return null;
+							} catch (error) {
+								console.error(
+									'Error fetching and converting to base64:',
+									error
+								);
+								return null;
+							}
+						})
+					);
+
+					const filteredNewMedias = newMediasWithEncoded.filter(
+						(media) => media !== null
+					);
+
+					setEncodedFiles(filteredNewMedias);
+					setЕventData(updatedEventData);
+					setPreviewFiles(updatedEventData.medias);
+				}
+			}
+		};
+
+		populateEncodedFiles();
 	}, [actionName, TRAVEL_EVENT_EDIT]);
 
 	const handleSubmit = async (event) => {
 		event.preventDefault();
 
-		// handleUpdate();
 		let startTimeString = '';
 		if (eventData.startTime) {
-			// Check if eventData.startTime is defined
 			startTimeString = eventData.startTime.toLocaleTimeString([], {
 				hour: '2-digit',
 				minute: '2-digit',
@@ -349,8 +411,6 @@ function ActivityForm({ closeForm, actionName, eventId }) {
 			medias,
 		};
 
-		console.log('newEvent:', newEvent);
-
 		if (actionName === TRAVEL_EVENT_EDIT) {
 			await dispatch(
 				fetchPatchEvent({ travelId, token, data: newEvent, eventId })
@@ -358,7 +418,6 @@ function ActivityForm({ closeForm, actionName, eventId }) {
 				dispatch(fetchTravels(token));
 			});
 		} else {
-			console.log('dispatchnewEvent:', newEvent);
 			await dispatch(fetchAddEvent({ travelId, token, data: newEvent })).then(
 				() => {
 					dispatch(fetchTravels(token));
@@ -482,7 +541,6 @@ function ActivityForm({ closeForm, actionName, eventId }) {
 										<button
 											className={`${styles.form__button} ${styles.form__button_addFile}`}
 											type="button"
-											onClick={() => console.log('click')}
 										>
 											<span>+ Файл</span>
 										</button>
