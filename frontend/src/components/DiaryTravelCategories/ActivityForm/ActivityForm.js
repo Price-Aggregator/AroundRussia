@@ -17,7 +17,6 @@ import { useParams } from 'react-router-dom';
 import imageToBase64 from 'image-to-base64/browser';
 import styles from './ActivityForm.module.css';
 import {
-	editTravel,
 	fetchAddEvent,
 	fetchPatchEvent,
 	fetchTravels,
@@ -104,7 +103,6 @@ function ActivityForm({ closeForm, actionName, eventId }) {
 	};
 
 	useEffect(() => {
-		// Create an array of encoded values from updated encodedFiles
 		const updatedMedias = encodedFiles.map((file) => file.encoded);
 		setMedias(updatedMedias);
 	}, [encodedFiles]);
@@ -176,13 +174,10 @@ function ActivityForm({ closeForm, actionName, eventId }) {
 		isDragAccept,
 		isDragReject,
 	} = useDropzone({
-		accept: [
-			'image/jpeg',
-			'image/png',
-			'image/gif',
-			'image/*',
-			'application/pdf',
-		],
+		accept: {
+			'image/*': ['.png', '.gif', '.jpeg', '.jpg'],
+			'application/pdf': ['.pdf'],
+		},
 		maxSize: 100000000,
 		multiple: true,
 		maxFiles: 9,
@@ -255,136 +250,6 @@ function ActivityForm({ closeForm, actionName, eventId }) {
 		}));
 	};
 
-	function inferBlobTypeFromUrl(url) {
-		const fileExtension = url.split('.').pop();
-		switch (fileExtension.toLowerCase()) {
-			case 'pdf':
-				return 'application/pdf';
-			case 'png':
-				return 'image/png';
-			case 'jpg':
-			case 'jpeg':
-				return 'image/jpeg';
-			case 'gif':
-				return 'image/gif';
-			case 'bmp':
-				return 'image/bmp';
-			default:
-				return null;
-		}
-	}
-
-	useEffect(() => {
-		const fetchAndConvertToBase64 = async (url) => {
-			try {
-				const response = await fetch(url);
-				if (!response.ok) {
-					throw new Error(`Failed to fetch ${url}`);
-				}
-				const blob = await response.blob();
-				const blobType = inferBlobTypeFromUrl(url); // Infer the blob type based on the URL
-				const reader = new FileReader();
-				return new Promise((resolve, reject) => {
-					reader.onload = () => {
-						if (reader.result) {
-							const base64String = reader.result.split(',')[1]; // Get the base64-encoded data
-							if (base64String) {
-								const base64URL = `data:${blobType};base64,${base64String}`;
-								resolve(base64URL);
-							} else {
-								reject(new Error('Base64 conversion failed'));
-							}
-						} else {
-							reject(new Error('Base64 conversion failed'));
-						}
-					};
-					reader.onerror = (error) => {
-						reject(error);
-					};
-					reader.readAsDataURL(blob);
-				});
-			} catch (error) {
-				console.error('Error fetching and converting to base64:', error);
-				return null;
-			}
-		};
-
-		const populateEncodedFiles = async () => {
-			const filteredTravel = travels.find((travel) => travel.id === +travelId);
-			if (filteredTravel) {
-				const filteredActivity = filteredTravel.activities.find(
-					(activity) => activity.id === eventId
-				);
-				if (filteredActivity) {
-					const newMediasWithPreview = filteredActivity.medias.map(
-						(media, index) => ({
-							name: index.toString(),
-							preview: media,
-						})
-					);
-
-					const updatedEventData = {
-						category: 'activity',
-						eventName: filteredActivity.name || '',
-						address: filteredActivity.address || '',
-						startDate:
-							new Date(filteredActivity.date.replace(/-/g, '/')) || null,
-						startTime: null,
-						description: filteredActivity.description || '',
-						price: filteredActivity.price || '',
-						medias: newMediasWithPreview.length > 0 ? newMediasWithPreview : [],
-					};
-
-					const startTimeParts = (filteredActivity.time || '').split(':');
-					if (startTimeParts.length === 3) {
-						const hours = parseInt(startTimeParts[0], 10);
-						const minutes = parseInt(startTimeParts[1], 10);
-						const seconds = parseInt(startTimeParts[2], 10);
-						if (
-							!Number.isNaN(hours) &&
-							!Number.isNaN(minutes) &&
-							!Number.isNaN(seconds)
-						) {
-							const updatedStartDate = new Date(updatedEventData.startDate);
-							updatedStartDate.setHours(hours, minutes, seconds);
-							updatedEventData.startTime = updatedStartDate || null;
-						}
-					}
-					const newMediasWithEncoded = await Promise.all(
-						filteredActivity.medias.map(async (media, index) => {
-							try {
-								const encoded = await fetchAndConvertToBase64(media);
-								if (encoded) {
-									return {
-										encoded,
-										name: `File${index + 1}.pdf`, // Customize the name as needed
-									};
-								}
-								return null;
-							} catch (error) {
-								console.error(
-									'Error fetching and converting to base64:',
-									error
-								);
-								return null;
-							}
-						})
-					);
-
-					const filteredNewMedias = newMediasWithEncoded.filter(
-						(media) => media !== null
-					);
-
-					setEncodedFiles(filteredNewMedias);
-					setЕventData(updatedEventData);
-					setPreviewFiles(updatedEventData.medias);
-				}
-			}
-		};
-
-		populateEncodedFiles();
-	}, [actionName, TRAVEL_EVENT_EDIT]);
-
 	const handleSubmit = async (event) => {
 		event.preventDefault();
 
@@ -399,11 +264,7 @@ function ActivityForm({ closeForm, actionName, eventId }) {
 		const newEvent = {
 			startDate: formatDate(eventData.startDate),
 			category: eventData.category,
-			startTime: startTimeString, // Assign the formatted time string
-			// startTime: eventData.startTime.toLocaleTimeString([], {
-			// 	hour: '2-digit',
-			// 	minute: '2-digit',
-			// }),
+			startTime: startTimeString,
 			address: eventData.address,
 			description: eventData.description,
 			price: eventData.price,
@@ -546,6 +407,7 @@ function ActivityForm({ closeForm, actionName, eventId }) {
 										</button>
 									</div>
 								</div>
+								{isDragReject && <p>только картинки и PDF, пожалуйста</p>}
 								<div className={styles.form__attachments}>
 									{renderFilePreviews(previewFiles)}
 								</div>
