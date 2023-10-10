@@ -113,7 +113,6 @@ export default function useFileHandling({ actionName, setЕventData, eventId }) 
 	});
 
 	const removeFile = (file) => () => {
-		console.log('file:', file);
 		const updatedPreviewFiles = previewFiles.filter(
 			(f) => f.name !== file.name
 		);
