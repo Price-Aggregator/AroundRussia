@@ -258,6 +258,8 @@ export default function useFileHandling({ actionName, setЕventData, eventId }) 
 						category: filteredActivity.category || '',
 						eventName: filteredActivity.name || '',
 						address: filteredActivity.address || '',
+						origin: filteredActivity.origin || '',
+						destination: filteredActivity.destination || '',
 						startDate:
 							new Date(filteredActivity.date.replace(/-/g, '/')) || null,
 						startTime: null,

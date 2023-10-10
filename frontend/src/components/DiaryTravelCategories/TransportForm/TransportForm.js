@@ -21,8 +21,8 @@ function TransportForm({ closeForm, actionName, eventId }) {
 	const [eventData, setЕventData] = useState({
 		category: 'flight',
 		eventName: '',
-		address: '',
-		endAddress: '',
+		origin: '',
+		destination: '',
 		startDate: null,
 		startTime: null,
 		endDate: null,
@@ -107,7 +107,8 @@ function TransportForm({ closeForm, actionName, eventId }) {
 			startTime: startTimeString,
 			endDate: formatDate(eventData.endDate),
 			endTime: endTimeString,
-			origin: eventData.address,
+			origin: eventData.origin,
+			destination: eventData.destination,
 			description: eventData.description,
 			price: eventData.price,
 			eventName: eventData.eventName,
@@ -155,29 +156,29 @@ function TransportForm({ closeForm, actionName, eventId }) {
 						/>
 					</div>{' '}
 					<div className={styles.form__labelBox}>
-						<label htmlFor="address" className={styles.form__labelText}>
+						<label htmlFor="origin" className={styles.form__labelText}>
 							Адрес отправления*
 						</label>
 						<input
 							className={`${styles.form__input} ${styles.form__input_title}`}
 							type="text"
-							id="address"
-							name="address"
-							value={eventData.address}
+							id="origin"
+							name="origin"
+							value={eventData.origin}
 							onChange={handleInputChange}
 							required
 						/>
 					</div>{' '}
 					<div className={styles.form__labelBox}>
-						<label htmlFor="endAddress" className={styles.form__labelText}>
+						<label htmlFor="destination" className={styles.form__labelText}>
 							Адрес прибытия*
 						</label>
 						<input
 							className={`${styles.form__input} ${styles.form__input_title}`}
 							type="text"
-							id="endAddress"
-							name="endAddress"
-							value={eventData.endAddress}
+							id="destination"
+							name="destination"
+							value={eventData.destination}
 							onChange={handleInputChange}
 							required
 						/>
