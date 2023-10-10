@@ -18,23 +18,7 @@ import { formatDate } from '../../../utils/utils';
 import { TRAVEL_EVENT_EDIT } from '../../../utils/constants';
 
 function PropertyForm({ closeForm, actionName, eventId }) {
-	const {
-		renderFilePreviews,
-		medias,
-		previewFiles,
-		isDragReject,
-		fileRejections,
-		fileRejectionItems,
-		style,
-		getRootProps,
-		getInputProps,
-	} = useFileHandling();
-
-	const { travelId } = useParams();
-	const dispatch = useDispatch();
-	const token = useSelector(getUserToken);
-
-	const [eventData, setEventData] = useState({
+	const [eventData, setЕventData] = useState({
 		category: 'hotel',
 		eventName: '',
 		address: '',
@@ -47,37 +31,53 @@ function PropertyForm({ closeForm, actionName, eventId }) {
 		medias: [],
 	});
 
+	const {
+		renderFilePreviews,
+		medias,
+		previewFiles,
+		isDragReject,
+		fileRejections,
+		fileRejectionItems,
+		style,
+		getRootProps,
+		getInputProps,
+	} = useFileHandling({ actionName, setЕventData, eventId });
+
+	const { travelId } = useParams();
+	const dispatch = useDispatch();
+	const token = useSelector(getUserToken);
+
 	const handleInputChange = (event) => {
 		const { name, value } = event.target;
-		setEventData((prevData) => ({
+		setЕventData((prevData) => ({
 			...prevData,
 			[name]: value,
 		}));
 	};
 
 	const handleStartDateChange = (date) => {
-		setEventData((prevData) => ({
+		setЕventData((prevData) => ({
 			...prevData,
 			startDate: date,
 		}));
 	};
 
 	const handleEndDateChange = (date) => {
-		setEventData((prevData) => ({
+		setЕventData((prevData) => ({
 			...prevData,
 			endDate: date,
 		}));
 	};
 
 	const handleStartTimeChange = (time) => {
-		setEventData((prevData) => ({
+		setЕventData((prevData) => ({
 			...prevData,
 			startTime: time,
 		}));
 	};
 
 	const handleEndTimeChange = (time) => {
-		setEventData((prevData) => ({
+		setЕventData((prevData) => ({
 			...prevData,
 			endTime: time,
 		}));

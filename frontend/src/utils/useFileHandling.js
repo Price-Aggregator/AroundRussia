@@ -255,7 +255,7 @@ export default function useFileHandling({ actionName, setЕventData, eventId }) 
 					);
 
 					const updatedEventData = {
-						category: 'activity',
+						category: filteredActivity.category || '',
 						eventName: filteredActivity.name || '',
 						address: filteredActivity.address || '',
 						startDate:

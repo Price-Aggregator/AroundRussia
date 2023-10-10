@@ -80,11 +80,7 @@ function ActivityForm({ closeForm, actionName, eventId }) {
 		const newEvent = {
 			startDate: formatDate(eventData.startDate),
 			category: eventData.category,
-			startTime: startTimeString, // Assign the formatted time string
-			// startTime: eventData.startTime.toLocaleTimeString([], {
-			// 	hour: '2-digit',
-			// 	minute: '2-digit',
-			// }),
+			startTime: startTimeString,
 			address: eventData.address,
 			description: eventData.description,
 			price: eventData.price,
