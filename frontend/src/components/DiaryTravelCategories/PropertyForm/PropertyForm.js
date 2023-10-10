@@ -1,21 +1,11 @@
-/* eslint-disable react/button-has-type */
-/* eslint-disable no-undef */
 /* eslint-disable react/jsx-props-no-spreading */
-/* eslint-disable prefer-promise-reject-errors */
-/* eslint-disable no-unused-vars */
-/* eslint-disable jsx-a11y/label-has-associated-control */
-/* eslint-disable import/no-extraneous-dependencies */
-// @ts-ignore
-// @typescript-eslint/ban-ts-comment
-import React, { useState, useEffect, useCallback, useMemo } from 'react';
+import React, { useState } from 'react';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
-import { useDropzone } from 'react-dropzone';
 import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
-import useFileHandling from '../../../utils/useFileHandling'; // Import the hook
-import pdfIcon from '../../../images/pdf-icon.svg';
+import useFileHandling from '../../../utils/useFileHandling';
 import styles from '../form.module.css';
 import {
 	fetchAddEventStart,
@@ -36,8 +26,8 @@ function PropertyForm({ closeForm, actionName, eventId }) {
 		fileRejections,
 		fileRejectionItems,
 		style,
-    getRootProps,
-    getInputProps
+		getRootProps,
+		getInputProps,
 	} = useFileHandling();
 
 	const { travelId } = useParams();
@@ -229,7 +219,6 @@ function PropertyForm({ closeForm, actionName, eventId }) {
 									onChange={handleEndDateChange}
 									dateFormat="dd.MM.yyyy"
 									placeholderText=""
-									// required
 								/>
 							</div>
 						</div>
