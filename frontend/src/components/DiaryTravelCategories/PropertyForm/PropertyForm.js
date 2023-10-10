@@ -55,17 +55,17 @@ function PropertyForm({ closeForm, actionName, eventId }) {
 		}));
 	};
 
-	const handleStartDateChange = (date) => {
+	const handleStartDateChange = (startDate) => {
 		setЕventData((prevData) => ({
 			...prevData,
-			startDate: date,
+			startDate,
 		}));
 	};
 
-	const handleEndDateChange = (date) => {
+	const handleEndDateChange = (startTime) => {
 		setЕventData((prevData) => ({
 			...prevData,
-			endDate: date,
+			startTime,
 		}));
 	};
 

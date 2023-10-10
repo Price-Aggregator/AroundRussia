@@ -18,23 +18,7 @@ import { formatDate } from '../../../utils/utils';
 import { TRAVEL_EVENT_EDIT } from '../../../utils/constants';
 
 function TransportForm({ closeForm, actionName, eventId }) {
-	const {
-		renderFilePreviews,
-		medias,
-		previewFiles,
-		isDragReject,
-		fileRejections,
-		fileRejectionItems,
-		style,
-		getRootProps,
-		getInputProps,
-	} = useFileHandling();
-
-	const { travelId } = useParams();
-	const dispatch = useDispatch();
-	const token = useSelector(getUserToken);
-
-	const [eventData, setEventData] = useState({
+	const [eventData, setЕventData] = useState({
 		category: 'flight',
 		eventName: '',
 		address: '',
@@ -48,37 +32,53 @@ function TransportForm({ closeForm, actionName, eventId }) {
 		medias: [],
 	});
 
+	const {
+		renderFilePreviews,
+		medias,
+		previewFiles,
+		isDragReject,
+		fileRejections,
+		fileRejectionItems,
+		style,
+		getRootProps,
+		getInputProps,
+	} = useFileHandling({ actionName, setЕventData, eventId });
+
+	const { travelId } = useParams();
+	const dispatch = useDispatch();
+	const token = useSelector(getUserToken);
+
 	const handleInputChange = (event) => {
 		const { name, value } = event.target;
-		setEventData((prevData) => ({
+		setЕventData((prevData) => ({
 			...prevData,
 			[name]: value,
 		}));
 	};
 
-	const handleStartDateChange = (date) => {
-		setEventData((prevData) => ({
+	const handleStartDateChange = (startDate) => {
+		setЕventData((prevData) => ({
 			...prevData,
-			startDate: date,
+			startDate,
 		}));
 	};
 
-	const handleEndDateChange = (date) => {
-		setEventData((prevData) => ({
+	const handleEndDateChange = (startTime) => {
+		setЕventData((prevData) => ({
 			...prevData,
-			endDate: date,
+			startTime,
 		}));
 	};
 
 	const handleStartTimeChange = (time) => {
-		setEventData((prevData) => ({
+		setЕventData((prevData) => ({
 			...prevData,
 			startTime: time,
 		}));
 	};
 
 	const handleEndTimeChange = (time) => {
-		setEventData((prevData) => ({
+		setЕventData((prevData) => ({
 			...prevData,
 			endTime: time,
 		}));
@@ -89,14 +89,12 @@ function TransportForm({ closeForm, actionName, eventId }) {
 		let startTimeString = '';
 		let endTimeString = '';
 		if (eventData.startTime) {
-			// Check if eventData.startTime is defined
 			startTimeString = eventData.startTime.toLocaleTimeString([], {
 				hour: '2-digit',
 				minute: '2-digit',
 			});
 		}
 		if (eventData.startTime) {
-			// Check if eventData.startTime is defined
 			endTimeString = eventData.startTime.toLocaleTimeString([], {
 				hour: '2-digit',
 				minute: '2-digit',
