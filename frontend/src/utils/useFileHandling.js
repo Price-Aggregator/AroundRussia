@@ -191,5 +191,7 @@ export default function useFileHandling() {
 		style,
 		getRootProps,
 		getInputProps,
+    setEncodedFiles,
+    setPreviewFiles
 	};
 }
