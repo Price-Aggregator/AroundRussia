@@ -63,10 +63,10 @@ function TransportForm({ closeForm, actionName, eventId }) {
 		}));
 	};
 
-	const handleEndDateChange = (startTime) => {
+	const handleEndDateChange = (endDate) => {
 		setЕventData((prevData) => ({
 			...prevData,
-			startTime,
+			endDate,
 		}));
 	};
 
