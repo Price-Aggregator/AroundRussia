@@ -1,7 +1,7 @@
 import React, { useState, useCallback, useEffect, useMemo } from 'react';
 import { useDropzone } from 'react-dropzone';
 import imageToBase64 from 'image-to-base64/browser';
-import styles from '../components/DiaryTravelCategories/PropertyForm/PropertyForm.module.css';
+import styles from '../components/DiaryTravelCategories/form.module.css';
 import pdfIcon from '../images/pdf-icon.svg';
 
 export default function useFileHandling() {
@@ -28,31 +28,31 @@ export default function useFileHandling() {
 		setMedias(updatedMedias);
 	}, [encodedFiles]);
 
-   function loadFile(file) {
-    return new Promise((resolve, reject) => {
-      const reader = new FileReader();
-      const base = {
-        name: file.name,
-        size: file.size,
-      };
-      reader.addEventListener('abort', (e) =>
-        reject(new Error(`File upload aborted: ${e}`))
-      );
-      reader.addEventListener('error', (e) =>
-        reject(new Error(`File upload error: ${e}`))
-      );
-      reader.addEventListener(
-        'load',
-        () =>
-          resolve({
-            ...base,
-            encoded: reader.result,
-          }),
-        false
-      );
-      reader.readAsDataURL(file);
-    });
-  }
+	function loadFile(file) {
+		return new Promise((resolve, reject) => {
+			const reader = new FileReader();
+			const base = {
+				name: file.name,
+				size: file.size,
+			};
+			reader.addEventListener('abort', (e) =>
+				reject(new Error(`File upload aborted: ${e}`))
+			);
+			reader.addEventListener('error', (e) =>
+				reject(new Error(`File upload error: ${e}`))
+			);
+			reader.addEventListener(
+				'load',
+				() =>
+					resolve({
+						...base,
+						encoded: reader.result,
+					}),
+				false
+			);
+			reader.readAsDataURL(file);
+		});
+	}
 
 	const onChange = (newFiles) => {
 		const newFilesWithPreview = newFiles.map((file) => ({

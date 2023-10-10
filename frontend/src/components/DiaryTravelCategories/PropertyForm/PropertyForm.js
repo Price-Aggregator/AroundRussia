@@ -16,7 +16,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import useFileHandling from '../../../utils/useFileHandling'; // Import the hook
 import pdfIcon from '../../../images/pdf-icon.svg';
-import styles from './PropertyForm.module.css';
+import styles from '../form.module.css';
 import {
 	fetchAddEventStart,
 	fetchAddEventEnd,

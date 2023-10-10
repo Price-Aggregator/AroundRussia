@@ -91,7 +91,7 @@
 .form__dateInputContainer::after {
 	content: '';
 	position: absolute;
-	background-image: url(../../../images/calendar.svg);
+	background-image: url(../../images/calendar.svg);
 	width: 24px;
 	height: 24px;
 	top: 10px;
@@ -105,7 +105,7 @@
 .form__timeInputContainer::after {
 	content: '';
 	position: absolute;
-	background-image: url(../../../images/time-icon.svg);
+	background-image: url(../../images/time-icon.svg);
 	width: 24px;
 	height: 24px;
 	top: 10px;
@@ -152,6 +152,7 @@
 	padding: 49px 67px 48px 68px;
 	justify-content: center;
 	align-items: center;
+	/* position: relative; */
 	background: #ecf1f1;
 	border: none;
 	border-radius: 10px;
@@ -159,6 +160,17 @@
 	box-sizing: border-box;
 	min-height: 150px;
 	width: 260px;
+}
+
+.form__files {
+	display: flex;
+	justify-content: space-between;
+	margin-bottom: 10px;
+}
+
+.form__input_file {
+	min-height: 150px;
+	min-width: 260px;
 }
 
 .form__files-container {
@@ -235,7 +247,7 @@
 }
 
 .dropzoneTrashBag {
-	background: url(../../../images/travel-plan/trashBag.svg);
+	background: url(../../images/travel-plan/trashBag.svg);
 	background-size: contain;
 	width: 20px;
 	height: 20px;

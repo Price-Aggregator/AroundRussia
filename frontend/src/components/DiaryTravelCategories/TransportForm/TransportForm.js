@@ -15,7 +15,7 @@ import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import imageToBase64 from 'image-to-base64/browser';
-import styles from './TransportForm.module.css';
+import styles from '../form.module.css';
 import {
 	fetchAddEventStart,
 	fetchAddEventEnd,
