@@ -1,196 +1,33 @@
-/* eslint-disable react/button-has-type */
-/* eslint-disable no-undef */
 /* eslint-disable react/jsx-props-no-spreading */
-/* eslint-disable prefer-promise-reject-errors */
-/* eslint-disable no-unused-vars */
-/* eslint-disable jsx-a11y/label-has-associated-control */
-/* eslint-disable import/no-extraneous-dependencies */
-// @ts-ignore
-// @typescript-eslint/ban-ts-comment
-import React, { useState, useEffect, useCallback, useMemo } from 'react';
+import React, { useState } from 'react';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
-import { useDropzone } from 'react-dropzone';
 import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
-import imageToBase64 from 'image-to-base64/browser';
+import useFileHandling from '../../../utils/useFileHandling';
 import styles from '../form.module.css';
 import {
-	fetchAddEvent,
 	fetchPatchEvent,
 	fetchTravels,
+  fetchAddEvent,
 } from '../../../store/Travels/slice';
 import { getUserToken } from '../../../store/User/selectors';
 import { formatDate } from '../../../utils/utils';
 import { TRAVEL_EVENT_EDIT } from '../../../utils/constants';
-import pdfIcon from '../../../images/pdf-icon.svg';
-
-const baseStyle = {
-	backgroundColor: '#fafafa',
-	borderStyle: 'solid',
-};
-
-const acceptStyle = {
-	borderColor: '#f8c747',
-	borderStyle: 'dashed',
-};
-
-const rejectStyle = {
-	borderColor: '#ff1744',
-};
-const loadFile = (file) =>
-	new Promise((res, rej) => {
-		const reader = new FileReader();
-		const base = {
-			name: file.name,
-			size: file.size,
-		};
-		reader.addEventListener('abort', (e) => rej(`File upload aborted:${e}`));
-		reader.addEventListener('error', (e) => rej(`File upload error: ${e}`));
-		reader.addEventListener(
-			'load',
-			() =>
-				res({
-					...base,
-					encoded: reader.result,
-				}),
-			false
-		);
-		reader.readAsDataURL(file);
-	});
 
 function ActivityForm({ closeForm, actionName, eventId }) {
-	const [encodedFiles, setEncodedFiles] = useState([]);
-	const [previewFiles, setPreviewFiles] = useState([]);
-	const [medias, setMedias] = useState([]);
-
-	const onChange = (newFiles) => {
-		const newFilesWithPreview = newFiles.map((file) => ({
-			name: file.name,
-			preview: URL.createObjectURL(file),
-		}));
-		setPreviewFiles((prevFiles) => [...prevFiles, ...newFilesWithPreview]);
-	};
-
-	const removeFile = (file) => () => {
-		const updatedPreviewFiles = previewFiles.filter(
-			(f) => f.name !== file.name
-		);
-		setPreviewFiles(updatedPreviewFiles);
-
-		imageToBase64(file.preview)
-			.then((response) => {
-				const updatedEncodedFiles = encodedFiles.filter((encodedFile) => {
-					if (typeof encodedFile.encoded === 'string') {
-						return !encodedFile.encoded.includes(response.slice(0, 100));
-					}
-					return true;
-				});
-				setEncodedFiles(updatedEncodedFiles);
-			})
-			.catch((error) => {
-				console.log('error:', error);
-			});
-	};
-
-	useEffect(() => {
-		const updatedMedias = encodedFiles.map((file) => file.encoded);
-		setMedias(updatedMedias);
-	}, [encodedFiles]);
-
-	function renderFilePreviews(files) {
-		files.map((file) => file.preview.toLowerCase().endsWith('.pdf'));
-		return files.map((file) => (
-			<div key={file.name} className={styles.form__fileBoxContent}>
-				<button
-					type="button"
-					className={styles.dropzoneTrashBag}
-					onClick={removeFile(file)}
-				>
-					{' '}
-				</button>
-				{file.name.toLowerCase().endsWith('.pdf') ||
-				file.preview.toLowerCase().endsWith('.pdf') ? (
-					<img
-						src={pdfIcon}
-						alt={file.name}
-						className={styles.filePreviewPDF}
-					/>
-				) : (
-					<img
-						src={file.preview}
-						alt={file.name}
-						className={styles.filePreviewImage}
-					/>
-				)}
-				<p className={styles.form__filename}>{file.name}</p>
-			</div>
-		));
-	}
-
-	const onDrop = useCallback((acceptedFiles, rejectedFiles) => {
-		onChange(
-			acceptedFiles.map((fl) =>
-				Object.assign(fl, {
-					preview: URL.createObjectURL(fl),
-					base64: localStorage.getItem('base64'),
-				})
-			)
-		);
-		acceptedFiles.forEach((file) =>
-			loadFile(file)
-				.then((encFile) => {
-					setEncodedFiles((prevEncodedFiles) => [...prevEncodedFiles, encFile]);
-					setMedias((prevMedias) => [...prevMedias, encFile.encoded]);
-				})
-				.catch((error) => console.log('error:', error))
-		);
-	}, []);
-
 	const {
-		acceptedFiles,
+		renderFilePreviews,
+		medias,
+		previewFiles,
+		isDragReject,
 		fileRejections,
+		fileRejectionItems,
+		style,
 		getRootProps,
 		getInputProps,
-		isDragAccept,
-		isDragReject,
-	} = useDropzone({
-		accept: {
-			'image/*': ['.png', '.gif', '.jpeg', '.jpg'],
-			'application/pdf': ['.pdf'],
-		},
-		maxSize: 100000000,
-		multiple: true,
-		maxFiles: 9,
-		onDrop,
-		validator: (file) => {
-			if (encodedFiles.some((f) => f.name === file.name)) {
-				return {
-					code: 'name-dublicates',
-					message: `Файл ${file.name} уже добавлен`,
-				};
-			}
-			return null;
-		},
-	});
-
-	const style = useMemo(
-		() => ({
-			...baseStyle,
-			...(isDragAccept ? acceptStyle : {}),
-			...(isDragReject ? rejectStyle : {}),
-		}),
-		[isDragAccept, isDragReject]
-	);
-
-	const fileRejectionItems = fileRejections.map(({ file, errors }) => (
-		<ul>
-			{errors.map((e) => (
-				<li key={e.code}>{e.message}</li>
-			))}
-		</ul>
-	));
+	} = useFileHandling();
 
 	const { travelId } = useParams();
 	const dispatch = useDispatch();
