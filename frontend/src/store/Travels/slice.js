@@ -115,14 +115,13 @@ export const fetchRemoveEvent = createAsyncThunk(
 export const fetchAddEventStart = createAsyncThunk(
 	`${travelsName}/addEvent`,
 	async ({ travelId, token, data }) => {
-		console.log('EventStartdata:', data);
 		const requestBody = {
 			travel: travelId,
 			name: data.eventName,
 			category: data.category,
 			date: data.startDate,
 			price: data.price || 0,
-			medias: [],
+			medias: data.medias,
 			origin: data.origin || null,
 			address: data.address,
 			destination: data.destination || null,
@@ -151,10 +150,8 @@ export const fetchAddEventStart = createAsyncThunk(
 export const fetchAddEventEnd = createAsyncThunk(
 	`${travelsName}/addEvent`,
 	async ({ travelId, token, data }) => {
-		console.log('EventEnddata:', data);
 		const eventDescription =
 			data.category === 'hotel' ? () => 'Выселение' : () => 'Прибытие';
-		console.log('eventDescription:', eventDescription);
 		const event = await fetch(`${BASE_URL}/activity/`, {
 			method: 'POST',
 			headers: {
@@ -168,7 +165,7 @@ export const fetchAddEventEnd = createAsyncThunk(
 				date: data.endDate,
 				time: data.endTime,
 				// "price": data.price || 0,
-				medias: [],
+				medias: data.medias,
 				address: data.address,
 				origin: data.origin || null,
 				destination: data.destination || null,
@@ -193,7 +190,7 @@ export const fetchAddEvent = createAsyncThunk(
 			category: data.category,
 			date: data.startDate,
 			price: data.price || 0,
-			medias: [],
+			medias: data.medias,
 			origin: data.origin || null,
 			address: data.address,
 			destination: data.destination || null,
@@ -233,9 +230,9 @@ export const fetchPatchEvent = createAsyncThunk(
 				name: data.eventName,
 				category: data.category,
 				date: data.startDate,
-				time: data.startTime,
+				time: data.startTime || null,
 				price: data.price || 0,
-				medias: [],
+				medias: data.medias,
 				address: data.address,
 				origin: data.origin || null,
 				destination: data.destination || null,
