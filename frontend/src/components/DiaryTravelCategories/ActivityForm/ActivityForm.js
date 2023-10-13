@@ -5,7 +5,7 @@ import 'react-datepicker/dist/react-datepicker.css';
 import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
-import useFileHandling from '../../../utils/useFileHandling';
+import useFileHandling from '../../../hooks/useFileHandling';
 import styles from '../form.module.css';
 import {
 	fetchPatchEvent,
