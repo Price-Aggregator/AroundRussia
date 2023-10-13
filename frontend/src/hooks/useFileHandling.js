@@ -5,7 +5,7 @@ import { useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import styles from '../components/DiaryTravelCategories/form.module.css';
 import pdfIcon from '../images/pdf-icon.svg';
-import { TRAVEL_EVENT_EDIT } from './constants';
+import { TRAVEL_EVENT_EDIT } from '../utils/constants';
 
 export default function useFileHandling({ actionName, setЕventData, eventId }) {
 	const [previewFiles, setPreviewFiles] = useState([]);
