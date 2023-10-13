@@ -18,6 +18,20 @@ import { formatDate } from '../../../utils/utils';
 import { TRAVEL_EVENT_EDIT } from '../../../utils/constants';
 
 function TransportForm({ closeForm, actionName, eventId }) {
+	const [eventData, setЕventData] = useState({
+		category: 'flight',
+		eventName: '',
+		origin: '',
+		destination: '',
+		startDate: null,
+		startTime: null,
+		endDate: null,
+		endTime: null,
+		description: '',
+		price: '',
+		medias: [],
+	});
+
 	const {
 		renderFilePreviews,
 		medias,
@@ -28,57 +42,43 @@ function TransportForm({ closeForm, actionName, eventId }) {
 		style,
 		getRootProps,
 		getInputProps,
-	} = useFileHandling();
+	} = useFileHandling({ actionName, setЕventData, eventId });
 
 	const { travelId } = useParams();
 	const dispatch = useDispatch();
 	const token = useSelector(getUserToken);
 
-	const [eventData, setEventData] = useState({
-		category: 'flight',
-		eventName: '',
-		address: '',
-		endAddress: '',
-		startDate: null,
-		startTime: null,
-		endDate: null,
-		endTime: null,
-		description: '',
-		price: '',
-		medias: [],
-	});
-
 	const handleInputChange = (event) => {
 		const { name, value } = event.target;
-		setEventData((prevData) => ({
+		setЕventData((prevData) => ({
 			...prevData,
 			[name]: value,
 		}));
 	};
 
-	const handleStartDateChange = (date) => {
-		setEventData((prevData) => ({
+	const handleStartDateChange = (startDate) => {
+		setЕventData((prevData) => ({
 			...prevData,
-			startDate: date,
+			startDate,
 		}));
 	};
 
-	const handleEndDateChange = (date) => {
-		setEventData((prevData) => ({
+	const handleEndDateChange = (endDate) => {
+		setЕventData((prevData) => ({
 			...prevData,
-			endDate: date,
+			endDate,
 		}));
 	};
 
 	const handleStartTimeChange = (time) => {
-		setEventData((prevData) => ({
+		setЕventData((prevData) => ({
 			...prevData,
 			startTime: time,
 		}));
 	};
 
 	const handleEndTimeChange = (time) => {
-		setEventData((prevData) => ({
+		setЕventData((prevData) => ({
 			...prevData,
 			endTime: time,
 		}));
@@ -89,14 +89,12 @@ function TransportForm({ closeForm, actionName, eventId }) {
 		let startTimeString = '';
 		let endTimeString = '';
 		if (eventData.startTime) {
-			// Check if eventData.startTime is defined
 			startTimeString = eventData.startTime.toLocaleTimeString([], {
 				hour: '2-digit',
 				minute: '2-digit',
 			});
 		}
 		if (eventData.startTime) {
-			// Check if eventData.startTime is defined
 			endTimeString = eventData.startTime.toLocaleTimeString([], {
 				hour: '2-digit',
 				minute: '2-digit',
@@ -109,7 +107,8 @@ function TransportForm({ closeForm, actionName, eventId }) {
 			startTime: startTimeString,
 			endDate: formatDate(eventData.endDate),
 			endTime: endTimeString,
-			origin: eventData.address,
+			origin: eventData.origin,
+			destination: eventData.destination,
 			description: eventData.description,
 			price: eventData.price,
 			eventName: eventData.eventName,
@@ -157,29 +156,29 @@ function TransportForm({ closeForm, actionName, eventId }) {
 						/>
 					</div>{' '}
 					<div className={styles.form__labelBox}>
-						<label htmlFor="address" className={styles.form__labelText}>
+						<label htmlFor="origin" className={styles.form__labelText}>
 							Адрес отправления*
 						</label>
 						<input
 							className={`${styles.form__input} ${styles.form__input_title}`}
 							type="text"
-							id="address"
-							name="address"
-							value={eventData.address}
+							id="origin"
+							name="origin"
+							value={eventData.origin}
 							onChange={handleInputChange}
 							required
 						/>
 					</div>{' '}
 					<div className={styles.form__labelBox}>
-						<label htmlFor="endAddress" className={styles.form__labelText}>
+						<label htmlFor="destination" className={styles.form__labelText}>
 							Адрес прибытия*
 						</label>
 						<input
 							className={`${styles.form__input} ${styles.form__input_title}`}
 							type="text"
-							id="endAddress"
-							name="endAddress"
-							value={eventData.endAddress}
+							id="destination"
+							name="destination"
+							value={eventData.destination}
 							onChange={handleInputChange}
 							required
 						/>

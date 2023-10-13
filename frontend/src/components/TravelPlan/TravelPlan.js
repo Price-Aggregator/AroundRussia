@@ -6,8 +6,6 @@ import TravelPlanBox from "./TravelPlanBox";
 function TravelPlan({ travelPlan }) {
   const datesOfTravel = [... new Set(travelPlan.map((item) => item.date))].sort((a, b) => a.localeCompare(b))
 
-  console.log(datesOfTravel)
-
   return <div className={styles.travel}>
     {datesOfTravel && datesOfTravel.map((item) => (
       // eslint-disable-next-line

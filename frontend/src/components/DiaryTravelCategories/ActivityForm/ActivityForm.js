@@ -10,29 +10,13 @@ import styles from '../form.module.css';
 import {
 	fetchPatchEvent,
 	fetchTravels,
-  fetchAddEvent,
+	fetchAddEvent,
 } from '../../../store/Travels/slice';
 import { getUserToken } from '../../../store/User/selectors';
 import { formatDate } from '../../../utils/utils';
 import { TRAVEL_EVENT_EDIT } from '../../../utils/constants';
 
 function ActivityForm({ closeForm, actionName, eventId }) {
-	const {
-		renderFilePreviews,
-		medias,
-		previewFiles,
-		isDragReject,
-		fileRejections,
-		fileRejectionItems,
-		style,
-		getRootProps,
-		getInputProps,
-	} = useFileHandling();
-
-	const { travelId } = useParams();
-	const dispatch = useDispatch();
-	const token = useSelector(getUserToken);
-
 	const [eventData, setЕventData] = useState({
 		category: 'activity',
 		eventName: '',
@@ -43,6 +27,22 @@ function ActivityForm({ closeForm, actionName, eventId }) {
 		price: '',
 		medias: [],
 	});
+
+	const {
+		renderFilePreviews,
+		medias,
+		previewFiles,
+		isDragReject,
+		fileRejections,
+		fileRejectionItems,
+		style,
+		getRootProps,
+		getInputProps,
+	} = useFileHandling({ actionName, setЕventData, eventId });
+
+	const { travelId } = useParams();
+	const dispatch = useDispatch();
+	const token = useSelector(getUserToken);
 
 	const handleInputChange = (event) => {
 		const { name, value } = event.target;
@@ -208,6 +208,7 @@ function ActivityForm({ closeForm, actionName, eventId }) {
 						</label>
 						<div className={styles.form__filesContainer} id="media">
 							<div className={styles.form__filesContainer} id="media">
+								{/* Render the FileDropzone component */}
 								<div
 									{...getRootProps({ style })}
 									className={styles.form__dropzone}
