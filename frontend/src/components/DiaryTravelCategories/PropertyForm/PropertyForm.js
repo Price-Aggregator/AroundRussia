@@ -93,8 +93,8 @@ function PropertyForm({ closeForm, actionName, eventId, isReturn }) {
 				minute: '2-digit',
 			});
 		}
-		if (eventData.startTime) {
-			endTimeString = eventData.startTime.toLocaleTimeString([], {
+		if (eventData.endTime) {
+			endTimeString = eventData.endTime.toLocaleTimeString([], {
 				hour: '2-digit',
 				minute: '2-digit',
 			});
