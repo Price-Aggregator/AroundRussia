@@ -97,8 +97,8 @@ function EventBox({
 					{media.map((mediaItem, index) => (
 						// eslint-disable-next-line react/no-array-index-key
 						<div key={index} className={styles.eventImageContainer}>
-							{mediaItem.toLowerCase().endsWith('pdf') ? (
-								<a href={mediaItem} target="_blank" rel="noreferrer">
+							{mediaItem.filename.toLowerCase().endsWith('pdf') ? (
+								<a href={mediaItem.media} target="_blank" rel="noreferrer">
 									<img
 										src={pdfIcon} // Replace with the source of your PDF image
 										alt="PDF Document"
@@ -108,7 +108,7 @@ function EventBox({
 							) : (
 								<Zoom>
 									<img
-										src={mediaItem}
+										src={mediaItem.media}
 										alt="Изображение"
 										className={styles.eventImage}
 									/>
