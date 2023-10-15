@@ -168,48 +168,47 @@ function PropertyForm({ closeForm, actionName, eventId, isReturn }) {
 							required
 						/>
 					</div>{' '}
-
-          {((actionName=== TRAVEL_EVENT_EDIT && !isReturn) || (actionName === 'Добавить')) && (<div className={styles.form__dateBox}>
-						<div className={styles.form__labelBox}>
-							<label htmlFor="startDate" className={styles.form__labelText}>
-								Дата заезда* (дд.мм.гггг)
-							</label>
-							<div className={styles.form__dateInputContainer}>
-								<DatePicker
-									className={`${styles.form__input} ${styles.form__input_date}`}
-									id="startDate"
-									selected={eventData.startDate}
-									onChange={handleStartDateChange}
-									dateFormat="dd.MM.yyyy"
-									placeholderText=""
-									required
-								/>
+					{(!isReturn || actionName === 'Добавить') && (
+						<div className={styles.form__dateBox}>
+							<div className={styles.form__labelBox}>
+								<label htmlFor="startDate" className={styles.form__labelText}>
+									Дата заезда* (дд.мм.гггг)
+								</label>
+								<div className={styles.form__dateInputContainer}>
+									<DatePicker
+										className={`${styles.form__input} ${styles.form__input_date}`}
+										id="startDate"
+										selected={eventData.startDate}
+										onChange={handleStartDateChange}
+										dateFormat="dd.MM.yyyy"
+										placeholderText=""
+										required
+									/>
+								</div>
+							</div>
+							<div className={styles.form__labelBox}>
+								<label htmlFor="startTime" className={styles.form__labelText}>
+									Время заселения (чч:мм)
+								</label>
+								<div className={styles.form__timeInputContainer}>
+									<DatePicker
+										className={`${styles.form__input} ${styles.form__input_date}`}
+										id="startTime"
+										selected={eventData.startTime}
+										onChange={handleStartTimeChange}
+										showTimeSelect
+										showTimeSelectOnly
+										timeIntervals={15}
+										timeCaption="Time"
+										timeFormat="HH:mm"
+										dateFormat="HH:mm"
+										placeholderText=""
+									/>
+								</div>
 							</div>
 						</div>
-						<div className={styles.form__labelBox}>
-							<label htmlFor="startTime" className={styles.form__labelText}>
-								Время заселения (чч:мм)
-							</label>
-							<div className={styles.form__timeInputContainer}>
-								<DatePicker
-									className={`${styles.form__input} ${styles.form__input_date}`}
-									id="startTime"
-									selected={eventData.startTime}
-									onChange={handleStartTimeChange}
-									showTimeSelect
-									showTimeSelectOnly
-									timeIntervals={15}
-									timeCaption="Time"
-									timeFormat="HH:mm"
-									dateFormat="HH:mm"
-									placeholderText=""
-								/>
-							</div>
-						</div>
-					</div>)}
-
-					{((actionName === TRAVEL_EVENT_EDIT && isReturn) ||
-						(actionName === 'Добавить')) && (
+					)}
+					{(isReturn || actionName === 'Добавить') && (
 						<div className={styles.form__dateBox}>
 							<div className={styles.form__labelBox}>
 								<label htmlFor="endDate" className={styles.form__labelText}>
@@ -219,8 +218,12 @@ function PropertyForm({ closeForm, actionName, eventId, isReturn }) {
 									<DatePicker
 										className={`${styles.form__input} ${styles.form__input_date}`}
 										id="endDate"
-										selected={eventData.endDate}
-										onChange={handleEndDateChange}
+										selected={
+											isReturn ? eventData.startDate : eventData.endDate
+										}
+										onChange={
+											isReturn ? handleStartDateChange : handleEndDateChange
+										}
 										dateFormat="dd.MM.yyyy"
 										placeholderText=""
 									/>
@@ -235,8 +238,12 @@ function PropertyForm({ closeForm, actionName, eventId, isReturn }) {
 									<DatePicker
 										className={`${styles.form__input} ${styles.form__input_date}`}
 										id="endTime"
-										selected={eventData.endTime}
-										onChange={handleEndTimeChange}
+										selected={
+											isReturn ? eventData.startTime : eventData.endTime
+										}
+										onChange={
+											isReturn ? handleStartTimeChange : handleEndTimeChange
+										}
 										showTimeSelect
 										showTimeSelectOnly
 										timeIntervals={15}
