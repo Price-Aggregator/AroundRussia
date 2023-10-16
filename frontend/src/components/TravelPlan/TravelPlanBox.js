@@ -126,6 +126,7 @@ function EventBox({
 							closeForm={() => setEditForm(false)}
 							actionName={TRAVEL_EVENT_EDIT}
 							eventId={eventId}
+							isReturn={isReturn}
 						/>
 					)}
 					{category === 'activity' && (
