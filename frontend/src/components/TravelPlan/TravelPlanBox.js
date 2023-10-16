@@ -92,12 +92,10 @@ function EventBox({
 								: address || `${destination} ➔ ${origin}`}
 						</p>
 						<p className={styles.eventSmallText}>{description}</p>
-						{(price || price === 0) && (
-							<p className={styles.eventPriceText}>
-								{price}
-								<span className={styles.eventPriceText}> ₽</span>
-							</p>
-						)}
+						<p className={styles.eventPriceText}>
+							{price || 0}
+							<span className={styles.eventPriceText}> ₽</span>
+						</p>
 					</div>
 				</div>
 				<div className={styles.eventImageBox}>
