@@ -19,6 +19,7 @@ jobs:
             sudo docker-compose down --remove-orphans
             sudo docker-compose rm -f frontend backend
             sudo docker image prune -af
+            rm -rf frontend static_folder
             sudo docker-compose pull frontend backend
             sudo docker-compose up -d --build
 
