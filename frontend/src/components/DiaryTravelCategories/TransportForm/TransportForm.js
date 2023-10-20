@@ -1,88 +1,84 @@
-/* eslint-disable no-unused-vars */
-/* eslint-disable jsx-a11y/label-has-associated-control */
-/* eslint-disable import/no-extraneous-dependencies */
-import React, { useState, useEffect } from 'react';
+/* eslint-disable react/jsx-props-no-spreading */
+import React, { useState } from 'react';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
+import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
-import PropTypes from 'prop-types';
-import styles from './TransportForm.module.css';
+import useFileHandling from '../../../hooks/useFileHandling';
+import styles from '../form.module.css';
 import {
-	editTravel,
 	fetchAddEventStart,
 	fetchAddEventEnd,
-	fetchTravels,
 	fetchPatchEvent,
+	fetchTravels,
 } from '../../../store/Travels/slice';
-import { formatDate } from '../../../utils/utils';
 import { getUserToken } from '../../../store/User/selectors';
+import { formatDate } from '../../../utils/utils';
 import { TRAVEL_EVENT_EDIT } from '../../../utils/constants';
 
 function TransportForm({ closeForm, actionName, eventId }) {
-	const [events, setEvents] = useState([]);
-	const { travelId } = useParams();
-	const dispatch = useDispatch();
-	const travels = useSelector((state) => state.travels.travels);
-	const token = useSelector(getUserToken);
-
-	const [transportData, setTransportData] = useState({
+	const [eventData, setЕventData] = useState({
 		category: 'flight',
 		eventName: '',
-		address: '',
-		endAddress: '',
+		origin: '',
+		destination: '',
 		startDate: null,
 		startTime: null,
 		endDate: null,
 		endTime: null,
 		description: '',
 		price: '',
+		medias: [],
 	});
 
-	useEffect(() => {
-		let storedEvents;
-		try {
-			storedEvents = JSON.parse(localStorage.getItem('events'));
-		} catch (error) {
-			console.error('Error parsing stored events:', error);
-			storedEvents = undefined;
-		}
-		if (storedEvents) {
-			setEvents(storedEvents);
-		}
-	}, []);
+	const {
+		renderFilePreviews,
+		medias,
+		previewFiles,
+		isDragReject,
+		fileRejections,
+		fileRejectionItems,
+		style,
+		getRootProps,
+		getInputProps,
+	} = useFileHandling({ actionName, setЕventData, eventId });
+
+	const { travelId } = useParams();
+	const dispatch = useDispatch();
+	const token = useSelector(getUserToken);
 
 	const handleInputChange = (event) => {
 		const { name, value } = event.target;
-		setTransportData((prevData) => ({
+		setЕventData((prevData) => ({
 			...prevData,
 			[name]: value,
 		}));
 	};
 
-	const handleStartDateChange = (date) => {
-		setTransportData((prevData) => ({
+	const handleStartDateChange = (startDate) => {
+		setЕventData((prevData) => ({
 			...prevData,
-			startDate: date,
+			startDate,
 		}));
 	};
 
-	const handleEndDateChange = (date) => {
-		setTransportData((prevData) => ({
+	const handleEndDateChange = (endDate) => {
+		setЕventData((prevData) => ({
 			...prevData,
-			endDate: date,
+			endDate,
 		}));
 	};
 
 	const handleStartTimeChange = (time) => {
-		setTransportData((prevData) => ({
+		setЕventData((prevData) => ({
 			...prevData,
 			startTime: time,
 		}));
 	};
 
 	const handleEndTimeChange = (time) => {
-		setTransportData((prevData) => ({
+		setЕventData((prevData) => ({
 			...prevData,
 			endTime: time,
 		}));
@@ -92,30 +88,31 @@ function TransportForm({ closeForm, actionName, eventId }) {
 		event.preventDefault();
 		let startTimeString = '';
 		let endTimeString = '';
-		if (transportData.startTime) {
-			// Check if eventData.startTime is defined
-			startTimeString = transportData.startTime.toLocaleTimeString([], {
+		if (eventData.startTime) {
+			startTimeString = eventData.startTime.toLocaleTimeString([], {
 				hour: '2-digit',
 				minute: '2-digit',
 			});
 		}
-		if (transportData.startTime) {
-			// Check if eventData.startTime is defined
-			endTimeString = transportData.startTime.toLocaleTimeString([], {
+		if (eventData.startTime) {
+			endTimeString = eventData.startTime.toLocaleTimeString([], {
 				hour: '2-digit',
 				minute: '2-digit',
 			});
 		}
+		eventData.medias = medias;
 		const newEvent = {
-			startDate: formatDate(transportData.startDate),
-			category: transportData.category,
+			startDate: formatDate(eventData.startDate),
+			category: eventData.category,
 			startTime: startTimeString,
-			endDate: formatDate(transportData.endDate),
+			endDate: formatDate(eventData.endDate),
 			endTime: endTimeString,
-			origin: transportData.address,
-			description: transportData.description,
-			price: transportData.price,
-			eventName: transportData.eventName,
+			origin: eventData.origin,
+			destination: eventData.destination,
+			description: eventData.description,
+			price: eventData.price,
+			eventName: eventData.eventName,
+			medias,
 		};
 
 		if (actionName === TRAVEL_EVENT_EDIT) {
@@ -153,35 +150,35 @@ function TransportForm({ closeForm, actionName, eventId }) {
 							type="text"
 							id="eventName"
 							name="eventName"
-							value={transportData.eventName}
+							value={eventData.eventName}
 							onChange={handleInputChange}
 							required
 						/>
 					</div>{' '}
 					<div className={styles.form__labelBox}>
-						<label htmlFor="address" className={styles.form__labelText}>
+						<label htmlFor="origin" className={styles.form__labelText}>
 							Адрес отправления*
 						</label>
 						<input
 							className={`${styles.form__input} ${styles.form__input_title}`}
 							type="text"
-							id="address"
-							name="address"
-							value={transportData.address}
+							id="origin"
+							name="origin"
+							value={eventData.origin}
 							onChange={handleInputChange}
 							required
 						/>
 					</div>{' '}
 					<div className={styles.form__labelBox}>
-						<label htmlFor="endAddress" className={styles.form__labelText}>
+						<label htmlFor="destination" className={styles.form__labelText}>
 							Адрес прибытия*
 						</label>
 						<input
 							className={`${styles.form__input} ${styles.form__input_title}`}
 							type="text"
-							id="endAddress"
-							name="endAddress"
-							value={transportData.endAddress}
+							id="destination"
+							name="destination"
+							value={eventData.destination}
 							onChange={handleInputChange}
 							required
 						/>
@@ -195,7 +192,7 @@ function TransportForm({ closeForm, actionName, eventId }) {
 								<DatePicker
 									className={`${styles.form__input} ${styles.form__input_date}`}
 									id="startDate"
-									selected={transportData.startDate}
+									selected={eventData.startDate}
 									onChange={handleStartDateChange}
 									dateFormat="dd.MM.yyyy"
 									placeholderText=""
@@ -211,7 +208,7 @@ function TransportForm({ closeForm, actionName, eventId }) {
 								<DatePicker
 									className={`${styles.form__input} ${styles.form__input_date}`}
 									id="startTime"
-									selected={transportData.startTime}
+									selected={eventData.startTime}
 									onChange={handleStartTimeChange}
 									showTimeSelect
 									showTimeSelectOnly
@@ -233,7 +230,7 @@ function TransportForm({ closeForm, actionName, eventId }) {
 								<DatePicker
 									className={`${styles.form__input} ${styles.form__input_date}`}
 									id="endDate"
-									selected={transportData.endDate}
+									selected={eventData.endDate}
 									onChange={handleEndDateChange}
 									dateFormat="dd.MM.yyyy"
 									placeholderText=""
@@ -249,7 +246,7 @@ function TransportForm({ closeForm, actionName, eventId }) {
 								<DatePicker
 									className={`${styles.form__input} ${styles.form__input_date}`}
 									id="endTime"
-									selected={transportData.endTime}
+									selected={eventData.endTime}
 									onChange={handleEndTimeChange}
 									showTimeSelect
 									showTimeSelectOnly
@@ -271,7 +268,7 @@ function TransportForm({ closeForm, actionName, eventId }) {
 							type="text"
 							id="description"
 							name="description"
-							value={transportData.description}
+							value={eventData.description}
 							onChange={handleInputChange}
 						/>
 					</div>{' '}
@@ -284,33 +281,36 @@ function TransportForm({ closeForm, actionName, eventId }) {
 							type="text"
 							id="price"
 							name="price"
-							value={transportData.price}
+							value={eventData.price}
 							onChange={handleInputChange}
 						/>
 					</div>{' '}
 					<div className={styles.form__labelBox}>
-						<label htmlFor="title" className={styles.form__labelText}>
+						<label htmlFor="media" className={styles.form__labelText}>
 							Прикрепите фото, документы, билеты
 						</label>
-						<div className={styles.form__files}>
-							<div className={styles.form__fileBox}>
-								<button
-									className={`${styles.form__button} ${styles.form__button_addFile}`}
-									type="button"
-									onClick={() => console.log('click')}
+						<div className={styles.form__filesContainer} id="media">
+							<div className={styles.form__filesContainer} id="media">
+								<div
+									{...getRootProps({ style })}
+									className={styles.form__dropzone}
 								>
-									+ Файл
-								</button>
-							</div>{' '}
-							<div className={styles.form__fileBox}>
-								<button
-									className={`${styles.form__button} ${styles.form__button_addFile}`}
-									type="button"
-									onClick={() => console.log('click')}
-								>
-									+ Файл
-								</button>
-							</div>{' '}
+									<input {...getInputProps()} />
+									<div className={styles.form__fileBox}>
+										<button
+											className={`${styles.form__button} ${styles.form__button_addFile}`}
+											type="button"
+										>
+											<span>+ Файл</span>
+										</button>
+									</div>
+								</div>
+								{isDragReject && <p>только картинки и PDF, пожалуйста</p>}
+								{fileRejections && <p>{fileRejectionItems}</p>}
+								<div className={styles.form__attachments}>
+									{renderFilePreviews(previewFiles)}
+								</div>
+							</div>
 						</div>
 					</div>
 				</div>
