@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
+import Zoom from 'react-medium-image-zoom';
+import 'react-medium-image-zoom/dist/styles.css';
 import styles from './TravelPlan.module.css';
 import {
 	hotel,
@@ -8,6 +10,8 @@ import {
 	flight,
 	// defaultImage,
 } from '../../images/travel-plan';
+import pdfIcon from '../../images/pdf-icon.svg';
+
 import TransportForm from '../DiaryTravelCategories/TransportForm/TransportForm';
 import ActivityForm from '../DiaryTravelCategories/ActivityForm/ActivityForm';
 import PropertyForm from '../DiaryTravelCategories/PropertyForm/PropertyForm';
@@ -54,9 +58,9 @@ function EventBox({
 						{/* <span className={styles.eventTime}>14:00</span>  */}
 						{time ? (
 							<span className={styles.eventTime}>{time.slice(0, 5)}</span>
-						) :
-            <div className={styles.eventEmptyTime}/>
-            }
+						) : (
+							<div className={styles.eventEmptyTime} />
+						)}
 					</div>
 					<img src={image[category]} alt="icon" className={styles.eventIcon} />
 				</div>
@@ -90,7 +94,28 @@ function EventBox({
 					</div>
 				</div>
 				<div className={styles.eventImageBox}>
-					<img src={media} alt="Изображение" className={styles.eventImage} />
+					{media.map((mediaItem, index) => (
+						// eslint-disable-next-line react/no-array-index-key
+						<div key={index} className={styles.eventImageContainer}>
+							{mediaItem.toLowerCase().endsWith('pdf') ? (
+								<a href={mediaItem} target="_blank" rel="noreferrer">
+									<img
+										src={pdfIcon} // Replace with the source of your PDF image
+										alt="PDF Document"
+										className={styles.eventPDF}
+									/>
+								</a>
+							) : (
+								<Zoom>
+									<img
+										src={mediaItem}
+										alt="Изображение"
+										className={styles.eventImage}
+									/>
+								</Zoom>
+							)}
+						</div>
+					))}
 				</div>
 			</div>
 			{editForm && (
@@ -171,8 +196,8 @@ function TravelPlanBox({ day, activities }) {
 							price={item.price}
 							eventName={item.name}
 							key={item.id}
-							media={item.media}
 							eventId={item.id}
+							media={Array.isArray(item.medias) ? item.medias : []}
 						/>
 					))}
 				</div>
@@ -188,7 +213,7 @@ EventBox.propTypes = {
 	price: PropTypes.string,
 	description: PropTypes.string,
 	eventName: PropTypes.string.isRequired,
-	media: PropTypes.string,
+	media: PropTypes.arrayOf(PropTypes.string),
 	eventId: PropTypes.number.isRequired,
 };
 
@@ -196,7 +221,7 @@ EventBox.defaultProps = {
 	address: '',
 	price: '',
 	description: '',
-	media: '',
+	media: [],
 	time: '',
 };
 

@@ -1,30 +1,22 @@
-/* eslint-disable no-unused-vars */
-/* eslint-disable jsx-a11y/label-has-associated-control */
-/* eslint-disable import/no-extraneous-dependencies */
-import React, { useState, useEffect } from 'react';
+/* eslint-disable react/jsx-props-no-spreading */
+import React, { useState } from 'react';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
-import styles from './ActivityForm.module.css';
+import useFileHandling from '../../../hooks/useFileHandling';
+import styles from '../form.module.css';
 import {
-	editTravel,
-	fetchAddEvent,
 	fetchPatchEvent,
 	fetchTravels,
+	fetchAddEvent,
 } from '../../../store/Travels/slice';
 import { getUserToken } from '../../../store/User/selectors';
 import { formatDate } from '../../../utils/utils';
 import { TRAVEL_EVENT_EDIT } from '../../../utils/constants';
 
 function ActivityForm({ closeForm, actionName, eventId }) {
-	const [events, setEvents] = useState([]);
-	const { travelId } = useParams();
-	const dispatch = useDispatch();
-	const travels = useSelector((state) => state.travels.travels);
-	const token = useSelector(getUserToken);
-
 	const [eventData, setЕventData] = useState({
 		category: 'activity',
 		eventName: '',
@@ -33,51 +25,24 @@ function ActivityForm({ closeForm, actionName, eventId }) {
 		startTime: null,
 		description: '',
 		price: '',
+		medias: [],
 	});
 
-	useEffect(() => {
-		let storedEvents;
-		try {
-			storedEvents = JSON.parse(localStorage.getItem('events'));
-		} catch (error) {
-			console.error('Error parsing stored events:', error);
-			storedEvents = undefined;
-		}
-		if (storedEvents) {
-			setEvents(storedEvents);
-		}
-	}, []);
+	const {
+		renderFilePreviews,
+		medias,
+		previewFiles,
+		isDragReject,
+		fileRejections,
+		fileRejectionItems,
+		style,
+		getRootProps,
+		getInputProps,
+	} = useFileHandling({ actionName, setЕventData, eventId });
 
-	// const handleUpdate = () => {
-	// 	const options = {
-	// 		day: '2-digit',
-	// 		month: 'long',
-	// 		weekday: 'short',
-	// 		timeZone: 'UTC',
-	// 	};
-	// 	const newEvent = {
-	// 		date: eventData.startDate.toLocaleDateString('ru-RU', options),
-	// 		events: [
-	// 			{
-	// 				category: eventData.category,
-	// 				time: eventData.startTime.toLocaleTimeString([], {
-	// 					hour: '2-digit',
-	// 					minute: '2-digit',
-	// 				}),
-	// 				address: eventData.address,
-	// 				description: eventData.description,
-	// 				price: eventData.price,
-	// 				eventName: eventData.eventName,
-	// 			},
-	// 		],
-	// 	};
-	// 	const userTravel = travels.find((card) => card.id === travelId);
-	// 	const newObj = { ...userTravel };
-	// 	setEvents([...events, newEvent]);
-	// 	newObj.travelDaysEvents = events;
-	// 	localStorage.setItem('events', JSON.stringify([...events, newEvent]));
-	// 	dispatch(editTravel({ id: travelId, data: newObj }));
-	// };
+	const { travelId } = useParams();
+	const dispatch = useDispatch();
+	const token = useSelector(getUserToken);
 
 	const handleInputChange = (event) => {
 		const { name, value } = event.target;
@@ -104,27 +69,23 @@ function ActivityForm({ closeForm, actionName, eventId }) {
 	const handleSubmit = async (event) => {
 		event.preventDefault();
 
-		// handleUpdate();
 		let startTimeString = '';
 		if (eventData.startTime) {
-			// Check if eventData.startTime is defined
 			startTimeString = eventData.startTime.toLocaleTimeString([], {
 				hour: '2-digit',
 				minute: '2-digit',
 			});
 		}
+		eventData.medias = medias;
 		const newEvent = {
 			startDate: formatDate(eventData.startDate),
 			category: eventData.category,
-			startTime: startTimeString, // Assign the formatted time string
-			// startTime: eventData.startTime.toLocaleTimeString([], {
-			// 	hour: '2-digit',
-			// 	minute: '2-digit',
-			// }),
+			startTime: startTimeString,
 			address: eventData.address,
 			description: eventData.description,
 			price: eventData.price,
 			eventName: eventData.eventName,
+			medias,
 		};
 
 		if (actionName === TRAVEL_EVENT_EDIT) {
@@ -158,7 +119,7 @@ function ActivityForm({ closeForm, actionName, eventId }) {
 							type="text"
 							id="eventName"
 							name="eventName"
-							value={eventData.title}
+							value={eventData.eventName}
 							onChange={handleInputChange}
 							required
 						/>
@@ -172,7 +133,7 @@ function ActivityForm({ closeForm, actionName, eventId }) {
 							type="text"
 							id="address"
 							name="address"
-							value={eventData.title}
+							value={eventData.address}
 							onChange={handleInputChange}
 							required
 						/>
@@ -245,25 +206,29 @@ function ActivityForm({ closeForm, actionName, eventId }) {
 						<label htmlFor="media" className={styles.form__labelText}>
 							Прикрепите фото, документы, билеты
 						</label>
-						<div className={styles.form__files} id="media">
-							<div className={styles.form__fileBox}>
-								<button
-									className={`${styles.form__button} ${styles.form__button_addFile}`}
-									type="button"
-									onClick={() => console.log('click')}
+						<div className={styles.form__filesContainer} id="media">
+							<div className={styles.form__filesContainer} id="media">
+								{/* Render the FileDropzone component */}
+								<div
+									{...getRootProps({ style })}
+									className={styles.form__dropzone}
 								>
-									+ Файл
-								</button>
-							</div>{' '}
-							<div className={styles.form__fileBox}>
-								<button
-									className={`${styles.form__button} ${styles.form__button_addFile}`}
-									type="button"
-									onClick={() => console.log('click')}
-								>
-									+ Файл
-								</button>
-							</div>{' '}
+									<input {...getInputProps()} />
+									<div className={styles.form__fileBox}>
+										<button
+											className={`${styles.form__button} ${styles.form__button_addFile}`}
+											type="button"
+										>
+											<span>+ Файл</span>
+										</button>
+									</div>
+								</div>
+								{isDragReject && <p>только картинки и PDF, пожалуйста</p>}
+								{fileRejections && <p>{fileRejectionItems}</p>}
+								<div className={styles.form__attachments}>
+									{renderFilePreviews(previewFiles)}
+								</div>
+							</div>
 						</div>
 					</div>
 				</div>
@@ -292,7 +257,7 @@ export default ActivityForm;
 ActivityForm.propTypes = {
 	closeForm: PropTypes.func,
 	actionName: PropTypes.string,
-	eventId: PropTypes.string,
+	eventId: PropTypes.number,
 };
 
 ActivityForm.defaultProps = {
