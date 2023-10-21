@@ -19,7 +19,10 @@ import defaultPicture from '../images/picture_travellist_default.png';
 
 // const URL = 'http://localhost';
 // const URL = 'https://go-to-travel.ru';
-const URL = process.env.REACT_APP_BASE_URL || 'http://localhost';
+const URL =
+	process.env.NODE_ENV === 'development'
+		? 'http://localhost'
+		: process.env.REACT_APP_BASE_URL;
 
 const BASE_URL = `${URL}/api/v1`;
 const MEDIA_URL = `${URL}/media`;
