@@ -55,7 +55,6 @@ function Header() {
 		setRegistrationForm(true);
 	};
 	useEffect(() => {
-		console.log(process.env.REACT_APP_BASE_URL);
 		const token = localStorage.getItem('token');
 		if (token) {
 			setIsAuth(true);
