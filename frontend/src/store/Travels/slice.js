@@ -81,7 +81,7 @@ export const fetchEditTravel = createAsyncThunk(
 				description: data.description,
 				start_date: data.start_date,
 				end_date: data.end_date,
-				// images: travelData.images,
+				images: data.images,
 			}),
 		}).then((res) => {
 			if (res.ok) {
