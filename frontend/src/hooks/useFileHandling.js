@@ -29,7 +29,10 @@ export default function useFileHandling({ actionName, setЕventData, eventId }) 
 	};
 
 	useEffect(() => {
-		const updatedMedias = encodedFiles.map((file) => file.encoded);
+		const updatedMedias = encodedFiles.map((file) => ({
+			filename: file.name,
+			media: file.encoded,
+		}));
 		setMedias(updatedMedias);
 	}, [encodedFiles]);
 
@@ -79,8 +82,11 @@ export default function useFileHandling({ actionName, setЕventData, eventId }) 
 		acceptedFiles.forEach((file) =>
 			loadFile(file)
 				.then((encFile) => {
+					console.log('encFile:', encFile);
 					setEncodedFiles((prevEncodedFiles) => [...prevEncodedFiles, encFile]);
-					setMedias((prevMedias) => [...prevMedias, encFile.encoded]);
+					const media = { filename: encFile.name, media: encFile.encoded };
+					setMedias((prevMedias) => [...prevMedias, media]);
+					console.log('medias:', medias);
 				})
 				.catch((error) => console.log('error:', error))
 		);
@@ -94,7 +100,7 @@ export default function useFileHandling({ actionName, setЕventData, eventId }) 
 		isDragReject,
 	} = useDropzone({
 		accept: {
-			'image/*': ['.png', '.gif', '.jpeg', '.jpg'],
+			'image/*': ['.png', '.jpeg', '.jpg'],
 			'application/pdf': ['.pdf'],
 		},
 		maxSize: 100000000,
@@ -133,7 +139,8 @@ export default function useFileHandling({ actionName, setЕventData, eventId }) 
 	};
 
 	const renderFilePreviews = (files) => {
-		files.map((file) => file.preview.toLowerCase().endsWith('.pdf'));
+		console.log('files:', files);
+
 		return files.map((file) => (
 			<div key={file.name} className={styles.form__fileBoxContent}>
 				<button
@@ -149,8 +156,11 @@ export default function useFileHandling({ actionName, setЕventData, eventId }) 
 				>
 					{' '}
 				</button>
-				{file.name.toLowerCase().endsWith('.pdf') ||
-				file.preview.toLowerCase().endsWith('.pdf') ? (
+				{file.name &&
+				(file.name.toLowerCase().endsWith('.pdf') ||
+					(file.preview &&
+						file.preview.filename &&
+						file.preview.filename.toLowerCase().endsWith('.pdf'))) ? (
 					<img
 						src={pdfIcon}
 						alt={file.name}
@@ -195,10 +205,6 @@ export default function useFileHandling({ actionName, setЕventData, eventId }) 
 			case 'jpg':
 			case 'jpeg':
 				return 'image/jpeg';
-			case 'gif':
-				return 'image/gif';
-			case 'bmp':
-				return 'image/bmp';
 			default:
 				return null;
 		}
@@ -246,12 +252,10 @@ export default function useFileHandling({ actionName, setЕventData, eventId }) 
 					(activity) => activity.id === eventId
 				);
 				if (filteredActivity) {
-					const newMediasWithPreview = filteredActivity.medias.map(
-						(media, index) => ({
-							name: index.toString(),
-							preview: media,
-						})
-					);
+					const newMediasWithPreview = filteredActivity.medias.map((media) => ({
+						name: media.filename,
+						preview: media.media,
+					}));
 
 					const updatedEventData = {
 						category: filteredActivity.category || '',
@@ -283,13 +287,13 @@ export default function useFileHandling({ actionName, setЕventData, eventId }) 
 						}
 					}
 					const newMediasWithEncoded = await Promise.all(
-						filteredActivity.medias.map(async (media, index) => {
+						filteredActivity.medias.map(async (media) => {
 							try {
-								const encoded = await fetchAndConvertToBase64(media);
+								const encoded = await fetchAndConvertToBase64(media.media);
 								if (encoded) {
 									return {
 										encoded,
-										name: `File${index + 1}.pdf`, // Customize the name as needed
+										name: media.filename, // Customize the name as needed
 									};
 								}
 								return null;

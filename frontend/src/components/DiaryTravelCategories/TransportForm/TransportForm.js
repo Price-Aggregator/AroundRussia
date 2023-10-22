@@ -17,7 +17,7 @@ import { getUserToken } from '../../../store/User/selectors';
 import { formatDate } from '../../../utils/utils';
 import { TRAVEL_EVENT_EDIT } from '../../../utils/constants';
 
-function TransportForm({ closeForm, actionName, eventId }) {
+function TransportForm({ closeForm, actionName, eventId, isReturn }) {
 	const [eventData, setЕventData] = useState({
 		category: 'flight',
 		eventName: '',
@@ -94,8 +94,8 @@ function TransportForm({ closeForm, actionName, eventId }) {
 				minute: '2-digit',
 			});
 		}
-		if (eventData.startTime) {
-			endTimeString = eventData.startTime.toLocaleTimeString([], {
+		if (eventData.endTime) {
+			endTimeString = eventData.endTime.toLocaleTimeString([], {
 				hour: '2-digit',
 				minute: '2-digit',
 			});
@@ -164,7 +164,7 @@ function TransportForm({ closeForm, actionName, eventId }) {
 							type="text"
 							id="origin"
 							name="origin"
-							value={eventData.origin}
+							value={isReturn ? eventData.destination : eventData.origin}
 							onChange={handleInputChange}
 							required
 						/>
@@ -178,87 +178,102 @@ function TransportForm({ closeForm, actionName, eventId }) {
 							type="text"
 							id="destination"
 							name="destination"
-							value={eventData.destination}
+							value={isReturn ? eventData.origin : eventData.destination}
 							onChange={handleInputChange}
 							required
 						/>
 					</div>
-					<div className={styles.form__dateBox}>
-						<div className={styles.form__labelBox}>
-							<label htmlFor="startDate" className={styles.form__labelText}>
-								Дата начала* (дд.мм.гггг)
-							</label>
-							<div className={styles.form__dateInputContainer}>
-								<DatePicker
-									className={`${styles.form__input} ${styles.form__input_date}`}
-									id="startDate"
-									selected={eventData.startDate}
-									onChange={handleStartDateChange}
-									dateFormat="dd.MM.yyyy"
-									placeholderText=""
-									required
-								/>
+					{(!isReturn || actionName === 'Добавить') && (
+						<div className={styles.form__dateBox}>
+							<div className={styles.form__labelBox}>
+								<label htmlFor="startDate" className={styles.form__labelText}>
+									Дата начала* (дд.мм.гггг)
+								</label>
+								<div className={styles.form__dateInputContainer}>
+									<DatePicker
+										className={`${styles.form__input} ${styles.form__input_date}`}
+										id="startDate"
+										selected={eventData.startDate}
+										onChange={handleStartDateChange}
+										dateFormat="dd.MM.yyyy"
+										placeholderText=""
+										required
+									/>
+								</div>
+							</div>
+							<div className={styles.form__labelBox}>
+								<label htmlFor="startTime" className={styles.form__labelText}>
+									Время начала (чч:мм)
+								</label>
+								<div className={styles.form__timeInputContainer}>
+									<DatePicker
+										className={`${styles.form__input} ${styles.form__input_date}`}
+										id="startTime"
+										selected={eventData.startTime}
+										onChange={handleStartTimeChange}
+										showTimeSelect
+										showTimeSelectOnly
+										timeIntervals={15}
+										timeCaption="Time"
+										timeFormat="HH:mm"
+										dateFormat="HH:mm"
+										placeholderText=""
+									/>
+								</div>
 							</div>
 						</div>
-						<div className={styles.form__labelBox}>
-							<label htmlFor="startTime" className={styles.form__labelText}>
-								Время начала (чч:мм)
-							</label>
-							<div className={styles.form__timeInputContainer}>
-								<DatePicker
-									className={`${styles.form__input} ${styles.form__input_date}`}
-									id="startTime"
-									selected={eventData.startTime}
-									onChange={handleStartTimeChange}
-									showTimeSelect
-									showTimeSelectOnly
-									timeIntervals={15}
-									timeCaption="Time"
-									timeFormat="HH:mm"
-									dateFormat="HH:mm"
-									placeholderText=""
-								/>
+					)}
+					{(isReturn || actionName === 'Добавить') && (
+						<div className={styles.form__dateBox}>
+							<div className={styles.form__labelBox}>
+								<label htmlFor="endDate" className={styles.form__labelText}>
+									{isReturn
+										? 'Дата начала (дд.мм.гггг)'
+										: 'Дата окончания (дд.мм.гггг)'}
+								</label>
+								<div className={styles.form__dateInputContainer}>
+									<DatePicker
+										className={`${styles.form__input} ${styles.form__input_date}`}
+										id="endDate"
+										selected={
+											isReturn ? eventData.startDate : eventData.endDate
+										}
+										onChange={
+											isReturn ? handleStartDateChange : handleEndDateChange
+										}
+										dateFormat="dd.MM.yyyy"
+										placeholderText=""
+									/>
+								</div>
+							</div>
+							<div className={styles.form__labelBox}>
+								<label htmlFor="endTime" className={styles.form__labelText}>
+									{isReturn
+										? 'Время начала (чч:мм)'
+										: 'Время окончания (чч:мм)'}
+								</label>
+								<div className={styles.form__timeInputContainer}>
+									<DatePicker
+										className={`${styles.form__input} ${styles.form__input_date}`}
+										id="endTime"
+										selected={
+											isReturn ? eventData.startTime : eventData.endTime
+										}
+										onChange={
+											isReturn ? handleStartTimeChange : handleEndTimeChange
+										}
+										showTimeSelect
+										showTimeSelectOnly
+										timeIntervals={15}
+										timeCaption="Time"
+										timeFormat="HH:mm"
+										dateFormat="HH:mm"
+										placeholderText=""
+									/>
+								</div>
 							</div>
 						</div>
-					</div>{' '}
-					<div className={styles.form__dateBox}>
-						<div className={styles.form__labelBox}>
-							<label htmlFor="endDate" className={styles.form__labelText}>
-								Дата окончания (дд.мм.гггг)
-							</label>
-							<div className={styles.form__dateInputContainer}>
-								<DatePicker
-									className={`${styles.form__input} ${styles.form__input_date}`}
-									id="endDate"
-									selected={eventData.endDate}
-									onChange={handleEndDateChange}
-									dateFormat="dd.MM.yyyy"
-									placeholderText=""
-								/>
-							</div>
-						</div>
-
-						<div className={styles.form__labelBox}>
-							<label htmlFor="endTime" className={styles.form__labelText}>
-								Время окончания (чч:мм)
-							</label>
-							<div className={styles.form__timeInputContainer}>
-								<DatePicker
-									className={`${styles.form__input} ${styles.form__input_date}`}
-									id="endTime"
-									selected={eventData.endTime}
-									onChange={handleEndTimeChange}
-									showTimeSelect
-									showTimeSelectOnly
-									timeIntervals={15}
-									timeCaption="Time"
-									timeFormat="HH:mm"
-									dateFormat="HH:mm"
-									placeholderText=""
-								/>
-							</div>
-						</div>
-					</div>
+					)}
 					<div className={styles.form__labelBox}>
 						<label htmlFor="description" className={styles.form__labelText}>
 							Описание
@@ -340,10 +355,12 @@ TransportForm.propTypes = {
 	closeForm: PropTypes.func,
 	actionName: PropTypes.string,
 	eventId: PropTypes.string,
+	isReturn: PropTypes.bool,
 };
 
 TransportForm.defaultProps = {
 	closeForm: () => {},
 	actionName: 'Добавить',
 	eventId: '',
+	isReturn: PropTypes.false,
 };

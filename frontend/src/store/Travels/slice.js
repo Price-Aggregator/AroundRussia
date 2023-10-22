@@ -152,25 +152,27 @@ export const fetchAddEventEnd = createAsyncThunk(
 	async ({ travelId, token, data }) => {
 		const eventDescription =
 			data.category === 'hotel' ? () => 'Выселение' : () => 'Прибытие';
+		const requestBody = {
+			travel: travelId,
+			name: data.eventName,
+			category: data.category,
+			date: data.endDate,
+			medias: data.medias,
+			address: data.address,
+			origin: data.origin || null,
+			destination: data.destination || null,
+			description: eventDescription(),
+		};
+		if (data.startTime) {
+			requestBody.time = data.startTime;
+		}
 		const event = await fetch(`${BASE_URL}/activity/`, {
 			method: 'POST',
 			headers: {
 				Authorization: `Token ${token}`,
 				'Content-Type': 'application/json',
 			},
-			body: JSON.stringify({
-				travel: travelId,
-				name: data.eventName,
-				category: data.category,
-				date: data.endDate,
-				time: data.endTime,
-				// "price": data.price || 0,
-				medias: data.medias,
-				address: data.address,
-				origin: data.origin || null,
-				destination: data.destination || null,
-				description: eventDescription(),
-			}),
+			body: JSON.stringify(requestBody),
 		}).then((res) => {
 			if (res.ok) {
 				return travelId;

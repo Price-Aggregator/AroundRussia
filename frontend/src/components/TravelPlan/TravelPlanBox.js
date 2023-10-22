@@ -29,9 +29,12 @@ function EventBox({
 	price,
 	description,
 	address,
+	origin,
+	destination,
 	eventName,
 	media,
 	eventId,
+	isReturn,
 }) {
 	const dispatch = useDispatch();
 	const token = useSelector(getUserToken);
@@ -83,22 +86,24 @@ function EventBox({
 						</button>
 					</div>
 					<div className={styles.eventDescriptionBox}>
-						<p className={styles.eventSmallText}>{address}</p>
+						<p className={styles.eventSmallText}>
+							{isReturn
+								? address || `${origin} ➔ ${destination}`
+								: address || `${destination} ➔ ${origin}`}
+						</p>
 						<p className={styles.eventSmallText}>{description}</p>
-						{(price || price === 0) && (
-							<p className={styles.eventPriceText}>
-								{price}
-								<span className={styles.eventPriceText}> ₽</span>
-							</p>
-						)}
+						<p className={styles.eventPriceText}>
+							{price || 0}
+							<span className={styles.eventPriceText}> ₽</span>
+						</p>
 					</div>
 				</div>
 				<div className={styles.eventImageBox}>
 					{media.map((mediaItem, index) => (
 						// eslint-disable-next-line react/no-array-index-key
 						<div key={index} className={styles.eventImageContainer}>
-							{mediaItem.toLowerCase().endsWith('pdf') ? (
-								<a href={mediaItem} target="_blank" rel="noreferrer">
+							{mediaItem.filename.toLowerCase().endsWith('pdf') ? (
+								<a href={mediaItem.media} target="_blank" rel="noreferrer">
 									<img
 										src={pdfIcon} // Replace with the source of your PDF image
 										alt="PDF Document"
@@ -108,7 +113,7 @@ function EventBox({
 							) : (
 								<Zoom>
 									<img
-										src={mediaItem}
+										src={mediaItem.media}
 										alt="Изображение"
 										className={styles.eventImage}
 									/>
@@ -125,6 +130,7 @@ function EventBox({
 							closeForm={() => setEditForm(false)}
 							actionName={TRAVEL_EVENT_EDIT}
 							eventId={eventId}
+							isReturn={isReturn}
 						/>
 					)}
 					{category === 'activity' && (
@@ -139,6 +145,7 @@ function EventBox({
 							closeForm={() => setEditForm(false)}
 							actionName={TRAVEL_EVENT_EDIT}
 							eventId={eventId}
+							isReturn={isReturn}
 						/>
 					)}
 				</div>
@@ -191,13 +198,16 @@ function TravelPlanBox({ day, activities }) {
 						<EventBox
 							category={item.category}
 							time={item.time || ''}
-							address={item.address || item.origin}
+							address={item.address}
+							destination={item.destination}
+							origin={item.origin}
 							description={item.description}
 							price={item.price}
 							eventName={item.name}
 							key={item.id}
 							eventId={item.id}
 							media={Array.isArray(item.medias) ? item.medias : []}
+							isReturn={item.price === null}
 						/>
 					))}
 				</div>
@@ -209,16 +219,21 @@ function TravelPlanBox({ day, activities }) {
 EventBox.propTypes = {
 	category: PropTypes.string.isRequired,
 	time: PropTypes.string,
+	destination: PropTypes.string,
+	origin: PropTypes.string,
 	address: PropTypes.string,
 	price: PropTypes.string,
 	description: PropTypes.string,
 	eventName: PropTypes.string.isRequired,
 	media: PropTypes.arrayOf(PropTypes.string),
 	eventId: PropTypes.number.isRequired,
+	isReturn: PropTypes.bool.isRequired,
 };
 
 EventBox.defaultProps = {
 	address: '',
+	destination: '',
+	origin: '',
 	price: '',
 	description: '',
 	media: [],
