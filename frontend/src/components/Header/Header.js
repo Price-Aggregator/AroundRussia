@@ -56,7 +56,6 @@ function Header() {
 	};
 	useEffect(() => {
 		const token = localStorage.getItem('token');
-
 		if (token) {
 			setIsAuth(true);
 			dispatch(yesAuth());
