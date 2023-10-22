@@ -291,13 +291,13 @@ export default function useFileHandling({ actionName, setЕventData, eventId }) 
 						}
 					}
 					const newMediasWithEncoded = await Promise.all(
-						filteredActivity.medias.map(async (media, filename) => {
+						filteredActivity.medias.map(async (media) => {
 							try {
-								const encoded = await fetchAndConvertToBase64(media);
+								const encoded = await fetchAndConvertToBase64(media.media);
 								if (encoded) {
 									return {
 										encoded,
-										name: filename, // Customize the name as needed
+										name: media.filename, // Customize the name as needed
 									};
 								}
 								return null;

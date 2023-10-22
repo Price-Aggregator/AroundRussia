@@ -32,6 +32,7 @@ function EventBox({
 	eventName,
 	media,
 	eventId,
+	isReturn,
 }) {
 	const dispatch = useDispatch();
 	const token = useSelector(getUserToken);
@@ -125,6 +126,7 @@ function EventBox({
 							closeForm={() => setEditForm(false)}
 							actionName={TRAVEL_EVENT_EDIT}
 							eventId={eventId}
+							isReturn={isReturn}
 						/>
 					)}
 					{category === 'activity' && (
@@ -139,6 +141,7 @@ function EventBox({
 							closeForm={() => setEditForm(false)}
 							actionName={TRAVEL_EVENT_EDIT}
 							eventId={eventId}
+							isReturn={isReturn}
 						/>
 					)}
 				</div>
@@ -198,6 +201,7 @@ function TravelPlanBox({ day, activities }) {
 							key={item.id}
 							eventId={item.id}
 							media={Array.isArray(item.medias) ? item.medias : []}
+							isReturn={item.price === null}
 						/>
 					))}
 				</div>
@@ -215,6 +219,7 @@ EventBox.propTypes = {
 	eventName: PropTypes.string.isRequired,
 	media: PropTypes.arrayOf(PropTypes.string),
 	eventId: PropTypes.number.isRequired,
+	isReturn: PropTypes.bool.isRequired,
 };
 
 EventBox.defaultProps = {
