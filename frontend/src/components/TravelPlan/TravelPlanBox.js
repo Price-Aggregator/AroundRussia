@@ -19,6 +19,7 @@ import {
 	dayOfWeek,
 	monthsInTicket,
 	TRAVEL_EVENT_EDIT,
+	MEDIA_URL,
 } from '../../utils/constants';
 import { fetchRemoveEvent, fetchTravels } from '../../store/Travels/slice';
 import { getUserToken } from '../../store/User/selectors';
@@ -102,8 +103,12 @@ function EventBox({
 					{media.map((mediaItem, index) => (
 						// eslint-disable-next-line react/no-array-index-key
 						<div key={index} className={styles.eventImageContainer}>
-							{mediaItem.filename.toLowerCase().endsWith('pdf') ? (
-								<a href={mediaItem.media} target="_blank" rel="noreferrer">
+														{mediaItem.filename.toLowerCase().endsWith('pdf') ? (
+								<a
+									href={`${MEDIA_URL}/${mediaItem.media}`}
+									target="_blank"
+									rel="noreferrer"
+								>
 									<img
 										src={pdfIcon} // Replace with the source of your PDF image
 										alt="PDF Document"
@@ -113,7 +118,7 @@ function EventBox({
 							) : (
 								<Zoom>
 									<img
-										src={mediaItem.media}
+										src={`${MEDIA_URL}/${mediaItem.media}`}
 										alt="Изображение"
 										className={styles.eventImage}
 									/>

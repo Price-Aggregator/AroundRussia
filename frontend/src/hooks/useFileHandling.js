@@ -5,13 +5,13 @@ import { useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import styles from '../components/DiaryTravelCategories/form.module.css';
 import pdfIcon from '../images/pdf-icon.svg';
-import { TRAVEL_EVENT_EDIT } from '../utils/constants';
+import { TRAVEL_EVENT_EDIT, MEDIA_URL } from '../utils/constants';
 
 export default function useFileHandling({ actionName, setЕventData, eventId }) {
 	const [previewFiles, setPreviewFiles] = useState([]);
-	const [encodedFiles, setEncodedFiles] = useState([]);
+		const [encodedFiles, setEncodedFiles] = useState([]);
 	const [medias, setMedias] = useState([]);
-	const travels = useSelector((state) => state.travels.travels);
+		const travels = useSelector((state) => state.travels.travels);
 	const { travelId } = useParams();
 
 	const baseStyle = {
@@ -254,7 +254,7 @@ export default function useFileHandling({ actionName, setЕventData, eventId }) 
 				if (filteredActivity) {
 					const newMediasWithPreview = filteredActivity.medias.map((media) => ({
 						name: media.filename,
-						preview: media.media,
+						preview: `${MEDIA_URL}/${media.media}`,
 					}));
 
 					const updatedEventData = {
@@ -289,7 +289,9 @@ export default function useFileHandling({ actionName, setЕventData, eventId }) 
 					const newMediasWithEncoded = await Promise.all(
 						filteredActivity.medias.map(async (media) => {
 							try {
-								const encoded = await fetchAndConvertToBase64(media.media);
+								const encoded = await fetchAndConvertToBase64(
+									`${MEDIA_URL}/${media.media}`
+								);
 								if (encoded) {
 									return {
 										encoded,
@@ -310,14 +312,12 @@ export default function useFileHandling({ actionName, setЕventData, eventId }) 
 					const filteredNewMedias = newMediasWithEncoded.filter(
 						(media) => media !== null
 					);
-
 					setEncodedFiles(filteredNewMedias);
 					setЕventData(updatedEventData);
 					setPreviewFiles(updatedEventData.medias);
 				}
 			}
 		};
-
 		populateEncodedFiles();
 	}, [actionName, TRAVEL_EVENT_EDIT]);
 
