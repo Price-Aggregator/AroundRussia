@@ -100,7 +100,7 @@ export default function useFileHandling({ actionName, setЕventData, eventId }) 
 		isDragReject,
 	} = useDropzone({
 		accept: {
-			'image/*': ['.png', '.gif', '.jpeg', '.jpg'],
+			'image/*': ['.png', '.jpeg', '.jpg'],
 			'application/pdf': ['.pdf'],
 		},
 		maxSize: 100000000,
@@ -205,10 +205,6 @@ export default function useFileHandling({ actionName, setЕventData, eventId }) 
 			case 'jpg':
 			case 'jpeg':
 				return 'image/jpeg';
-			case 'gif':
-				return 'image/gif';
-			case 'bmp':
-				return 'image/bmp';
 			default:
 				return null;
 		}
