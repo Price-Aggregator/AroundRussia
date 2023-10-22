@@ -29,6 +29,8 @@ function EventBox({
 	price,
 	description,
 	address,
+	origin,
+	destination,
 	eventName,
 	media,
 	eventId,
@@ -84,7 +86,11 @@ function EventBox({
 						</button>
 					</div>
 					<div className={styles.eventDescriptionBox}>
-						<p className={styles.eventSmallText}>{address}</p>
+						<p className={styles.eventSmallText}>
+							{isReturn
+								? address || `${origin} ➔ ${destination}`
+								: address || `${destination} ➔ ${origin}`}
+						</p>
 						<p className={styles.eventSmallText}>{description}</p>
 						{(price || price === 0) && (
 							<p className={styles.eventPriceText}>
@@ -194,7 +200,9 @@ function TravelPlanBox({ day, activities }) {
 						<EventBox
 							category={item.category}
 							time={item.time || ''}
-							address={item.address || item.origin}
+							address={item.address}
+							destination={item.destination}
+							origin={item.origin}
 							description={item.description}
 							price={item.price}
 							eventName={item.name}
@@ -213,6 +221,8 @@ function TravelPlanBox({ day, activities }) {
 EventBox.propTypes = {
 	category: PropTypes.string.isRequired,
 	time: PropTypes.string,
+	destination: PropTypes.string,
+	origin: PropTypes.string,
 	address: PropTypes.string,
 	price: PropTypes.string,
 	description: PropTypes.string,
@@ -224,6 +234,8 @@ EventBox.propTypes = {
 
 EventBox.defaultProps = {
 	address: '',
+	destination: '',
+	origin: '',
 	price: '',
 	description: '',
 	media: [],
