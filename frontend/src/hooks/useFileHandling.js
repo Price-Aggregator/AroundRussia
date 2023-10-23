@@ -15,7 +15,7 @@ export default function useFileHandling({ actionName, setЕventData, eventId }) 
 	const { travelId } = useParams();
 
 	const baseStyle = {
-		backgroundColor: '#fafafa',
+		backgroundColor: 'transparent',
 		borderStyle: 'solid',
 	};
 
