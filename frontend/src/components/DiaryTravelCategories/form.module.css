@@ -1,0 +1,258 @@
+.form_active {
+	background-color: white;
+	border-radius: 10px;
+	padding: 50px;
+	max-width: 1110px;
+	box-shadow: 0px 5px 5px 0px rgba(0, 0, 0, 0.1);
+	/* position: relative; */
+	top: -70px;
+	box-sizing: border-box;
+	display: flex;
+	flex-direction: column;
+	gap: 30px;
+}
+
+.form__title {
+	margin: 0;
+	/* Desk/H2 */
+	font-family: Roboto;
+	font-size: 30px;
+	font-style: normal;
+	font-weight: 500;
+	line-height: normal;
+}
+
+.form__box {
+	display: flex;
+	justify-content: space-between;
+	gap: 60px;
+}
+
+.form__inputBox {
+	display: flex;
+	flex-direction: column;
+	gap: 20px;
+	width: 550px;
+}
+
+.form__dateBox {
+	display: flex;
+	gap: 50px;
+}
+
+.form__labelBox {
+	display: flex;
+	flex-direction: column;
+	gap: 5px;
+}
+
+.form__labelText {
+	font-family: Roboto;
+	font-size: 15px;
+	font-style: normal;
+	font-weight: 400;
+	line-height: 18px;
+	margin: 0;
+}
+
+.form__input {
+	background: #ecf1f1;
+	border: none;
+	border-radius: 10px;
+	padding: 15px;
+	box-sizing: border-box;
+	font-family: inherit;
+	font-size: 15px;
+	font-style: normal;
+	font-weight: 400;
+	line-height: 18px;
+}
+
+.form__input_title {
+	width: 100%;
+	min-height: 55px;
+}
+
+.form__input_description {
+	width: 100%;
+	min-height: 120px;
+}
+
+.form__input_date {
+	width: 250px;
+	padding-right: 50px;
+	min-height: 40px;
+}
+
+.form__dateInputContainer {
+	position: relative;
+}
+
+.form__dateInputContainer::after {
+	content: '';
+	position: absolute;
+	background-image: url(../../images/calendar.svg);
+	width: 24px;
+	height: 24px;
+	top: 10px;
+	right: 15px;
+}
+
+.form__timeInputContainer {
+	position: relative;
+}
+
+.form__timeInputContainer::after {
+	content: '';
+	position: absolute;
+	background-image: url(../../images/time-icon.svg);
+	width: 24px;
+	height: 24px;
+	top: 10px;
+	right: 15px;
+}
+
+.form__button {
+	padding: 15px 25px;
+	border-radius: 10px;
+	border: none;
+	font-family: Roboto;
+	font-size: 20px;
+	font-style: normal;
+	font-weight: 500;
+	line-height: normal;
+	display: flex;
+	align-items: center;
+	cursor: pointer;
+	border: 1px solid #f8c747;
+	background: #fff;
+}
+
+.form__buttonBox {
+	display: flex;
+	flex-direction: row;
+	max-width: 325px;
+	gap: 30px;
+}
+
+.form__button_save {
+	background: #f8c747;
+}
+
+.form__picture {
+	border-radius: 10px;
+	width: 100%;
+	height: 250px;
+	object-fit: cover;
+	border: 1px solid rgba(33, 49, 51, 0.4);
+}
+
+.form__fileBox {
+	display: flex;
+	padding: 49px 67px 48px 68px;
+	justify-content: center;
+	align-items: center;
+	/* position: relative; */
+	background: #ecf1f1;
+	border: none;
+	border-radius: 10px;
+	padding: 15px;
+	box-sizing: border-box;
+	min-height: 150px;
+	width: 260px;
+}
+
+.form__files {
+	display: flex;
+	justify-content: space-between;
+	margin-bottom: 10px;
+}
+
+.form__input_file {
+	min-height: 150px;
+	min-width: 260px;
+}
+
+.form__files-container {
+	display: flex;
+	justify-content: space-between;
+	margin-bottom: 10px;
+}
+
+.form__input_file {
+	min-height: 150px;
+	min-width: 260px;
+}
+
+.filePreviewImage {
+	width: 100px;
+	height: 100px;
+	object-fit: contain;
+}
+
+.filePreviewPDF {
+	width: 50px;
+	height: 100px;
+	object-fit: contain;
+}
+
+.form__fileBoxContent {
+	margin: 4px;
+	display: flex;
+	flex-direction: column;
+	gap: 7px;
+	justify-content: center;
+	align-items: center;
+	/* position: relative; */
+	border: none;
+	box-sizing: border-box;
+	min-height: 150px;
+	width: 160px;
+}
+.form__attachments {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 10px;
+}
+
+.form__filename {
+	display: -webkit-box;
+	-webkit-line-clamp: 2; /* Limit to two lines */
+	-webkit-box-orient: vertical;
+	text-align: center;
+	text-wrap: balance;
+	margin: 0;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	width: 100%;
+	max-height: 2.4em;
+	line-height: 1.2;
+}
+
+.form__dropzone {
+	width: 260px;
+	flex: 1;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	border-width: 2;
+	border-radius: 10px;
+	border-color: #eeeeee;
+	border-style: dashed;
+	background-color: #fafafa;
+	color: #bdbdbd;
+	outline: none;
+	transition: border 0.1s ease-in-out;
+	margin-bottom: 10px;
+}
+
+.dropzoneTrashBag {
+	background: url(../../images/travel-plan/trashBag.svg);
+	background-size: contain;
+	width: 20px;
+	height: 20px;
+	appearance: auto;
+	border: initial;
+	outline: initial;
+	cursor: pointer;
+}

@@ -1,0 +1,132 @@
+.card__box {
+	display: flex;
+	flex-direction: column;
+	gap: 50px;
+	margin: 50px auto 200px;
+	max-width: 1110px;
+}
+
+.card__link {
+	color: #454545;
+	text-decoration: none;
+	font-family: Roboto;
+	font-size: 15px;
+	font-style: normal;
+	font-weight: 400;
+	line-height: 18px;
+	margin-left: 30px;
+	position: relative;
+}
+
+.card__link::after {
+	position: absolute;
+	content: '';
+	background-image: url(../../images/arrow_left_icon.svg);
+	width: 20px;
+	height: 20px;
+	top: 0;
+	left: -30px;
+}
+
+.card {
+	padding: 50px;
+	box-sizing: border-box;
+	border: 1px solid#EBA534;
+	border-radius: 10px;
+	background: white;
+	max-width: 1110px;
+	display: flex;
+	flex-direction: row;
+	gap: 50px;
+}
+
+.card__title {
+	font-family: Roboto;
+	font-size: 30px;
+	font-style: normal;
+	font-weight: 500;
+	line-height: 35px;
+	margin: 0;
+}
+
+.card__dates {
+	font-family: Roboto;
+	font-size: 15px;
+	font-style: normal;
+	font-weight: 400;
+	line-height: 18px;
+	/*margin: 15px 0 50px; */
+	margin: 0;
+}
+
+.card__emptyBunner {
+	width: 100%;
+	padding: 0 50px;
+	background-color: white;
+	border-radius: 10px;
+	height: 190px;
+	display: flex;
+	align-items: center;
+	box-sizing: border-box;
+}
+
+.card__emptyText {
+	font-family: Roboto;
+	font-size: 20px;
+	font-style: normal;
+	font-weight: 400;
+	line-height: 23px;
+}
+
+.card__buttonBox {
+	width: 100%;
+	display: flex;
+	gap: 40px;
+	max-width: 610px;
+}
+
+.card__titleButtonBox {
+	display: flex;
+	gap: 15px;
+	align-items: center;
+}
+
+.card__titleBox {
+	/* margin: 35px 0 0 0; */
+	margin: 0;
+	display: flex;
+	gap: 30px;
+}
+
+.card__titleButton {
+	border: none;
+	background-color: transparent;
+	width: 24px;
+	height: 24px;
+	cursor: pointer;
+}
+
+.card__titleButton_edit {
+	background-image: url(../../images/edit_icon.svg);
+}
+
+.card__titleButton_delete {
+	background-image: url(../../images/delete_icon.svg);
+}
+
+.card__textContentBox {
+	display: flex;
+	flex-direction: column;
+	justify-content: space-around;
+}
+
+.card__titleAndDateBox {
+	display: flex;
+	flex-direction: column;
+	gap: 15px;
+}
+
+.card__textAndBudgetBox {
+	display: flex;
+	justify-content: space-between;
+}

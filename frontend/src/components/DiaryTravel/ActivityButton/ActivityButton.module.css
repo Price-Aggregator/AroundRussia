@@ -1,0 +1,88 @@
+.card__button {
+	padding: 15px 20px 15px 60px;
+	border-radius: 10px;
+	background-color: white;
+	border: 1px solid #f8c747;
+	display: flex;
+	align-items: center;
+	font-family: Roboto;
+	font-size: 20px;
+	font-style: normal;
+	font-weight: 500;
+	line-height: 30px;
+	position: relative;
+	cursor: pointer;
+}
+
+.card__button::after {
+	position: absolute;
+	content: '';
+	top: 15px;
+	left: 20px;
+	width: 30px;
+	height: 30px;
+}
+
+.card__button:hover {
+	background-color: #eba534;
+}
+
+.card__button_transport::after {
+	background-image: url(../../../images/icon_transport.svg);
+}
+
+.card__button_accommodation::after {
+	background-image: url(../../../images/icon_accomodation.svg);
+}
+
+.card__button_activity::after {
+	background-image: url(../../../images/icon_activity.svg);
+}
+
+.card__buttonTooltip {
+	display: none;
+	position: absolute;
+	top: 72px;
+	background-color: #a6adad;
+	border-radius: 10px;
+	padding: 10px 15px;
+	box-sizing: border-box;
+	text-align: center;
+	width: 100%;
+}
+
+.card__buttonbox {
+	position: relative;
+}
+
+.card__buttonbox:hover .card__buttonTooltip {
+	display: block;
+}
+
+.card__buttonbox:hover .card__buttonTooltip_triangle {
+	display: block;
+}
+
+.card__buttonTooltipText {
+	font-family: Roboto;
+	font-size: 15px;
+	font-style: normal;
+	font-weight: 400;
+	line-height: 18px;
+	color: white;
+	margin: 0;
+	text-align: center;
+}
+
+.card__buttonTooltip_triangle {
+	display: none;
+	position: absolute;
+	top: 63px;
+	left: 50%;
+	transform: translateX(-50%);
+	width: 0;
+	height: 0;
+	border-left: 8px solid transparent;
+	border-right: 8px solid transparent;
+	border-bottom: 10px solid #a6adad;
+}
